@@ -1,9 +1,12 @@
-import { Link } from "react-router-dom";
+//import { Link } from "react-router-dom";
+//import { Button } from "../Button/SearchButton/Button";
+import ResponsiveAppBar from "../NavBar/NavBar";
+import "./Home.scss"
 
-export const Home = (prop: {text:string}) => {
+export const Home = () => {
     return (
         <>
-        <nav>
+        {/* <nav>
             <ul>
                 <li>
                     <Link to={"/"}>Home</Link>
@@ -24,8 +27,10 @@ export const Home = (prop: {text:string}) => {
                     <Link to={"/admin"}>Admin</Link>
                 </li>
             </ul>
-        </nav>
-    <h1>{prop.text}</h1>
+        </nav> */}
+        <ResponsiveAppBar/>
+    <h1>Alquiler de coches</h1>
+    {/* <Button/> */}
         </>
     );
 }

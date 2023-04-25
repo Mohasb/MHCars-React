@@ -1,0 +1,5 @@
+npm init vite@latest react-rent-car --template react-ts
+imiport {Navigate} from 'react-router-dom'----->          <Navigate to="/home" />
+outlet 
+
+npm run dev
