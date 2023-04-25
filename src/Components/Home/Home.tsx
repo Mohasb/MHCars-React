@@ -1,5 +1,5 @@
 //import { Link } from "react-router-dom";
-//import { Button } from "../Button/SearchButton/Button";
+import { Button } from "../Button/SearchButton/Button";
 import ResponsiveAppBar from "../NavBar/NavBar";
 import "./Home.scss"
 
@@ -29,8 +29,8 @@ export const Home = () => {
             </ul>
         </nav> */}
         <ResponsiveAppBar/>
-    <h1>Alquiler de coches</h1>
-    {/* <Button/> */}
+    <h1>Alquiler de coches</h1> 
+    <Button/> 
         </>
     );
 }
