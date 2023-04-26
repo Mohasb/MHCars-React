@@ -1,31 +1,47 @@
-import React, { useState } from "react";
-import { RadioButtonGroup, Application } from "react-rainbow-components";
+import React from 'react';
+import { RadioButtonGroup } from 'react-rainbow-components';
+
 const options = [
-  { value: "1", label: "19~24" },
-  { value: "2", label: "25~74" },
-  { value: "3", label: "75+" },
+    { value: 'off', label: 'Off' },
+    { value: 'parking', label: 'Parking' },
+    { value: 'auto', label: 'Auto' },
+    { value: 'on', label: 'On' },
 ];
 
-export const BorderRadiusRadioButtonGroup = () => {
-  const [value, setValue3] = useState("2");
+class SimpleRadioButtonGroup extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            value: 'auto',
+        };
+        this.handleOnChange = this.handleOnChange.bind(this);
+    }
 
-  const handleOnChange3 = (event) => {
-    setValue3(event.target.value);
-  };
+    handleOnChange(event) {
+        return this.setState({ value: event.target.value });
+    }
 
-  return (
-    <>
-    {/* <label htmlFor="" className="text-center">Edad Del Conductor</label> */}
-      <RadioButtonGroup
-        label="Edad del default"
-        options={options}
-        value={value}
-        onChange={handleOnChange3}
-        borderRadius="semi-rounded"
-        //variant="brand"
-      />
-    </>
-  );
-};
+    render() {
+        const { value } = this.state;
+        return (
+            <RadioButtonGroup
+                id="radio-button-group-component-1"
+                options={options}
+                value={value}
+                onChange={this.handleOnChange}
+                size="large"
+                variant="brand"
+                borderRadius="semi-rounded"
+            />
+        );
+    }
+}
+export default function AgeRadioButtons() {
+  return(
 
-<BorderRadiusRadioButtonGroup />;
+    <div className="rainbow-p-around_x-large rainbow-align-content_center">
+        <SimpleRadioButtonGroup />
+    </div>
+
+  )
+}

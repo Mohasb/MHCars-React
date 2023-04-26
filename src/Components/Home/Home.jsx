@@ -1,11 +1,13 @@
 //import { Link } from "react-router-dom";
 import ResponsiveAppBar from "../NavBar/NavBar";
 import "./Home.scss";
-import ComboBox from "../ComboBox/ComboBox";
+//import ComboBox from "../ComboBox/ComboBox";
 import { useState } from "react";
 import DatePicker from "../DatePicker/DataPicker";
-import { BorderRadiusRadioButtonGroup } from "../AgePicker/AgePicker";
+import AgeRadioButtons from "../AgePicker/AgePicker";
 import { Button, Application } from "react-rainbow-components";
+import ComboBoxBranches from "../ComboBox/ComboBox";
+
 export const Home = () => {
   const [branchId, setBranchId] = useState();
 
@@ -55,11 +57,12 @@ export const Home = () => {
         >
       <Application theme={themeRainbow}>
         <h1>Alquiler de coches</h1>
-        <ComboBox setBranchId={setBranchId} />
+{/*         <ComboBox setBranchId={setBranchId} />
+ */}        <ComboBoxBranches setBranchId={setBranchId}></ComboBoxBranches>
         <DatePicker/>
         <div className="d-flex flex-column justify-content-center">
-        <BorderRadiusRadioButtonGroup />
         <br />
+        <AgeRadioButtons></AgeRadioButtons>
         <Button
           variant="brand"
           className="rainbow-m-around_medium "

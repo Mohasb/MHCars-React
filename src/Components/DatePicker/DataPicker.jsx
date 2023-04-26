@@ -6,7 +6,7 @@ function DateRange() {
     range: undefined,
   };
   const containerStyles = {
-    maxWidth: 400,
+    maxWidth: 500,
   };
   const [state, setState] = useState(initialState);
 
@@ -20,15 +20,16 @@ function DateRange() {
             id="datePicker"
             borderRadius="semi-rounded"
             //error="Select a date range"
-            required
             size="large"
             style={{ colorScheme: "black" }}
             label="Fechas de Reserva"
             placeholder="Selecciona el rango de fechas"
             selectionType="range"
             formatStyle="large"
-            variant="single"
+            variant="double"
             value={state.range}
+            minDate={new Date()}
+            required={true}
             onChange={(value) => {
               console.log(state);
               setState({ range: value });
