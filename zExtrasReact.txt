@@ -3,3 +3,5 @@ imiport {Navigate} from 'react-router-dom'----->          <Navigate to="/home" /
 outlet 
 
 npm run dev
+
+Errores campos search

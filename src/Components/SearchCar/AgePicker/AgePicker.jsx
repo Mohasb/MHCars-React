@@ -17,7 +17,8 @@ class SimpleRadioButtonGroup extends React.Component {
     }
 
     handleOnChange(event) {
-        return this.setState({ value: event.target.value });
+        this.setState({ value: event.target.value });
+        this.props.setAge(+event.target.value)
     }
 
     render() {
@@ -35,11 +36,11 @@ class SimpleRadioButtonGroup extends React.Component {
         );
     }
 }
-export default function AgeRadioButtons() {
+export default function AgeRadioButtons({setAge}) {
   return(
 
     <div className="rainbow-p-around_x-large rainbow-align-content_center">
-        <SimpleRadioButtonGroup />
+        <SimpleRadioButtonGroup setAge={setAge}/>
     </div>
 
   )
