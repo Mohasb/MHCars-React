@@ -14,19 +14,19 @@ import CardHeader from '@mui/material/CardHeader';
 
 
 export default function CarCard({ car, boocking }) {
-  console.log(boocking);
   return (
     <>
     <Card sx={{ maxWidth: 345, minWidth:350 }}>
       <CardActionArea>
       <CardHeader
-        title="Shrimp and Chorizo Paella"
-        subheader="September 14, 2016"
+        sx={{textAlign:"center"}}
+        title={`${car.brand} ${car.model}`}
+        subheader=""
       />
         <CardMedia
           component="img"
           image={`./src/assets/Cars/${car.image}.webp`}
-          alt={`car ${boocking.name}`}
+          alt={`car ${car.brand}`}
         />
         
         <CardContent>
@@ -51,12 +51,12 @@ export default function CarCard({ car, boocking }) {
             />
           </Stack>
         </CardContent>
-      </CardActionArea>
       <CardActions>
         <Button size="large" color="secondary"  variant="contained" className="m-auto">
         Reservar &nbsp;<SellIcon color="primary" />
         </Button>
       </CardActions>
+      </CardActionArea>
     </Card>
     </>
   );

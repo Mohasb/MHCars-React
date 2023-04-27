@@ -4,7 +4,7 @@ import AgeRadioButtons from "./AgePicker/AgePicker";
 import { Button, Application } from "react-rainbow-components";
 import ComboBoxBranches from "./ComboBox/ComboBox";
 
-const SearchCar = ({ setCars, setBoocking }) => {
+const SearchCar = ({ setCars, setBooking }) => {
   const [Branch, setBranch] = useState();
   const [bookingDates, setBookingDates] = useState();
   const [age, setAge] = useState(2);
@@ -36,7 +36,7 @@ const SearchCar = ({ setCars, setBoocking }) => {
         })
         .then((cars) => {
           setCars([...cars]);
-          setBoocking(consulta)
+          setBooking(consulta);
         });
     }
   }

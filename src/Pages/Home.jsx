@@ -5,14 +5,14 @@ import { useState } from "react";
 
 export default function Home() {
   const [cars, setCars] = useState({});
-  const [boocking, setBoocking] = useState();
+  const [boocking, setBooking] = useState({})
+
   return (
     <>
       <ResponsiveAppBar />
       <main>
-        {console.log(boocking)}
-        {(cars.length && <CarList cars={cars} boocking={boocking} />) || (
-          <SearchCar setCars={setCars} setBoocking={setBoocking} />
+        {(cars.length && <CarList cars={cars} boocking={boocking}/>) || (
+          <SearchCar setCars={setCars} setBooking={setBooking}/>
         )}
       </main>
     </>
