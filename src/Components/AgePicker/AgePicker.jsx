@@ -2,17 +2,16 @@ import React from 'react';
 import { RadioButtonGroup } from 'react-rainbow-components';
 
 const options = [
-    { value: 'off', label: 'Off' },
-    { value: 'parking', label: 'Parking' },
-    { value: 'auto', label: 'Auto' },
-    { value: 'on', label: 'On' },
+    { value: '1', label: '19~24' },
+    { value: '2', label: '25~74' },
+    { value: '3', label: '75+' },
 ];
 
 class SimpleRadioButtonGroup extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: 'auto',
+            value: '2',
         };
         this.handleOnChange = this.handleOnChange.bind(this);
     }

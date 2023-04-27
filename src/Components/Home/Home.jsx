@@ -8,7 +8,7 @@ import AgeRadioButtons from "../AgePicker/AgePicker";
 import { Button, Application } from "react-rainbow-components";
 import ComboBoxBranches from "../ComboBox/ComboBox";
 
-export const Home = () => {
+const Home = () => {
   const [branchId, setBranchId] = useState();
 
   const themeRainbow = {
@@ -80,3 +80,4 @@ export const Home = () => {
     </>
   );
 };
+export default Home;
