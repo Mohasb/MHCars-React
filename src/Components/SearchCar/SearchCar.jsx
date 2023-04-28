@@ -3,6 +3,7 @@ import DateRange from "./DateRange/DateRange";
 import AgeRadioButtons from "./AgePicker/AgePicker";
 import { Button, Application } from "react-rainbow-components";
 import ComboBoxBranches from "./ComboBox/ComboBox";
+import Box from '@mui/material/Box';
 
 const SearchCar = ({ setCars, setBooking }) => {
   const [Branch, setBranch] = useState();
@@ -52,17 +53,19 @@ const SearchCar = ({ setCars, setBooking }) => {
         <DateRange setBookingDates={setBookingDates} />
         <br />
         <AgeRadioButtons setAge={setAge} />
-        <Button
-          variant="brand"
-          className="rainbow-m-around_medium "
-          size="large"
-          borderRadius="semi-rounded"
-          onClick={() => {
-            validateValues(Branch, bookingDates, age);
-          }}
-        >
-          Buscar
-        </Button>
+        <Box textAlign="center">
+          <Button
+            variant="brand"
+            className="rainbow-m-around_medium "
+            size="large"
+            borderRadius="semi-rounded"
+            onClick={() => {
+              validateValues(Branch, bookingDates, age);
+            }}
+          >
+            Buscar
+          </Button>
+        </Box>
       </Application>
     </div>
   );
