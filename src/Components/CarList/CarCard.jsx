@@ -51,12 +51,12 @@ export default function CarCard({ car, boocking }) {
             />
           </Stack>
         </CardContent>
+      </CardActionArea>
       <CardActions>
         <Button size="large" color="secondary"  variant="contained" className="m-auto">
         Reservar &nbsp;<SellIcon color="primary" />
         </Button>
       </CardActions>
-      </CardActionArea>
     </Card>
     </>
   );

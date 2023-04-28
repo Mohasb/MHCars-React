@@ -20,6 +20,7 @@
     "react-dom": "^18.2.0",
     "react-rainbow-components": "^1.32.0",
     "react-router-dom": "^6.10.0",
+    "redux-form": "^8.3.10",
     "sass": "^1.62.0"
   },
   "devDependencies": {
@@ -34,5 +35,4 @@
     "typescript": "^5.0.2",
     "vite": "^4.3.0"
   }
-  
 }

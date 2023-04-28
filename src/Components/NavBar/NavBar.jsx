@@ -14,10 +14,11 @@ import MenuItem from "@mui/material/MenuItem";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import "./NavBar.scss";
+import LoginModal from "../../Pages/LoginModal";
 
 
 const pages = ["Home", "Oficinas", "Coches", "Servicios", "Acceso", "Admin"];
-const settings = ["Account", "Logout"];
+const settings = ["Account", "Login", "Logout"];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = useState(
@@ -26,7 +27,14 @@ function ResponsiveAppBar() {
   const [anchorElUser, setAnchorElUser] = useState(
     null
   );
+  const [openModal, setOpenModal] = React.useState(false);
   const navigate = useNavigate();
+
+
+
+
+
+  
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -45,7 +53,9 @@ function ResponsiveAppBar() {
 
   const handleCloseUserMenu = (setting) => {
     setAnchorElUser(null);
-    console.log(setting);
+    if (setting === "Login") {
+      setOpenModal(!openModal);
+    }
     navigate("/" + setting.toLowerCase());
   };
 
@@ -178,6 +188,7 @@ function ResponsiveAppBar() {
           </Box>
         </Toolbar>
       </Container>
+      {openModal && <LoginModal openModal={openModal} setOpenModal={setOpenModal}/>}
     </AppBar>
   );
 }
