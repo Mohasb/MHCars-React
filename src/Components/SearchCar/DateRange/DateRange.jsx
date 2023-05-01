@@ -7,13 +7,13 @@ function DateRange(props) {
   };
   const containerStyles = {
     maxWidth: 500,
+    margin: 0,
   };
-  const [state, setState] = useState(initialState); 
+  const [state, setState] = useState(initialState);
 
   useEffect(() => {
     props.setBookingDates(state);
-  },[state])
-
+  }, [props, state]);
 
   return (
     <>
@@ -23,11 +23,9 @@ function DateRange(props) {
       >
         <DatePicker
           id="datePicker"
-          borderRadius="semi-rounded"
-          //error="Select a date range"
+          borderRadius="semi-square"
           size="large"
           style={{ colorScheme: "black" }}
-          label="Fechas de Reserva"
           placeholder="Selecciona el rango de fechas"
           selectionType="range"
           formatStyle="large"
@@ -37,7 +35,6 @@ function DateRange(props) {
           required={true}
           onChange={(value) => {
             setState({ range: value });
-            
           }}
         />
       </div>

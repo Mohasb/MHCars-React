@@ -11,7 +11,7 @@ import { useState, useEffect } from "react";
   });
 } */
 
-export default function ComboBoxBranches({setBranch}) {
+export default function ComboBoxBranches({ setBranch }) {
   const [open, setOpen] = useState(false);
   const [options, setOptions] = useState([]);
   const loading = open && options.length === 0;
@@ -28,7 +28,7 @@ export default function ComboBoxBranches({setBranch}) {
     }
 
     (async () => {
-      //await sleep(1e3);  For demo purposes.
+      //await sleep(1e3);
       await fetch("http://localhost:5134/api/Branches")
         .then((response) => {
           return response.json();
@@ -65,7 +65,10 @@ export default function ComboBoxBranches({setBranch}) {
         handleData(newValue);
       }}
       groupBy={(options) => options.country}
-      sx={{ width: 500 }}
+      sx={{
+        width: 500,
+        input: { "&::placeholder": { fontSize: "1.2rem", opacity: 0.3 } },
+      }}
       isOptionEqualToValue={(option, value) => option.title === value.title}
       getOptionLabel={(options) =>
         options.name + ` (${options.population}, ${options.country})`
@@ -75,7 +78,8 @@ export default function ComboBoxBranches({setBranch}) {
       renderInput={(params) => (
         <TextField
           {...params}
-          label="Sucursal"
+          //label="Sucursal"
+          placeholder="Sucursal"
           InputProps={{
             ...params.InputProps,
             endAdornment: (
@@ -112,3 +116,4 @@ const GroupHeader = styled("div")(({ theme }) => ({
 const GroupItems = styled("ul")({
   padding: 0,
 });
+console.log(document.querySelector("#asynchronous"));

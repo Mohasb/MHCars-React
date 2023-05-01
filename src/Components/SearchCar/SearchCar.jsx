@@ -3,8 +3,8 @@ import DateRange from "./DateRange/DateRange";
 import AgeRadioButtons from "./AgePicker/AgePicker";
 import { Button, Application } from "react-rainbow-components";
 import ComboBoxBranches from "./ComboBox/ComboBox";
-import Box from '@mui/material/Box';
-import {themeRainbow} from "../ThemeRainbow";
+import Box from "@mui/material/Box";
+import { themeRainbow } from "../ThemeRainbow";
 
 const SearchCar = ({ setCars, setBooking }) => {
   const [Branch, setBranch] = useState();
@@ -49,10 +49,23 @@ const SearchCar = ({ setCars, setBooking }) => {
       style={containerStyles}
     >
       <Application theme={themeRainbow}>
-        <h1>Alquiler de coches</h1>
+        <h1 style={{ textAlign: "center" }}>Alquiler de coches</h1>
+        <label
+          style={{ width: "100%", textAlign: "center", marginTop: "1.4rem" }}
+        >
+          <span style={{ color: "red" }}>*</span> Sucursal de recogida
+        </label>
         <ComboBoxBranches setBranch={setBranch} />
+        <label
+          style={{ width: "100%", textAlign: "center", marginTop: "1.4rem" }}
+        >
+          <span style={{ color: "red" }}>*</span> Fechas de reserva
+        </label>
         <DateRange setBookingDates={setBookingDates} />
         <br />
+        <label style={{ width: "100%", textAlign: "center" }}>
+          <span style={{ color: "red" }}>*</span> Edad del conductor
+        </label>
         <AgeRadioButtons setAge={setAge} />
         <Box textAlign="center">
           <Button
