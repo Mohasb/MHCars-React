@@ -4,6 +4,7 @@ import AgeRadioButtons from "./AgePicker/AgePicker";
 import { Button, Application } from "react-rainbow-components";
 import ComboBoxBranches from "./ComboBox/ComboBox";
 import Box from '@mui/material/Box';
+import {themeRainbow} from "../ThemeRainbow";
 
 const SearchCar = ({ setCars, setBooking }) => {
   const [Branch, setBranch] = useState();
@@ -69,14 +70,6 @@ const SearchCar = ({ setCars, setBooking }) => {
       </Application>
     </div>
   );
-};
-
-const themeRainbow = {
-  rainbow: {
-    palette: {
-      brand: "#F4B408",
-    },
-  },
 };
 const containerStyles = {
   maxWidth: 400,

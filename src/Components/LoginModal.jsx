@@ -15,7 +15,8 @@ class LoginModal extends React.Component {
     };
     this.handleOnClick = this.handleOnClick.bind(this);
     this.handleOnClose = this.handleOnClose.bind(this);
-    this.handleChageEmail = this.handleChageEmail.bind(this);
+    this.handleChangeEmail = this.handleChangeEmail.bind(this);
+    this.handleChagePassword = this.handleChagePassword.bind(this);
   }
 
   handleOnClick() {
@@ -32,24 +33,24 @@ class LoginModal extends React.Component {
     this.props.setOpenModal(state);
   }
 
-  handleChageEmail(event) {
-    return this.setState({ email: event.target.value });
+  handleChangeEmail(event) {
+    this.setState((prevState) => ({
+      error: {
+        ...prevState.error,
+        emailError: "",
+      },
+    }));
+    return this.setState({ email: event.target.value })
   }
   handleChagePassword(event) {
+    this.setState((prevState) => ({
+      error: {
+        ...prevState.error,
+        passwordError: "",
+      },
+    }));
     return this.setState({ password: event.target.value });
   }
-
-
-
-
-
-
-
-
-
-
-
-
 
   validateLogin(email, password) {
     const regexEmail =
@@ -57,57 +58,43 @@ class LoginModal extends React.Component {
     const regexPassword =
       /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm;
 
-
-
-
-    if (!regexEmail.test(email)) {
-       this.setState(prevState => {
-        let error = Object.assign({}, prevState.error);  
-        error.emailError = 'someothername';                              
-        return { error };                                 
-      })
-       
+    if (!email) {
+      this.setState((prevState) => ({
+        error: {
+          ...prevState.error,
+          emailError: "Introduce una direccion de correo electrónico",
+        },
+      }));
+    } else if (!regexEmail.test(email)) {
+      this.setState((prevState) => ({
+        error: {
+          ...prevState.error,
+          emailError: "El email no es válido",
+        },
+      }));
     }
-     if (password == "") {
-      this.setState(prevState => {
-        let error = Object.assign({}, prevState.error);  
-        error.passwordError = 'vacio';                              
-        return { error };                                 
-      })
-    }else if (!regexPassword.test(password))
-    {
-      this.setState(prevState => {
-        let error = Object.assign({}, prevState.error);  
-        error.passwordError = 'no cumple';                              
-        return { error };                                 
-      })
+    //////////////////////////////////////////////////////
+    if (!password) {
+      this.setState((prevState) => ({
+        error: {
+          ...prevState.error,
+          passwordError: "Introduce una contraseña",
+        },
+      }));
+    } else if (!regexPassword.test(password)) {
+      this.setState((prevState) => ({
+        error: {
+          ...prevState.error,
+          passwordError: "El password no es válido",
+        },
+      }));
     }
     /*- at least 8 characters
       - must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number
       - Can contain special characters*/
+      console.log(this.state.error);
+      
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   render() {
     const { isOpen, email, password } = this.state;
@@ -134,15 +121,15 @@ class LoginModal extends React.Component {
                 <Button
                   label="Volver"
                   variant="neutral"
-                  onClick={() => this.handleOnClose}
+                  onClick={this.handleOnClose}
                 />
                 <Button
                   label="Login"
                   variant="brand"
-                  type="submit"
                   onClick={() => {
                     this.validateLogin(email, password);
                     //this.handleOnClose();
+
                   }}
                 />
               </div>
@@ -158,7 +145,7 @@ class LoginModal extends React.Component {
                 borderRadius="semi-rounded"
                 size="large"
                 value={email}
-                onChange={() => this.handleChageEmail(window.event)}
+                onChange={() => this.handleChangeEmail(window.event)}
                 error={this.state.error.emailError}
               />
               <Input

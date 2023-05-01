@@ -14,7 +14,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import "./NavBar.scss";
-import LoginModal from "../../Pages/LoginModal";
+import LoginModal from "../LoginModal";
 
 
 const pages = ["Home", "Oficinas", "Coches", "Servicios", "Acceso", "Admin"];

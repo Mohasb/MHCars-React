@@ -2,7 +2,6 @@ import CarList from "../Components/CarList/CarList";
 import ResponsiveAppBar from "../Components/NavBar/NavBar";
 import SearchCar from "../Components/SearchCar/SearchCar";
 import { useState } from "react";
-import ModalWFooterDirectional from "./LoginModal";
 
 export default function Home() {
   const [cars, setCars] = useState({});

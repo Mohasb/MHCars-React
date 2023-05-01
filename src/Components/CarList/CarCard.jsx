@@ -13,7 +13,7 @@ import SellIcon from '@mui/icons-material/Sell';
 import CardHeader from '@mui/material/CardHeader';
 
 
-export default function CarCard({ car, boocking }) {
+export default function CarCard({ car }) {
   return (
     <>
     <Card sx={{ maxWidth: 345, minWidth:350 }}>
@@ -36,7 +36,7 @@ export default function CarCard({ car, boocking }) {
           <Stack spacing={1} direction={{ xs: 'column', sm: 'row' }} sx={{justifyContent:"center"}}>
             <Chip
               icon={<DirectionsCarIcon color="secondary" />}
-              label={car.category}
+              label={`Clase: ${car.category}`}
               variant="outlined"
             />
             <Chip
