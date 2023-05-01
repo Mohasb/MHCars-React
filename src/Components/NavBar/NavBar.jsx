@@ -16,39 +16,25 @@ import { useState } from "react";
 import "./NavBar.scss";
 import LoginModal from "../LoginModal";
 
-
 const pages = ["Home", "Oficinas", "Coches", "Servicios", "Acceso", "Admin"];
 const settings = ["Account", "Login", "Logout"];
 
 function ResponsiveAppBar() {
-  const [anchorElNav, setAnchorElNav] = useState(
-    null
-  );
-  const [anchorElUser, setAnchorElUser] = useState(
-    null
-  );
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
   const [openModal, setOpenModal] = React.useState(false);
   const navigate = useNavigate();
-
-
-
-
-
-  
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
-    
   };
 
   const handleCloseNavMenu = (page) => {
     setAnchorElNav(null);
-    console.log(page);
-    navigate("/" + page.toLowerCase());
-    
+    page ?? navigate("/" + page.toLowerCase());
   };
 
   const handleCloseUserMenu = (setting) => {
@@ -56,7 +42,7 @@ function ResponsiveAppBar() {
     if (setting === "Login") {
       setOpenModal(!openModal);
     }
-    navigate("/" + setting.toLowerCase());
+    setting ?? navigate("/" + setting.toLowerCase());
   };
 
   return (
@@ -71,14 +57,14 @@ function ResponsiveAppBar() {
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
+              fontFamily: "Roboto",
               fontWeight: 700,
               letterSpacing: ".3rem",
               color: "inherit",
               textDecoration: "none",
             }}
           >
-            Rental Car
+            RentCar
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -145,8 +131,9 @@ function ResponsiveAppBar() {
               <Button
                 key={page}
                 value={page}
-                ////////////////////////////////////////////////////////////////
-                onClick={handleCloseNavMenu}
+                onClick={() => {
+                  handleCloseNavMenu(page);
+                }}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
                 {page}
@@ -157,10 +144,7 @@ function ResponsiveAppBar() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar
-                  alt="Remy Sharp"
-                  src="https://i.pravatar.cc/600"
-                />
+                <Avatar alt="Remy Sharp" src="https://i.pravatar.cc/600" />
               </IconButton>
             </Tooltip>
             <Menu
@@ -180,7 +164,10 @@ function ResponsiveAppBar() {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={() => handleCloseUserMenu(setting)}>
+                <MenuItem
+                  key={setting}
+                  onClick={() => handleCloseUserMenu(setting)}
+                >
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}
@@ -188,7 +175,9 @@ function ResponsiveAppBar() {
           </Box>
         </Toolbar>
       </Container>
-      {openModal && <LoginModal openModal={openModal} setOpenModal={setOpenModal}/>}
+      {openModal && (
+        <LoginModal openModal={openModal} setOpenModal={setOpenModal} />
+      )}
     </AppBar>
   );
 }

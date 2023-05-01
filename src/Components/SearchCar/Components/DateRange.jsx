@@ -30,6 +30,7 @@ function DateRange(props) {
           selectionType="range"
           formatStyle="large"
           variant="double"
+          error="Error"
           value={state.range}
           minDate={new Date()}
           required={true}

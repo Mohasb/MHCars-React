@@ -14,21 +14,25 @@ import { themeRainbow } from "../ThemeRainbow";
 export default function CarList({ cars, boocking }) {
   const [oilFilter, setOilFilter] = useState("todos");
   const [gearFilter, setGearFilter] = useState("todos");
+  const [carTypeFilter, setCarTypeFilter] = useState("todos");
+
   const [filteredCars, setfilteredCars] = useState(cars);
 
   useEffect(() => {
     console.log("filtro combustible: " + oilFilter);
     console.log("Filtro cambio: " + gearFilter);
+    console.log("Filtro tipo coche: " + carTypeFilter);
     setfilteredCars(
       cars.filter((car) => {
         return (
           (oilFilter === "todos" || car.fuelType.toLowerCase() === oilFilter) &&
           (gearFilter === "todos" ||
-            car.gearShiftType.toLowerCase() === gearFilter)
+            car.gearShiftType.toLowerCase() === gearFilter) &&
+          (carTypeFilter === "todos" || car.category === carTypeFilter)
         );
       })
     );
-  }, [oilFilter, gearFilter, cars]);
+  }, [oilFilter, gearFilter, cars, carTypeFilter]);
 
   return (
     <section className="carsList">
@@ -53,28 +57,48 @@ export default function CarList({ cars, boocking }) {
       <Application theme={themeRainbow}>
         <Box style={{ textAlign: "center" }}>
           <Stack
-            spacing={1}
+            spacing={0}
             direction={{ xs: "column", sm: "row" }}
             sx={{ justifyContent: "center" }}
           >
-            <FilterButtons
-              options={[
-                { value: "todos", label: "Todos" },
-                { value: "gasolina", label: "Gasolina" },
-                { value: "diesel", label: "Diesel" },
-              ]}
-              name="oilType"
-              setOilFilter={setOilFilter}
-            />
-            <FilterButtons
-              options={[
-                { value: "todos", label: "Todos" },
-                { value: "manual", label: "Manual" },
-                { value: "automatico", label: "Automatico" },
-              ]}
-              name="gearShiftType"
-              setGearFilter={setGearFilter}
-            />
+            <div>
+              <label>Tipo de combustible</label>
+              <FilterButtons
+                options={[
+                  { value: "todos", label: "Todos" },
+                  { value: "gasolina", label: "Gasolina" },
+                  { value: "diesel", label: "Diesel" },
+                ]}
+                name="oilType"
+                setOilFilter={setOilFilter}
+              />
+            </div>
+            <div>
+              <label>Tipo de cambio</label>
+              <FilterButtons
+                options={[
+                  { value: "todos", label: "Todos" },
+                  { value: "manual", label: "Manual" },
+                  { value: "automatico", label: "Automatico" },
+                ]}
+                name="gearShiftType"
+                setGearFilter={setGearFilter}
+              />
+            </div>
+            <div>
+              <label>Tipo de coche</label>
+              <FilterButtons
+                options={[
+                  { value: "todos", label: "Todos" },
+                  { value: "A", label: "A" },
+                  { value: "B", label: "B" },
+                  { value: "C", label: "C" },
+                  { value: "D", label: "D" },
+                ]}
+                name="carType"
+                setCarTypeFilter={setCarTypeFilter}
+              />
+            </div>
           </Stack>
         </Box>
       </Application>

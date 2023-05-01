@@ -11,12 +11,14 @@ import { useState, useEffect } from "react";
   });
 } */
 
-export default function ComboBoxBranches({ setBranch }) {
+export default function ComboBoxBranches({ setBranch, name, errrorBranch1 }) {
   const [open, setOpen] = useState(false);
   const [options, setOptions] = useState([]);
   const loading = open && options.length === 0;
 
   function handleData(newValue) {
+    console.log(newValue);
+
     setBranch(newValue);
   }
 
@@ -68,6 +70,13 @@ export default function ComboBoxBranches({ setBranch }) {
       sx={{
         width: 500,
         input: { "&::placeholder": { fontSize: "1.2rem", opacity: 0.3 } },
+        /* border: "1px solid rgb(164, 167, 181)",
+        borderRadius: 2, */
+        /* "&:hover": {
+          border: "1px solid rgba(0,0,0,0)",
+          borderRadius: 1.4,
+        }, */
+        /* "& .MuiOutlinedInput-notchedOutline": { border: "none" }, */
       }}
       isOptionEqualToValue={(option, value) => option.title === value.title}
       getOptionLabel={(options) =>
@@ -79,7 +88,9 @@ export default function ComboBoxBranches({ setBranch }) {
         <TextField
           {...params}
           //label="Sucursal"
-          placeholder="Sucursal"
+          error={!!errrorBranch1}
+          helperText={errrorBranch1}
+          placeholder={"Sucursal " + name}
           InputProps={{
             ...params.InputProps,
             endAdornment: (
@@ -116,4 +127,3 @@ const GroupHeader = styled("div")(({ theme }) => ({
 const GroupItems = styled("ul")({
   padding: 0,
 });
-console.log(document.querySelector("#asynchronous"));

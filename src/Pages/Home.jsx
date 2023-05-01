@@ -1,8 +1,9 @@
+import React from "react";
+import { useState } from "react";
+//Components
 import CarList from "../Components/CarList/CarList";
 import ResponsiveAppBar from "../Components/NavBar/NavBar";
-import SearchCar from "../Components/SearchCar/SearchCar";
-import { useState } from "react";
-import React from "react";
+import { SearchCar } from "../Components/SearchCar/SearchCar";
 
 export default function Home() {
   const [cars, setCars] = useState({});
