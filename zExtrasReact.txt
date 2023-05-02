@@ -1,17 +1,11 @@
 npm init vite@latest react-rent-car --template react-ts
-imiport {Navigate} from 'react-router-dom'----->          <Navigate to="/home" />
-outlet 
-
 npm run dev
 
-Errores campos search
 
 
-si no carga sucursales error 
 Si hay dos coches en la misma sucursal sale dos veces al hacer busqueda????
 tema doble sucursal: dos endpoints. Si se usa el de doble sucursal llamada a otro eeendpoint 
 si se usa doble al hacer la reserva-> quita el coche de disponibilidad de la branch antigua en el planning->establece el id del coche con la sucursal nueva
-anv desplegado no funcionan los link
 Modificar contraseña del user en back con esto:
 ----------------------------------------------------------------
 /*- at least 8 characters

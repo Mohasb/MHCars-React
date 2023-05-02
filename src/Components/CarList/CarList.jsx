@@ -19,9 +19,6 @@ export default function CarList({ cars, boocking }) {
   const [filteredCars, setfilteredCars] = useState(cars);
 
   useEffect(() => {
-    console.log("filtro combustible: " + oilFilter);
-    console.log("Filtro cambio: " + gearFilter);
-    console.log("Filtro tipo coche: " + carTypeFilter);
     setfilteredCars(
       cars.filter((car) => {
         return (
@@ -33,24 +30,56 @@ export default function CarList({ cars, boocking }) {
       })
     );
   }, [oilFilter, gearFilter, cars, carTypeFilter]);
-
+  console.log(!!boocking.returnBranch);
   return (
     <section className="carsList">
-      <Box sx={{ flexGrow: 1, textAlign: "center", marginTop: "1rem" }}>
-        <Typography gutterBottom variant="h4" component="div">
-          Lugar y Fechas
-          <Typography gutterBottom variant="h6" component="div">
-            {`${boocking.Branch.name} (${boocking.Branch.population})`}
-            <Typography gutterBottom variant="subtitle1" component="div">
-              {`${new Date(boocking.bookingDates.startDate).toLocaleDateString(
-                "es-ES"
-              )} (${boocking.Branch.population}) - ${new Date(
-                boocking.bookingDates.endDate
-              ).toLocaleDateString("es-ES")} (${boocking.Branch.population})`}
+      <Stack
+        spacing={0}
+        direction={{ xs: "column", sm: "row" }}
+        sx={{ justifyContent: "center", margin:"1rem 0" }}
+      >
+        <Box sx={{ flexGrow: 1, textAlign: "center", marginTop: "1rem" }}>
+          <Typography gutterBottom variant="h4" component="div">
+            Lugar y Fechas <br />{!!boocking.returnBranch ? "Recogida" : ""}
+            <Typography gutterBottom variant="h6" component="div">
+              {`${boocking.branch.name} (${boocking.branch.population})`}
+              <Typography gutterBottom variant="subtitle1" component="div">
+                {`${new Date(
+                  boocking.bookingDates.startDate
+                ).toLocaleDateString("es-ES")} (${
+                  boocking.branch.population
+                })`} {!!!boocking.returnBranch ? `- ${new Date(
+                  boocking.bookingDates.endDate
+                ).toLocaleDateString("es-ES")} (${boocking.branch.population})`:""}
+              </Typography>
             </Typography>
           </Typography>
-        </Typography>
-      </Box>
+        </Box>
+        {/* Si hay dos branches */}
+        {!!boocking.returnBranch ? (
+          <Box sx={{ flexGrow: 1, textAlign: "center", marginTop: "1rem" }}>
+            <Typography gutterBottom variant="h4" component="div">
+              Lugar y Fechas <br />{!!boocking.returnBranch ? "Devolución" : ""}
+              <Typography gutterBottom variant="h6" component="div">
+                {`${boocking.returnBranch.name} (${boocking.returnBranch.population})`}
+                <Typography gutterBottom variant="subtitle1" component="div">
+                  {!!!boocking.returnBranch ? `${new Date(
+                    boocking.bookingDates.startDate
+                  ).toLocaleDateString("es-ES")} (${
+                    boocking.returnBranch.population
+                  })-`:""}  { ` ${new Date(
+                    boocking.bookingDates.endDate
+                  ).toLocaleDateString("es-ES")} (${
+                    boocking.returnBranch.population
+                  })`}
+                </Typography>
+              </Typography>
+            </Typography>
+          </Box>
+        ) : (
+          ""
+        )}
+      </Stack>
 
       {/* //////////////////////////////////////// */}
 
@@ -85,6 +114,12 @@ export default function CarList({ cars, boocking }) {
                 setGearFilter={setGearFilter}
               />
             </div>
+          </Stack>
+          <Stack
+            spacing={0}
+            direction={{ xs: "column", sm: "row" }}
+            sx={{ justifyContent: "center" }}
+          >
             <div>
               <label>Tipo de coche</label>
               <FilterButtons
@@ -99,6 +134,7 @@ export default function CarList({ cars, boocking }) {
                 setCarTypeFilter={setCarTypeFilter}
               />
             </div>
+
           </Stack>
         </Box>
       </Application>
@@ -110,6 +146,7 @@ export default function CarList({ cars, boocking }) {
           spacing={{ xs: 5, md: 5 }}
           columns={{ xs: 4, sm: 8, md: 12 }}
           className="justify-content-center mt-4"
+          style={{width:"100%"}}
         >
           {filteredCars.map((car) => (
             <Grid

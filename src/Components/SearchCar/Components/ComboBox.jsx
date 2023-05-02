@@ -11,15 +11,18 @@ import { useState, useEffect } from "react";
   });
 } */
 
-export default function ComboBoxBranches({ setBranch, name, errrorBranch1 }) {
+export default function ComboBoxBranches({ setBranch, setReturnBranch, name, errorBranch1, setErrorBranch1, errorBranch2, setErrorBranch2 }) {
   const [open, setOpen] = useState(false);
   const [options, setOptions] = useState([]);
   const loading = open && options.length === 0;
 
   function handleData(newValue) {
-    console.log(newValue);
-
-    setBranch(newValue);
+    if (name == "recogida") {
+      setBranch(newValue);
+    }
+    if (name == "devolución") {
+      setReturnBranch(newValue);
+    }
   }
 
   useEffect(() => {
@@ -59,6 +62,13 @@ export default function ComboBoxBranches({ setBranch, name, errrorBranch1 }) {
       open={open}
       onOpen={() => {
         setOpen(true);
+        if (name == "recogida") {
+          setErrorBranch1("")
+        }
+        if (name == "devolucion") {
+          setErrorBranch2("")
+          
+        }
       }}
       onClose={() => {
         setOpen(false);
@@ -66,18 +76,15 @@ export default function ComboBoxBranches({ setBranch, name, errrorBranch1 }) {
       onChange={(event, newValue) => {
         handleData(newValue);
       }}
+      onClick={() => {errorBranch1=""}}
       groupBy={(options) => options.country}
       sx={{
         width: 500,
-        input: { "&::placeholder": { fontSize: "1.2rem", opacity: 0.3 } },
-        /* border: "1px solid rgb(164, 167, 181)",
-        borderRadius: 2, */
-        /* "&:hover": {
-          border: "1px solid rgba(0,0,0,0)",
-          borderRadius: 1.4,
-        }, */
-        /* "& .MuiOutlinedInput-notchedOutline": { border: "none" }, */
-      }}
+        input: { "&::placeholder": { fontSize: "1.2rem", opacity: 0.65 } },
+        
+        } 
+        
+      }
       isOptionEqualToValue={(option, value) => option.title === value.title}
       getOptionLabel={(options) =>
         options.name + ` (${options.population}, ${options.country})`
@@ -87,11 +94,14 @@ export default function ComboBoxBranches({ setBranch, name, errrorBranch1 }) {
       renderInput={(params) => (
         <TextField
           {...params}
-          //label="Sucursal"
-          error={!!errrorBranch1}
-          helperText={errrorBranch1}
+          error={!!errorBranch1 || !!errorBranch2}
+          helperText={errorBranch1 || errorBranch2} 
           placeholder={"Sucursal " + name}
           InputProps={{
+            style: {
+              /////////////////////////
+              fontFamily: "Roboto"
+            },
             ...params.InputProps,
             endAdornment: (
               <React.Fragment>
@@ -127,3 +137,4 @@ const GroupHeader = styled("div")(({ theme }) => ({
 const GroupItems = styled("ul")({
   padding: 0,
 });
+ 

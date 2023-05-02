@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 //Components
 import DateRange from "./Components/DateRange";
 import AgeRadioButtons from "./Components/AgePicker";
@@ -12,57 +12,81 @@ import Box from "@mui/material/Box";
 
 export const SearchCar = ({ setCars, setBooking }) => {
   const [branch, setBranch] = useState();
+  const [returnBranch, setReturnBranch] = useState();
   const [bookingDates, setBookingDates] = useState();
   const [age, setAge] = useState(2);
   const [checkTwoBranches, setCheckTwoBranches] = useState(false);
-  const [errors, setErrors] = useState({
-    errrorBranch1: "",
-    errrorBranch2: "",
-    errrorDates: "",
-  });
+  const [errorBranch1, setErrorBranch1] = useState();
+  const [errorBranch2, setErrorBranch2] = useState();
+  const [errorDates, setErrorDates] = useState();
 
-  function validateValues(branch, bookingDates, age) {
-    //console.log(bookingDates);
-    //console.log(age);
-
+  function validateValues(branch, returnBranch, bookingDates, age) {
+    //error pickup Branch
     if (!branch) {
-      console.log(branch);
-      /* setErrors({
-        errors: {
-          errrorBranch1: "Errorrrrrr",
-        },
-      }); */
-      /* this.setState((prevState) => ({
-        errors: {
-          ...prevState.errors,
-          errrorBranch1: "Introduce una direccion de correo electrónico",
-        },
-      })); */
+      setErrorBranch1("Seleciona una sucursal de recogida");
+    }
+    //errors range dates
+    if (typeof bookingDates.range === "undefined") {
+      setErrorDates("Selecciona las fechas de la reserva");
+    } else if (bookingDates.range.length == 1) {
+      setErrorDates("Falta seleccionar la fecha de entrega");
+    }
+    //error return Branch
+    if (checkTwoBranches && !returnBranch) {
+      setErrorBranch2("Selecciona una sucursal de devolución");
     }
 
-    if (
-      typeof branch !== "undefined" &&
-      typeof bookingDates.range !== "undefined" &&
-      bookingDates.range.length == 2
-    ) {
-      //format data
-      bookingDates = {
-        startDate: bookingDates.range[0].toISOString().split("T")[0],
-        endDate: bookingDates.range[1].toISOString().split("T")[0],
-      };
+    if (!checkTwoBranches) {
+      if (
+        typeof branch !== "undefined" &&
+        typeof bookingDates.range !== "undefined" &&
+        bookingDates.range.length == 2
+      ) {
+        //format data
+        bookingDates = {
+          startDate: bookingDates.range[0].toISOString().split("T")[0],
+          endDate: bookingDates.range[1].toISOString().split("T")[0],
+        };
 
-      const consulta = { branch, bookingDates, age };
+        const consulta = { branch, bookingDates, age };
 
-      fetch(
-        `http://localhost:5134/api/Custom/getCarsAvailables/${consulta.branch.id}/${consulta.bookingDates.startDate}/${consulta.bookingDates.endDate}/${consulta.age}`
-      )
-        .then((response) => {
-          return response.json();
-        })
-        .then((cars) => {
-          setCars([...cars]);
-          setBooking(consulta);
-        });
+        fetch(
+          `http://localhost:5134/api/Custom/getCarsAvailables/${consulta.branch.id}/${consulta.bookingDates.startDate}/${consulta.bookingDates.endDate}/${consulta.age}`
+        )
+          .then((response) => {
+            return response.json();
+          })
+          .then((cars) => {
+            setCars([...cars]);
+            setBooking(consulta);
+          });
+      }
+    } else {
+      if (
+        typeof branch !== "undefined" &&
+        typeof returnBranch !== "undefined" &&
+        typeof bookingDates.range !== "undefined" &&
+        bookingDates.range.length == 2
+      ) {
+        //format data
+        bookingDates = {
+          startDate: bookingDates.range[0].toISOString().split("T")[0],
+          endDate: bookingDates.range[1].toISOString().split("T")[0],
+        };
+
+        const consulta = { branch, returnBranch, bookingDates, age };
+
+        fetch(
+          `http://localhost:5134/api/Custom/getCarsAvailables/${consulta.branch.id}/${consulta.bookingDates.startDate}/${consulta.bookingDates.endDate}/${consulta.age}`
+        )
+          .then((response) => {
+            return response.json();
+          })
+          .then((cars) => {
+            setCars([...cars]);
+            setBooking(consulta);
+          });
+      }
     }
   }
 
@@ -79,9 +103,10 @@ export const SearchCar = ({ setCars, setBooking }) => {
           <span style={{ color: "red" }}>*</span> Sucursal de recogida
         </label>
         <ComboBoxBranches
-          setBranch={setBranch}
           name={"recogida"}
-          errrorBranch1={errors.errrorBranch1}
+          setBranch={setBranch}
+          errorBranch1={errorBranch1}
+          setErrorBranch1={setErrorBranch1}
         />
 
         <CheckBoxTwoBranches setCheckTwoBranches={setCheckTwoBranches} />
@@ -95,7 +120,12 @@ export const SearchCar = ({ setCars, setBooking }) => {
             >
               <span style={{ color: "red" }}>*</span> Sucursal de devolucion
             </label>
-            <ComboBoxBranches setBranch={setBranch} name={"devolución"} />
+            <ComboBoxBranches
+              name={"devolución"}
+              setReturnBranch={setReturnBranch}
+              errorBranch2={errorBranch2}
+              setErrorBranch2={setErrorBranch2}
+            />
           </>
         )}
         <label
@@ -103,7 +133,11 @@ export const SearchCar = ({ setCars, setBooking }) => {
         >
           <span style={{ color: "red" }}>*</span> Fechas de reserva
         </label>
-        <DateRange setBookingDates={setBookingDates} />
+        <DateRange
+          setBookingDates={setBookingDates}
+          errorDates={errorDates}
+          setErrorDates={setErrorDates}
+        />
         <br />
         <label style={{ width: "100%", textAlign: "center" }}>
           <span style={{ color: "red" }}>*</span> Edad del conductor
@@ -116,7 +150,7 @@ export const SearchCar = ({ setCars, setBooking }) => {
             size="large"
             borderRadius="semi-rounded"
             onClick={() => {
-              validateValues(branch, bookingDates, age);
+              validateValues(branch, returnBranch, bookingDates, age);
             }}
           >
             Buscar

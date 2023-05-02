@@ -30,13 +30,14 @@ function DateRange(props) {
           selectionType="range"
           formatStyle="large"
           variant="double"
-          error="Error"
+          error={props.errorDates}
           value={state.range}
           minDate={new Date()}
           required={true}
           onChange={(value) => {
             setState({ range: value });
           }}
+          onClick={() => {props.setErrorDates("")}}
         />
       </div>
     </>
