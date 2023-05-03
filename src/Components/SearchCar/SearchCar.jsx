@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 //Components
 import DateRange from "./Components/DateRange";
 import AgeRadioButtons from "./Components/AgePicker";
@@ -9,6 +9,8 @@ import { Button, Application } from "react-rainbow-components";
 import { themeRainbow } from "../ThemeRainbow";
 //Material-UI
 import Box from "@mui/material/Box";
+//Fetch
+import {fetchCars} from "../../Services/SearchCarServices"
 
 export const SearchCar = ({ setCars, setBooking }) => {
   const [branch, setBranch] = useState();
@@ -21,6 +23,7 @@ export const SearchCar = ({ setCars, setBooking }) => {
   const [errorDates, setErrorDates] = useState();
 
   function validateValues(branch, returnBranch, bookingDates, age) {
+    console.log(bookingDates);
     //error pickup Branch
     if (!branch) {
       setErrorBranch1("Seleciona una sucursal de recogida");
@@ -43,14 +46,20 @@ export const SearchCar = ({ setCars, setBooking }) => {
         bookingDates.range.length == 2
       ) {
         //format data
+        const start = new Date(bookingDates.range[0])
+        start.setDate(start.getDate() + 1)
+        console.log(start);
+
         bookingDates = {
-          startDate: bookingDates.range[0].toISOString().split("T")[0],
+          startDate: start.toISOString().split("T")[0],
           endDate: bookingDates.range[1].toISOString().split("T")[0],
         };
 
         const consulta = { branch, bookingDates, age };
 
-        fetch(
+        fetchCars(consulta, setCars, setBooking)
+
+        /* fetch(
           `http://localhost:5134/api/Custom/getCarsAvailables/${consulta.branch.id}/${consulta.bookingDates.startDate}/${consulta.bookingDates.endDate}/${consulta.age}`
         )
           .then((response) => {
@@ -59,7 +68,7 @@ export const SearchCar = ({ setCars, setBooking }) => {
           .then((cars) => {
             setCars([...cars]);
             setBooking(consulta);
-          });
+          }); */
       }
     } else {
       if (
@@ -76,16 +85,7 @@ export const SearchCar = ({ setCars, setBooking }) => {
 
         const consulta = { branch, returnBranch, bookingDates, age };
 
-        fetch(
-          `http://localhost:5134/api/Custom/getCarsAvailables/${consulta.branch.id}/${consulta.bookingDates.startDate}/${consulta.bookingDates.endDate}/${consulta.age}`
-        )
-          .then((response) => {
-            return response.json();
-          })
-          .then((cars) => {
-            setCars([...cars]);
-            setBooking(consulta);
-          });
+        fetchCars(consulta, setCars, setBooking)
       }
     }
   }
