@@ -30,17 +30,17 @@ export default function CarList({ cars, boocking }) {
       })
     );
   }, [oilFilter, gearFilter, cars, carTypeFilter]);
-  console.log(!!boocking.returnBranch);
   return (
     <section className="carsList">
       <Stack
         spacing={0}
         direction={{ xs: "column", sm: "row" }}
-        sx={{ justifyContent: "center", margin:"1rem 0" }}
+        sx={{ justifyContent: "center", margin: "1rem 0" }}
       >
         <Box sx={{ flexGrow: 1, textAlign: "center", marginTop: "1rem" }}>
           <Typography gutterBottom variant="h4" component="div">
-            Lugar y Fechas <br />{!!boocking.returnBranch ? "Recogida" : ""}
+            Lugar y Fechas <br />
+            {boocking.returnBranch ? "Recogida" : ""}
             <Typography gutterBottom variant="h6" component="div">
               {`${boocking.branch.name} (${boocking.branch.population})`}
               <Typography gutterBottom variant="subtitle1" component="div">
@@ -48,26 +48,35 @@ export default function CarList({ cars, boocking }) {
                   boocking.bookingDates.startDate
                 ).toLocaleDateString("es-ES")} (${
                   boocking.branch.population
-                })`} {!!!boocking.returnBranch ? `- ${new Date(
-                  boocking.bookingDates.endDate
-                ).toLocaleDateString("es-ES")} (${boocking.branch.population})`:""}
+                })`}{" "}
+                {!boocking.returnBranch
+                  ? `- ${new Date(
+                      boocking.bookingDates.endDate
+                    ).toLocaleDateString("es-ES")} (${
+                      boocking.branch.population
+                    })`
+                  : ""}
               </Typography>
             </Typography>
           </Typography>
         </Box>
         {/* Si hay dos branches */}
-        {!!boocking.returnBranch ? (
+        {boocking.returnBranch ? (
           <Box sx={{ flexGrow: 1, textAlign: "center", marginTop: "1rem" }}>
             <Typography gutterBottom variant="h4" component="div">
-              Lugar y Fechas <br />{!!boocking.returnBranch ? "Devolución" : ""}
+              Lugar y Fechas <br />
+              {boocking.returnBranch ? "Devolución" : ""}
               <Typography gutterBottom variant="h6" component="div">
                 {`${boocking.returnBranch.name} (${boocking.returnBranch.population})`}
                 <Typography gutterBottom variant="subtitle1" component="div">
-                  {!!!boocking.returnBranch ? `${new Date(
-                    boocking.bookingDates.startDate
-                  ).toLocaleDateString("es-ES")} (${
-                    boocking.returnBranch.population
-                  })-`:""}  { ` ${new Date(
+                  {!boocking.returnBranch
+                    ? `${new Date(
+                        boocking.bookingDates.startDate
+                      ).toLocaleDateString("es-ES")} (${
+                        boocking.returnBranch.population
+                      })-`
+                    : ""}
+                  {` ${new Date(
                     boocking.bookingDates.endDate
                   ).toLocaleDateString("es-ES")} (${
                     boocking.returnBranch.population
@@ -134,7 +143,6 @@ export default function CarList({ cars, boocking }) {
                 setCarTypeFilter={setCarTypeFilter}
               />
             </div>
-
           </Stack>
         </Box>
       </Application>
@@ -146,18 +154,24 @@ export default function CarList({ cars, boocking }) {
           spacing={{ xs: 5, md: 5 }}
           columns={{ xs: 4, sm: 8, md: 12 }}
           className="justify-content-center mt-4"
-          style={{width:"100%"}}
+          style={{ width: "100%" }}
         >
-          {filteredCars.map((car) => (
-            <Grid
-              gridTemplateColumns="repeat( auto-fit, minmax(250px, 1fr)"
-              key={car.id}
-              sx={{ margin: "auto" }}
-              className="justify-content-center"
-            >
-              <CarCard car={car} />
-            </Grid>
-          ))}
+          {filteredCars.length ? (
+            filteredCars.map((car) => (
+              <Grid
+                gridTemplateColumns="repeat( auto-fit, minmax(250px, 1fr)"
+                key={car.id}
+                sx={{ margin: "auto" }}
+                className="justify-content-center"
+              >
+                <CarCard car={car} />
+              </Grid>
+            ))
+          ) : (
+            <Typography gutterBottom variant="h6" component="div">
+              No hay coches con estas características
+            </Typography>
+          )}
         </Grid>
       </Box>
     </section>

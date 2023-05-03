@@ -34,7 +34,7 @@ function ResponsiveAppBar() {
 
   const handleCloseNavMenu = (page) => {
     setAnchorElNav(null);
-    page ? navigate("/" + page.toLowerCase()) :"";
+    typeof page == "string" ? navigate("/" + page.toLowerCase()) : "";
   };
 
   const handleCloseUserMenu = (setting) => {
@@ -42,7 +42,8 @@ function ResponsiveAppBar() {
     if (setting === "Login") {
       setOpenModal(!openModal);
     }
-    setting ? navigate("/" + setting.toLowerCase()) : "";
+    console.log(setting);
+    typeof setting == "string" ? navigate("/" + setting.toLowerCase()) : "";
   };
 
   return (

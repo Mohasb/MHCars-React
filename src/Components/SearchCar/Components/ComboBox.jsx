@@ -11,7 +11,15 @@ import { useState, useEffect } from "react";
   });
 } */
 
-export default function ComboBoxBranches({ setBranch, setReturnBranch, name, errorBranch1, setErrorBranch1, errorBranch2, setErrorBranch2 }) {
+export default function ComboBoxBranches({
+  setBranch,
+  setReturnBranch,
+  name,
+  errorBranch1,
+  setErrorBranch1,
+  errorBranch2,
+  setErrorBranch2,
+}) {
   const [open, setOpen] = useState(false);
   const [options, setOptions] = useState([]);
   const loading = open && options.length === 0;
@@ -63,11 +71,10 @@ export default function ComboBoxBranches({ setBranch, setReturnBranch, name, err
       onOpen={() => {
         setOpen(true);
         if (name == "recogida") {
-          setErrorBranch1("")
+          setErrorBranch1("");
         }
         if (name == "devolucion") {
-          setErrorBranch2("")
-          
+          setErrorBranch2("");
         }
       }}
       onClose={() => {
@@ -76,15 +83,17 @@ export default function ComboBoxBranches({ setBranch, setReturnBranch, name, err
       onChange={(event, newValue) => {
         handleData(newValue);
       }}
-      onClick={() => {errorBranch1=""}}
+      onClick={() => {
+        errorBranch1 = "";
+      }}
       groupBy={(options) => options.country}
       sx={{
         width: 500,
-        input: { "&::placeholder": { fontSize: "1.2rem", opacity: 0.65 } },
-        
-        } 
-        
-      }
+        input: { "&::placeholder": { fontSize: "1.2rem", opacity: 0.25 } },
+        /*         "&:hover .MuiOutlinedInput-notchedOutline": {
+          borderColor: "#bebebe",
+        }, */
+      }}
       isOptionEqualToValue={(option, value) => option.title === value.title}
       getOptionLabel={(options) =>
         options.name + ` (${options.population}, ${options.country})`
@@ -95,12 +104,11 @@ export default function ComboBoxBranches({ setBranch, setReturnBranch, name, err
         <TextField
           {...params}
           error={!!errorBranch1 || !!errorBranch2}
-          helperText={errorBranch1 || errorBranch2} 
+          helperText={errorBranch1 || errorBranch2}
           placeholder={"Sucursal " + name}
           InputProps={{
             style: {
-              /////////////////////////
-              fontFamily: "Roboto"
+              fontFamily: "sans-serif",
             },
             ...params.InputProps,
             endAdornment: (
@@ -137,4 +145,3 @@ const GroupHeader = styled("div")(({ theme }) => ({
 const GroupItems = styled("ul")({
   padding: 0,
 });
- 

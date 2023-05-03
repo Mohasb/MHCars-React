@@ -6,7 +6,7 @@ function DateRange(props) {
     range: undefined,
   };
   const containerStyles = {
-    maxWidth: 500,
+    padding: 0,
     margin: 0,
   };
   const [state, setState] = useState(initialState);
@@ -25,19 +25,21 @@ function DateRange(props) {
           id="datePicker"
           borderRadius="semi-square"
           size="large"
-          style={{ colorScheme: "black" }}
           placeholder="Selecciona el rango de fechas"
           selectionType="range"
           formatStyle="large"
           variant="double"
           error={props.errorDates}
           value={state.range}
+          //style={{ opacity: 0.8 }}
           minDate={new Date()}
           required={true}
           onChange={(value) => {
             setState({ range: value });
           }}
-          onClick={() => {props.setErrorDates("")}}
+          onClick={() => {
+            props.setErrorDates("");
+          }}
         />
       </div>
     </>
