@@ -89,7 +89,7 @@ export default function ComboBoxBranches({
       groupBy={(options) => options.country}
       sx={{
         width: 500,
-        input: { "&::placeholder": { fontSize: "1.2rem", opacity: 0.25 } },
+        input: { "&::placeholder": { fontSize: "1.3rem", fontFamily:"'Courier New', Courier, monospace ", color:"#a4a7b5", opacity:"100" } },
         /*         "&:hover .MuiOutlinedInput-notchedOutline": {
           borderColor: "#bebebe",
         }, */

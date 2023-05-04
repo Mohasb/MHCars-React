@@ -9,6 +9,7 @@ export async function ReservationCar(car, booking) {
     branchId: booking.branch.id,
     clientId: 1,
     carCategory: car.category,
+    carId: car.id
   };
   console.log(reservation);
 

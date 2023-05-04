@@ -58,17 +58,6 @@ export const SearchCar = ({ setCars, setBooking }) => {
         const consulta = { branch, bookingDates, age };
 
         fetchCars(consulta, setCars, setBooking)
-
-        /* fetch(
-          `http://localhost:5134/api/Custom/getCarsAvailables/${consulta.branch.id}/${consulta.bookingDates.startDate}/${consulta.bookingDates.endDate}/${consulta.age}`
-        )
-          .then((response) => {
-            return response.json();
-          })
-          .then((cars) => {
-            setCars([...cars]);
-            setBooking(consulta);
-          }); */
       }
     } else {
       if (
@@ -110,6 +99,7 @@ export const SearchCar = ({ setCars, setBooking }) => {
         />
 
         <CheckBoxTwoBranches setCheckTwoBranches={setCheckTwoBranches} />
+
         {checkTwoBranches && (
           <>
             <label

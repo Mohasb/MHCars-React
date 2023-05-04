@@ -31,7 +31,7 @@ function DateRange(props) {
           variant="double"
           error={props.errorDates}
           value={state.range}
-          //style={{ opacity: 0.8 }}
+          style={{ opacity: 0.7, borderColor:"rgba(196,196,196,255)" }}
           minDate={new Date()}
           required={true}
           onChange={(value) => {
