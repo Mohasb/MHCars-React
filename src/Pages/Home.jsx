@@ -14,9 +14,10 @@ export default function Home() {
     <>
       <main>
         {/* <CustomizedSteppers/> */}
-        {(cars.length && <CarList cars={cars} boocking={boocking} />) || (
+        {/* {(cars.length && <CarList cars={cars} boocking={boocking} />) || (
           <SearchCar setCars={setCars} setBooking={setBooking} />
-        )}
+        )} */}
+        <SearchCar setCars={setCars} setBooking={setBooking} />
       </main>
     </>
   );

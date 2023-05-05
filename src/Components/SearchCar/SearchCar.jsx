@@ -14,7 +14,7 @@ import Stack from "@mui/material/Stack";
 import { fetchCars } from "../../Services/SearchCarServices";
 import Time from "./Components/TimePicker";
 
-export const SearchCar = ({ setCars, setBooking }) => {
+export const SearchCar = () => {
   const [branch, setBranch] = useState();
   const [returnBranch, setReturnBranch] = useState();
   const [bookingDates, setBookingDates] = useState();
@@ -23,6 +23,8 @@ export const SearchCar = ({ setCars, setBooking }) => {
   const [errorBranch1, setErrorBranch1] = useState();
   const [errorBranch2, setErrorBranch2] = useState();
   const [errorDates, setErrorDates] = useState();
+  const [cars, setCars] = useState({});
+  const [boocking, setBooking] = useState({});
 
   function validateValues(branch, returnBranch, bookingDates, age) {
 
@@ -50,7 +52,6 @@ export const SearchCar = ({ setCars, setBooking }) => {
         //format data
         const start = new Date(bookingDates.range[0]);
         start.setDate(start.getDate() + 1);
-        console.log(start);
 
         bookingDates = {
           startDate: start.toISOString().split("T")[0],
@@ -60,6 +61,8 @@ export const SearchCar = ({ setCars, setBooking }) => {
         const consulta = { branch, bookingDates, age };
 
         fetchCars(consulta, setCars, setBooking);
+        console.log(cars);
+        console.log(boocking);
       }
     } else {
       if (

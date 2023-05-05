@@ -1,5 +1,4 @@
 export async function fetchCars(consulta, setCars, setBooking) {
-  //console.log(consulta);
   return await fetch(
     `http://localhost:5134/api/Custom/getCarsAvailables/${consulta.branch.id}/${consulta.bookingDates.startDate}/${consulta.bookingDates.endDate}/${consulta.age}`
   )

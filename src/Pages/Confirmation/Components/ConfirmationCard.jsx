@@ -135,7 +135,7 @@ export default function ConfirmationCard({ car, boocking }) {
               Total (impuestos incluidos)
             </Typography>
               <Typography gutterBottom variant="h6" component="div">
-              1.000.000€
+              {car.price}
             </Typography>
 
           </Stack>
