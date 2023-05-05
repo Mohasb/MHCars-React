@@ -9,8 +9,10 @@ import { Button, Application } from "react-rainbow-components";
 import { themeRainbow } from "../ThemeRainbow";
 //Material-UI
 import Box from "@mui/material/Box";
+import Stack from "@mui/material/Stack";
 //Fetch
-import {fetchCars} from "../../Services/SearchCarServices"
+import { fetchCars } from "../../Services/SearchCarServices";
+import Time from "./Components/TimePicker";
 
 export const SearchCar = ({ setCars, setBooking }) => {
   const [branch, setBranch] = useState();
@@ -23,7 +25,7 @@ export const SearchCar = ({ setCars, setBooking }) => {
   const [errorDates, setErrorDates] = useState();
 
   function validateValues(branch, returnBranch, bookingDates, age) {
-    console.log(bookingDates);
+
     //error pickup Branch
     if (!branch) {
       setErrorBranch1("Seleciona una sucursal de recogida");
@@ -46,8 +48,8 @@ export const SearchCar = ({ setCars, setBooking }) => {
         bookingDates.range.length == 2
       ) {
         //format data
-        const start = new Date(bookingDates.range[0])
-        start.setDate(start.getDate() + 1)
+        const start = new Date(bookingDates.range[0]);
+        start.setDate(start.getDate() + 1);
         console.log(start);
 
         bookingDates = {
@@ -57,7 +59,7 @@ export const SearchCar = ({ setCars, setBooking }) => {
 
         const consulta = { branch, bookingDates, age };
 
-        fetchCars(consulta, setCars, setBooking)
+        fetchCars(consulta, setCars, setBooking);
       }
     } else {
       if (
@@ -74,7 +76,7 @@ export const SearchCar = ({ setCars, setBooking }) => {
 
         const consulta = { branch, returnBranch, bookingDates, age };
 
-        fetchCars(consulta, setCars, setBooking)
+        fetchCars(consulta, setCars, setBooking);
       }
     }
   }
@@ -85,38 +87,48 @@ export const SearchCar = ({ setCars, setBooking }) => {
       style={containerStyles}
     >
       <Application theme={themeRainbow}>
-        <h1 style={{ textAlign: "center" }}>Alquiler de coches</h1>
-        <label
-          style={{ width: "100%", textAlign: "center", marginTop: "1.4rem" }}
+        <Stack
+          spacing={0}
+          direction={{ xs: "column", sm: "row" }}
+          sx={{ justifyContent: "center", alignItems: "center" }}
         >
-          <span style={{ color: "red" }}>*</span> Sucursal de recogida
-        </label>
-        <ComboBoxBranches
-          name={"recogida"}
-          setBranch={setBranch}
-          errorBranch1={errorBranch1}
-          setErrorBranch1={setErrorBranch1}
-        />
-
+          <ComboBoxBranches
+            name={"recogida"}
+            setBranch={setBranch}
+            errorBranch1={errorBranch1}
+            setErrorBranch1={setErrorBranch1}
+          />
+          {checkTwoBranches && <Time name="Recogida" />}
+        </Stack>
+        {!checkTwoBranches && (
+          <Stack
+            spacing={0}
+            direction={{ xs: "row", sm: "row" }}
+            sx={{
+              justifyContent: "center",
+              alignItems: "center",
+              marginTop: "1rem",
+            }}
+          >
+            <Time name="recogida" />
+            <Time name="devolución" />
+          </Stack>
+        )}
         <CheckBoxTwoBranches setCheckTwoBranches={setCheckTwoBranches} />
-
         {checkTwoBranches && (
-          <>
-            <label
-              style={{
-                width: "100%",
-                textAlign: "center",
-              }}
-            >
-              <span style={{ color: "red" }}>*</span> Sucursal de devolucion
-            </label>
+          <Stack
+            spacing={0}
+            direction={{ xs: "column", sm: "row" }}
+            sx={{ justifyContent: "center", alignItems: "center" }}
+          >
             <ComboBoxBranches
               name={"devolución"}
               setReturnBranch={setReturnBranch}
               errorBranch2={errorBranch2}
               setErrorBranch2={setErrorBranch2}
             />
-          </>
+            <Time name="Devolución" />
+          </Stack>
         )}
         <label
           style={{ width: "100%", textAlign: "center", marginTop: "1.4rem" }}

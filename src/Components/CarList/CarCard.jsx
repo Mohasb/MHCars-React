@@ -12,11 +12,24 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import SellIcon from "@mui/icons-material/Sell";
 import CardHeader from "@mui/material/CardHeader";
 import { ReservationCar } from "../../Services/ReservationCarService";
+import { useNavigate } from "react-router-dom";
 
 export default function CarCard({ car, boocking }) {
+  const navigate = useNavigate();
+
+
+
   const handleReservation = (car, boocking) => {
     if (car && boocking) {
-      ReservationCar(car, boocking);
+      const data = {
+        car, boocking
+      }
+      sessionStorage.setItem('booking', JSON.stringify(data))
+
+      navigate("/booking");
+
+
+      //ReservationCar(car, boocking);
     }
   };
 

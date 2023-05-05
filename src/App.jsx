@@ -1,6 +1,8 @@
 import "./App.scss";
 import { Routes, Route } from "react-router-dom";
 import Home from "./Pages/Home";
+import ConfirmationBoocking from "./Pages/Confirmation/Confirmation";
+import CarList from "./Components/CarList/CarList";
 
 function App() {
   return (
@@ -8,6 +10,11 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/booking" element={<ConfirmationBoocking />} />
+
+
+
+
         <Route path="/login" element={<Home />} />
         <Route path="/oficinas" element={<Home />} />
         <Route path="/coches" element={<Home />} />
