@@ -4,7 +4,7 @@ import App from "./App.jsx";
 import "./index.scss";
 import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "@emotion/react";
-import { theme } from "./Components/Theme.tsx";
+import { theme } from "./Components/Theme/Theme.js";
 import ResponsiveAppBar from "./Components/NavBar/NavBar";
 import ControlledOpenSpeedDial from "./Components/CircularMenu";
 

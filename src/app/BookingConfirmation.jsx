@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import ConfirmationCard from "./Components/ConfirmationCard";
-
+import ConfirmationCard from "../components/ConfirmationCard";
 
 export default function ConfirmationBoocking() {
   const navigate = useNavigate();
@@ -11,15 +10,14 @@ export default function ConfirmationBoocking() {
   );
 
   useEffect(() => {
-      if (!data) {
-        navigate("/");
-      }
-  },[])
-
+    if (!data) {
+      navigate("/");
+    }
+  }, []);
 
   return (
     <>
-      <ConfirmationCard car={data.car} boocking={data.boocking}/>
+      <ConfirmationCard car={data.car} boocking={data.boocking} />
     </>
   );
 }

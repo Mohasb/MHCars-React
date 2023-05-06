@@ -1,4 +1,5 @@
-import * as React from "react";
+import { useNavigate } from "react-router-dom";
+//Material UI
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
@@ -11,23 +12,21 @@ import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 import SettingsIcon from "@mui/icons-material/Settings";
 import SellIcon from "@mui/icons-material/Sell";
 import CardHeader from "@mui/material/CardHeader";
-import { ReservationCar } from "../../Services/ReservationCarService";
-import { useNavigate } from "react-router-dom";
 
-export default function CarCard({ car, boocking }) {
+export default function CarCard({ car, booking }) {
   const navigate = useNavigate();
+  console.log(car);
+  console.log(booking);
 
-  const handleReservation = (car, boocking) => {
-    if (car && boocking) {
+  const handleReservation = (car, booking) => {
+    if (car && booking) {
       const data = {
         car,
-        boocking,
+        booking,
       };
       sessionStorage.setItem("booking", JSON.stringify(data));
 
       navigate("/booking");
-
-      //ReservationCar(car, boocking);
     }
   };
 
@@ -36,7 +35,7 @@ export default function CarCard({ car, boocking }) {
       <Card sx={{ maxWidth: 345, minWidth: 350 }} car={car}>
         <CardActionArea
           onClick={() => {
-            handleReservation(car, boocking);
+            handleReservation(car, booking);
           }}
         >
           <CardHeader
@@ -46,7 +45,7 @@ export default function CarCard({ car, boocking }) {
           />
           <CardMedia
             component="img"
-            image={`./src/assets/Cars/${car.image}.webp`}
+            image={`/src/assets/Cars/${car.image}.webp`}
             alt={`car ${car.brand}`}
           />
 
@@ -85,7 +84,7 @@ export default function CarCard({ car, boocking }) {
             variant="contained"
             className="m-auto"
             onClick={() => {
-              handleReservation(car, boocking);
+              handleReservation(car, booking);
             }}
           >
             Reservar &nbsp;

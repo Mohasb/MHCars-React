@@ -1,4 +1,10 @@
-import * as React from "react";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Link } from "react-router-dom";
+//Components imports
+import "./NavBar.scss";
+import LoginModal from "../LoginModal";
+//Material UI imports
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -11,10 +17,6 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-import "./NavBar.scss";
-import LoginModal from "../LoginModal";
 
 const pages = ["Home", "Oficinas", "Coches", "Servicios", "Acceso", "Admin"];
 const settings = ["Account", "Login", "Logout"];
@@ -22,7 +24,7 @@ const settings = ["Account", "Login", "Logout"];
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
-  const [openModal, setOpenModal] = React.useState(false);
+  const [openModal, setOpenModal] = useState(false);
   const navigate = useNavigate();
 
   const handleOpenNavMenu = (event) => {
@@ -50,22 +52,23 @@ function ResponsiveAppBar() {
     <AppBar position="static" className="nav">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: "none", md: "flex" },
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            RentCar
-          </Typography>
+          {/* <Link to={"/"}>
+            <Typography
+              variant="h6"
+              noWrap
+              component="p"
+              sx={{
+                mr: 2,
+                display: { xs: "flex", md: "flex" },
+                fontWeight: 700,
+                letterSpacing: ".3rem",
+                color: "inherit",
+                textDecoration: "none",
+              }}
+            >
+              RentCar
+            </Typography>
+          </Link> */}
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
@@ -103,28 +106,31 @@ function ResponsiveAppBar() {
               ))}
             </Menu>
           </Box>
-          <img
-            className="logo"
-            src="./src/assets/IconGifClear.gif"
-            alt="Icon RentCar"
-          />
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href=""
-            sx={{
-              mr: 2,
-              display: { xs: "flex", md: "none" },
-              flexGrow: 1,
-              fontWeight: 700,
-              letterSpacing: ".1rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            RentCar
-          </Typography>
+          <Link to={"/"} style={{ textDecoration: "none" }}>
+            <Typography
+              variant="h6"
+              noWrap
+              component="p"
+              sx={{
+                mr: 2,
+                display: { xs: "flex", md: "flex" },
+                fontWeight: 700,
+                letterSpacing: ".3rem",
+                color: "inherit",
+                textDecoration: "none",
+                margin: 0,
+                justifyContent: "flex-start",
+                alignItems: "center",
+              }}
+            >
+              RentCar
+              <img
+                className="logo"
+                src="/src/assets/IconGifClear.gif"
+                alt="Icon RentCar"
+              />
+            </Typography>
+          </Link>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
               <Button

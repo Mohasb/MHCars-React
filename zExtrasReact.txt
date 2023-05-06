@@ -11,3 +11,5 @@ Modificar contraseña del user en back con esto:
       - must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number
       - Can contain special characters*/
 -------------------------------------------------------------------------
+
+--Arreglar si se recarga en reserva/coches y no hay localstorage con la consulta

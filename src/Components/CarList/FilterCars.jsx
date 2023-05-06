@@ -7,6 +7,7 @@ class SimpleRadioButtonGroup extends React.Component {
     this.state = {
       options: this.props.options,
       value: "todos",
+      filter: this.props.filter,
     };
     this.handleOnChange = this.handleOnChange.bind(this);
   }
@@ -23,18 +24,21 @@ class SimpleRadioButtonGroup extends React.Component {
   }
 
   render() {
-    const { options, value } = this.state;
+    const { options, value, filter } = this.state;
     return (
       <>
-      <RadioButtonGroup
-        id="radio-button-group-component-1"
-        options={options}
-        value={value}
-        onChange={this.handleOnChange}
-        size="medium"
-        variant="brand"
-        borderRadius="semi-rounded"
-      />
+        <RadioButtonGroup
+          id="radio-button-group-component-1"
+          options={options}
+          value={value}
+          onChange={this.handleOnChange}
+          size="medium"
+          variant="brand"
+          borderRadius="semi-rounded"
+          style={{ margin: "10px" }}
+          label={`Tipo de ${filter}`}
+          labelAlignment="center"
+        />
       </>
     );
   }
@@ -45,15 +49,17 @@ export default function FilterButtons({
   setOilFilter,
   setGearFilter,
   setCarTypeFilter,
+  filter,
 }) {
   return (
-    <div className="rainbow-p-around_x-large rainbow-align-content_center py-1">
+    <div className="rainbow-p-around_x-large rainbow-align-content_center p-0">
       <SimpleRadioButtonGroup
         options={options}
         name={name}
         setOilFilter={setOilFilter}
         setGearFilter={setGearFilter}
         setCarTypeFilter={setCarTypeFilter}
+        filter={filter}
       />
     </div>
   );

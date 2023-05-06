@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 //Components
 import DateRange from "./Components/DateRange";
 import AgeRadioButtons from "./Components/AgePicker";
@@ -6,7 +7,7 @@ import ComboBoxBranches from "./Components/ComboBox";
 import CheckBoxTwoBranches from "./Components/CheckBox";
 //React-Rainbow
 import { Button, Application } from "react-rainbow-components";
-import { themeRainbow } from "../ThemeRainbow";
+import { themeRainbow } from "../Theme/ThemeRainbow";
 //Material-UI
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
@@ -15,73 +16,33 @@ import { fetchCars } from "../../Services/SearchCarServices";
 import Time from "./Components/TimePicker";
 
 export const SearchCar = () => {
+  //State of branch select
   const [branch, setBranch] = useState();
+  //State from retunBranch select
   const [returnBranch, setReturnBranch] = useState();
+  //State of dates from DataPicker
   const [bookingDates, setBookingDates] = useState();
+  //State of age radio buttons
   const [age, setAge] = useState(2);
-  const [checkTwoBranches, setCheckTwoBranches] = useState(false);
+  //State of checkbox
+  const [areCheckTwoBranches, setCheckTwoBranches] = useState(false);
+  //State of errors inputs
   const [errorBranch1, setErrorBranch1] = useState();
   const [errorBranch2, setErrorBranch2] = useState();
   const [errorDates, setErrorDates] = useState();
-  const [cars, setCars] = useState({});
-  const [boocking, setBooking] = useState({});
+  //to navigate to other routes
+  const navigate = useNavigate();
 
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   function validateValues(branch, returnBranch, bookingDates, age) {
-
-    //error pickup Branch
-    if (!branch) {
-      setErrorBranch1("Seleciona una sucursal de recogida");
-    }
-    //errors range dates
-    if (typeof bookingDates.range === "undefined") {
-      setErrorDates("Selecciona las fechas de la reserva");
-    } else if (bookingDates.range.length == 1) {
-      setErrorDates("Falta seleccionar la fecha de entrega");
-    }
-    //error return Branch
-    if (checkTwoBranches && !returnBranch) {
-      setErrorBranch2("Selecciona una sucursal de devolución");
-    }
-
-    if (!checkTwoBranches) {
-      if (
-        typeof branch !== "undefined" &&
-        typeof bookingDates.range !== "undefined" &&
-        bookingDates.range.length == 2
-      ) {
-        //format data
-        const start = new Date(bookingDates.range[0]);
-        start.setDate(start.getDate() + 1);
-
-        bookingDates = {
-          startDate: start.toISOString().split("T")[0],
-          endDate: bookingDates.range[1].toISOString().split("T")[0],
-        };
-
-        const consulta = { branch, bookingDates, age };
-
-        fetchCars(consulta, setCars, setBooking);
-        console.log(cars);
-        console.log(boocking);
-      }
-    } else {
-      if (
-        typeof branch !== "undefined" &&
-        typeof returnBranch !== "undefined" &&
-        typeof bookingDates.range !== "undefined" &&
-        bookingDates.range.length == 2
-      ) {
-        //format data
-        bookingDates = {
-          startDate: bookingDates.range[0].toISOString().split("T")[0],
-          endDate: bookingDates.range[1].toISOString().split("T")[0],
-        };
-
-        const consulta = { branch, returnBranch, bookingDates, age };
-
-        fetchCars(consulta, setCars, setBooking);
-      }
-    }
+    errorHandler();
+    fetchDataSetStorage(
+      areCheckTwoBranches,
+      branch,
+      returnBranch,
+      bookingDates,
+      age
+    );
   }
 
   return (
@@ -101,9 +62,9 @@ export const SearchCar = () => {
             errorBranch1={errorBranch1}
             setErrorBranch1={setErrorBranch1}
           />
-          {checkTwoBranches && <Time name="Recogida" />}
+          {areCheckTwoBranches && <Time name="Recogida" />}
         </Stack>
-        {!checkTwoBranches && (
+        {!areCheckTwoBranches && (
           <Stack
             spacing={0}
             direction={{ xs: "row", sm: "row" }}
@@ -118,7 +79,7 @@ export const SearchCar = () => {
           </Stack>
         )}
         <CheckBoxTwoBranches setCheckTwoBranches={setCheckTwoBranches} />
-        {checkTwoBranches && (
+        {areCheckTwoBranches && (
           <Stack
             spacing={0}
             direction={{ xs: "column", sm: "row" }}
@@ -164,7 +125,72 @@ export const SearchCar = () => {
       </Application>
     </div>
   );
+  /////////////////////////////////////////////HELPERS/////////////////////////////////////////////////////////
+  function errorHandler() {
+    //error pickup Branch
+    if (!branch) {
+      setErrorBranch1("Seleciona una sucursal de recogida");
+    }
+    //errors range dates
+    if (typeof bookingDates.range === "undefined") {
+      setErrorDates("Selecciona las fechas de la reserva");
+    } else if (bookingDates.range.length == 1) {
+      setErrorDates("Falta seleccionar la fecha de entrega");
+    }
+    //error return Branch
+    if (areCheckTwoBranches && !returnBranch) {
+      setErrorBranch2("Selecciona una sucursal de devolución");
+    }
+  }
+  function fetchDataSetStorage(
+    areCheckTwoBranches,
+    branch,
+    returnBranch,
+    bookingDates,
+    age
+  ) {
+    if (!areCheckTwoBranches) {
+      if (
+        typeof branch !== "undefined" &&
+        typeof bookingDates.range !== "undefined" &&
+        bookingDates.range.length == 2
+      ) {
+        //format data
+        const start = new Date(bookingDates.range[0]);
+        start.setDate(start.getDate() + 1);
+
+        bookingDates = {
+          startDate: start.toISOString().split("T")[0],
+          endDate: bookingDates.range[1].toISOString().split("T")[0],
+        };
+
+        const consulta = { branch, bookingDates, age };
+
+        fetchCars(consulta);
+        navigate("/reserva/coche");
+      }
+    } else {
+      if (
+        typeof branch !== "undefined" &&
+        typeof returnBranch !== "undefined" &&
+        typeof bookingDates.range !== "undefined" &&
+        bookingDates.range.length == 2
+      ) {
+        //format data
+        bookingDates = {
+          startDate: bookingDates.range[0].toISOString().split("T")[0],
+          endDate: bookingDates.range[1].toISOString().split("T")[0],
+        };
+
+        const consulta = { branch, returnBranch, bookingDates, age };
+
+        fetchCars(consulta);
+        navigate("/reserva/coche");
+      }
+    }
+  }
 };
+
 const containerStyles = {
   maxWidth: 400,
 };
