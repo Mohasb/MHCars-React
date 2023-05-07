@@ -1,15 +1,12 @@
-export async function fetchCars(consulta) {
+export async function fetchCars(booking, setCars, setBooking) {
   return await fetch(
-    `http://localhost:5134/api/Custom/getCarsAvailables/${consulta.branch.id}/${consulta.bookingDates.startDate}/${consulta.bookingDates.endDate}/${consulta.age}`
+    `http://localhost:5134/api/Custom/getCarsAvailables/${booking.branch.id}/${booking.bookingDates.startDate}/${booking.bookingDates.endDate}/${booking.age}`
   )
     .then((response) => {
       return response.json();
     })
     .then((cars) => {
-      setDataStorage({ cars, consulta });
+      setCars(cars);
+      setBooking(booking);
     });
-}
-
-function setDataStorage(data) {
-  sessionStorage.setItem("data", JSON.stringify(data));
 }

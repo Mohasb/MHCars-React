@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 //Components
 import DateRange from "./Components/DateRange";
@@ -32,6 +32,17 @@ export const SearchCar = () => {
   const [errorDates, setErrorDates] = useState();
   //to navigate to other routes
   const navigate = useNavigate();
+  //
+  const [cars, setCars] = useState([]);
+  const [booking, setBooking] = useState([]);
+
+  useEffect(() => {
+    if (cars.length && booking) {
+      console.log(cars);
+      sessionStorage.setItem("data", JSON.stringify({ cars, booking }));
+      navigate("/reserva/coche");
+    }
+  }, [cars, booking, navigate]);
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   function validateValues(branch, returnBranch, bookingDates, age) {
@@ -164,10 +175,9 @@ export const SearchCar = () => {
           endDate: bookingDates.range[1].toISOString().split("T")[0],
         };
 
-        const consulta = { branch, bookingDates, age };
+        const booking = { branch, bookingDates, age };
 
-        fetchCars(consulta);
-        navigate("/reserva/coche");
+        fetchCars(booking, setCars, setBooking);
       }
     } else {
       if (
@@ -182,9 +192,12 @@ export const SearchCar = () => {
           endDate: bookingDates.range[1].toISOString().split("T")[0],
         };
 
-        const consulta = { branch, returnBranch, bookingDates, age };
+        const booking = { branch, returnBranch, bookingDates, age };
 
-        fetchCars(consulta);
+        fetchCars(booking, setCars);
+        //const data = { cars, booking };
+        //sessionStorage.setItem("data", JSON.stringify(data));
+
         navigate("/reserva/coche");
       }
     }

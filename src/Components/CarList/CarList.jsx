@@ -12,6 +12,7 @@ import { Application } from "react-rainbow-components";
 import { themeRainbow } from "../Theme/ThemeRainbow";
 
 export default function CarList({ cars, booking }) {
+  console.log(booking);
   const [oilFilter, setOilFilter] = useState("todos");
   const [gearFilter, setGearFilter] = useState("todos");
   const [carTypeFilter, setCarTypeFilter] = useState("todos");
