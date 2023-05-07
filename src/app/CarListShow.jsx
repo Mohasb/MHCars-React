@@ -1,25 +1,26 @@
-//import { useState, useEffect } from "react";
-import CarList from "../components/carList/CarList";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import CarList from "../components/carList/CarList";
 
 export default function CarListShow() {
   const navigate = useNavigate();
 
-  let cars = {};
-  let booking = {};
-  if (sessionStorage.getItem("data")) {
-    const data = JSON.parse(sessionStorage.getItem("data"));
-    cars = data.cars;
-    booking = data.consulta;
-    return (
-      <>
-        <main>
-          <CarList cars={cars} booking={booking} />
-        </main>
-      </>
-    );
-  } else {
-    console.log("NO");
-    navigate("/");
-  }
+  useEffect(() => {
+    const savedData = JSON.parse(sessionStorage.getItem("data"));
+    if (!savedData) {
+      navigate("/");
+    }
+  }, [navigate]);
+
+  const savedData = JSON.parse(sessionStorage.getItem("data"));
+
+  return (
+    <>
+      <main>
+        {savedData && (
+          <CarList cars={savedData.cars} booking={savedData.booking} />
+        )}
+      </main>
+    </>
+  );
 }
