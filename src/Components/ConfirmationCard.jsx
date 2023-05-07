@@ -17,40 +17,63 @@ import { CounterInput } from "react-rainbow-components";
 import { themeRainbow } from "./Theme/ThemeRainbow";
 import { Application } from "react-rainbow-components";
 import Card from "@mui/material/Card";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import _ from "lodash";
 
-export default function ConfirmationCard({ car, boocking }) {
+export default function ConfirmationCard({ car, booking }) {
   //const navigate = useNavigate();
 
-  /* const handleReservation = (car, boocking) => {
-    if (car && boocking) {
+  /* const handleReservation = (car, booking) => {
+    if (car && booking) {
       const data = {
-        car, boocking
+        car, booking
       }
       sessionStorage.setItem('booking', JSON.stringify(data))
 
       navigate("/booking");
 
 
-      //ReservationCar(car, boocking);
+      //ReservationCar(car, booking);
     }
   }; */
+  const [carCopy] = useState({ ...car });
   const priceIsOuterJourney = 54;
   const priceIsGps = 20;
-
+  const priceChildSeats = 30;
+  const priceExtraDrivers = 50;
+  const priceDay = 60;
+  const [childSeats, setChildSeats] = useState(0);
+  const [drivers, setDrivers] = useState(0);
   const [extras, setExtras] = useState({
     isOuterJourney: false,
     isGps: false,
     childSeats: 0,
     drivers: 0,
   });
+  const days = () => {
+    const start = new Date(booking.bookingDates.startDate);
+    const end = new Date(booking.bookingDates.endDate);
+    const diffTime = Math.abs(end.getTime() - start.getTime());
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays;
+  };
+
+  useEffect(() => {
+    setExtras((prevState) => ({
+      ...prevState,
+      childSeats: childSeats,
+    }));
+  }, [childSeats]);
+  useEffect(() => {
+    setExtras((prevState) => ({
+      ...prevState,
+      drivers: drivers,
+    }));
+  }, [drivers]);
 
   const handleCheckbox = () => {
-    console.log(event);
     const name = event.target.name;
-    console.log(name);
-    console.log(extras);
-
+    console.log(carCopy);
     switch (name) {
       case "checkbox-toggle-1":
         setExtras((prevState) => ({
@@ -58,8 +81,8 @@ export default function ConfirmationCard({ car, boocking }) {
           isOuterJourney: !prevState.isOuterJourney,
         }));
         !extras.isOuterJourney
-          ? (car.price += priceIsOuterJourney)
-          : (car.price = car.price - priceIsOuterJourney);
+          ? (carCopy.price += priceIsOuterJourney)
+          : (carCopy.price -= priceIsOuterJourney);
 
         break;
       case "checkbox-toggle-2":
@@ -68,34 +91,34 @@ export default function ConfirmationCard({ car, boocking }) {
           isGps: !prevState.isGps,
         }));
         !extras.isGps
-          ? (car.price += priceIsGps)
-          : (car.price = car.price - priceIsGps);
+          ? (carCopy.price += priceIsGps)
+          : (carCopy.price -= priceIsGps);
         break;
-      /* case "checkbox-toggle-2":
-        setExtras((prevState) => ({
-          ...prevState,
-          isGps: !prevState.isGps,
-        }));
-        !extras.isGps
-          ? (car.price += priceIsGps)
-          : (car.price = car.price - priceIsGps);
-        break; */
       default:
         break;
     }
   };
-
-  const handleCounters = () => {
-    console.log(window.event);
+  const handleChildSeats = (value) => {
+    if (value > 4) setChildSeats(4);
+    else setChildSeats(value);
+    const newValue = value;
+    const seatDiff = newValue - childSeats;
+    carCopy.price += seatDiff * priceChildSeats;
   };
-  console.log(extras);
+  const handleDrivers = (value) => {
+    if (value > 4) setDrivers(4);
+    else setDrivers(value);
+    const newValue = value;
+    const driversDiff = newValue - drivers;
+    carCopy.price += driversDiff * priceExtraDrivers;
+  };
 
   return (
     <>
       <Card sx={{ maxWidth: 400, minWidth: 350 }} car={car}>
         <CardActionArea
           onClick={() => {
-            //handleReservation(car, boocking);
+            //handleReservation(car, booking);
           }}
         >
           <CardHeader
@@ -172,20 +195,22 @@ export default function ConfirmationCard({ car, boocking }) {
                   size="medium"
                   borderRadius="rounded"
                   className="rainbow-m-vertical_x-large rainbow-p-horizontal_medium rainbow-m_auto"
-                  value={extras.childSeats}
-                  onChange={handleCounters}
+                  value={childSeats}
+                  onChange={handleChildSeats}
+                  min={0}
+                  max={4}
                 />
-                {/*<CounterInput
+                <CounterInput
                   id="input-component-1"
                   label="¿Cuantas personas van a conducir el coche?"
-                  placeholder="Only numbers"
-                  //style={containerStyles}
+                  size="medium"
+                  borderRadius="rounded"
                   className="rainbow-m-vertical_x-large rainbow-p-horizontal_medium rainbow-m_auto"
-                  //labelAlignment="center"
-                  value={1}
-                  //onChange={setCounter}
-                  //variant="shaded"
-                /> */}
+                  value={drivers}
+                  onChange={handleDrivers}
+                  min={0}
+                  max={4}
+                />
               </Stack>
               <Stack
                 spacing={1}
@@ -200,7 +225,39 @@ export default function ConfirmationCard({ car, boocking }) {
                   Total (impuestos incluidos)
                 </Typography>
                 <Typography gutterBottom variant="h5" component="div">
+                  {carCopy.price.toFixed(2)}
+                </Typography>
+              </Stack>
+              <Stack
+                spacing={1}
+                direction={{ xs: "row", sm: "row" }}
+                sx={{
+                  width: "100%",
+                  margin: "0",
+                  justifyContent: "space-between",
+                }}
+              >
+                <Typography gutterBottom variant="p" component="div">
+                  Sub Total(coche)
+                </Typography>
+                <Typography gutterBottom variant="p" component="div">
                   {car.price.toFixed(2)}
+                </Typography>
+              </Stack>
+              <Stack
+                spacing={1}
+                direction={{ xs: "row", sm: "row" }}
+                sx={{
+                  width: "100%",
+                  margin: "0",
+                  justifyContent: "space-between",
+                }}
+              >
+                <Typography gutterBottom variant="p" component="div">
+                  Total dias: {days()}
+                </Typography>
+                <Typography gutterBottom variant="p" component="div">
+                  + {days() * priceDay}
                 </Typography>
               </Stack>
               {extras.isOuterJourney && (
@@ -237,6 +294,40 @@ export default function ConfirmationCard({ car, boocking }) {
                   </Typography>
                 </Stack>
               )}
+              {!!extras.childSeats && (
+                <Stack
+                  spacing={1}
+                  direction={{ xs: "row", sm: "row" }}
+                  sx={{
+                    width: "100%",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <Typography gutterBottom variant="p" component="div">
+                    Asiento niño
+                  </Typography>
+                  <Typography gutterBottom variant="p" component="div">
+                    + {(extras.childSeats * priceChildSeats).toFixed(2)}€
+                  </Typography>
+                </Stack>
+              )}
+              {!!extras.drivers && (
+                <Stack
+                  spacing={1}
+                  direction={{ xs: "row", sm: "row" }}
+                  sx={{
+                    width: "100%",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <Typography gutterBottom variant="p" component="div">
+                    Conductor extra
+                  </Typography>
+                  <Typography gutterBottom variant="p" component="div">
+                    + {(extras.drivers * priceExtraDrivers).toFixed(2)}€
+                  </Typography>
+                </Stack>
+              )}
             </Application>
           </Stack>
         </CardActions>
@@ -248,7 +339,7 @@ export default function ConfirmationCard({ car, boocking }) {
             variant="contained"
             className="m-auto"
             onClick={() => {
-              handleReservation(car, boocking);
+              handleReservation(car, booking);
             }}
           >
             Reservar &nbsp;

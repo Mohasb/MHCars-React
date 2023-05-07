@@ -14,10 +14,9 @@ export default function ConfirmationBoocking() {
       navigate("/");
     }
   }, []);
-
   return (
     <>
-      <ConfirmationCard car={data.car} boocking={data.boocking} />
+      <ConfirmationCard car={data.car} booking={data.booking} />
     </>
   );
 }
