@@ -32,7 +32,7 @@ export const SearchCar = () => {
   const [errorDates, setErrorDates] = useState();
   //to navigate to other routes
   const navigate = useNavigate();
-  //
+  //to sessionStorage
   const [cars, setCars] = useState([]);
   const [booking, setBooking] = useState([]);
 

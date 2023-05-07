@@ -5,11 +5,3 @@ npm run dev
 
 tema doble sucursal: dos endpoints. Si se usa el de doble sucursal llamada a otro eeendpoint 
 si se usa doble al hacer la reserva-> quita el coche de disponibilidad de la branch antigua en el planning->establece el id del coche con la sucursal nueva
-Modificar contraseña del user en back con esto:
-----------------------------------------------------------------
-/*- at least 8 characters
-      - must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number
-      - Can contain special characters*/
--------------------------------------------------------------------------
-
---Arreglar si se recarga en reserva/coches y no hay localstorage con la consulta

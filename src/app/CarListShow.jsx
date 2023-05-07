@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import CarList from "../components/carList/CarList";
 
 export default function CarListShow() {
+  const savedData = JSON.parse(sessionStorage.getItem("data"));
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -11,8 +12,6 @@ export default function CarListShow() {
       navigate("/");
     }
   }, [navigate]);
-
-  const savedData = JSON.parse(sessionStorage.getItem("data"));
 
   return (
     <>
