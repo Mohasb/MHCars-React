@@ -15,6 +15,8 @@ import CardHeader from "@mui/material/CardHeader";
 
 export default function CarCard({ car, booking }) {
   const navigate = useNavigate();
+  console.log(car);
+  console.log(booking);
 
   const handleReservation = (car, booking) => {
     if (car && booking) {

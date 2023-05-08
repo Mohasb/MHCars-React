@@ -2,40 +2,40 @@
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { Button, CardActions } from "@mui/material";
+import { /*  Button, */ CardActionArea, CardActions } from "@mui/material";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import LocalGasStationIcon from "@mui/icons-material/LocalGasStation";
 import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 import SettingsIcon from "@mui/icons-material/Settings";
-import SellIcon from "@mui/icons-material/Sell";
+//import SellIcon from "@mui/icons-material/Sell";
 import CardHeader from "@mui/material/CardHeader";
-import { ReservationCar } from "../services/ReservationCarService";
-import { useNavigate } from "react-router-dom";
+//import { ReservationCar } from "../../Services/ReservationCarService";
+//import { useNavigate } from "react-router-dom";
 import { CheckboxToggle } from "react-rainbow-components";
 import { CounterInput } from "react-rainbow-components";
 import { themeRainbow } from "./Theme/ThemeRainbow";
 import { Application } from "react-rainbow-components";
 import Card from "@mui/material/Card";
 import { useEffect, useState } from "react";
+import _ from "lodash";
 
 export default function ConfirmationCard({ car, booking }) {
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
 
-  const handleReservation = (car, booking) => {
-    /* if (car && booking) {
+  /* const handleReservation = (car, booking) => {
+    if (car && booking) {
       const data = {
-        car,
-        booking,
-      };
-      sessionStorage.setItem("booking", JSON.stringify(data));
+        car, booking
+      }
+      sessionStorage.setItem('booking', JSON.stringify(data))
 
       navigate("/booking");
 
-      ReservationCar(car, booking);
-    } */
-    console.log();
-  };
+
+      //ReservationCar(car, booking);
+    }
+  }; */
   const [carCopy] = useState({ ...car });
   const priceIsOuterJourney = 54;
   const priceIsGps = 20;
@@ -43,7 +43,7 @@ export default function ConfirmationCard({ car, booking }) {
   const priceExtraDrivers = 50;
   const priceDay = 60;
   const [childSeats, setChildSeats] = useState(0);
-  const [drivers, setDrivers] = useState(1);
+  const [drivers, setDrivers] = useState(0);
   const [extras, setExtras] = useState({
     isOuterJourney: false,
     isGps: false,
@@ -106,59 +106,56 @@ export default function ConfirmationCard({ car, booking }) {
     carCopy.price += seatDiff * priceChildSeats;
   };
   const handleDrivers = (value) => {
-    if (/\d/.test(value))
-      if (value == 1) setDrivers(1);
-      else if (value > 4) setDrivers(4);
-      else setDrivers(value);
+    if (value > 4) setDrivers(4);
+    else setDrivers(value);
     const newValue = value;
     const driversDiff = newValue - drivers;
     carCopy.price += driversDiff * priceExtraDrivers;
   };
 
-  const handleKeyDownNumbers = () => {
-    if (!/\d|Backspace|Delete|ArrowLeft|ArrowRight/.test(window.event.key)) {
-      // Cancelar la acción predeterminada si es un carácter no válido
-      window.event.preventDefault();
-    }
-  };
-
   return (
     <>
       <Card sx={{ maxWidth: 400, minWidth: 350 }} car={car}>
-        <CardHeader
-          sx={{ textAlign: "center" }}
-          title={`${car.brand} ${car.model}`}
-          subheader=""
-        />
-        <CardMedia
-          component="img"
-          image={`./src/assets/Cars/${car.image}.webp`}
-          alt={`car ${car.brand}`}
-        />
+        <CardActionArea
+          onClick={() => {
+            //handleReservation(car, booking);
+          }}
+        >
+          <CardHeader
+            sx={{ textAlign: "center" }}
+            title={`${car.brand} ${car.model}`}
+            subheader=""
+          />
+          <CardMedia
+            component="img"
+            image={`./src/assets/Cars/${car.image}.webp`}
+            alt={`car ${car.brand}`}
+          />
 
-        <CardContent>
-          <Stack
-            spacing={1}
-            direction={{ xs: "column", sm: "row" }}
-            sx={{ justifyContent: "center" }}
-          >
-            <Chip
-              icon={<DirectionsCarIcon color="secondary" />}
-              label={`Clase: ${car.category}`}
-              variant="outlined"
-            />
-            <Chip
-              icon={<SettingsIcon color="primary" />}
-              label={car.gearShiftType}
-              variant="outlined"
-            />
-            <Chip
-              icon={<LocalGasStationIcon color="secondary" />}
-              label={car.fuelType}
-              variant="outlined"
-            />
-          </Stack>
-        </CardContent>
+          <CardContent>
+            <Stack
+              spacing={1}
+              direction={{ xs: "column", sm: "row" }}
+              sx={{ justifyContent: "center" }}
+            >
+              <Chip
+                icon={<DirectionsCarIcon color="secondary" />}
+                label={`Clase: ${car.category}`}
+                variant="outlined"
+              />
+              <Chip
+                icon={<SettingsIcon color="primary" />}
+                label={car.gearShiftType}
+                variant="outlined"
+              />
+              <Chip
+                icon={<LocalGasStationIcon color="secondary" />}
+                label={car.fuelType}
+                variant="outlined"
+              />
+            </Stack>
+          </CardContent>
+        </CardActionArea>
         <CardActions>
           <Stack
             spacing={1}
@@ -200,7 +197,6 @@ export default function ConfirmationCard({ car, booking }) {
                   className="rainbow-m-vertical_x-large rainbow-p-horizontal_medium rainbow-m_auto"
                   value={childSeats}
                   onChange={handleChildSeats}
-                  onKeyDown={handleKeyDownNumbers}
                   min={0}
                   max={4}
                 />
@@ -212,8 +208,7 @@ export default function ConfirmationCard({ car, booking }) {
                   className="rainbow-m-vertical_x-large rainbow-p-horizontal_medium rainbow-m_auto"
                   value={drivers}
                   onChange={handleDrivers}
-                  onKeyDown={handleKeyDownNumbers}
-                  min={1}
+                  min={0}
                   max={4}
                 />
               </Stack>
@@ -230,7 +225,7 @@ export default function ConfirmationCard({ car, booking }) {
                   Total (impuestos incluidos)
                 </Typography>
                 <Typography gutterBottom variant="h5" component="div">
-                  {(carCopy.price + days() * priceDay).toFixed(2)}
+                  {carCopy.price.toFixed(2)}
                 </Typography>
               </Stack>
               <Stack
@@ -262,7 +257,7 @@ export default function ConfirmationCard({ car, booking }) {
                   Total dias: {days()}
                 </Typography>
                 <Typography gutterBottom variant="p" component="div">
-                  {days() * priceDay}
+                  + {days() * priceDay}
                 </Typography>
               </Stack>
               {extras.isOuterJourney && (
@@ -316,7 +311,7 @@ export default function ConfirmationCard({ car, booking }) {
                   </Typography>
                 </Stack>
               )}
-              {extras.drivers > 1 && (
+              {!!extras.drivers && (
                 <Stack
                   spacing={1}
                   direction={{ xs: "row", sm: "row" }}
@@ -329,7 +324,7 @@ export default function ConfirmationCard({ car, booking }) {
                     Conductor extra
                   </Typography>
                   <Typography gutterBottom variant="p" component="div">
-                    + {((extras.drivers - 1) * priceExtraDrivers).toFixed(2)}€
+                    + {(extras.drivers * priceExtraDrivers).toFixed(2)}€
                   </Typography>
                 </Stack>
               )}
@@ -337,7 +332,7 @@ export default function ConfirmationCard({ car, booking }) {
           </Stack>
         </CardActions>
 
-        <CardActions>
+        {/*         <CardActions>
           <Button
             size="large"
             color="secondary"
@@ -347,11 +342,18 @@ export default function ConfirmationCard({ car, booking }) {
               handleReservation(car, booking);
             }}
           >
-            CONFIRMAR RESERVA &nbsp;
+            Reservar &nbsp;
             <SellIcon color="primary" />
           </Button>
-        </CardActions>
+        </CardActions> */}
       </Card>
     </>
   );
 }
+
+const styles = {
+  cardAction: {
+    display: "block",
+    textAlign: "initial",
+  },
+};
