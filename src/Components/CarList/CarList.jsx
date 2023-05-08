@@ -92,7 +92,6 @@ export default function CarList({ cars, booking }) {
 
       {/* //////////////////////////////////////// */}
 
-      <Application theme={themeRainbow}>
         <Box style={{ textAlign: "center" }}>
           <Stack
             spacing={0}
@@ -145,7 +144,6 @@ export default function CarList({ cars, booking }) {
             </div>
           </Stack>
         </Box>
-      </Application>
 
       {/* ////////////////////////// */}
       <Box sx={{ flexGrow: 1 }}>
