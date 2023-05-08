@@ -36,12 +36,12 @@ export default function ConfirmationCard({ car, booking }) {
     } */
     console.log();
   };
-  const [carCopy] = useState({ ...car });
   const priceIsOuterJourney = 54;
   const priceIsGps = 20;
   const priceChildSeats = 30;
   const priceExtraDrivers = 50;
-  const priceDay = 60;
+  const [priceExtras, setPriceExtras] = useState(0);
+
   const [childSeats, setChildSeats] = useState(0);
   const [drivers, setDrivers] = useState(1);
   const [extras, setExtras] = useState({
@@ -73,25 +73,36 @@ export default function ConfirmationCard({ car, booking }) {
 
   const handleCheckbox = () => {
     const name = window.event.target.name;
+    console.log(name);
+    console.log(priceExtras);
     switch (name) {
       case "isOutherJourney":
         setExtras((prevState) => ({
           ...prevState,
           isOuterJourney: !prevState.isOuterJourney,
         }));
-        !extras.isOuterJourney
-          ? (carCopy.price += priceIsOuterJourney)
+        /* !extras.isOuterJourney
+          ? (carCopy.price += priceIsOuterJourney) 
+          setCarCopy((prevState) => ({
+            ...prevState,
+            price: 1000,
+          }))
           : (carCopy.price -= priceIsOuterJourney);
-
+        console.log(carCopy.price); */
+        !extras.isOuterJourney
+          ? setPriceExtras(priceExtras + priceIsOuterJourney)
+          : setPriceExtras(priceExtras - priceIsOuterJourney);
+        console.log(priceExtras);
         break;
+
       case "isGps":
         setExtras((prevState) => ({
           ...prevState,
           isGps: !prevState.isGps,
         }));
         !extras.isGps
-          ? (carCopy.price += priceIsGps)
-          : (carCopy.price -= priceIsGps);
+          ? setPriceExtras(priceExtras + priceIsGps)
+          : setPriceExtras(priceExtras - priceIsGps);
         break;
       default:
         break;
@@ -102,7 +113,7 @@ export default function ConfirmationCard({ car, booking }) {
     else setChildSeats(value);
     const newValue = value;
     const seatDiff = newValue - childSeats;
-    carCopy.price += seatDiff * priceChildSeats;
+    setPriceExtras(priceExtras + seatDiff * priceChildSeats);
   };
   const handleDrivers = (value) => {
     if (/\d/.test(value))
@@ -111,11 +122,11 @@ export default function ConfirmationCard({ car, booking }) {
       else setDrivers(value);
     const newValue = value;
     const driversDiff = newValue - drivers;
-    carCopy.price += driversDiff * priceExtraDrivers;
+    setPriceExtras(priceExtras + driversDiff * priceExtraDrivers);
   };
 
   const handleKeyDownNumbers = () => {
-    if (!/\d|Backspace|Delete|ArrowLeft|ArrowRight/.test(window.event.key)) {
+    if (!/\d|ArrowLeft|ArrowRight/.test(window.event.key)) {
       // Cancelar la acción predeterminada si es un carácter no válido
       window.event.preventDefault();
     }
@@ -123,6 +134,7 @@ export default function ConfirmationCard({ car, booking }) {
 
   return (
     <>
+      {priceExtras}
       <Card sx={{ maxWidth: 400, minWidth: 350 }} car={car}>
         <CardHeader
           sx={{ textAlign: "center" }}
@@ -183,8 +195,8 @@ export default function ConfirmationCard({ car, booking }) {
                   value={extras.isOuterJourney}
                 />
                 <CheckboxToggle
-                id="isGps"
-                name="isGps"
+                  id="isGps"
+                  name="isGps"
                   label="No te pierdas y ahorra tiempo con un GPS"
                   style={{
                     width: "100%",
@@ -232,7 +244,7 @@ export default function ConfirmationCard({ car, booking }) {
                   Total (impuestos incluidos)
                 </Typography>
                 <Typography gutterBottom variant="h5" component="div">
-                  {(carCopy.price + days() * priceDay).toFixed(2)}
+                  {car.price * days() + priceExtras}
                 </Typography>
               </Stack>
               <Stack
@@ -245,26 +257,10 @@ export default function ConfirmationCard({ car, booking }) {
                 }}
               >
                 <Typography gutterBottom variant="p" component="div">
-                  Sub Total(coche)
+                  ({car.price.toFixed(2)} * {days()} dias)
                 </Typography>
                 <Typography gutterBottom variant="p" component="div">
-                  {car.price.toFixed(2)}
-                </Typography>
-              </Stack>
-              <Stack
-                spacing={1}
-                direction={{ xs: "row", sm: "row" }}
-                sx={{
-                  width: "100%",
-                  margin: "0",
-                  justifyContent: "space-between",
-                }}
-              >
-                <Typography gutterBottom variant="p" component="div">
-                  Total dias: {days()}
-                </Typography>
-                <Typography gutterBottom variant="p" component="div">
-                  {days() * priceDay}
+                  {car.price.toFixed(2) * days()}
                 </Typography>
               </Stack>
               {extras.isOuterJourney && (
