@@ -72,10 +72,9 @@ export default function ConfirmationCard({ car, booking }) {
   }, [drivers]);
 
   const handleCheckbox = () => {
-    const name = event.target.name;
-    console.log(carCopy);
+    const name = window.event.target.name;
     switch (name) {
-      case "checkbox-toggle-1":
+      case "isOutherJourney":
         setExtras((prevState) => ({
           ...prevState,
           isOuterJourney: !prevState.isOuterJourney,
@@ -85,7 +84,7 @@ export default function ConfirmationCard({ car, booking }) {
           : (carCopy.price -= priceIsOuterJourney);
 
         break;
-      case "checkbox-toggle-2":
+      case "isGps":
         setExtras((prevState) => ({
           ...prevState,
           isGps: !prevState.isGps,
@@ -173,6 +172,7 @@ export default function ConfirmationCard({ car, booking }) {
               >
                 <CheckboxToggle
                   id="isOutherJourney"
+                  name="isOutherJourney"
                   label="¿Vas a conducir por Portugal, Francia o Andorra?"
                   style={{
                     width: "100%",
@@ -183,6 +183,8 @@ export default function ConfirmationCard({ car, booking }) {
                   value={extras.isOuterJourney}
                 />
                 <CheckboxToggle
+                id="isGps"
+                name="isGps"
                   label="No te pierdas y ahorra tiempo con un GPS"
                   style={{
                     width: "100%",

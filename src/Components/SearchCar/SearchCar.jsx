@@ -38,7 +38,6 @@ export const SearchCar = () => {
 
   useEffect(() => {
     if (cars.length && booking) {
-      console.log(cars);
       sessionStorage.setItem("data", JSON.stringify({ cars, booking }));
       navigate("/reserva/coche");
     }
