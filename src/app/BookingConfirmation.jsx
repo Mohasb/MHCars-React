@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import ConfirmationCard from "../Components/ConfirmationCard";
+import ConfirmationCard from "../components/ConfirmationCard";
 
 export default function ConfirmationBoocking() {
   const navigate = useNavigate();
@@ -16,7 +16,7 @@ export default function ConfirmationBoocking() {
   }, []);
   return (
     <>
-      {data && <ConfirmationCard car={data.car} booking={data.booking}/>}
+      <ConfirmationCard car={data.car} booking={data.booking} />
     </>
   );
 }
