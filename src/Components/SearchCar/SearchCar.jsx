@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 //Components
 import DateRange from "./Components/DateRange";
@@ -32,11 +32,27 @@ export const SearchCar = () => {
   const [errorDates, setErrorDates] = useState();
   //to navigate to other routes
   const navigate = useNavigate();
+  //to sessionStorage
+  const [cars, setCars] = useState([]);
+  const [booking, setBooking] = useState([]);
+
+  const [pickupTime, setPickupTime] = useState("12:00");
+  const [returnTime, setReturnTime] = useState("12:00");
+
+
+
+
+  useEffect(() => {
+    if (cars.length && booking) {
+      sessionStorage.setItem("data", JSON.stringify({ cars, booking }));
+      navigate("/reserva/coche");
+    }
+  }, [cars, booking, navigate]);
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   function validateValues(branch, returnBranch, bookingDates, age) {
     errorHandler();
-    fetchDataSetStorage(
+    fetchData(
       areCheckTwoBranches,
       branch,
       returnBranch,
@@ -62,7 +78,7 @@ export const SearchCar = () => {
             errorBranch1={errorBranch1}
             setErrorBranch1={setErrorBranch1}
           />
-          {areCheckTwoBranches && <Time name="Recogida" />}
+          {areCheckTwoBranches && <Time name="Recogida" setPickupTime={setPickupTime}/>}
         </Stack>
         {!areCheckTwoBranches && (
           <Stack
@@ -74,8 +90,8 @@ export const SearchCar = () => {
               marginTop: "1rem",
             }}
           >
-            <Time name="recogida" />
-            <Time name="devolución" />
+            <Time name="recogida" setPickupTime={setPickupTime}/>
+            <Time name="devolución" setReturnTime={setReturnTime}/>
           </Stack>
         )}
         <CheckBoxTwoBranches setCheckTwoBranches={setCheckTwoBranches} />
@@ -91,7 +107,7 @@ export const SearchCar = () => {
               errorBranch2={errorBranch2}
               setErrorBranch2={setErrorBranch2}
             />
-            <Time name="Devolución" />
+            <Time name="Devolución" setReturnTime={setReturnTime}/>
           </Stack>
         )}
         <label
@@ -142,7 +158,7 @@ export const SearchCar = () => {
       setErrorBranch2("Selecciona una sucursal de devolución");
     }
   }
-  function fetchDataSetStorage(
+  function fetchData(
     areCheckTwoBranches,
     branch,
     returnBranch,
@@ -162,12 +178,12 @@ export const SearchCar = () => {
         bookingDates = {
           startDate: start.toISOString().split("T")[0],
           endDate: bookingDates.range[1].toISOString().split("T")[0],
+          pickupTime: pickupTime,
+          returnTime: returnTime
         };
 
-        const consulta = { branch, bookingDates, age };
-
-        fetchCars(consulta);
-        navigate("/reserva/coche");
+        const booking = { branch, bookingDates, age };
+        fetchCars(booking, setCars, setBooking);
       }
     } else {
       if (
@@ -180,11 +196,14 @@ export const SearchCar = () => {
         bookingDates = {
           startDate: bookingDates.range[0].toISOString().split("T")[0],
           endDate: bookingDates.range[1].toISOString().split("T")[0],
+          pickupTime: pickupTime,
+          returnTime: returnTime
         };
 
-        const consulta = { branch, returnBranch, bookingDates, age };
+        const booking = { branch, returnBranch, bookingDates, age };
 
-        fetchCars(consulta);
+        fetchCars(booking, setCars);
+
         navigate("/reserva/coche");
       }
     }

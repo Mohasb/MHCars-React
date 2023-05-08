@@ -12,7 +12,14 @@ export default function Time(props) {
           id="time-picker-1"
           value={state.time}
           placeholder={`Hora ${props.name}`}
-          onChange={(value) => setState({ time: value })}
+          onChange={(value) => {
+            setState({ time: value })
+            if (props.name === "recogida") {
+              props.setPickupTime(value)
+            }else {
+              props.setReturnTime(value)
+            }
+          }}
           style={containerStyles}
           className="rainbow-m-vertical_x-large rainbow-p-horizontal_medium rainbow-m_auto m-0 "
           size="large"

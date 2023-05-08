@@ -2,40 +2,40 @@
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { /*  Button, */ CardActionArea, CardActions } from "@mui/material";
+import { Button, CardActions } from "@mui/material";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import LocalGasStationIcon from "@mui/icons-material/LocalGasStation";
 import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 import SettingsIcon from "@mui/icons-material/Settings";
-//import SellIcon from "@mui/icons-material/Sell";
+import SellIcon from "@mui/icons-material/Sell";
 import CardHeader from "@mui/material/CardHeader";
-//import { ReservationCar } from "../../Services/ReservationCarService";
-//import { useNavigate } from "react-router-dom";
+import { ReservationCar } from "../services/ReservationCarService";
+import { useNavigate } from "react-router-dom";
 import { CheckboxToggle } from "react-rainbow-components";
 import { CounterInput } from "react-rainbow-components";
 import { themeRainbow } from "./Theme/ThemeRainbow";
 import { Application } from "react-rainbow-components";
 import Card from "@mui/material/Card";
 import { useEffect, useState } from "react";
-import _ from "lodash";
 
 export default function ConfirmationCard({ car, booking }) {
-  //const navigate = useNavigate();
+  const navigate = useNavigate();
 
-  /* const handleReservation = (car, booking) => {
-    if (car && booking) {
+  const handleReservation = (car, booking) => {
+    /* if (car && booking) {
       const data = {
-        car, booking
-      }
-      sessionStorage.setItem('booking', JSON.stringify(data))
+        car,
+        booking,
+      };
+      sessionStorage.setItem("booking", JSON.stringify(data));
 
       navigate("/booking");
 
-
-      //ReservationCar(car, booking);
-    }
-  }; */
+      ReservationCar(car, booking);
+    } */
+    console.log();
+  };
   const [carCopy] = useState({ ...car });
   const priceIsOuterJourney = 54;
   const priceIsGps = 20;
@@ -43,7 +43,7 @@ export default function ConfirmationCard({ car, booking }) {
   const priceExtraDrivers = 50;
   const priceDay = 60;
   const [childSeats, setChildSeats] = useState(0);
-  const [drivers, setDrivers] = useState(0);
+  const [drivers, setDrivers] = useState(1);
   const [extras, setExtras] = useState({
     isOuterJourney: false,
     isGps: false,
@@ -72,10 +72,9 @@ export default function ConfirmationCard({ car, booking }) {
   }, [drivers]);
 
   const handleCheckbox = () => {
-    const name = event.target.name;
-    console.log(carCopy);
+    const name = window.event.target.name;
     switch (name) {
-      case "checkbox-toggle-1":
+      case "isOutherJourney":
         setExtras((prevState) => ({
           ...prevState,
           isOuterJourney: !prevState.isOuterJourney,
@@ -85,7 +84,7 @@ export default function ConfirmationCard({ car, booking }) {
           : (carCopy.price -= priceIsOuterJourney);
 
         break;
-      case "checkbox-toggle-2":
+      case "isGps":
         setExtras((prevState) => ({
           ...prevState,
           isGps: !prevState.isGps,
@@ -106,56 +105,59 @@ export default function ConfirmationCard({ car, booking }) {
     carCopy.price += seatDiff * priceChildSeats;
   };
   const handleDrivers = (value) => {
-    if (value > 4) setDrivers(4);
-    else setDrivers(value);
+    if (/\d/.test(value))
+      if (value == 1) setDrivers(1);
+      else if (value > 4) setDrivers(4);
+      else setDrivers(value);
     const newValue = value;
     const driversDiff = newValue - drivers;
     carCopy.price += driversDiff * priceExtraDrivers;
   };
 
+  const handleKeyDownNumbers = () => {
+    if (!/\d|Backspace|Delete|ArrowLeft|ArrowRight/.test(window.event.key)) {
+      // Cancelar la acción predeterminada si es un carácter no válido
+      window.event.preventDefault();
+    }
+  };
+
   return (
     <>
       <Card sx={{ maxWidth: 400, minWidth: 350 }} car={car}>
-        <CardActionArea
-          onClick={() => {
-            //handleReservation(car, booking);
-          }}
-        >
-          <CardHeader
-            sx={{ textAlign: "center" }}
-            title={`${car.brand} ${car.model}`}
-            subheader=""
-          />
-          <CardMedia
-            component="img"
-            image={`./src/assets/Cars/${car.image}.webp`}
-            alt={`car ${car.brand}`}
-          />
+        <CardHeader
+          sx={{ textAlign: "center" }}
+          title={`${car.brand} ${car.model}`}
+          subheader=""
+        />
+        <CardMedia
+          component="img"
+          image={`./src/assets/Cars/${car.image}.webp`}
+          alt={`car ${car.brand}`}
+        />
 
-          <CardContent>
-            <Stack
-              spacing={1}
-              direction={{ xs: "column", sm: "row" }}
-              sx={{ justifyContent: "center" }}
-            >
-              <Chip
-                icon={<DirectionsCarIcon color="secondary" />}
-                label={`Clase: ${car.category}`}
-                variant="outlined"
-              />
-              <Chip
-                icon={<SettingsIcon color="primary" />}
-                label={car.gearShiftType}
-                variant="outlined"
-              />
-              <Chip
-                icon={<LocalGasStationIcon color="secondary" />}
-                label={car.fuelType}
-                variant="outlined"
-              />
-            </Stack>
-          </CardContent>
-        </CardActionArea>
+        <CardContent>
+          <Stack
+            spacing={1}
+            direction={{ xs: "column", sm: "row" }}
+            sx={{ justifyContent: "center" }}
+          >
+            <Chip
+              icon={<DirectionsCarIcon color="secondary" />}
+              label={`Clase: ${car.category}`}
+              variant="outlined"
+            />
+            <Chip
+              icon={<SettingsIcon color="primary" />}
+              label={car.gearShiftType}
+              variant="outlined"
+            />
+            <Chip
+              icon={<LocalGasStationIcon color="secondary" />}
+              label={car.fuelType}
+              variant="outlined"
+            />
+          </Stack>
+        </CardContent>
         <CardActions>
           <Stack
             spacing={1}
@@ -170,6 +172,7 @@ export default function ConfirmationCard({ car, booking }) {
               >
                 <CheckboxToggle
                   id="isOutherJourney"
+                  name="isOutherJourney"
                   label="¿Vas a conducir por Portugal, Francia o Andorra?"
                   style={{
                     width: "100%",
@@ -180,6 +183,8 @@ export default function ConfirmationCard({ car, booking }) {
                   value={extras.isOuterJourney}
                 />
                 <CheckboxToggle
+                id="isGps"
+                name="isGps"
                   label="No te pierdas y ahorra tiempo con un GPS"
                   style={{
                     width: "100%",
@@ -197,6 +202,7 @@ export default function ConfirmationCard({ car, booking }) {
                   className="rainbow-m-vertical_x-large rainbow-p-horizontal_medium rainbow-m_auto"
                   value={childSeats}
                   onChange={handleChildSeats}
+                  onKeyDown={handleKeyDownNumbers}
                   min={0}
                   max={4}
                 />
@@ -208,7 +214,8 @@ export default function ConfirmationCard({ car, booking }) {
                   className="rainbow-m-vertical_x-large rainbow-p-horizontal_medium rainbow-m_auto"
                   value={drivers}
                   onChange={handleDrivers}
-                  min={0}
+                  onKeyDown={handleKeyDownNumbers}
+                  min={1}
                   max={4}
                 />
               </Stack>
@@ -225,7 +232,7 @@ export default function ConfirmationCard({ car, booking }) {
                   Total (impuestos incluidos)
                 </Typography>
                 <Typography gutterBottom variant="h5" component="div">
-                  {carCopy.price.toFixed(2)}
+                  {(carCopy.price + days() * priceDay).toFixed(2)}
                 </Typography>
               </Stack>
               <Stack
@@ -257,7 +264,7 @@ export default function ConfirmationCard({ car, booking }) {
                   Total dias: {days()}
                 </Typography>
                 <Typography gutterBottom variant="p" component="div">
-                  + {days() * priceDay}
+                  {days() * priceDay}
                 </Typography>
               </Stack>
               {extras.isOuterJourney && (
@@ -311,7 +318,7 @@ export default function ConfirmationCard({ car, booking }) {
                   </Typography>
                 </Stack>
               )}
-              {!!extras.drivers && (
+              {extras.drivers > 1 && (
                 <Stack
                   spacing={1}
                   direction={{ xs: "row", sm: "row" }}
@@ -324,7 +331,7 @@ export default function ConfirmationCard({ car, booking }) {
                     Conductor extra
                   </Typography>
                   <Typography gutterBottom variant="p" component="div">
-                    + {(extras.drivers * priceExtraDrivers).toFixed(2)}€
+                    + {((extras.drivers - 1) * priceExtraDrivers).toFixed(2)}€
                   </Typography>
                 </Stack>
               )}
@@ -332,7 +339,7 @@ export default function ConfirmationCard({ car, booking }) {
           </Stack>
         </CardActions>
 
-        {/*         <CardActions>
+        <CardActions>
           <Button
             size="large"
             color="secondary"
@@ -342,18 +349,11 @@ export default function ConfirmationCard({ car, booking }) {
               handleReservation(car, booking);
             }}
           >
-            Reservar &nbsp;
+            CONFIRMAR RESERVA &nbsp;
             <SellIcon color="primary" />
           </Button>
-        </CardActions> */}
+        </CardActions>
       </Card>
     </>
   );
 }
-
-const styles = {
-  cardAction: {
-    display: "block",
-    textAlign: "initial",
-  },
-};
