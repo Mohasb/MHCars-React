@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 //Components imports
 import "./NavBar.scss";
-import LoginModal from "../LoginModal";
+import Login from "../LoginModal";
 //Material UI imports
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -181,7 +181,7 @@ function ResponsiveAppBar() {
         </Toolbar>
       </Container>
       {openModal && (
-        <LoginModal openModal={openModal} setOpenModal={setOpenModal} />
+        <Login openModal={openModal} setOpenModal={setOpenModal} />
       )}
     </AppBar>
   );
