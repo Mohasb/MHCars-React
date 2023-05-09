@@ -5,3 +5,48 @@ npm run dev
 
 tema doble sucursal: dos endpoints. Si se usa el de doble sucursal llamada a otro eeendpoint 
 si se usa doble al hacer la reserva-> quita el coche de disponibilidad de la branch antigua en el planning->establece el id del coche con la sucursal nueva
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+const regexPassword =
+      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm;
+
+/* else if (password.length < 8) {
+      setErrors((prevState) => ({
+        ...prevState,
+        passwordError: "El password debe tener 8 caracteres como mínimo",
+      }));
+    }else if (!(/[A-Z]/).test(password)) {
+      setErrors((prevState) => ({
+        ...prevState,
+        passwordError: "El password debe tener al menos 1 letra mayuscula",
+      }));
+    }else if (!(/[a-z]/).test(password)) {
+      setErrors((prevState) => ({
+        ...prevState,
+        passwordError: "El password debe tener al menos 1 letra minuscula",
+      }));
+    }else if (!(/\d/).test(password)) {
+      setErrors((prevState) => ({
+        ...prevState,
+        passwordError: "El password debe tener al menos 1 numero",
+      }));
+    }else if (!regexPassword.test(password)) {
+      setErrors((prevState) => ({
+        ...prevState,
+        passwordError: "El password no es válido",
+      }));
+    } */
+    /*- at least 8 characters
+      - must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number
+      - Can contain special characters*/
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+

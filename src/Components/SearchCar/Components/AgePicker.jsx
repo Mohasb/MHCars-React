@@ -29,7 +29,7 @@ class SimpleRadioButtonGroup extends React.Component {
         options={options}
         value={value}
         onChange={this.handleOnChange}
-        size="large"
+        size="medium"
         variant="brand"
         borderRadius="semi-square"
         labelPosition="right"

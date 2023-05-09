@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 //Components imports
 import "./NavBar.scss";
@@ -17,16 +17,31 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
+import authService from "../../Services/login/auth.service";
 
-const pages = ["Home", "Oficinas", "Coches", "Servicios", "Acceso", "Admin"];
-const settings = ["Account", "Login", "Logout"];
+
 
 function ResponsiveAppBar() {
+  
+  const [isLogged, setIsLogged] = useState(false)
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [openModal, setOpenModal] = useState(false);
   const navigate = useNavigate();
+  
+  const pages = ["Home", "Oficinas", "Coches", "Servicios", "Acceso", isLogged ? "Admin": null];
+  const settings = isLogged ? ["Mi cuenta","Cerrar Sesión"]: ["Iniciar Sesión"];
+  
 
+
+
+  useEffect(() => {
+    if (localStorage.getItem("user")) {
+      setIsLogged(true);
+    }
+  },[])
+
+  
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -41,11 +56,14 @@ function ResponsiveAppBar() {
 
   const handleCloseUserMenu = (setting) => {
     setAnchorElUser(null);
-    if (setting === "Login") {
+    if (setting === "Iniciar Sesión") {
       setOpenModal(!openModal);
+    }else if (setting === "Cerrar Sesión") {
+      authService.logout()
+      setIsLogged(false);
+      navigate("/")
     }
-    console.log(setting);
-    typeof setting == "string" ? navigate("/" + setting.toLowerCase()) : "";
+    /* typeof setting == "string" ? navigate("/" + setting.toLowerCase()) : ""; */
   };
 
   return (
@@ -99,7 +117,7 @@ function ResponsiveAppBar() {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map((page) => (
+              {pages.map((page) => page && (
                 <MenuItem key={page} onClick={() => handleCloseNavMenu(page)}>
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
@@ -132,7 +150,8 @@ function ResponsiveAppBar() {
             </Typography>
           </Link>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
+            {pages.map((page) => {
+              (
               <Button
                 key={page}
                 value={page}
@@ -143,13 +162,13 @@ function ResponsiveAppBar() {
               >
                 {page}
               </Button>
-            ))}
+            )})}
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="https://i.pravatar.cc/600" />
+                <Avatar alt="Remy Sharp" src={isLogged ? "https://i.pravatar.cc/150?img=3": ""} />
               </IconButton>
             </Tooltip>
             <Menu
@@ -175,13 +194,14 @@ function ResponsiveAppBar() {
                 >
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
+                
               ))}
             </Menu>
           </Box>
         </Toolbar>
       </Container>
       {openModal && (
-        <Login openModal={openModal} setOpenModal={setOpenModal} />
+        <Login openModal={openModal} setOpenModal={setOpenModal} setIsLogged={setIsLogged}/>
       )}
     </AppBar>
   );

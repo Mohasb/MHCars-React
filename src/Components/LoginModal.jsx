@@ -1,14 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Modal, Button, Input, Application } from "react-rainbow-components";
+import authService from "../Services/login/auth.service";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginModal(props) {
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(props.openModal);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [emailUser, setEmail] = useState("");
+  const [passwordUser, setPassword] = useState("");
   const [errors, setErrors] = useState({
     emailError: "",
     passwordError: "",
   });
+
   const themeRainbow = {
     rainbow: {
       palette: {
@@ -19,6 +23,12 @@ export default function LoginModal(props) {
   const inputStyles = {
     width: 400,
   };
+
+  useEffect(() => {
+    if (localStorage.getItem("user")) {
+      props.setIsLogged(true);
+    }
+  }, []);
 
   const handleClickInput = (e) => {
     const name = e.target.name;
@@ -35,6 +45,12 @@ export default function LoginModal(props) {
   const elevateToParent = (state) => {
     props.setOpenModal(state);
   };
+  /* const handleChangeInput = (e) => {
+    const name = e.target.name;
+    name === "email"
+      ? setErrors((prevState) => ({ ...prevState, emailError: "" }))
+      : setErrors((prevState) => ({ ...prevState, passwordError: "" }));
+  } */
 
   const handleChangeEmail = (event) => {
     return setEmail(event.target.value);
@@ -46,8 +62,6 @@ export default function LoginModal(props) {
   const validateLogin = (email, password) => {
     const regexEmail =
       /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g;
-    const regexPassword =
-      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm;
 
     if (!email) {
       setErrors((prevState) => ({
@@ -59,6 +73,8 @@ export default function LoginModal(props) {
         ...prevState,
         emailError: "El email no es válido",
       }));
+    } else {
+      setEmail(email);
     }
     //////////////////////////////////////////////////////
     if (!password) {
@@ -66,31 +82,36 @@ export default function LoginModal(props) {
         ...prevState,
         passwordError: "Introduce una contraseña",
       }));
-    } else if (!regexPassword.test(password)) {
-      setErrors((prevState) => ({
-        ...prevState,
-        passwordError: "El password no es válido",
-      }));
+    } else {
+      setPassword(password);
     }
-    /*- at least 8 characters
-      - must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number
-      - Can contain special characters*/
-    try {
-      const response = fetch(`http://localhost:5134/api/custom/login`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: email,
-          password: password,
-        }),
-      })
-        .then((response) => response.json())
-        .then((response) => {
-          console.log(response);
-        });
-    } catch (error) {}
+
+    if (!!emailUser && !!passwordUser) {
+      login(emailUser, passwordUser);
+    }
+  };
+
+  const login = (email, password) => {
+    console.log(errors);
+    authService.login(email, password).then((response) => {
+      if (response.isOk) {
+        handleOnClose();
+        props.setIsLogged(true);
+        navigate("/");
+      } else {
+        if (response.responseText.includes("Usuario")) {
+          setErrors((prevState) => ({
+            ...prevState,
+            emailError: "Usuario no encontrado",
+          }));
+        } else {
+          setErrors((prevState) => ({
+            ...prevState,
+            passwordError: "El password no es correcto",
+          }));
+        }
+      }
+    });
   };
 
   return (
@@ -99,7 +120,7 @@ export default function LoginModal(props) {
         <Modal
           isOpen={isOpen}
           onRequestClose={handleOnClose}
-          title="LOGIN"
+          title="Iniciar Sessión"
           variant="brand"
           footer={
             <div className="rainbow-flex rainbow-justify_spread">
@@ -108,11 +129,12 @@ export default function LoginModal(props) {
                 variant="neutral"
                 onClick={handleOnClose}
               />
+              <p className="text-center">¿No tienes cuenta? Registrate</p>
               <Button
                 label="Login"
                 variant="brand"
                 onClick={() => {
-                  validateLogin(email, password);
+                  validateLogin(emailUser, passwordUser);
                   //this.handleOnClose();
                 }}
               />
@@ -129,8 +151,8 @@ export default function LoginModal(props) {
               className="rainbow-m-vertical_x-large rainbow-p-horizontal_medium rainbow-m_auto"
               borderRadius="semi-rounded"
               size="large"
-              value={email}
-              onChange={() => handleChangeEmail(window.event)}
+              value={emailUser}
+              onChange={handleChangeEmail}
               error={errors.emailError}
               onClick={handleClickInput}
             />
@@ -143,8 +165,8 @@ export default function LoginModal(props) {
               borderRadius="semi-rounded"
               style={inputStyles}
               size="large"
-              value={password}
-              onChange={() => handleChagePassword(window.event)}
+              value={passwordUser}
+              onChange={handleChagePassword}
               error={errors.passwordError}
               onClick={handleClickInput}
             />
