@@ -32,7 +32,6 @@ const login = (email, password) => {
       .then((response) => response.json())
       .then((response) => {
         if (response.isOk) {
-          console.log("Saved token");
           localStorage.setItem("user", JSON.stringify(response.userWithToken));
         }
         return response;

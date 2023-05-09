@@ -191,7 +191,8 @@ export const SearchCar = () => {
         typeof returnBranch !== "undefined" &&
         typeof bookingDates.range !== "undefined" &&
         bookingDates.range.length == 2
-      ) {
+        ) {
+        console.log("error");
         //format data
         bookingDates = {
           startDate: bookingDates.range[0].toISOString().split("T")[0],
@@ -202,7 +203,7 @@ export const SearchCar = () => {
 
         const booking = { branch, returnBranch, bookingDates, age };
 
-        fetchCars(booking, setCars);
+        fetchCars(booking, setCars, setBooking);
 
         navigate("/reserva/coche");
       }

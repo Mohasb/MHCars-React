@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Modal, Button, Input, Application } from "react-rainbow-components";
 import authService from "../Services/login/auth.service";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function LoginModal(props) {
   const navigate = useNavigate();
@@ -12,6 +13,7 @@ export default function LoginModal(props) {
     emailError: "",
     passwordError: "",
   });
+  
 
   const themeRainbow = {
     rainbow: {
@@ -92,7 +94,6 @@ export default function LoginModal(props) {
   };
 
   const login = (email, password) => {
-    console.log(errors);
     authService.login(email, password).then((response) => {
       if (response.isOk) {
         handleOnClose();
@@ -129,7 +130,7 @@ export default function LoginModal(props) {
                 variant="neutral"
                 onClick={handleOnClose}
               />
-              <p className="text-center">¿No tienes cuenta? Registrate</p>
+              <p className="text-center">¿No tienes cuenta?&nbsp;<Link to={"Registro"} onClick={handleOnClose}>Registrate</Link></p>
               <Button
                 label="Login"
                 variant="brand"
