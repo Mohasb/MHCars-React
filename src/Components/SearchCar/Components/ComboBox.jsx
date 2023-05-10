@@ -87,13 +87,13 @@ export default function ComboBoxBranches({
         errorBranch1 = "";
       }}
       groupBy={(options) => options.country}
-      sx={{
+      /* sx={{
         width: 500,
         input: { "&::placeholder": { fontSize: "1.3rem", fontFamily:"'Courier New', Courier, monospace ", color:"#a4a7b5", opacity:"100" } },
-        /*         "&:hover .MuiOutlinedInput-notchedOutline": {
+                "&:hover .MuiOutlinedInput-notchedOutline": {
           borderColor: "#bebebe",
-        }, */
-      }}
+        }, 
+      }} */
       isOptionEqualToValue={(option, value) => option.title === value.title}
       getOptionLabel={(options) =>
         options.name + ` (${options.population}, ${options.country})`

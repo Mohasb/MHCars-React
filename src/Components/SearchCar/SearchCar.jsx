@@ -39,9 +39,6 @@ export const SearchCar = () => {
   const [pickupTime, setPickupTime] = useState("12:00");
   const [returnTime, setReturnTime] = useState("12:00");
 
-
-
-
   useEffect(() => {
     if (cars.length && booking) {
       sessionStorage.setItem("data", JSON.stringify({ cars, booking }));
@@ -52,22 +49,16 @@ export const SearchCar = () => {
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   function validateValues(branch, returnBranch, bookingDates, age) {
     errorHandler();
-    fetchData(
-      areCheckTwoBranches,
-      branch,
-      returnBranch,
-      bookingDates,
-      age
-    );
+    fetchData(areCheckTwoBranches, branch, returnBranch, bookingDates, age);
   }
 
   return (
     <div
       className="rainbow-align-content_center rainbow-m-vertical_large rainbow-p-horizontal_small rainbow-m_auto"
-      style={containerStyles}
+      /* style={containerStyles} */
     >
       <Application theme={themeRainbow}>
-        <Stack
+        {/* <Stack
           spacing={0}
           direction={{ xs: "column", sm: "row" }}
           sx={{ justifyContent: "center", alignItems: "center" }}
@@ -78,23 +69,7 @@ export const SearchCar = () => {
             errorBranch1={errorBranch1}
             setErrorBranch1={setErrorBranch1}
           />
-          {areCheckTwoBranches && <Time name="Recogida" setPickupTime={setPickupTime}/>}
         </Stack>
-        {!areCheckTwoBranches && (
-          <Stack
-            spacing={0}
-            direction={{ xs: "row", sm: "row" }}
-            sx={{
-              justifyContent: "center",
-              alignItems: "center",
-              marginTop: "1rem",
-            }}
-          >
-            <Time name="recogida" setPickupTime={setPickupTime}/>
-            <Time name="devolución" setReturnTime={setReturnTime}/>
-          </Stack>
-        )}
-        <CheckBoxTwoBranches setCheckTwoBranches={setCheckTwoBranches} />
         {areCheckTwoBranches && (
           <Stack
             spacing={0}
@@ -107,24 +82,87 @@ export const SearchCar = () => {
               errorBranch2={errorBranch2}
               setErrorBranch2={setErrorBranch2}
             />
-            <Time name="Devolución" setReturnTime={setReturnTime}/>
+            <Stack
+              spacing={0}
+              direction={{ xs: "row", sm: "row" }}
+              sx={{
+                justifyContent: "center",
+                alignItems: "center",
+                marginTop: "1rem",
+              }}
+            >
+              <Time name="recogida" setPickupTime={setPickupTime} />
+              <Time name="devolución" setReturnTime={setReturnTime} />
+            </Stack>
           </Stack>
         )}
-        <label
-          style={{ width: "100%", textAlign: "center", marginTop: "1.4rem" }}
-        >
-          <span style={{ color: "red" }}>*</span> Fechas de reserva
-        </label>
         <DateRange
           setBookingDates={setBookingDates}
           errorDates={errorDates}
           setErrorDates={setErrorDates}
         />
-        <br />
-        <label style={{ width: "100%", textAlign: "center" }}>
-          <span style={{ color: "red" }}>*</span> Edad del conductor
-        </label>
+        <CheckBoxTwoBranches setCheckTwoBranches={setCheckTwoBranches} />
+        {!areCheckTwoBranches && (
+          <Stack
+            spacing={0}
+            direction={{ xs: "row", sm: "row" }}
+            sx={{
+              justifyContent: "center",
+              alignItems: "center",
+              marginTop: "1rem",
+            }}
+          >
+            <Time name="recogida" setPickupTime={setPickupTime} />
+            <Time name="devolución" setReturnTime={setReturnTime} />
+          </Stack>
+        )}
         <AgeRadioButtons setAge={setAge} />
+        <Box textAlign="center">
+          <Button
+            variant="brand"
+            className="rainbow-m-around_medium "
+            size="large"
+            borderRadius="semi-rounded"
+            onClick={() => {
+              validateValues(branch, returnBranch, bookingDates, age);
+            }}
+          >
+            Buscar
+          </Button>
+        </Box> */}
+        <ComboBoxBranches
+          name={"recogida"}
+          setBranch={setBranch}
+          errorBranch1={errorBranch1}
+          setErrorBranch1={setErrorBranch1}
+        />
+        <CheckBoxTwoBranches setCheckTwoBranches={setCheckTwoBranches} />
+        {areCheckTwoBranches && (
+          <ComboBoxBranches
+            name={"devolución"}
+            setReturnBranch={setReturnBranch}
+            errorBranch2={errorBranch2}
+            setErrorBranch2={setErrorBranch2}
+          />
+        )}
+        <DateRange
+          setBookingDates={setBookingDates}
+          errorDates={errorDates}
+          setErrorDates={setErrorDates}
+        />
+        <Stack
+            spacing={0}
+            direction={{ xs: "row", sm: "row" }}
+            sx={{
+              justifyContent: "center",
+              alignItems: "center",
+              marginTop: "1rem",
+            }}
+          >
+            <Time name="recogida" setPickupTime={setPickupTime} />
+            <Time name="devolución" setReturnTime={setReturnTime} />
+          </Stack>
+          <AgeRadioButtons setAge={setAge} />
         <Box textAlign="center">
           <Button
             variant="brand"
@@ -179,7 +217,7 @@ export const SearchCar = () => {
           startDate: start.toISOString().split("T")[0],
           endDate: bookingDates.range[1].toISOString().split("T")[0],
           pickupTime: pickupTime,
-          returnTime: returnTime
+          returnTime: returnTime,
         };
 
         const booking = { branch, bookingDates, age };
@@ -191,14 +229,14 @@ export const SearchCar = () => {
         typeof returnBranch !== "undefined" &&
         typeof bookingDates.range !== "undefined" &&
         bookingDates.range.length == 2
-        ) {
+      ) {
         console.log("error");
         //format data
         bookingDates = {
           startDate: bookingDates.range[0].toISOString().split("T")[0],
           endDate: bookingDates.range[1].toISOString().split("T")[0],
           pickupTime: pickupTime,
-          returnTime: returnTime
+          returnTime: returnTime,
         };
 
         const booking = { branch, returnBranch, bookingDates, age };
@@ -211,6 +249,6 @@ export const SearchCar = () => {
   }
 };
 
-const containerStyles = {
+/* const containerStyles = {
   maxWidth: 400,
-};
+}; */

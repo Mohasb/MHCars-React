@@ -48,11 +48,11 @@ export default function CarList({ cars, booking }) {
               <Typography gutterBottom variant="subtitle1" component="div">
                 {`${new Date(booking.bookingDates.startDate).toLocaleDateString(
                   "es-ES"
-                )} (${booking.branch.population})`}{" "}
+                )} ${booking.bookingDates.pickupTime} (${booking.branch.population})`}{" "}
                 {!booking.returnBranch
                   ? `- ${new Date(
                       booking.bookingDates.endDate
-                    ).toLocaleDateString("es-ES")} (${
+                    ).toLocaleDateString("es-ES")} ${booking.bookingDates.returnTime} (${
                       booking.branch.population
                     })`
                   : ""}
