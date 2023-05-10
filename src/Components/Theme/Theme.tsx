@@ -8,5 +8,16 @@ export const theme = createTheme({
         secondary: {
             main: "#0c3675"
         }
-    }
+    },
+    components: {
+        MuiOutlinedInput: {
+          styleOverrides: {
+            root: {
+              "&:hover .MuiOutlinedInput-notchedOutline": {
+                border: "none"
+              }
+            }
+          }
+        }
+      }
 })

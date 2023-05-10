@@ -29,7 +29,7 @@ function ResponsiveAppBar() {
   const [openModal, setOpenModal] = useState(false);
   const navigate = useNavigate();
   
-  const pages = ["Home", "Oficinas", "Coches", "Servicios", "Acceso", isLogged ? "Admin": null];
+  const pages = ["Home", "Oficinas", "Coches", "Servicios", "Acceso", "Admin"];
   const settings = isLogged ? ["Mi cuenta","Cerrar Sesión"]: ["Iniciar Sesión"];
   
 
@@ -117,15 +117,15 @@ function ResponsiveAppBar() {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map((page) => page && (
+              {pages.map((page) => 
                 <MenuItem key={page} onClick={() => handleCloseNavMenu(page)}>
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
-              ))}
+              )}
             </Menu>
           </Box>
           <Link to={"/"} style={{ textDecoration: "none" }}>
-            <Typography
+            {/* <Typography
               variant="h6"
               noWrap
               component="p"
@@ -142,12 +142,12 @@ function ResponsiveAppBar() {
               }}
             >
               RentCar
+            </Typography> */}
               <img
                 className="logo"
                 src="/src/assets/IconGifClear.gif"
                 alt="Icon RentCar"
               />
-            </Typography>
           </Link>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => {

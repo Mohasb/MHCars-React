@@ -4,6 +4,8 @@ import Autocomplete from "@mui/material/Autocomplete";
 import CircularProgress from "@mui/material/CircularProgress";
 import { styled, lighten, darken } from "@mui/system";
 import { useState, useEffect } from "react";
+import Paper from '@mui/material/Paper';
+
 
 /* function sleep(delay = 0) {
   return new Promise((resolve) => {
@@ -66,7 +68,7 @@ export default function ComboBoxBranches({
 
   return (
     <Autocomplete
-      id="asynchronous"
+      id={`asynchronous${name}`}
       open={open}
       onOpen={() => {
         setOpen(true);
@@ -87,13 +89,15 @@ export default function ComboBoxBranches({
         errorBranch1 = "";
       }}
       groupBy={(options) => options.country}
-      /* sx={{
-        width: 500,
-        input: { "&::placeholder": { fontSize: "1.3rem", fontFamily:"'Courier New', Courier, monospace ", color:"#a4a7b5", opacity:"100" } },
-                "&:hover .MuiOutlinedInput-notchedOutline": {
-          borderColor: "#bebebe",
-        }, 
-      }} */
+      sx={{
+        maxWidth: 600,
+        margin: "1rem auto",
+        "& .MuiInputBase-root ": {
+          backgroundColor: "#fff","&:hover":{border: "none"}
+        },
+        input: { "&::placeholder": {opacity:"100" },
+                  }, 
+      }} 
       isOptionEqualToValue={(option, value) => option.title === value.title}
       getOptionLabel={(options) =>
         options.name + ` (${options.population}, ${options.country})`

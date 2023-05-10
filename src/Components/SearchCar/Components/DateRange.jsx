@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 import { DatePicker } from "react-rainbow-components";
+import { Application } from "react-rainbow-components";
+import { themeRainbow } from "../../Theme/ThemeRainbow";
+import "./Style.scss"
 
 function DateRange(props) {
   const initialState = {
@@ -8,6 +11,9 @@ function DateRange(props) {
   const containerStyles = {
     padding: 0,
     margin: 0,
+    maxWidth:600,
+    margin:"1rem auto"
+    
   };
   const [state, setState] = useState(initialState);
 
@@ -16,7 +22,8 @@ function DateRange(props) {
   }, [props, state]);
 
   return (
-    <>
+    <Application theme={themeRainbow}>
+
       <div
         className="rainbow-align-content_center rainbow-m-vertical_large rainbow-p-horizontal_small rainbow-m_auto"
         style={containerStyles}
@@ -40,9 +47,10 @@ function DateRange(props) {
           onClick={() => {
             props.setErrorDates("");
           }}
+          onMouseOver="this.style.backgroundColor='#0F0'"
         />
       </div>
-    </>
+    </Application>
   );
 }
 export default DateRange;

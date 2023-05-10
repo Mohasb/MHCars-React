@@ -7,12 +7,9 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Unstable_Grid2";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
-//Rainbow
-import { Application } from "react-rainbow-components";
-import { themeRainbow } from "../Theme/ThemeRainbow";
+
 
 export default function CarList({ cars, booking }) {
-
   const [oilFilter, setOilFilter] = useState("todos");
   const [gearFilter, setGearFilter] = useState("todos");
   const [carTypeFilter, setCarTypeFilter] = useState("todos");

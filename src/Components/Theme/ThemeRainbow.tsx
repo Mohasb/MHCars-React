@@ -3,5 +3,5 @@ export const themeRainbow = {
       palette: {
         brand: "#F4B408",
       },
-    },
+    }, 
   };

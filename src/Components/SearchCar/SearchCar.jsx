@@ -46,123 +46,48 @@ export const SearchCar = () => {
     }
   }, [cars, booking, navigate]);
 
-  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////
   function validateValues(branch, returnBranch, bookingDates, age) {
     errorHandler();
-    fetchData(areCheckTwoBranches, branch, returnBranch, bookingDates, age);
+    fetchData(branch, returnBranch, bookingDates, age);
   }
 
   return (
-    <div
-      className="rainbow-align-content_center rainbow-m-vertical_large rainbow-p-horizontal_small rainbow-m_auto"
-      /* style={containerStyles} */
-    >
-      <Application theme={themeRainbow}>
-        {/* <Stack
-          spacing={0}
-          direction={{ xs: "column", sm: "row" }}
-          sx={{ justifyContent: "center", alignItems: "center" }}
-        >
-          <ComboBoxBranches
-            name={"recogida"}
-            setBranch={setBranch}
-            errorBranch1={errorBranch1}
-            setErrorBranch1={setErrorBranch1}
-          />
-        </Stack>
-        {areCheckTwoBranches && (
-          <Stack
-            spacing={0}
-            direction={{ xs: "column", sm: "row" }}
-            sx={{ justifyContent: "center", alignItems: "center" }}
-          >
-            <ComboBoxBranches
-              name={"devolución"}
-              setReturnBranch={setReturnBranch}
-              errorBranch2={errorBranch2}
-              setErrorBranch2={setErrorBranch2}
-            />
-            <Stack
-              spacing={0}
-              direction={{ xs: "row", sm: "row" }}
-              sx={{
-                justifyContent: "center",
-                alignItems: "center",
-                marginTop: "1rem",
-              }}
-            >
-              <Time name="recogida" setPickupTime={setPickupTime} />
-              <Time name="devolución" setReturnTime={setReturnTime} />
-            </Stack>
-          </Stack>
-        )}
-        <DateRange
-          setBookingDates={setBookingDates}
-          errorDates={errorDates}
-          setErrorDates={setErrorDates}
-        />
-        <CheckBoxTwoBranches setCheckTwoBranches={setCheckTwoBranches} />
-        {!areCheckTwoBranches && (
-          <Stack
-            spacing={0}
-            direction={{ xs: "row", sm: "row" }}
-            sx={{
-              justifyContent: "center",
-              alignItems: "center",
-              marginTop: "1rem",
-            }}
-          >
-            <Time name="recogida" setPickupTime={setPickupTime} />
-            <Time name="devolución" setReturnTime={setReturnTime} />
-          </Stack>
-        )}
-        <AgeRadioButtons setAge={setAge} />
-        <Box textAlign="center">
-          <Button
-            variant="brand"
-            className="rainbow-m-around_medium "
-            size="large"
-            borderRadius="semi-rounded"
-            onClick={() => {
-              validateValues(branch, returnBranch, bookingDates, age);
-            }}
-          >
-            Buscar
-          </Button>
-        </Box> */}
+    <div className="container" style={containerStyles}>
+      <ComboBoxBranches
+        name={"recogida"}
+        setBranch={setBranch}
+        errorBranch1={errorBranch1}
+        setErrorBranch1={setErrorBranch1}
+      />
+      {areCheckTwoBranches && (
         <ComboBoxBranches
-          name={"recogida"}
-          setBranch={setBranch}
-          errorBranch1={errorBranch1}
-          setErrorBranch1={setErrorBranch1}
+          name={"devolución"}
+          setReturnBranch={setReturnBranch}
+          errorBranch2={errorBranch2}
+          setErrorBranch2={setErrorBranch2}
         />
-        <CheckBoxTwoBranches setCheckTwoBranches={setCheckTwoBranches} />
-        {areCheckTwoBranches && (
-          <ComboBoxBranches
-            name={"devolución"}
-            setReturnBranch={setReturnBranch}
-            errorBranch2={errorBranch2}
-            setErrorBranch2={setErrorBranch2}
-          />
-        )}
-        <DateRange
-          setBookingDates={setBookingDates}
-          errorDates={errorDates}
-          setErrorDates={setErrorDates}
-        />
-        <Stack
-            spacing={0}
-            direction={{ xs: "row", sm: "row" }}
-            sx={{
-              justifyContent: "center",
-              alignItems: "center",
-              marginTop: "1rem",
-            }}
-          >
-            <Time name="recogida" setPickupTime={setPickupTime} />
-            <Time name="devolución" setReturnTime={setReturnTime} />
-          </Stack>
-          <AgeRadioButtons setAge={setAge} />
+      )}
+      <CheckBoxTwoBranches setCheckTwoBranches={setCheckTwoBranches} />
+      <DateRange
+        setBookingDates={setBookingDates}
+        errorDates={errorDates}
+        setErrorDates={setErrorDates}
+      />
+      <Stack
+        spacing={1}
+        direction={{ xs: "row", sm: "row" }}
+        sx={{
+          justifyContent: "center",
+          alignItems: "center",
+          marginTop: "1rem",
+        }}
+      >
+        <Time name="recogida" setPickupTime={setPickupTime} />
+        <Time name="devolución" setReturnTime={setReturnTime} />
+      </Stack>
+      <Application theme={themeRainbow}>
+        <AgeRadioButtons setAge={setAge} />
         <Box textAlign="center">
           <Button
             variant="brand"
@@ -196,59 +121,31 @@ export const SearchCar = () => {
       setErrorBranch2("Selecciona una sucursal de devolución");
     }
   }
-  function fetchData(
-    areCheckTwoBranches,
-    branch,
-    returnBranch,
-    bookingDates,
-    age
-  ) {
-    if (!areCheckTwoBranches) {
-      if (
-        typeof branch !== "undefined" &&
-        typeof bookingDates.range !== "undefined" &&
-        bookingDates.range.length == 2
-      ) {
-        //format data
-        const start = new Date(bookingDates.range[0]);
-        start.setDate(start.getDate() + 1);
+  function fetchData(branch, returnBranch, bookingDates, age) {
+    if (
+      typeof branch !== "undefined" &&
+      typeof bookingDates.range !== "undefined" &&
+      bookingDates.range.length == 2
+    ) {
+      //format data
+      const start = new Date(bookingDates.range[0]);
+      start.setDate(start.getDate() + 1);
 
-        bookingDates = {
-          startDate: start.toISOString().split("T")[0],
-          endDate: bookingDates.range[1].toISOString().split("T")[0],
-          pickupTime: pickupTime,
-          returnTime: returnTime,
-        };
+      bookingDates = {
+        startDate: start.toISOString().split("T")[0],
+        endDate: bookingDates.range[1].toISOString().split("T")[0],
+        pickupTime: pickupTime,
+        returnTime: returnTime,
+      };
+      typeof returnBranch == "undefined" ? branch : returnBranch;
 
-        const booking = { branch, bookingDates, age };
-        fetchCars(booking, setCars, setBooking);
-      }
-    } else {
-      if (
-        typeof branch !== "undefined" &&
-        typeof returnBranch !== "undefined" &&
-        typeof bookingDates.range !== "undefined" &&
-        bookingDates.range.length == 2
-      ) {
-        console.log("error");
-        //format data
-        bookingDates = {
-          startDate: bookingDates.range[0].toISOString().split("T")[0],
-          endDate: bookingDates.range[1].toISOString().split("T")[0],
-          pickupTime: pickupTime,
-          returnTime: returnTime,
-        };
-
-        const booking = { branch, returnBranch, bookingDates, age };
-
-        fetchCars(booking, setCars, setBooking);
-
-        navigate("/reserva/coche");
-      }
+      const reserva = { branch, returnBranch, bookingDates, age };
+      fetchCars(reserva, setCars, setBooking);
     }
   }
 };
 
-/* const containerStyles = {
-  maxWidth: 400,
-}; */
+const containerStyles = {
+  //maxWidth: 400,
+  padding: "20px 20px",
+};
