@@ -7,6 +7,7 @@ import { ThemeProvider } from "@emotion/react";
 import { theme } from "./Components/Theme/Theme.js";
 import ResponsiveAppBar from "./Components/NavBar/NavBar";
 import ControlledOpenSpeedDial from "./Components/CircularMenu";
+import Footer from "./Components/footer/Footer"
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   //<React.StrictMode>
@@ -15,6 +16,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
       <ResponsiveAppBar />
       <App />
       <ControlledOpenSpeedDial />
+      <Footer/>
     </ThemeProvider>
   </BrowserRouter>
   //</React.StrictMode>,
