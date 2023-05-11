@@ -1,10 +1,10 @@
 import * as React from "react";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
+import { makeStyles } from '@mui/styles';
 import CircularProgress from "@mui/material/CircularProgress";
 import { styled, lighten, darken } from "@mui/system";
 import { useState, useEffect } from "react";
-import Paper from '@mui/material/Paper';
 
 
 /* function sleep(delay = 0) {
@@ -103,6 +103,7 @@ export default function ComboBoxBranches({
         options.name + ` (${options.population}, ${options.country})`
       }
       options={options}
+      formHelperText={{style: {color:"black"}}}
       loading={loading}
       renderInput={(params) => (
         <TextField

@@ -134,6 +134,11 @@ export default function Home() {
               </p>
             </div>
           </section>
+          <section>
+            <div className="parallax-three">
+              <h2>Footer</h2>
+            </div>
+          </section>
         </div>
       </main>
       

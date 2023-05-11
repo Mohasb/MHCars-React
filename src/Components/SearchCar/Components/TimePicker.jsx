@@ -16,6 +16,7 @@ export default function Time(props) {
         <TimePicker
           id="time-picker-1"
           value={state.time}
+          valueAlignment="center"
           placeholder={`Hora ${props.name}`}
           onChange={(value) => {
             setState({ time: value })

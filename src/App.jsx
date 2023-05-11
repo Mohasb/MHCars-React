@@ -6,9 +6,10 @@ import CarListShow from "./app/CarListShow";
 import AuthService from "./Services/login/auth.service";
 import { useState, useEffect } from "react";
 import Register from "./Components/Register";
+import NotFound from "./app/notFound/NotFound"
 
 function App() {
-  const [currentUser, setCurrentUser] = useState(undefined);
+  /* const [currentUser, setCurrentUser] = useState(undefined);
   const [rolUser, setRolUser] = useState("User");
 
   useEffect(() => {
@@ -17,10 +18,11 @@ function App() {
     if (user) {
       setCurrentUser(user);
     }
-  }, []);
+  }, []); */
   return (
     <>
       <Routes>
+        <Route path="*" element={<NotFound />} />
         <Route path="/" element={<Home />} />
         <Route path="/reserva/coche" element={<CarListShow />} />
         <Route path="/booking" element={<ConfirmationBoocking />} />

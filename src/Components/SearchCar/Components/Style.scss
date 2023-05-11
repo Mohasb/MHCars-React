@@ -1,21 +1,27 @@
 //background input age
 .sc-bZpYCy {
-    background-color: #fff !important;
+  background-color: #fff !important;
 }
 //color label checkbox
 .sc-edMVSI {
-    color: #fff !important;
+  color: #fff !important;
 }
 //Combobox branches
 .MuiInputBase-root {
-    .MuiInputBase-input {
-        &::placeholder {
-            color: rgb(164, 167, 181) !important;
-            font-family: system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans","Liberation Sans",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
-            font-weight: 500;
-            font-size: 1.25rem;
-        }
-        
+  .MuiInputBase-input {
+    font-weight: 400;
+    font-size: 1.25rem;
+    color: rgb(42, 48, 57);
+    line-height: 52.4px;
+    letter-spacing: 0.15008px;
+    text-align: center;
+    &::placeholder {
+      color: rgb(164, 167, 181) !important;
+      font-weight: 500;
+      font-size: 1.25rem;
     }
-
+  }
+  .MuiFormHelperText-root .Mui-error .MuiFormHelperText-sizeMedium .MuiFormHelperText-contained .css-1wc848c-MuiFormHelperText-root {
+    background-color: black ;
+  }
 }
