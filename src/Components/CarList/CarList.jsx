@@ -163,7 +163,7 @@ export default function CarList({ cars, booking }) {
             ))
           ) : (
             <Typography
-            style={{marginTop:100}} gutterTop variant="h4" component="p">
+            style={{marginTop:100}} gutterBottom variant="h4" component="p">
               No hay ningún resultado con estos filtros.
             </Typography>
           )}

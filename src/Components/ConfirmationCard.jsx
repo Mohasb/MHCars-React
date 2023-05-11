@@ -11,30 +11,50 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import SellIcon from "@mui/icons-material/Sell";
 import CardHeader from "@mui/material/CardHeader";
 import { ReservationCar } from "../services/ReservationCarService";
-import { useNavigate } from "react-router-dom";
 import { CheckboxToggle } from "react-rainbow-components";
 import { CounterInput } from "react-rainbow-components";
 import { themeRainbow } from "./Theme/ThemeRainbow";
 import { Application } from "react-rainbow-components";
 import Card from "@mui/material/Card";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import ContextUser from "../Services/contextUser/ContextUser";
 
 
 export default function ConfirmationCard({ car, booking }) {
-  const navigate = useNavigate();
+  //const [user, setUser] = useState(false)
+  /* const {
+    user,
+    setUser
+  } = useContext(ContextUser); */
+  const [user,setUser] = useContext(ContextUser)
+
+  useEffect(() => {
+    /* if (localStorage.getItem("user")) {
+      setUser(JSON.parse(localStorage.getItem("user")));
+    } */
+  },[]) 
 
   const handleReservation = (car, booking) => {
-    /* if (car && booking) {
-      const data = {
-        car,
-        booking,
-      };
-      sessionStorage.setItem("booking", JSON.stringify(data));
+    console.log(user);
+    if (car && booking) {
 
-      navigate("/booking");
 
-      ReservationCar(car, booking);
-    } */
+
+      //ReservationCar(car, booking); 
+      //console.log(user);
+
+      /* if (user !== null) {
+        console.log(JSON.parse(sessionStorage.getItem("booking")));
+        console.log(JSON.parse(localStorage.getItem("user")));
+        
+      }else {
+        console.log("no user");
+      } */
+
+
+
+
+    } 
   };
   const priceIsOuterJourney = 54;
   const priceIsGps = 20;

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 //Components imports
 import "./NavBar.scss";
 import Login from "../LoginModal";
+import authService from "../../Services/login/auth.service";
 //Material UI imports
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -17,7 +18,6 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import authService from "../../Services/login/auth.service";
 
 
 
@@ -61,7 +61,7 @@ function ResponsiveAppBar() {
     }else if (setting === "Cerrar Sesión") {
       authService.logout()
       setIsLogged(false);
-      navigate("/")
+      navigate(location.pathname)
     }
     /* typeof setting == "string" ? navigate("/" + setting.toLowerCase()) : ""; */
   };

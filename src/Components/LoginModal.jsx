@@ -3,6 +3,8 @@ import { Modal, Button, Input, Application } from "react-rainbow-components";
 import authService from "../Services/login/auth.service";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import ContextUser from "../Services/contextUser/ContextUser";
 
 export default function LoginModal(props) {
   const navigate = useNavigate();
@@ -13,7 +15,7 @@ export default function LoginModal(props) {
     emailError: "",
     passwordError: "",
   });
-  
+  const [user,setUser] = useContext(ContextUser)
 
   const themeRainbow = {
     rainbow: {
@@ -30,6 +32,8 @@ export default function LoginModal(props) {
     if (localStorage.getItem("user")) {
       props.setIsLogged(true);
     }
+    console.log(user);
+    //console.log(setUser);
   }, []);
 
   const handleClickInput = (e) => {
@@ -98,7 +102,8 @@ export default function LoginModal(props) {
       if (response.isOk) {
         handleOnClose();
         props.setIsLogged(true);
-        navigate("/");
+
+        navigate(location.pathname);
       } else {
         if (response.responseText.includes("Usuario")) {
           setErrors((prevState) => ({
@@ -130,7 +135,12 @@ export default function LoginModal(props) {
                 variant="neutral"
                 onClick={handleOnClose}
               />
-              <p className="text-center">¿No tienes cuenta?&nbsp;<Link to={"Registro"} onClick={handleOnClose}>Registrate</Link></p>
+              <p className="text-center">
+                ¿No tienes cuenta?&nbsp;
+                <Link to={"Registro"} onClick={handleOnClose}>
+                  Registrate
+                </Link>
+              </p>
               <Button
                 label="Login"
                 variant="brand"
