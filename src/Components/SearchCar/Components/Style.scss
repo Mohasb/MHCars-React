@@ -21,7 +21,17 @@
       font-size: 1.25rem;
     }
   }
-  .MuiFormHelperText-root .Mui-error .MuiFormHelperText-sizeMedium .MuiFormHelperText-contained .css-1wc848c-MuiFormHelperText-root {
-    background-color: black ;
-  }
+}
+//Error Datetime field
+.jHDbEO {
+  background-color: #FF0000 !important;
+  color: #fff !important;
+  border-radius: "5px" ;
+  width: 90%;
+  text-align: center;
+  border-radius: 5px;
+  user-select: none;
+  height: 1.5rem;
+  line-height: 1.5rem;
+
 }

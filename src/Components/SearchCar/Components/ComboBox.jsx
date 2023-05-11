@@ -1,7 +1,6 @@
 import * as React from "react";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
-import { makeStyles } from '@mui/styles';
 import CircularProgress from "@mui/material/CircularProgress";
 import { styled, lighten, darken } from "@mui/system";
 import { useState, useEffect } from "react";
@@ -92,8 +91,14 @@ export default function ComboBoxBranches({
       sx={{
         maxWidth: 600,
         margin: "1rem auto",
-        "& .MuiInputBase-root ": {
+        "& .MuiInputBase-root": {
           backgroundColor: "#fff","&:hover":{border: "none"}
+        },
+        "& .MuiFormHelperText-root": {
+          textAlign: "center",
+          background: "#FF0000",
+          color:"#fff !important",
+          borderRadius: "5px",
         },
         input: { "&::placeholder": {opacity:"100" },
                   }, 

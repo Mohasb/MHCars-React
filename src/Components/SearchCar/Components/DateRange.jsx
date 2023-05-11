@@ -12,8 +12,7 @@ function DateRange(props) {
     padding: 0,
     margin: 0,
     maxWidth:600,
-    margin:"1rem auto"
-    
+    margin:"1rem auto",
   };
   const [state, setState] = useState(initialState);
 
@@ -47,7 +46,6 @@ function DateRange(props) {
           onClick={() => {
             props.setErrorDates("");
           }}
-          onMouseOver="this.style.backgroundColor='#0F0'"
         />
       </div>
     </Application>
