@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { RadioButtonGroup } from "react-rainbow-components";
 import { Application } from "react-rainbow-components";
 import { themeRainbow } from "../Theme/ThemeRainbow";
+import Box from "@mui/material/Box";
+
 
 export default function FilterButtons(props) {
 
@@ -21,7 +23,9 @@ export default function FilterButtons(props) {
   return (
     <>
     <Application theme={themeRainbow}>
+      <Box textAlign="center">
 
+      <p>{`Tipo de ${props.filter}`}</p>
       <RadioButtonGroup
         id="radio-button-group-component-1"
         options={props.options}
@@ -31,9 +35,9 @@ export default function FilterButtons(props) {
         variant="brand"
         borderRadius="semi-rounded"
         style={{ margin: "10px" }}
-        label={`Tipo de ${props.filter}`}
         labelAlignment="center"
       />
+      </Box>
     </Application>
     </>
   );

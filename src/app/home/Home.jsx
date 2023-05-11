@@ -3,14 +3,13 @@ import "./Home.scss";
 
 export default function Home() {
   return (
-      <main>
+      <main className="main">
         <div id="parallax-world-of-ugg">
           <section>
             <div className="parallax-one">
               <SearchCar />
             </div>
           </section>
-
           <section>
             <div className="block">
               <p>

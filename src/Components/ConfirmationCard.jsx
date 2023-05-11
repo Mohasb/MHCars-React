@@ -19,6 +19,7 @@ import { Application } from "react-rainbow-components";
 import Card from "@mui/material/Card";
 import { useEffect, useState } from "react";
 
+
 export default function ConfirmationCard({ car, booking }) {
   const navigate = useNavigate();
 
@@ -34,7 +35,6 @@ export default function ConfirmationCard({ car, booking }) {
 
       ReservationCar(car, booking);
     } */
-    console.log();
   };
   const priceIsOuterJourney = 54;
   const priceIsGps = 20;
@@ -134,7 +134,7 @@ export default function ConfirmationCard({ car, booking }) {
 
   return (
     <>
-      {priceExtras}
+    <main className="main">
       <Card sx={{ maxWidth: 400, minWidth: 350 }} car={car}>
         <CardHeader
           sx={{ textAlign: "center" }}
@@ -190,6 +190,7 @@ export default function ConfirmationCard({ car, booking }) {
                     width: "100%",
                     justifyContent: "space-between",
                     flexDirection: "row-reverse",
+                    color:"#000"
                   }}
                   onChange={handleCheckbox}
                   value={extras.isOuterJourney}
@@ -240,11 +241,11 @@ export default function ConfirmationCard({ car, booking }) {
                   justifyContent: "space-between",
                 }}
               >
-                <Typography gutterBottom variant="h5" component="div">
-                  Total (impuestos incluidos)
+                <Typography gutterBottom variant="h3" component="div">
+                  Total
                 </Typography>
-                <Typography gutterBottom variant="h5" component="div">
-                  {car.price * days() + priceExtras}
+                <Typography gutterBottom variant="h3" component="div">
+                  {(car.price * days() + priceExtras).toFixed(2)}
                 </Typography>
               </Stack>
               <Stack
@@ -260,7 +261,7 @@ export default function ConfirmationCard({ car, booking }) {
                   ({car.price.toFixed(2)} * {days()} dias)
                 </Typography>
                 <Typography gutterBottom variant="p" component="div">
-                  {car.price.toFixed(2) * days()}
+                  {(car.price.toFixed(2) * days()).toFixed(2)}
                 </Typography>
               </Stack>
               {extras.isOuterJourney && (
@@ -344,12 +345,15 @@ export default function ConfirmationCard({ car, booking }) {
             onClick={() => {
               handleReservation(car, booking);
             }}
+            sx={{margin:"auto"}}
           >
             CONFIRMAR RESERVA &nbsp;
             <SellIcon color="primary" />
           </Button>
         </CardActions>
       </Card>
+
+    </main>
     </>
   );
 }

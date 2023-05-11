@@ -54,6 +54,9 @@ export const SearchCar = () => {
 
   return (
     <div className="container" style={containerStyles}>
+       <Box textAlign="center">
+
+      {/* <label htmlFor="" className="label-combobox">Sucursal De Recogida</label> */}
       <ComboBoxBranches
         name={"recogida"}
         setBranch={setBranch}
@@ -61,12 +64,15 @@ export const SearchCar = () => {
         setErrorBranch1={setErrorBranch1}
       />
       {areCheckTwoBranches && (
+        <>
+        {/* <label htmlFor="" className="label-combobox">Sucursal De Devolución</label> */}
         <ComboBoxBranches
           name={"devolución"}
           setReturnBranch={setReturnBranch}
           errorBranch2={errorBranch2}
           setErrorBranch2={setErrorBranch2}
         />
+        </>
       )}
       <CheckBoxTwoBranches setCheckTwoBranches={setCheckTwoBranches} />
       <DateRange
@@ -81,6 +87,7 @@ export const SearchCar = () => {
           justifyContent: "center",
           alignItems: "center",
           marginTop: "1rem",
+          width: "100%",
         }}
       >
         <Time name="recogida" setPickupTime={setPickupTime} />
@@ -88,7 +95,6 @@ export const SearchCar = () => {
       </Stack>
       <Application theme={themeRainbow}>
         <AgeRadioButtons setAge={setAge} />
-        <Box textAlign="center">
           <Button
             variant="brand"
             className="rainbow-m-around_medium "
@@ -100,8 +106,8 @@ export const SearchCar = () => {
           >
             Buscar
           </Button>
-        </Box>
       </Application>
+       </Box>
     </div>
   );
   /////////////////////////////////////////////HELPERS/////////////////////////////////////////////////////////
@@ -146,6 +152,6 @@ export const SearchCar = () => {
 };
 
 const containerStyles = {
-  //maxWidth: 400,
+  minWidth: 350,
   padding: "20px 20px",
 };

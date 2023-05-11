@@ -15,12 +15,9 @@ const actions = [
 
 export default function ControlledOpenSpeedDial() {
   const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-  //const navigate = useNavigate();
-  /* const goBack = () => {
-		navigate(-1);
-	} */
+  const handleclick = () => setOpen(!open);
+  const navigate = useNavigate();
+
 
   return (
     <Box
@@ -37,9 +34,10 @@ export default function ControlledOpenSpeedDial() {
         ariaLabel="SpeedDial controlled open example"
         sx={{ position: "absolute", bottom: 16, right: 16 }}
         icon={<SpeedDialIcon />}
-        onClose={handleClose}
-        onOpen={handleOpen}
+        /* onClose={handleClose}
+        onOpen={handleOpen} */
         open={open}
+        onClick={handleclick}
       >
         {actions.map((action) => (
           <SpeedDialAction
@@ -47,8 +45,10 @@ export default function ControlledOpenSpeedDial() {
             icon={action.icon}
             tooltipTitle={action.name}
             onClick={() => {
-              window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-              /*  action.name = "Volver" ? goBack():"" */
+              console.log(navigate);
+              action.name == "Volver"
+                ? navigate(-1)
+                : window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
             }}
           />
         ))}

@@ -24,7 +24,7 @@ class SimpleCheckboxToggle extends React.Component {
     const { value } = this.state;
     return (
       <CheckboxToggle
-        id="checkbox-toggle-component-1"
+        id="checkbox-two-branches"
         label="Devolver el vehículo en otra sucursal"
         value={value}
         onChange={this.handleOnChange}

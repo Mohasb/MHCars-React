@@ -148,8 +148,7 @@ export default function CarList({ cars, booking }) {
           container
           spacing={{ xs: 5, md: 5 }}
           columns={{ xs: 4, sm: 8, md: 12 }}
-          className="justify-content-center mt-4"
-          style={{ width: "100%" }}
+          style={{ width: "100%", justifyContent: "center" }}
         >
           {filteredCars.length ? (
             filteredCars.map((car) => (
@@ -163,8 +162,9 @@ export default function CarList({ cars, booking }) {
               </Grid>
             ))
           ) : (
-            <Typography gutterBottom variant="h6" component="div">
-              No hay coches con estas características
+            <Typography
+            style={{marginTop:100}} gutterTop variant="h4" component="p">
+              No hay ningún resultado con estos filtros.
             </Typography>
           )}
         </Grid>

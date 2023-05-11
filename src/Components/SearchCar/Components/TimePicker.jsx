@@ -4,7 +4,7 @@ import { Application } from "react-rainbow-components";
 import { themeRainbow } from "../../Theme/ThemeRainbow";
 
 const containerStyles = {
-  maxWidth: 350,
+  maxWidth: 250,
   margin:"1rem auto"
 };
 
@@ -27,7 +27,6 @@ export default function Time(props) {
             }
           }}
           style={containerStyles}
-          className="rainbow-m-vertical_x-large rainbow-p-horizontal_medium rainbow-m_auto m-0 p-0"
           size="large"
           borderRadius="semi-square"
           hour24

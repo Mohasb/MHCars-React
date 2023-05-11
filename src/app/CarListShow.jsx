@@ -15,7 +15,7 @@ export default function CarListShow() {
 
   return (
     <>
-      <main>
+      <main className="main">
         {savedData && (
           <CarList cars={savedData.cars} booking={savedData.booking} />
         )}

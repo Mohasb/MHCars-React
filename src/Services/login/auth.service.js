@@ -1,21 +1,3 @@
-//import axios from "axios";
-
-const API_URL = "http://localhost:5134/api/custom/login";
-
-/* const signup = (email, password) => {
-  return axios
-    .post(API_URL + "/signup", {
-      email,
-      password,
-    })
-    .then((response) => {
-      if (response.data.accessToken) {
-        localStorage.setItem("user", JSON.stringify(response.data));
-      }
-
-      return response.data;
-    });
-}; */
 
 const login = (email, password) => {
   try {
@@ -51,7 +33,6 @@ const getCurrentUser = () => {
 };
 
 const authService = {
-  //signup,
   login,
   logout,
   getCurrentUser,

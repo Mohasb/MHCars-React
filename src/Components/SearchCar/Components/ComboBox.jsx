@@ -4,6 +4,7 @@ import Autocomplete from "@mui/material/Autocomplete";
 import CircularProgress from "@mui/material/CircularProgress";
 import { styled, lighten, darken } from "@mui/system";
 import { useState, useEffect } from "react";
+import "./Style.scss"
 
 
 /* function sleep(delay = 0) {
@@ -66,6 +67,7 @@ export default function ComboBoxBranches({
   }, [open]);
 
   return (
+    <>
     <Autocomplete
       id={`asynchronous${name}`}
       open={open}
@@ -108,7 +110,6 @@ export default function ComboBoxBranches({
         options.name + ` (${options.population}, ${options.country})`
       }
       options={options}
-      formHelperText={{style: {color:"black"}}}
       loading={loading}
       renderInput={(params) => (
         <TextField
@@ -117,9 +118,6 @@ export default function ComboBoxBranches({
           helperText={errorBranch1 || errorBranch2}
           placeholder={"Sucursal " + name}
           InputProps={{
-            style: {
-              fontFamily: "sans-serif",
-            },
             ...params.InputProps,
             endAdornment: (
               <React.Fragment>
@@ -139,6 +137,7 @@ export default function ComboBoxBranches({
         </li>
       )}
     />
+    </>
   );
 }
 
