@@ -4,7 +4,7 @@
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif !important;
   //filter: invert(0.5);
-  cursor: none;
+  //cursor: none;
   //overflow-x: hidden;
 }
 
@@ -20,10 +20,10 @@
   position: absolute;
   background: #fff;
   border-radius: 100%;
-  transform: translate(-50%, -50%);
+  transform: translate(50%, -50%);
   transition: 0.075s;
   mix-blend-mode: difference;
-  z-index: 3;
+  z-index: 1;
 }
 
 
