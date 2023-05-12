@@ -1,21 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Modal, Button, Input, Application } from "react-rainbow-components";
 import authService from "../Services/login/auth.service";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { useContext } from "react";
-import ContextUser from "../Services/contextUser/ContextUser";
+import Context from "../Services/contextUser/ContextUser";
 
 export default function LoginModal(props) {
+
+
+
+  const {user, setUser} = useContext(Context)
+
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(props.openModal);
-  const [emailUser, setEmail] = useState("");
-  const [passwordUser, setPassword] = useState("");
+  const [emailUser, setEmail] = useState("Moha@gmail.com");
+  const [passwordUser, setPassword] = useState("Moha1234");
   const [errors, setErrors] = useState({
     emailError: "",
     passwordError: "",
   });
-  const [user,setUser] = useContext(ContextUser)
 
   const themeRainbow = {
     rainbow: {
@@ -32,8 +35,6 @@ export default function LoginModal(props) {
     if (localStorage.getItem("user")) {
       props.setIsLogged(true);
     }
-    console.log(user);
-    //console.log(setUser);
   }, []);
 
   const handleClickInput = (e) => {
@@ -102,7 +103,7 @@ export default function LoginModal(props) {
       if (response.isOk) {
         handleOnClose();
         props.setIsLogged(true);
-
+        setUser(response.userWithToken)
         navigate(location.pathname);
       } else {
         if (response.responseText.includes("Usuario")) {

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 //Components
 import DateRange from "./Components/DateRange";
@@ -14,6 +14,9 @@ import Stack from "@mui/material/Stack";
 //Fetch
 import { fetchCars } from "../../Services/SearchCarServices";
 import Time from "./Components/TimePicker";
+//
+import Context from "../../Services/contextUser/ContextUser";
+
 
 export const SearchCar = () => {
   //State of branch select

@@ -17,25 +17,21 @@ import { themeRainbow } from "./Theme/ThemeRainbow";
 import { Application } from "react-rainbow-components";
 import Card from "@mui/material/Card";
 import { useEffect, useState, useContext } from "react";
-import ContextUser from "../Services/contextUser/ContextUser";
+import Context from "../Services/contextUser/ContextUser";
 
 
 export default function ConfirmationCard({ car, booking }) {
-  //const [user, setUser] = useState(false)
-  /* const {
-    user,
-    setUser
-  } = useContext(ContextUser); */
-  const [user,setUser] = useContext(ContextUser)
+
+  const {user, setUser} = useContext(Context)
 
   useEffect(() => {
     /* if (localStorage.getItem("user")) {
       setUser(JSON.parse(localStorage.getItem("user")));
     } */
+    console.log(user);
   },[]) 
 
   const handleReservation = (car, booking) => {
-    console.log(user);
     if (car && booking) {
 
 

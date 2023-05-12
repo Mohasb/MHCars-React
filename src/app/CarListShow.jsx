@@ -7,14 +7,12 @@ import ContextUser from "../Services/contextUser/ContextUser";
 export default function CarListShow() {
   const savedData = JSON.parse(sessionStorage.getItem("data"));
   const navigate = useNavigate();
-  const [user,setUser] = useContext(ContextUser)
 
   useEffect(() => {
     const savedData = JSON.parse(sessionStorage.getItem("data"));
     if (!savedData) {
       navigate("/");
     }
-    console.log(user);
   }, [navigate]);
 
   return (
