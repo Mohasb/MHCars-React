@@ -1,14 +1,4 @@
-/* Override UGG site */
-#main {
-  width: 100%;
-  padding: 0;
-}
-.content-asset p {
-  margin: 0 auto;
-}
-.breadcrumb {
-  display: none;
-}
+
 
 /* Helpers */
 /**************************/
@@ -74,19 +64,6 @@
 }
 .atw {
   color: #c48660;
-}
-
-/* Section - Title */
-/**************************/
-#parallax-world-of-ugg .title {
-  background: white;
-  padding: 60px;
-  margin: 0 auto;
-  text-align: center;
-}
-#parallax-world-of-ugg .title h1 {
-  font-size: 35px;
-  letter-spacing: 8px;
 }
 
 /* Section - Block */

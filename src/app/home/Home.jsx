@@ -2,11 +2,18 @@ import { SearchCar } from "../../components/searchCar/SearchCar";
 import "./Home.scss";
 
 export default function Home() {
+
+
+  document.onmousemove = e => {
+	document.querySelector('.cursor').style.cssText = `top: ${e.pageY }px; left: ${e.pageX }px`;
+}
   return (
       <main className="main">
+        <div className="cursor"></div>
         <div id="parallax-world-of-ugg">
           <section>
             <div className="parallax-one">
+              <h2>Alquiler de coches</h2>
               <SearchCar />
             </div>
           </section>
@@ -49,7 +56,7 @@ export default function Home() {
 
           <section>
             <div className="parallax-two">
-              <h1>Benidorm</h1>
+              <h2>Benidorm</h2>
             </div>
           </section>
 
@@ -131,11 +138,6 @@ export default function Home() {
                 brand. The UGG journey continues on and the love for UGG
                 continues to spread.
               </p>
-            </div>
-          </section>
-          <section>
-            <div className="parallax-three">
-              <h2>Footer</h2>
             </div>
           </section>
         </div>

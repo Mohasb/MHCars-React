@@ -1,10 +1,12 @@
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 //Components imports
 import "./NavBar.scss";
-import Login from "../LoginModal";
+import LoginModal from "../LoginModal";
 import authService from "../../Services/login/auth.service";
+//Services
+import Context from "../../Services/contextUser/ContextUser";
 //Material UI imports
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -19,29 +21,22 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 
-
-
 function ResponsiveAppBar() {
-  
-  const [isLogged, setIsLogged] = useState(false)
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [openModal, setOpenModal] = useState(false);
   const navigate = useNavigate();
-  
+  const { user, setUser } = useContext(Context);
+
   const pages = ["Home", "Oficinas", "Coches", "Servicios", "Acceso", "Admin"];
-  const settings = isLogged ? ["Mi cuenta","Cerrar Sesión"]: ["Iniciar Sesión"];
-  
-
-
+  const settings = user ? ["Mi cuenta", "Cerrar Sesión"] : ["Iniciar Sesión"];
 
   useEffect(() => {
-    if (localStorage.getItem("user")) {
-      setIsLogged(true);
+    if (user) {
+      console.log(user);
     }
-  },[])
+  }, []);
 
-  
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -58,36 +53,19 @@ function ResponsiveAppBar() {
     setAnchorElUser(null);
     if (setting === "Iniciar Sesión") {
       setOpenModal(!openModal);
-    }else if (setting === "Cerrar Sesión") {
-      authService.logout()
-      setIsLogged(false);
-      navigate(location.pathname)
+    } else if (setting === "Cerrar Sesión") {
+      authService.logout();
+      setUser(null);
+      navigate(location.pathname);
+    } else if (setting === "Mi cuenta") {
+      navigate(`/${user.name}`);
     }
-    /* typeof setting == "string" ? navigate("/" + setting.toLowerCase()) : ""; */
   };
 
   return (
     <AppBar position="fixed" className="nav">
       <Container maxWidth="xl" className="container">
         <Toolbar disableGutters>
-          {/* <Link to={"/"}>
-            <Typography
-              variant="h6"
-              noWrap
-              component="p"
-              sx={{
-                mr: 2,
-                display: { xs: "flex", md: "flex" },
-                fontWeight: 700,
-                letterSpacing: ".3rem",
-                color: "inherit",
-                textDecoration: "none",
-              }}
-            >
-              RentCar
-            </Typography>
-          </Link> */}
-
           <Box sx={{ flexGrow: 0, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
@@ -117,41 +95,22 @@ function ResponsiveAppBar() {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map((page) => 
+              {pages.map((page) => (
                 <MenuItem key={page} onClick={() => handleCloseNavMenu(page)}>
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
-              )}
+              ))}
             </Menu>
           </Box>
           <Link to={"/"} style={{ textDecoration: "none" }}>
-            {/* <Typography
-              variant="h6"
-              noWrap
-              component="p"
-              sx={{
-                mr: 2,
-                display: { xs: "flex", md: "flex" },
-                fontWeight: 700,
-                letterSpacing: ".3rem",
-                color: "inherit",
-                textDecoration: "none",
-                margin: 0,
-                justifyContent: "flex-start",
-                alignItems: "center",
-              }}
-            >
-              RentCar
-            </Typography> */}
-              <img
-                className="logo"
-                src="/src/assets/IconGifClear.gif"
-                alt="Icon RentCar"
-              />
+            <img
+              className="logo"
+              src="/src/assets/IconGifClear.gif"
+              alt="Icon RentCar"
+            />
           </Link>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => {
-              (
               <Button
                 key={page}
                 value={page}
@@ -161,14 +120,17 @@ function ResponsiveAppBar() {
                 sx={{ my: 2, color: "white", display: "block" }}
               >
                 {page}
-              </Button>
-            )})}
+              </Button>;
+            })}
           </Box>
 
           <Box sx={{ flexGrow: 0, marginLeft: "auto" }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src={isLogged ? "https://i.pravatar.cc/150?img=3": ""} />
+                <Avatar
+                  alt="Remy Sharp"
+                  src={user ? "https://i.pravatar.cc/150" : ""}
+                />
               </IconButton>
             </Tooltip>
             <Menu
@@ -189,19 +151,19 @@ function ResponsiveAppBar() {
             >
               {settings.map((setting) => (
                 <MenuItem
-                  key={setting}
+                  id={setting.split(" ")[0]}
+                  key={setting.split(" ")[0]}
                   onClick={() => handleCloseUserMenu(setting)}
                 >
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
-                
               ))}
             </Menu>
           </Box>
         </Toolbar>
       </Container>
       {openModal && (
-        <Login openModal={openModal} setOpenModal={setOpenModal} setIsLogged={setIsLogged}/>
+        <LoginModal openModal={openModal} setOpenModal={setOpenModal} />
       )}
     </AppBar>
   );

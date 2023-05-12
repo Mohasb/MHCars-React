@@ -31,11 +31,6 @@ export default function LoginModal(props) {
     width: 400,
   };
 
-  useEffect(() => {
-    if (localStorage.getItem("user")) {
-      props.setIsLogged(true);
-    }
-  }, []);
 
   const handleClickInput = (e) => {
     const name = e.target.name;
@@ -102,8 +97,15 @@ export default function LoginModal(props) {
     authService.login(email, password).then((response) => {
       if (response.isOk) {
         handleOnClose();
-        props.setIsLogged(true);
+
+
+
         setUser(response.userWithToken)
+
+
+
+
+        
         navigate(location.pathname);
       } else {
         if (response.responseText.includes("Usuario")) {

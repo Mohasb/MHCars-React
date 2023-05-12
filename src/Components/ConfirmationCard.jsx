@@ -18,39 +18,25 @@ import { Application } from "react-rainbow-components";
 import Card from "@mui/material/Card";
 import { useEffect, useState, useContext } from "react";
 import Context from "../Services/contextUser/ContextUser";
+import  LoginModal  from "./LoginModal";
 
 
 export default function ConfirmationCard({ car, booking }) {
-
-  const {user, setUser} = useContext(Context)
-
-  useEffect(() => {
-    /* if (localStorage.getItem("user")) {
-      setUser(JSON.parse(localStorage.getItem("user")));
-    } */
-    console.log(user);
-  },[]) 
-
+  const { user, setUser } = useContext(Context);
   const handleReservation = (car, booking) => {
     if (car && booking) {
-
-
-
-      //ReservationCar(car, booking); 
-      //console.log(user);
-
-      /* if (user !== null) {
+      
+      
+      if (user !== null && typeof user !== 'undefined') {
+        //ReservationCar(car, booking);
+        console.log(user);
         console.log(JSON.parse(sessionStorage.getItem("booking")));
         console.log(JSON.parse(localStorage.getItem("user")));
-        
-      }else {
+      } else {
         console.log("no user");
-      } */
-
-
-
-
-    } 
+        document.querySelector("#Iniciar").click()
+      }
+    }
   };
   const priceIsOuterJourney = 54;
   const priceIsGps = 20;
@@ -74,6 +60,7 @@ export default function ConfirmationCard({ car, booking }) {
     return diffDays;
   };
 
+
   useEffect(() => {
     setExtras((prevState) => ({
       ...prevState,
@@ -89,8 +76,6 @@ export default function ConfirmationCard({ car, booking }) {
 
   const handleCheckbox = () => {
     const name = window.event.target.name;
-    console.log(name);
-    console.log(priceExtras);
     switch (name) {
       case "isOutherJourney":
         setExtras((prevState) => ({
@@ -108,7 +93,6 @@ export default function ConfirmationCard({ car, booking }) {
         !extras.isOuterJourney
           ? setPriceExtras(priceExtras + priceIsOuterJourney)
           : setPriceExtras(priceExtras - priceIsOuterJourney);
-        console.log(priceExtras);
         break;
 
       case "isGps":
@@ -150,226 +134,225 @@ export default function ConfirmationCard({ car, booking }) {
 
   return (
     <>
-    <main className="main">
-      <Card sx={{ maxWidth: 400, minWidth: 350 }} car={car}>
-        <CardHeader
-          sx={{ textAlign: "center" }}
-          title={`${car.brand} ${car.model}`}
-          subheader=""
-        />
-        <CardMedia
-          component="img"
-          image={`./src/assets/Cars/${car.image}.webp`}
-          alt={`car ${car.brand}`}
-        />
+      <main className="main">
+        <Card sx={{ maxWidth: 400, minWidth: 350 }} car={car}>
+          <CardHeader
+            sx={{ textAlign: "center" }}
+            title={`${car.brand} ${car.model}`}
+            subheader=""
+          />
+          <CardMedia
+            component="img"
+            image={`./src/assets/Cars/${car.image}.webp`}
+            alt={`car ${car.brand}`}
+          />
 
-        <CardContent>
-          <Stack
-            spacing={1}
-            direction={{ xs: "column", sm: "row" }}
-            sx={{ justifyContent: "center" }}
-          >
-            <Chip
-              icon={<DirectionsCarIcon color="secondary" />}
-              label={`Clase: ${car.category}`}
-              variant="outlined"
-            />
-            <Chip
-              icon={<SettingsIcon color="primary" />}
-              label={car.gearShiftType}
-              variant="outlined"
-            />
-            <Chip
-              icon={<LocalGasStationIcon color="secondary" />}
-              label={car.fuelType}
-              variant="outlined"
-            />
-          </Stack>
-        </CardContent>
-        <CardActions>
-          <Stack
-            spacing={1}
-            direction={{ xs: "column", sm: "column" }}
-            sx={{ width: "100%" }}
-          >
-            <Application theme={themeRainbow}>
-              <Stack
-                spacing={1}
-                direction={{ xs: "column", sm: "column" }}
-                sx={{ justifyContent: "center" }}
-              >
-                <CheckboxToggle
-                  id="isOutherJourney"
-                  name="isOutherJourney"
-                  label="¿Vas a conducir por Portugal, Francia o Andorra?"
-                  style={{
-                    width: "100%",
-                    justifyContent: "space-between",
-                    flexDirection: "row-reverse",
-                    color:"#000"
-                  }}
-                  onChange={handleCheckbox}
-                  value={extras.isOuterJourney}
-                />
-                <CheckboxToggle
-                  id="isGps"
-                  name="isGps"
-                  label="No te pierdas y ahorra tiempo con un GPS"
-                  style={{
-                    width: "100%",
-                    justifyContent: "space-between",
-                    flexDirection: "row-reverse",
-                  }}
-                  onChange={handleCheckbox}
-                  value={extras.isGps}
-                />
-                <CounterInput
-                  id="input-component-1"
-                  label="¿Necesitas algún asiento adecuado para niños?"
-                  size="medium"
-                  borderRadius="rounded"
-                  className="rainbow-m-vertical_x-large rainbow-p-horizontal_medium rainbow-m_auto"
-                  value={childSeats}
-                  onChange={handleChildSeats}
-                  onKeyDown={handleKeyDownNumbers}
-                  min={0}
-                  max={4}
-                />
-                <CounterInput
-                  id="input-component-1"
-                  label="¿Cuantas personas van a conducir el coche?"
-                  size="medium"
-                  borderRadius="rounded"
-                  className="rainbow-m-vertical_x-large rainbow-p-horizontal_medium rainbow-m_auto"
-                  value={drivers}
-                  onChange={handleDrivers}
-                  onKeyDown={handleKeyDownNumbers}
-                  min={1}
-                  max={4}
-                />
-              </Stack>
-              <Stack
-                spacing={1}
-                direction={{ xs: "row", sm: "row" }}
-                sx={{
-                  width: "100%",
-                  margin: "3rem 0 0 0",
-                  justifyContent: "space-between",
-                }}
-              >
-                <Typography gutterBottom variant="h3" component="div">
-                  Total
-                </Typography>
-                <Typography gutterBottom variant="h3" component="div">
-                  {(car.price * days() + priceExtras).toFixed(2)}
-                </Typography>
-              </Stack>
-              <Stack
-                spacing={1}
-                direction={{ xs: "row", sm: "row" }}
-                sx={{
-                  width: "100%",
-                  margin: "0",
-                  justifyContent: "space-between",
-                }}
-              >
-                <Typography gutterBottom variant="p" component="div">
-                  ({car.price.toFixed(2)} * {days()} dias)
-                </Typography>
-                <Typography gutterBottom variant="p" component="div">
-                  {(car.price.toFixed(2) * days()).toFixed(2)}
-                </Typography>
-              </Stack>
-              {extras.isOuterJourney && (
+          <CardContent>
+            <Stack
+              spacing={1}
+              direction={{ xs: "column", sm: "row" }}
+              sx={{ justifyContent: "center" }}
+            >
+              <Chip
+                icon={<DirectionsCarIcon color="secondary" />}
+                label={`Clase: ${car.category}`}
+                variant="outlined"
+              />
+              <Chip
+                icon={<SettingsIcon color="primary" />}
+                label={car.gearShiftType}
+                variant="outlined"
+              />
+              <Chip
+                icon={<LocalGasStationIcon color="secondary" />}
+                label={car.fuelType}
+                variant="outlined"
+              />
+            </Stack>
+          </CardContent>
+          <CardActions>
+            <Stack
+              spacing={1}
+              direction={{ xs: "column", sm: "column" }}
+              sx={{ width: "100%" }}
+            >
+              <Application theme={themeRainbow}>
+                <Stack
+                  spacing={1}
+                  direction={{ xs: "column", sm: "column" }}
+                  sx={{ justifyContent: "center" }}
+                >
+                  <CheckboxToggle
+                    id="isOutherJourney"
+                    name="isOutherJourney"
+                    label="¿Vas a conducir por Portugal, Francia o Andorra?"
+                    style={{
+                      width: "100%",
+                      justifyContent: "space-between",
+                      flexDirection: "row-reverse",
+                      color: "#000",
+                    }}
+                    onChange={handleCheckbox}
+                    value={extras.isOuterJourney}
+                  />
+                  <CheckboxToggle
+                    id="isGps"
+                    name="isGps"
+                    label="No te pierdas y ahorra tiempo con un GPS"
+                    style={{
+                      width: "100%",
+                      justifyContent: "space-between",
+                      flexDirection: "row-reverse",
+                    }}
+                    onChange={handleCheckbox}
+                    value={extras.isGps}
+                  />
+                  <CounterInput
+                    id="input-component-1"
+                    label="¿Necesitas algún asiento adecuado para niños?"
+                    size="medium"
+                    borderRadius="rounded"
+                    className="rainbow-m-vertical_x-large rainbow-p-horizontal_medium rainbow-m_auto"
+                    value={childSeats}
+                    onChange={handleChildSeats}
+                    onKeyDown={handleKeyDownNumbers}
+                    min={0}
+                    max={4}
+                  />
+                  <CounterInput
+                    id="input-component-1"
+                    label="¿Cuantas personas van a conducir el coche?"
+                    size="medium"
+                    borderRadius="rounded"
+                    className="rainbow-m-vertical_x-large rainbow-p-horizontal_medium rainbow-m_auto"
+                    value={drivers}
+                    onChange={handleDrivers}
+                    onKeyDown={handleKeyDownNumbers}
+                    min={1}
+                    max={4}
+                  />
+                </Stack>
                 <Stack
                   spacing={1}
                   direction={{ xs: "row", sm: "row" }}
                   sx={{
                     width: "100%",
+                    margin: "3rem 0 0 0",
                     justifyContent: "space-between",
                   }}
                 >
-                  <Typography gutterBottom variant="p" component="div">
-                    Cobertura exterior
+                  <Typography gutterBottom variant="h3" component="div">
+                    Total
                   </Typography>
-                  <Typography gutterBottom variant="p" component="div">
-                    + {priceIsOuterJourney.toFixed(2)}€
+                  <Typography gutterBottom variant="h3" component="div">
+                    {(car.price * days() + priceExtras).toFixed(2)}
                   </Typography>
                 </Stack>
-              )}
-              {extras.isGps && (
                 <Stack
                   spacing={1}
                   direction={{ xs: "row", sm: "row" }}
                   sx={{
                     width: "100%",
+                    margin: "0",
                     justifyContent: "space-between",
                   }}
                 >
                   <Typography gutterBottom variant="p" component="div">
-                    Navegador GPS
+                    ({car.price.toFixed(2)} * {days()} dias)
                   </Typography>
                   <Typography gutterBottom variant="p" component="div">
-                    + {priceIsGps.toFixed(2)}€
+                    {(car.price.toFixed(2) * days()).toFixed(2)}
                   </Typography>
                 </Stack>
-              )}
-              {!!extras.childSeats && (
-                <Stack
-                  spacing={1}
-                  direction={{ xs: "row", sm: "row" }}
-                  sx={{
-                    width: "100%",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <Typography gutterBottom variant="p" component="div">
-                    Asiento niño
-                  </Typography>
-                  <Typography gutterBottom variant="p" component="div">
-                    + {(extras.childSeats * priceChildSeats).toFixed(2)}€
-                  </Typography>
-                </Stack>
-              )}
-              {extras.drivers > 1 && (
-                <Stack
-                  spacing={1}
-                  direction={{ xs: "row", sm: "row" }}
-                  sx={{
-                    width: "100%",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <Typography gutterBottom variant="p" component="div">
-                    Conductor extra
-                  </Typography>
-                  <Typography gutterBottom variant="p" component="div">
-                    + {((extras.drivers - 1) * priceExtraDrivers).toFixed(2)}€
-                  </Typography>
-                </Stack>
-              )}
-            </Application>
-          </Stack>
-        </CardActions>
+                {extras.isOuterJourney && (
+                  <Stack
+                    spacing={1}
+                    direction={{ xs: "row", sm: "row" }}
+                    sx={{
+                      width: "100%",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <Typography gutterBottom variant="p" component="div">
+                      Cobertura exterior
+                    </Typography>
+                    <Typography gutterBottom variant="p" component="div">
+                      + {priceIsOuterJourney.toFixed(2)}€
+                    </Typography>
+                  </Stack>
+                )}
+                {extras.isGps && (
+                  <Stack
+                    spacing={1}
+                    direction={{ xs: "row", sm: "row" }}
+                    sx={{
+                      width: "100%",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <Typography gutterBottom variant="p" component="div">
+                      Navegador GPS
+                    </Typography>
+                    <Typography gutterBottom variant="p" component="div">
+                      + {priceIsGps.toFixed(2)}€
+                    </Typography>
+                  </Stack>
+                )}
+                {!!extras.childSeats && (
+                  <Stack
+                    spacing={1}
+                    direction={{ xs: "row", sm: "row" }}
+                    sx={{
+                      width: "100%",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <Typography gutterBottom variant="p" component="div">
+                      Asiento niño
+                    </Typography>
+                    <Typography gutterBottom variant="p" component="div">
+                      + {(extras.childSeats * priceChildSeats).toFixed(2)}€
+                    </Typography>
+                  </Stack>
+                )}
+                {extras.drivers > 1 && (
+                  <Stack
+                    spacing={1}
+                    direction={{ xs: "row", sm: "row" }}
+                    sx={{
+                      width: "100%",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <Typography gutterBottom variant="p" component="div">
+                      Conductor extra
+                    </Typography>
+                    <Typography gutterBottom variant="p" component="div">
+                      + {((extras.drivers - 1) * priceExtraDrivers).toFixed(2)}€
+                    </Typography>
+                  </Stack>
+                )}
+              </Application>
+            </Stack>
+          </CardActions>
 
-        <CardActions>
-          <Button
-            size="large"
-            color="secondary"
-            variant="contained"
-            className="m-auto"
-            onClick={() => {
-              handleReservation(car, booking);
-            }}
-            sx={{margin:"auto"}}
-          >
-            CONFIRMAR RESERVA &nbsp;
-            <SellIcon color="primary" />
-          </Button>
-        </CardActions>
-      </Card>
-
-    </main>
+          <CardActions>
+            <Button
+              size="large"
+              color="secondary"
+              variant="contained"
+              className="m-auto"
+              onClick={() => {
+                handleReservation(car, booking);
+              }}
+              sx={{ margin: "auto" }}
+            >
+              CONFIRMAR RESERVA &nbsp;
+              <SellIcon color="primary" />
+            </Button>
+          </CardActions>
+        </Card>
+      </main>
     </>
   );
 }

@@ -11,7 +11,7 @@ import LocalGasStationIcon from "@mui/icons-material/LocalGasStation";
 import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 import SettingsIcon from "@mui/icons-material/Settings";
 import SellIcon from "@mui/icons-material/Sell";
-import CardHeader from "@mui/material/CardHeader";
+
 
 export default function CarCard({ car, booking }) {
   const navigate = useNavigate();
@@ -30,19 +30,18 @@ export default function CarCard({ car, booking }) {
 
   return (
     <>
-      <Card sx={{ maxWidth: 345, minWidth: 350 }} car={car}>
+      <Card
+        sx={{ maxWidth: 345, minWidth: 350, overflow: "visible" }}
+        car={car}
+      >
         <CardActionArea
           onClick={() => {
             handleReservation(car, booking);
           }}
         >
-          <CardHeader
-            sx={{ textAlign: "center" }}
-            title={`${car.brand} ${car.model}`}
-            subheader=""
-          />
           <CardMedia
             component="img"
+            className="car-img"
             image={`/src/assets/Cars/${car.image}.webp`}
             alt={`car ${car.brand}`}
           />
@@ -75,12 +74,11 @@ export default function CarCard({ car, booking }) {
           </CardContent>
         </CardActionArea>
 
-        <CardActions>
+        <CardActions sx={{justifyContent: "center"}}>
           <Button
             size="large"
             color="secondary"
             variant="contained"
-            className="m-auto"
             onClick={() => {
               handleReservation(car, booking);
             }}
@@ -88,6 +86,7 @@ export default function CarCard({ car, booking }) {
             Reservar &nbsp;
             <SellIcon color="primary" />
           </Button>
+
         </CardActions>
       </Card>
     </>
