@@ -1,7 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
 //Components
-import "./App.scss";
 import Home from "./app/home/Home";
 import ConfirmationBoocking from "./app/BookingConfirmation";
 import CarListShow from "./app/CarListShow";
@@ -12,7 +11,7 @@ import ContextUser from "./Services/contextUser/ContextUser";
 import ResponsiveAppBar from "./Components/NavBar/NavBar";
 import ControlledOpenSpeedDial from "./Components/CircularMenu";
 import UserPage from "./app/UserPage";
-import Footer from "./app/footer";
+import Footer from "./components/Footer";
 
 function App() {
   const [user, setUser] = useState();

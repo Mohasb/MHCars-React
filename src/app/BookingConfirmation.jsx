@@ -15,9 +15,8 @@ export default function ConfirmationBoocking() {
     }
   }, []);
   return (
-    <main className="main">
+    <main>
       <ConfirmationCard car={data.car} booking={data.booking} />
     </main>
-
   );
 }

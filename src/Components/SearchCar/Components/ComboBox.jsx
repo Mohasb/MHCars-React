@@ -4,8 +4,7 @@ import Autocomplete from "@mui/material/Autocomplete";
 import CircularProgress from "@mui/material/CircularProgress";
 import { styled, lighten, darken } from "@mui/system";
 import { useState, useEffect } from "react";
-import "./Style.scss"
-
+import "./Style.scss";
 
 /* function sleep(delay = 0) {
   return new Promise((resolve) => {
@@ -68,75 +67,76 @@ export default function ComboBoxBranches({
 
   return (
     <>
-    <Autocomplete
-      id={`asynchronous${name}`}
-      open={open}
-      onOpen={() => {
-        setOpen(true);
-        if (name == "recogida") {
-          setErrorBranch1("");
+      <Autocomplete
+        id={`asynchronous${name}`}
+        open={open}
+        onOpen={() => {
+          setOpen(true);
+          if (name == "recogida") {
+            setErrorBranch1("");
+          }
+          if (name == "devolucion") {
+            setErrorBranch2("");
+          }
+        }}
+        onClose={() => {
+          setOpen(false);
+        }}
+        onChange={(event, newValue) => {
+          handleData(newValue);
+        }}
+        onClick={() => {
+          errorBranch1 = "";
+        }}
+        groupBy={(options) => options.country}
+        sx={{
+          maxWidth: 600,
+          margin: "1rem auto",
+          "& .MuiInputBase-root": {
+            backgroundColor: "#fff",
+            "&:hover": { border: "none" },
+          },
+          "& .MuiFormHelperText-root": {
+            textAlign: "center",
+            background: "#FF0000",
+            color: "#fff !important",
+            borderRadius: "5px",
+            marginTop: "0.5rem",
+          },
+          input: { "&::placeholder": { opacity: "100" } },
+        }}
+        isOptionEqualToValue={(option, value) => option.title === value.title}
+        getOptionLabel={(options) =>
+          options.name + ` (${options.population}, ${options.country})`
         }
-        if (name == "devolucion") {
-          setErrorBranch2("");
-        }
-      }}
-      onClose={() => {
-        setOpen(false);
-      }}
-      onChange={(event, newValue) => {
-        handleData(newValue);
-      }}
-      onClick={() => {
-        errorBranch1 = "";
-      }}
-      groupBy={(options) => options.country}
-      sx={{
-        maxWidth: 600,
-        margin: "1rem auto",
-        "& .MuiInputBase-root": {
-          backgroundColor: "#fff","&:hover":{border: "none"}
-        },
-        "& .MuiFormHelperText-root": {
-          textAlign: "center",
-          background: "#FF0000",
-          color:"#fff !important",
-          borderRadius: "5px",
-        },
-        input: { "&::placeholder": {opacity:"100" },
-                  }, 
-      }} 
-      isOptionEqualToValue={(option, value) => option.title === value.title}
-      getOptionLabel={(options) =>
-        options.name + ` (${options.population}, ${options.country})`
-      }
-      options={options}
-      loading={loading}
-      renderInput={(params) => (
-        <TextField
-          {...params}
-          error={!!errorBranch1 || !!errorBranch2}
-          helperText={errorBranch1 || errorBranch2}
-          placeholder={"Sucursal " + name}
-          InputProps={{
-            ...params.InputProps,
-            endAdornment: (
-              <React.Fragment>
-                {loading ? (
-                  <CircularProgress color="inherit" size={20} />
-                ) : null}
-                {params.InputProps.endAdornment}
-              </React.Fragment>
-            ),
-          }}
-        />
-      )}
-      renderGroup={(params) => (
-        <li key={params.key}>
-          <GroupHeader>{params.group}</GroupHeader>
-          <GroupItems>{params.children}</GroupItems>
-        </li>
-      )}
-    />
+        options={options}
+        loading={loading}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            error={!!errorBranch1 || !!errorBranch2}
+            helperText={errorBranch1 || errorBranch2}
+            placeholder={"Sucursal " + name}
+            InputProps={{
+              ...params.InputProps,
+              endAdornment: (
+                <React.Fragment>
+                  {loading ? (
+                    <CircularProgress color="inherit" size={20} />
+                  ) : null}
+                  {params.InputProps.endAdornment}
+                </React.Fragment>
+              ),
+            }}
+          />
+        )}
+        renderGroup={(params) => (
+          <li key={params.key}>
+            <GroupHeader>{params.group}</GroupHeader>
+            <GroupItems>{params.children}</GroupItems>
+          </li>
+        )}
+      />
     </>
   );
 }

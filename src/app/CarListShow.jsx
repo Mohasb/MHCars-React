@@ -17,11 +17,11 @@ export default function CarListShow() {
 
   return (
     <>
-      <main className="main">
+      <main>
         {savedData && (
           <CarList cars={savedData.cars} booking={savedData.booking} />
         )}
-      </main> 
+      </main>
     </>
   );
 }
