@@ -73,10 +73,10 @@ export default function ComboBoxBranches({
         onOpen={() => {
           setOpen(true);
           if (name == "recogida") {
-            setErrorBranch1("");
+            setErrorBranch1();
           }
           if (name == "devolucion") {
-            setErrorBranch2("");
+            setErrorBranch2();
           }
         }}
         onClose={() => {

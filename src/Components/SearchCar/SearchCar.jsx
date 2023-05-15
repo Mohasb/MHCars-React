@@ -14,9 +14,7 @@ import Stack from "@mui/material/Stack";
 //Fetch
 import { fetchCars } from "../../Services/SearchCarServices";
 import Time from "./Components/TimePicker";
-//
-import Context from "../../Services/contextUser/ContextUser";
-
+import ConfirmationModal from "../Modals/ConfirmationModal";
 
 export const SearchCar = () => {
   //State of branch select
@@ -41,6 +39,7 @@ export const SearchCar = () => {
 
   const [pickupTime, setPickupTime] = useState("12:00");
   const [returnTime, setReturnTime] = useState("12:00");
+  const [showModal, setShowModal] = useState(false)
 
   useEffect(() => {
     if (cars.length && booking) {
@@ -49,6 +48,10 @@ export const SearchCar = () => {
     }
   }, [cars, booking, navigate]);
 
+
+
+
+
   ////////////////////////////////////////////////////////////////////////////////
   function validateValues(branch, returnBranch, bookingDates, age) {
     errorHandler();
@@ -56,10 +59,9 @@ export const SearchCar = () => {
   }
 
   return (
+    <>
     <div className="container" style={containerStyles}>
        <Box textAlign="center">
-
-      {/* <label htmlFor="" className="label-combobox">Sucursal De Recogida</label> */}
       <ComboBoxBranches
         name={"recogida"}
         setBranch={setBranch}
@@ -68,7 +70,6 @@ export const SearchCar = () => {
       />
       {areCheckTwoBranches && (
         <>
-        {/* <label htmlFor="" className="label-combobox">Sucursal De Devolución</label> */}
         <ComboBoxBranches
           name={"devolución"}
           setReturnBranch={setReturnBranch}
@@ -112,6 +113,8 @@ export const SearchCar = () => {
       </Application>
        </Box>
     </div>
+    {showModal && <ConfirmationModal openModal={showModal} text={"No hay coches disponibles para esta sucursal en las fechas indicadas"}/>}
+    </>
   );
   /////////////////////////////////////////////HELPERS/////////////////////////////////////////////////////////
   function errorHandler() {
@@ -149,7 +152,11 @@ export const SearchCar = () => {
       typeof returnBranch == "undefined" ? branch : returnBranch;
 
       const reserva = { branch, returnBranch, bookingDates, age };
-      fetchCars(reserva, setCars, setBooking);
+      fetchCars(reserva, setCars, setBooking).then((response) => {
+        if (!response.length) {
+          setShowModal(true)
+        }
+      })
     }
   }
 };

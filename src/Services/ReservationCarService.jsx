@@ -1,17 +1,12 @@
 export async function ReservationCar(car, booking) {
-  //console.log("aqui");
-  //console.log(car);
-  //console.log(booking);
-
   const reservation = {
     startDate: booking.bookingDates.startDate,
     endDate: booking.bookingDates.endDate,
     branchId: booking.branch.id,
     clientId: 1,
     carCategory: car.category,
-    carId: car.id
+    carId: car.id,
   };
-  console.log(reservation);
 
   try {
     const response = await fetch(`http://localhost:5134/api/reservations`, {
@@ -20,11 +15,11 @@ export async function ReservationCar(car, booking) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(reservation),
+    }).then((response) => {
+      return response
     });
-
-    const result = await response.json();
-    console.log("Success:", result);
+    return response
   } catch (error) {
-    console.error("Error:", error);
+    return error
   }
 }

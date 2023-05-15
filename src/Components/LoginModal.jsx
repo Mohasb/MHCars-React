@@ -97,15 +97,7 @@ export default function LoginModal(props) {
     authService.login(email, password).then((response) => {
       if (response.isOk) {
         handleOnClose();
-
-
-
         setUser(response.userWithToken)
-
-
-
-
-        
         navigate(location.pathname);
       } else {
         if (response.responseText.includes("Usuario")) {

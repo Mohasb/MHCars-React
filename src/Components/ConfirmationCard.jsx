@@ -16,27 +16,34 @@ import { CounterInput } from "react-rainbow-components";
 import { themeRainbow } from "./Theme/ThemeRainbow";
 import { Application } from "react-rainbow-components";
 import Card from "@mui/material/Card";
+
 import { useEffect, useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+
 import Context from "../Services/contextUser/ContextUser";
-import  LoginModal  from "./LoginModal";
+import ConfirmationModal from "./modals/ConfirmationModal";
 
 
 export default function ConfirmationCard({ car, booking }) {
   const { user, setUser } = useContext(Context);
+  const [showModal, setShowModal] = useState(false)
+
+
   const handleReservation = (car, booking) => {
-    if (car && booking) {
       
       
-      if (user !== null && typeof user !== 'undefined') {
-        //ReservationCar(car, booking);
-        console.log(user);
-        console.log(JSON.parse(sessionStorage.getItem("booking")));
-        console.log(JSON.parse(localStorage.getItem("user")));
+      if (user !== null && typeof user !== 'undefined' && car && booking) {
+        ReservationCar(car, booking).then((response) => {
+          if (response.status === 200) {
+            alert("Reserva realizada correctamente")
+            setShowModal(true)
+            //navigate("/")
+          }
+        })
       } else {
         console.log("no user");
         document.querySelector("#Iniciar").click()
       }
-    }
   };
   const priceIsOuterJourney = 54;
   const priceIsGps = 20;
@@ -82,14 +89,6 @@ export default function ConfirmationCard({ car, booking }) {
           ...prevState,
           isOuterJourney: !prevState.isOuterJourney,
         }));
-        /* !extras.isOuterJourney
-          ? (carCopy.price += priceIsOuterJourney) 
-          setCarCopy((prevState) => ({
-            ...prevState,
-            price: 1000,
-          }))
-          : (carCopy.price -= priceIsOuterJourney);
-        console.log(carCopy.price); */
         !extras.isOuterJourney
           ? setPriceExtras(priceExtras + priceIsOuterJourney)
           : setPriceExtras(priceExtras - priceIsOuterJourney);
@@ -352,6 +351,7 @@ export default function ConfirmationCard({ car, booking }) {
             </Button>
           </CardActions>
         </Card>
+        {showModal && <ConfirmationModal openModal={showModal} text={"Reserva realizada correctamente"}/>}
       </main>
     </>
   );
