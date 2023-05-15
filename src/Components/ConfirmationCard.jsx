@@ -41,7 +41,6 @@ export default function ConfirmationCard({ car, booking }) {
           }
         })
       } else {
-        console.log("no user");
         document.querySelector("#Iniciar").click()
       }
   };

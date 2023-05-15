@@ -52,3 +52,4 @@ const regexPassword =
 
 
 
+encriptar localstorage y sessionStorage
