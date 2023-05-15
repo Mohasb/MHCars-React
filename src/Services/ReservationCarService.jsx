@@ -3,7 +3,8 @@ export async function ReservationCar(car, booking) {
     startDate: booking.bookingDates.startDate,
     endDate: booking.bookingDates.endDate,
     branchId: booking.branch.id,
-    clientId: 1,
+    returnBranchId: booking.returnBranch.id,
+    clientId: 3,
     carCategory: car.category,
     carId: car.id,
   };
@@ -16,6 +17,7 @@ export async function ReservationCar(car, booking) {
       },
       body: JSON.stringify(reservation),
     }).then((response) => {
+      console.log( JSON.stringify(reservation));
       return response
     });
     return response

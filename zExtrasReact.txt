@@ -3,10 +3,6 @@ npm run dev
 
 
 
-tema doble sucursal: dos endpoints. Si se usa el de doble sucursal llamada a otro eeendpoint 
-si se usa doble al hacer la reserva-> quita el coche de disponibilidad de la branch antigua en el planning->establece el id del coche con la sucursal nueva
-
-
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 const regexPassword =
@@ -48,8 +44,10 @@ const regexPassword =
 
 
 
+client id en reservationCarService
 
-
+error si no esta arrancado el servidor
+start date mayor a hoy o error
 
 
 encriptar localstorage y sessionStorage

@@ -31,18 +31,15 @@ export default function ConfirmationCard({ car, booking }) {
 
   const handleReservation = (car, booking) => {
       
-      
       if (user !== null && typeof user !== 'undefined' && car && booking) {
         ReservationCar(car, booking).then((response) => {
           if (response.status === 200) {
-            alert("Reserva realizada correctamente")
             setShowModal(true)
-            //navigate("/")
           }
         })
       } else {
         document.querySelector("#Iniciar").click()
-      }
+      } 
   };
   const priceIsOuterJourney = 54;
   const priceIsGps = 20;

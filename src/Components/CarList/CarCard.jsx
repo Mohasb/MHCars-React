@@ -27,7 +27,7 @@ export default function CarCard({ car, booking }) {
       navigate("/booking");
     }
   };
-
+  console.log(car);
   return (
     <>
       <Card
@@ -48,7 +48,7 @@ export default function CarCard({ car, booking }) {
 
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
-              {car.brand} {car.model}
+              {car.brand} {car.model} | {car.registration}
             </Typography>
             <Stack
               spacing={1}
