@@ -35,7 +35,7 @@ export default function LoginModal(props) {
       : setErrors((prevState) => ({ ...prevState, passwordError: "" }));
   };
   const handleOnClose = () => {
-    
+    elevateToParent(false);
     return setIsOpen(false);
   };
   const elevateToParent = (state) => {
