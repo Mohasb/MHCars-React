@@ -152,9 +152,7 @@ export const SearchCar = () => {
       typeof returnBranch === "undefined" ? returnBranch = branch : returnBranch = returnBranch;
 
       const reserva = { branch, returnBranch, bookingDates, age };
-      console.log(reserva);
       fetchCars(reserva, setCars, setBooking).then((response) => {
-        console.log(response);
         if (!response.length) {
           setShowModal(true)
         }

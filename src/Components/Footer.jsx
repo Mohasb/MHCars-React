@@ -2,16 +2,16 @@ export default function Footer() {
   return (
     <footer className="footer">
       <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet"/>
-<footer class="hero">
-        <div class="container flex">
-            <div class="container__about">
+<footer className="hero">
+        <div className="container flex">
+            <div className="container__about">
                 <h2>About</h2>
                 <p>A young software developer, starting his professional life, learning the most used languages in this
                     industry, PYTHON, C++, HTML, CSS and JAVASCRIPT.</p>
             </div>
-            <div class="container-pages flex">
+            <div className="container-pages flex">
 
-                <div class="container__recentpages">
+                <div className="container__recentpages">
                     <h2>Recient Pages</h2>
                     <ul>
                         <li><a href="https://brayancountries.netlify.app">Countries</a></li>
@@ -20,7 +20,7 @@ export default function Footer() {
                         <li><a href="https://work-company.netlify.app/">Work-company</a></li>
                     </ul>
                 </div>
-                <div class="container__more">
+                <div className="container__more">
                     <h2>Recient Pages</h2>
                     <ul>
                         <li><a href="https://challenge2-bom.netlify.app/">Challenge2</a></li>
@@ -32,21 +32,21 @@ export default function Footer() {
                 </div>
             </div>
         </div>
-        <div class="line__separete"></div>
-        <div class="by flex">
+        <div className="line__separete"></div>
+        <div className="by flex">
             <p>Copyright © 2022 All Rights Reserved by Brayan Ospina.</p>
-            <div class="icons">
-                <a href="https://t.co/VBNNTjtw3F" class="icon1 icon--instagram">
-                    <i class="ri-instagram-line"></i>
+            <div className="icons">
+                <a href="https://t.co/VBNNTjtw3F" className="icon1 icon--instagram">
+                    <i className="ri-instagram-line"></i>
                 </a>
-                <a href="#" class="icon1 icon--twitter">
-                    <i class="ri-twitter-line"></i>
+                <a href="#" className="icon1 icon--twitter">
+                    <i className="ri-twitter-line"></i>
                 </a>
-                <a href="linkedin.com/in/brayan-ospina-8bb472243" class="icon1 icon--linkedin">
-                    <i class="ri-linkedin-line"></i>
+                <a href="linkedin.com/in/brayan-ospina-8bb472243" className="icon1 icon--linkedin">
+                    <i className="ri-linkedin-line"></i>
                 </a>
-                <a href="https://github.com/brayanospina2005/final-project" class="icon1 icon--github">
-                    <i class="ri-github-line"></i>
+                <a href="https://github.com/brayanospina2005/final-project" className="icon1 icon--github">
+                    <i className="ri-github-line"></i>
                 </a>
             </div>
         </div>

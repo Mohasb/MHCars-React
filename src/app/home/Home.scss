@@ -1,12 +1,21 @@
-
-
-/* Helpers */
-/**************************/
-.margin-top-10 {
-  padding-top: 10px;
+.slideshow {
+  align-items: center;
+  animation: slide-x 50s linear infinite;
+  display: flex;
+  flex-shrink: 0;
+  justify-content: space-between;
+  //min-width: 100%;
 }
-.margin-bot-10 {
-  padding-bottom: 10px;
+.slideshow-image {
+  margin: 0 2rem;
+}
+@keyframes slide-x {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
 }
 
 /* Typography */
@@ -20,7 +29,6 @@
   margin: 0;
 }
 #parallax-world-of-ugg h2 {
-  font-family: "Oswald", sans-serif;
   font-size: 70px;
   letter-spacing: 10px;
   text-align: center;
@@ -31,7 +39,6 @@
   opacity: 0.9;
 }
 #parallax-world-of-ugg h3 {
-  font-family: "Oswald", sans-serif;
   font-size: 14px;
   line-height: 0;
   font-weight: 400;
@@ -40,10 +47,10 @@
   color: black;
 }
 #parallax-world-of-ugg p {
-  font-family: "Source Sans Pro", sans-serif;
   font-weight: 400;
   font-size: 14px;
   line-height: 24px;
+  margin: 1rem 0;
 }
 .first-character {
   font-weight: 400;
@@ -53,7 +60,6 @@
   padding-top: 4px;
   padding-right: 8px;
   padding-left: 3px;
-  font-family: "Source Sans Pro", sans-serif;
 }
 
 .sc {
@@ -98,9 +104,9 @@
   width: 100%;
   background-image: url("../../assets/1.jpg");
   background-attachment: fixed;
-  background-size: cover ;
-  -moz-background-size: cover ;
-  -webkit-background-size: cover ;
+  background-size: cover;
+  -moz-background-size: cover;
+  -webkit-background-size: cover;
   background-repeat: no-repeat;
   background-position: top center;
 }
@@ -119,8 +125,8 @@
   background-position: center center;
 }
 #parallax-world-of-ugg .parallax-three {
-  padding-top: 200px;
-  padding-bottom: 200px;
+  /* padding-top: 200px;
+  padding-bottom: 200px; */
   overflow: hidden;
   position: relative;
   width: 100%;
@@ -137,7 +143,7 @@
 /**************************/
 #parallax-world-of-ugg .line-break {
   border-bottom: 1px solid black;
-  width: 150px;
+  width: 200px;
   margin: 0 auto;
 }
 
@@ -160,12 +166,12 @@
   #parallax-world-of-ugg .block {
     padding: 30px;
   }
-  #parallax-world-of-ugg .parallax-one{
+  #parallax-world-of-ugg .parallax-one {
     padding-top: 0;
     padding-bottom: 0;
   }
-  #parallax-world-of-ugg .parallax-two,
-  #parallax-world-of-ugg .parallax-three {
+  #parallax-world-of-ugg .parallax-two/* ,
+  #parallax-world-of-ugg .parallax-three */ {
     padding-top: 100px;
     padding-bottom: 100px;
   }

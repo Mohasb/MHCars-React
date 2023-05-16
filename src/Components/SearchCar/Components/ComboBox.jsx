@@ -54,7 +54,7 @@ export default function ComboBoxBranches({
           }
         });
     })(); */
-    fetcBranches()
+    fetcBranches(active, setOptions)
 
     return () => {
       active = false;

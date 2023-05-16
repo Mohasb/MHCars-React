@@ -8,37 +8,9 @@
 main {
   margin-top: 60px;
   position: relative;
-  z-index: 2;
-  margin-bottom: 350px;
   background-color: #fff;
 }
-.footer {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  height: 350px;
-  /* padding-left: 50px;
-  background: #4b466f;
-  font-size: 100px;
-  color: #f56469; */
-}
-
-
-
-
-
-
-
-
-
-///////https://codepen.io/brayanospina2005/details/ExpVqPe
-/// @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap");
-*{
-  padding:0%;
-  margin:0%;
-  box-sizing: border-box;
-}
-
+/////
 .hero {
   height: auto;
   background: url("https://images.unsplash.com/photo-1565461133566-e35e9e120d5f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80")
@@ -46,9 +18,6 @@ main {
   background-color: rgba(0, 0, 0, 0.747);
   background-size: cover;
   background-blend-mode: multiply;
-   /* background-attachment:fixed ;
-    activate when you put in your website (optional)
-  */
   color: rgb(255, 255, 255);
   padding: 30px 80px 30px 30px;
 }
@@ -87,7 +56,7 @@ main {
   font-size: 14px;
 }
 .container-pages ul a:hover{
-  color: #017143;
+  color: #F4B408;
 }
 footer .by{
 margin-top: 30px;
@@ -149,16 +118,19 @@ footer .by p{
 .icon--twitter:hover {
   background-color: #1da1f2;
   outline-color: #1da1f2;
+  color: white;
 }
 
 .icon--linkedin:hover {
   background-color: #0077b5;
   outline-color: #0077b5;
+  color: white;
 }
 
 .icon--github:hover {
-  background-color: #000000;
-  outline-color: #000000;
+  background-color: #0077b5;
+  outline-color: #0077b5;
+  color: white;
 }
 
 @keyframes shake {

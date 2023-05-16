@@ -1,8 +1,7 @@
-export async function fetcBranches() {
+export async function fetcBranches(active, setOptions) {
   try {
     const response = fetch(`http://localhost:5134/api/Branches`)
       .then((response) => {
-        console.log(response);
         return response.json();
       })
       .then((branches) => {

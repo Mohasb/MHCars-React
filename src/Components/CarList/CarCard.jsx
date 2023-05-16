@@ -27,7 +27,6 @@ export default function CarCard({ car, booking }) {
       navigate("/booking");
     }
   };
-  console.log(car);
   return (
     <>
       <Card

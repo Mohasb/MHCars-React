@@ -17,7 +17,6 @@ export async function ReservationCar(car, booking) {
       },
       body: JSON.stringify(reservation),
     }).then((response) => {
-      console.log( JSON.stringify(reservation));
       return response
     });
     return response
