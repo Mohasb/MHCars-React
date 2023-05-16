@@ -104,7 +104,7 @@ export default function CarList({ cars, booking }) {
                 ]}
                 name="oilType"
                 setOilFilter={setOilFilter}
-                filter="combustuble"
+                filter="combustible"
               />
             </div>
             <div>

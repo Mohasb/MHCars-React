@@ -4,13 +4,10 @@ import authService from "../Services/login/auth.service";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Context from "../Services/contextUser/ContextUser";
+import RegisterModal from "../app/Register"
 
 export default function LoginModal(props) {
-
-
-
   const {user, setUser} = useContext(Context)
-
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(props.openModal);
   const [emailUser, setEmail] = useState("Moha@gmail.com");
@@ -19,7 +16,8 @@ export default function LoginModal(props) {
     emailError: "",
     passwordError: "",
   });
-
+  const [openRegister, setOpenRegister] = useState(false);
+  
   const themeRainbow = {
     rainbow: {
       palette: {
@@ -30,36 +28,28 @@ export default function LoginModal(props) {
   const inputStyles = {
     width: 400,
   };
-
-
   const handleClickInput = (e) => {
     const name = e.target.name;
     name === "email"
       ? setErrors((prevState) => ({ ...prevState, emailError: "" }))
       : setErrors((prevState) => ({ ...prevState, passwordError: "" }));
   };
-
   const handleOnClose = () => {
-    elevateToParent(false);
+    
     return setIsOpen(false);
   };
-
   const elevateToParent = (state) => {
     props.setOpenModal(state);
   };
-  /* const handleChangeInput = (e) => {
-    const name = e.target.name;
-    name === "email"
-      ? setErrors((prevState) => ({ ...prevState, emailError: "" }))
-      : setErrors((prevState) => ({ ...prevState, passwordError: "" }));
-  } */
-
   const handleChangeEmail = (event) => {
     return setEmail(event.target.value);
   };
   const handleChagePassword = (event) => {
     return setPassword(event.target.value);
   };
+  const handleRegister = () => {
+    setOpenRegister(true)
+  }
 
   const validateLogin = (email, password) => {
     const regexEmail =
@@ -116,8 +106,9 @@ export default function LoginModal(props) {
   };
 
   return (
+    <div className="visually-hidden">
     <Application theme={themeRainbow}>
-      <div className="rainbow-m-bottom_xx-large rainbow-p-bottom_xx-large visually-hidden">
+      <div className="rainbow-m-bottom_xx-large rainbow-p-bottom_xx-large ">
         <Modal
           isOpen={isOpen}
           onRequestClose={handleOnClose}
@@ -132,7 +123,7 @@ export default function LoginModal(props) {
               />
               <p className="text-center">
                 ¿No tienes cuenta?&nbsp;
-                <Link to={"Registro"} onClick={handleOnClose}>
+                <Link onClick={handleRegister}>
                   Registrate
                 </Link>
               </p>
@@ -179,6 +170,9 @@ export default function LoginModal(props) {
           </form>
         </Modal>
       </div>
+      {openRegister && <RegisterModal openRegister={openRegister} setIsOpen={setIsOpen}/>}
     </Application>
+
+    </div>
   );
 }
