@@ -3,7 +3,7 @@ import { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 //Components imports
 import "./NavBar.scss";
-import LoginModal from "../LoginModal";
+import LoginModal from "../modals/LoginModal";
 import authService from "../../Services/login/auth.service";
 //Services
 import Context from "../../Services/contextUser/ContextUser";
@@ -20,14 +20,12 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import RegisterModal from "../../app/Register";
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
 
   const [openModal, setOpenModal] = useState(false);
-  const [openRegister, setOpenRegister] = useState(false);
 
   const navigate = useNavigate();
   const { user, setUser } = useContext(Context);
@@ -167,9 +165,8 @@ function ResponsiveAppBar() {
         </Toolbar>
       </Container>
       {openModal && (
-        <LoginModal openModal={openModal} setOpenModal={setOpenModal} setOpenRegister={setOpenRegister}/>
+        <LoginModal openModal={openModal} setOpenModal={setOpenModal} />
       )}
-      {openRegister && <RegisterModal openRegister={openRegister} setOpenRegister={setOpenRegister}/>}
     </AppBar>
   );
 }

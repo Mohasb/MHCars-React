@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 //Components
 import DateRange from "./Components/DateRange";
@@ -6,13 +6,12 @@ import AgeRadioButtons from "./Components/AgePicker";
 import ComboBoxBranches from "./Components/ComboBox";
 import CheckBoxTwoBranches from "./Components/CheckBox";
 //React-Rainbow
-import { Button, Application } from "react-rainbow-components";
-import { themeRainbow } from "../Theme/ThemeRainbow";
+import { Button } from "react-rainbow-components";
 //Material-UI
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 //Fetch
-import { fetchCars } from "../../Services/SearchCarServices";
+import { fetchCars } from "../../Services/apiRequest/SearchCarServices";
 import Time from "./Components/TimePicker";
 import ConfirmationModal from "../Modals/ConfirmationModal";
 
@@ -97,7 +96,6 @@ export const SearchCar = () => {
         <Time name="recogida" setPickupTime={setPickupTime} />
         <Time name="devolución" setReturnTime={setReturnTime} />
       </Stack>
-      <Application theme={themeRainbow}>
         <AgeRadioButtons setAge={setAge} />
           <Button
             variant="brand"
@@ -110,7 +108,6 @@ export const SearchCar = () => {
           >
             Buscar
           </Button>
-      </Application>
        </Box>
     </div>
     {showModal && <ConfirmationModal openModal={showModal} text={"No hay coches disponibles para esta sucursal en las fechas indicadas"}/>}

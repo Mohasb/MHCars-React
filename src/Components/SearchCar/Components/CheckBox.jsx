@@ -1,7 +1,5 @@
 import React from "react";
 import { CheckboxToggle } from "react-rainbow-components";
-import { Application } from "react-rainbow-components";
-import { themeRainbow } from "../../Theme/ThemeRainbow";
 import Box from "@mui/material/Box";
 
 class SimpleCheckboxToggle extends React.Component {
@@ -36,10 +34,8 @@ class SimpleCheckboxToggle extends React.Component {
 
 export default function CheckBoxTwoBranches({ setCheckTwoBranches }) {
   return (
-      <Application theme={themeRainbow}>
         <Box textAlign="center">
           <SimpleCheckboxToggle setCheckTwoBranches={setCheckTwoBranches} />
         </Box>
-      </Application>
   );
 }

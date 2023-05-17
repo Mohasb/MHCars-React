@@ -10,15 +10,12 @@ import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 import SettingsIcon from "@mui/icons-material/Settings";
 import SellIcon from "@mui/icons-material/Sell";
 import CardHeader from "@mui/material/CardHeader";
-import { ReservationCar } from "../services/ReservationCarService";
+import { ReservationCar } from "../services/apiRequest/ReservationCarService";
 import { CheckboxToggle } from "react-rainbow-components";
 import { CounterInput } from "react-rainbow-components";
-import { themeRainbow } from "./Theme/ThemeRainbow";
-import { Application } from "react-rainbow-components";
 import Card from "@mui/material/Card";
 
 import { useEffect, useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
 
 import Context from "../Services/contextUser/ContextUser";
 import ConfirmationModal from "./modals/ConfirmationModal";
@@ -129,8 +126,8 @@ export default function ConfirmationCard({ car, booking }) {
 
   return (
     <>
-      <main className="main">
-        <Card sx={{ maxWidth: 400, minWidth: 350 }} car={car}>
+      <main>
+        <Card sx={{ maxWidth: 400, minWidth: 350}} car={car}>
           <CardHeader
             sx={{ textAlign: "center" }}
             title={`${car.brand} ${car.model}`}
@@ -171,7 +168,6 @@ export default function ConfirmationCard({ car, booking }) {
               direction={{ xs: "column", sm: "column" }}
               sx={{ width: "100%" }}
             >
-              <Application theme={themeRainbow}>
                 <Stack
                   spacing={1}
                   direction={{ xs: "column", sm: "column" }}
@@ -327,7 +323,6 @@ export default function ConfirmationCard({ car, booking }) {
                     </Typography>
                   </Stack>
                 )}
-              </Application>
             </Stack>
           </CardActions>
 

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { TimePicker } from "react-rainbow-components";
-import { Application } from "react-rainbow-components";
-import { themeRainbow } from "../../Theme/ThemeRainbow";
+
 
 const containerStyles = {
   maxWidth: 250,
@@ -11,8 +10,6 @@ const containerStyles = {
 export default function Time(props) {
     const [state, setState] = useState({time:""})
     return(
-      <Application theme={themeRainbow}>
-
         <TimePicker
           id="time-picker-1"
           value={state.time}
@@ -31,6 +28,5 @@ export default function Time(props) {
           borderRadius="semi-square"
           hour24
         />
-      </Application>
     )
 }

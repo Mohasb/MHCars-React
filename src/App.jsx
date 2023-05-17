@@ -11,7 +11,7 @@ import ContextUser from "./Services/contextUser/ContextUser";
 import ResponsiveAppBar from "./Components/NavBar/NavBar";
 import ControlledOpenSpeedDial from "./Components/CircularMenu";
 import UserPage from "./app/UserPage";
-import Footer from "./components/Footer";
+import Footer from "./Components/footer/Footer";
 
 function App() {
   const [user, setUser] = useState();

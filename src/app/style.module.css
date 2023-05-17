@@ -1,0 +1,39 @@
+
+
+.card {
+  width: 80%;
+  min-height: 250px;
+  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+  border: 1px solid rgba( 255, 255, 255, 0.18 );
+  padding: 1.5rem;
+  color: black;
+  margin: auto;
+  width: 100%;
+  .box {
+    width: 80%;
+    margin: auto;
+  }
+}
+
+.title {
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.subtitle {
+  font-size: 1rem;
+  margin-bottom: 2rem;
+}
+
+.btn {
+  background: none;
+  border: none;
+  text-align: center;
+  font-size: 1rem;
+  color: whitesmoke;
+  background-color: #fa709a;
+  padding: 0.8rem 1.8rem;
+  border-radius: 2rem;
+  cursor: pointer;
+}

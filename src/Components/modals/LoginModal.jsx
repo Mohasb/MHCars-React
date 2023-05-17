@@ -1,13 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Modal, Button, Input, Application } from "react-rainbow-components";
-import authService from "../Services/login/auth.service";
+import { Modal, Button, Input } from "react-rainbow-components";
+import authService from "../../Services/login/auth.service";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import Context from "../Services/contextUser/ContextUser";
-import RegisterModal from "../app/Register"
+import Context from "../../Services/contextUser/ContextUser";
 
 export default function LoginModal(props) {
-  const {user, setUser} = useContext(Context)
+  const { user, setUser } = useContext(Context);
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(props.openModal);
   const [emailUser, setEmail] = useState("Moha@gmail.com");
@@ -16,14 +15,8 @@ export default function LoginModal(props) {
     emailError: "",
     passwordError: "",
   });
-  
-  const themeRainbow = {
-    rainbow: {
-      palette: {
-        brand: "#F4B408",
-      },
-    },
-  };
+
+
   const inputStyles = {
     width: 400,
   };
@@ -83,7 +76,7 @@ export default function LoginModal(props) {
     authService.login(email, password).then((response) => {
       if (response.isOk) {
         handleOnClose();
-        setUser(response.userWithToken)
+        setUser(response.userWithToken);
         navigate(location.pathname);
       } else {
         if (response.responseText.includes("Usuario")) {
@@ -103,73 +96,67 @@ export default function LoginModal(props) {
 
   return (
     <div className="visually-hidden">
-    <Application theme={themeRainbow}>
-      <div className="rainbow-m-bottom_xx-large rainbow-p-bottom_xx-large ">
-        <Modal
-          isOpen={isOpen}
-          onRequestClose={handleOnClose}
-          title="Iniciar Sessión"
-          variant="brand"
-          footer={
-            <div className="rainbow-flex rainbow-justify_spread">
-              <Button
-                label="Volver"
-                variant="neutral"
-                onClick={handleOnClose}
+        <div className="rainbow-m-bottom_xx-large rainbow-p-bottom_xx-large ">
+          <Modal
+            isOpen={isOpen}
+            onRequestClose={handleOnClose}
+            title="Iniciar Sessión"
+            variant="brand"
+            footer={
+              <div className="rainbow-flex rainbow-justify_spread">
+                <Button
+                  label="Volver"
+                  variant="neutral"
+                  onClick={handleOnClose}
+                />
+                <p className="text-center">
+                  ¿No tienes cuenta?&nbsp;
+                  <Link to={"/registro"} onClick={handleOnClose}>
+                    Registrate
+                  </Link>
+                </p>
+                <Button
+                  label="Login"
+                  variant="brand"
+                  onClick={() => {
+                    validateLogin(emailUser, passwordUser);
+                  }}
+                />
+              </div>
+            }
+          >
+            <form>
+              <Input
+                label="Email"
+                placeholder="email@gmail.com"
+                type="email"
+                name="email"
+                style={inputStyles}
+                className="rainbow-m-vertical_x-large rainbow-p-horizontal_medium rainbow-m_auto"
+                borderRadius="semi-rounded"
+                size="large"
+                value={emailUser}
+                onChange={handleChangeEmail}
+                error={errors.emailError}
+                onClick={handleClickInput}
               />
-              <p className="text-center">
-                ¿No tienes cuenta?&nbsp;
-                <Link onClick={() => {
-                  props.setOpenRegister(true)
-                  handleOnClose()
-                }}>
-                  Registrate
-                </Link>
-              </p>
-              <Button
-                label="Login"
-                variant="brand"
-                onClick={() => {
-                  validateLogin(emailUser, passwordUser);
-                }}
+              <Input
+                label="Password"
+                placeholder="**********"
+                type="password"
+                name="password"
+                className="rainbow-m-vertical_x-large rainbow-p-horizontal_medium rainbow-m_auto"
+                borderRadius="semi-rounded"
+                style={inputStyles}
+                size="large"
+                value={passwordUser}
+                onChange={handleChagePassword}
+                error={errors.passwordError}
+                onClick={handleClickInput}
               />
-            </div>
-          }
-        >
-          <form>
-            <Input
-              label="Email"
-              placeholder="email@gmail.com"
-              type="email"
-              name="email"
-              style={inputStyles}
-              className="rainbow-m-vertical_x-large rainbow-p-horizontal_medium rainbow-m_auto"
-              borderRadius="semi-rounded"
-              size="large"
-              value={emailUser}
-              onChange={handleChangeEmail}
-              error={errors.emailError}
-              onClick={handleClickInput}
-            />
-            <Input
-              label="Password"
-              placeholder="**********"
-              type="password"
-              name="password"
-              className="rainbow-m-vertical_x-large rainbow-p-horizontal_medium rainbow-m_auto"
-              borderRadius="semi-rounded"
-              style={inputStyles}
-              size="large"
-              value={passwordUser}
-              onChange={handleChagePassword}
-              error={errors.passwordError}
-              onClick={handleClickInput}
-            />
-          </form>
-        </Modal>
-      </div>
-    </Application>
-
+            </form>
+          </Modal>
+        </div>
     </div>
   );
 }
