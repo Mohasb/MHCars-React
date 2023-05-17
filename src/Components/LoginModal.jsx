@@ -16,7 +16,6 @@ export default function LoginModal(props) {
     emailError: "",
     passwordError: "",
   });
-  const [openRegister, setOpenRegister] = useState(false);
   
   const themeRainbow = {
     rainbow: {
@@ -47,9 +46,6 @@ export default function LoginModal(props) {
   const handleChagePassword = (event) => {
     return setPassword(event.target.value);
   };
-  const handleRegister = () => {
-    setOpenRegister(true)
-  }
 
   const validateLogin = (email, password) => {
     const regexEmail =
@@ -123,7 +119,10 @@ export default function LoginModal(props) {
               />
               <p className="text-center">
                 ¿No tienes cuenta?&nbsp;
-                <Link onClick={handleRegister}>
+                <Link onClick={() => {
+                  props.setOpenRegister(true)
+                  handleOnClose()
+                }}>
                   Registrate
                 </Link>
               </p>
@@ -132,7 +131,6 @@ export default function LoginModal(props) {
                 variant="brand"
                 onClick={() => {
                   validateLogin(emailUser, passwordUser);
-                  //this.handleOnClose();
                 }}
               />
             </div>
@@ -170,7 +168,6 @@ export default function LoginModal(props) {
           </form>
         </Modal>
       </div>
-      {openRegister && <RegisterModal openRegister={openRegister} setIsOpen={setIsOpen}/>}
     </Application>
 
     </div>

@@ -20,11 +20,15 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
+import RegisterModal from "../../app/Register";
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
+
   const [openModal, setOpenModal] = useState(false);
+  const [openRegister, setOpenRegister] = useState(false);
+
   const navigate = useNavigate();
   const { user, setUser } = useContext(Context);
 
@@ -64,7 +68,7 @@ function ResponsiveAppBar() {
 
   return (
     <AppBar position="fixed" className="nav">
-      <Container maxWidth="xl" className="container">
+      <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Box sx={{ flexGrow: 0, display: { xs: "flex", md: "none" } }}>
             <IconButton
@@ -163,8 +167,9 @@ function ResponsiveAppBar() {
         </Toolbar>
       </Container>
       {openModal && (
-        <LoginModal openModal={openModal} setOpenModal={setOpenModal} />
+        <LoginModal openModal={openModal} setOpenModal={setOpenModal} setOpenRegister={setOpenRegister}/>
       )}
+      {openRegister && <RegisterModal openRegister={openRegister} setOpenRegister={setOpenRegister}/>}
     </AppBar>
   );
 }

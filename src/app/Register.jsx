@@ -1,18 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Modal, Button } from "react-rainbow-components";
 import { Input } from "react-rainbow-components";
-import { styled } from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
-import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
-
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: "center",
-  color: theme.palette.text.secondary,
-}));
 
 export default function RegisterModal(props) {
   const [isOpen, setIsOpen] = useState(props.openRegister);
@@ -28,15 +18,13 @@ export default function RegisterModal(props) {
     BankAccount: "",
   });
 
-  /* useEffect(() => {
-    console.log(props);
-    //este effect cuando abre el registro cierra el otro modal
-    props.setIsOpen(false)
-    //props.elevateToParent(false)
-  }, []); */
 
   const handleOnClose = () => {
+    elevateToParent(false)
     setIsOpen(false);
+  };
+  const elevateToParent = (state) => {
+    props.setOpenRegister(state);
   };
 
   const handleSubmit = (e) => {
@@ -48,7 +36,7 @@ export default function RegisterModal(props) {
   };
 
   return (
-    <div className="rainbow-m-bottom_xx-large rainbow-p-bottom_xx-large h-100vh">
+    <div className="rainbow-m-bottom_xx-large rainbow-p-bottom_xx-large visually-hidden">
       <Modal
         id="modal-2"
         isOpen={isOpen}
