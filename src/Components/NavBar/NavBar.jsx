@@ -30,14 +30,14 @@ function ResponsiveAppBar() {
   const navigate = useNavigate();
   const { user, setUser } = useContext(Context);
 
-  const pages = ["Home", "Oficinas", "Coches", "Servicios", "Acceso", "Admin"];
+  const pages = ["Home", "Oficinas", "Coches", "Servicios", "Acceso"];
   const settings = user ? ["Mi cuenta", "Cerrar Sesión"] : ["Iniciar Sesión"];
+  user ? console.log(user.name.charAt(0)) : ""
 
-  useEffect(() => {
-    if (user) {
-      console.log(user);
-    }
-  }, []);
+
+  if (typeof user !== "undefined" &&  user !== null) {
+    user.rol === "Admin" ? pages[pages.length + 1] = "admin" : ""
+  }
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -48,7 +48,13 @@ function ResponsiveAppBar() {
 
   const handleCloseNavMenu = (page) => {
     setAnchorElNav(null);
-    typeof page == "string" ? navigate("/" + page.toLowerCase()) : "";
+    if (typeof page == "string") {
+      navigate("/" + page.toLowerCase())
+      return
+    }
+    if (typeof page.target.value == "string") {
+      navigate("/" + page.target.value.toLowerCase())
+    }
   };
 
   const handleCloseUserMenu = (setting) => {
@@ -60,15 +66,33 @@ function ResponsiveAppBar() {
       setUser(null);
       navigate(location.pathname);
     } else if (setting === "Mi cuenta") {
-      navigate(`/${user.name}`);
+      navigate(`/user/${user.name}`);
     }
   };
 
   return (
-    <AppBar position="fixed" className="nav">
+    <AppBar position="static" className="nav">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Box sx={{ flexGrow: 0, display: { xs: "flex", md: "none" } }}>
+          <Typography
+            variant="h6"
+            noWrap
+            component="a"
+            href="/"
+            sx={{
+              mr: 2,
+              display: { xs: 'none', md: 'flex' },
+              fontFamily: 'monospace',
+              fontWeight: 700,
+              letterSpacing: '.3rem',
+              color: 'inherit',
+              textDecoration: 'none',
+            }}
+          >
+            LOGO
+          </Typography>
+
+          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -83,18 +107,18 @@ function ResponsiveAppBar() {
               id="menu-appbar"
               anchorEl={anchorElNav}
               anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
+                vertical: 'bottom',
+                horizontal: 'left',
               }}
               keepMounted
               transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
+                vertical: 'top',
+                horizontal: 'left',
               }}
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
               sx={{
-                display: { xs: "block", md: "none" },
+                display: { xs: 'block', md: 'none' },
               }}
             >
               {pages.map((page) => (
@@ -104,6 +128,8 @@ function ResponsiveAppBar() {
               ))}
             </Menu>
           </Box>
+          <Box sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }}>
+
           <Link to={"/"} style={{ textDecoration: "none" }}>
             <img
               className="logo"
@@ -111,42 +137,58 @@ function ResponsiveAppBar() {
               alt="Icon RentCar"
             />
           </Link>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => {
+          </Box>
+          <Typography
+            variant="h5"
+            noWrap
+            component="a"
+            href=""
+            sx={{
+              mr: 2,
+              display: { xs: 'flex', md: 'none' },
+              flexGrow: 1,
+              fontFamily: 'monospace',
+              fontWeight: 700,
+              letterSpacing: '.3rem',
+              color: 'inherit',
+              textDecoration: 'none',
+            }}
+          >
+            LOGO
+          </Typography>
+          <Box sx={{ flexGrow: 1, justifyContent:"center", display: { xs: 'none', md: 'flex' } }}>
+            {pages.map((page) => (
               <Button
-                key={page}
-                value={page}
-                onClick={() => {
-                  handleCloseNavMenu(page);
-                }}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                {page}
-              </Button>;
-            })}
+              key={page}
+              value={page}
+              onClick={() => {
+                handleCloseNavMenu(event, page);
+              }}
+              sx={{ my: 2, color: "white", display: "block",fontSize:"1.2rem" }}
+            >
+              {page}
+            </Button>
+            ))}
           </Box>
 
-          <Box sx={{ flexGrow: 0, marginLeft: "auto" }}>
+          <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar
-                  alt="Remy Sharp"
-                  src={user ? "https://i.pravatar.cc/150" : ""}
-                />
+              <IconButton size="large" onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <Avatar alt="Remy Sharp" src={user ? "https://i.pravatar.cc/150" : ""} sx={{width:50, height:50}} />
               </IconButton>
             </Tooltip>
             <Menu
-              sx={{ mt: "45px" }}
+              sx={{ mt: '45px' }}
               id="menu-appbar"
               anchorEl={anchorElUser}
               anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
+                vertical: 'top',
+                horizontal: 'right',
               }}
               keepMounted
               transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
+                vertical: 'top',
+                horizontal: 'right',
               }}
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
@@ -167,7 +209,7 @@ function ResponsiveAppBar() {
       {openModal && (
         <LoginModal openModal={openModal} setOpenModal={setOpenModal} />
       )}
-    </AppBar>
+    </AppBar>    
   );
 }
 export default ResponsiveAppBar;

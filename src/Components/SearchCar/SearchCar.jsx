@@ -59,7 +59,7 @@ export const SearchCar = () => {
 
   return (
     <>
-    <div className="container" style={containerStyles}>
+    <div className="container-search-car">
        <Box textAlign="center">
       <ComboBoxBranches
         name={"recogida"}
@@ -156,9 +156,4 @@ export const SearchCar = () => {
       })
     }
   }
-};
-
-const containerStyles = {
-  minWidth: 350,
-  padding: "20px 20px",
 };

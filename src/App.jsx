@@ -29,10 +29,11 @@ function App() {
         <Routes>
           <Route path="*" element={<NotFound />} />
           <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/reserva/coche" element={<CarListShow />} />
           <Route path="/booking" element={<ConfirmationBoocking />} />
           <Route path="/registro" element={<Register />} />
-          <Route path="/:name" element={<UserPage />} />
+          <Route path="/user/:name" element={<UserPage />} />
         </Routes>
         <ControlledOpenSpeedDial />
         <Footer />
