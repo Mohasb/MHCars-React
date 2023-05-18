@@ -1,6 +1,25 @@
+@font-face {
+  font-family: Recons;
+  src: url("../../assets/Fonts/Recons.ttf") format("opentype");
+}
+
 .nav {
+  .container-logo:hover {
+    transition: filter 1s linear;
+    filter: brightness(0) saturate(100%) invert(23%) sepia(100%) saturate(1627%) hue-rotate(191deg) brightness(94%) contrast(103%);
+  }
   .logo {
-    width: 5rem;
+    width: 3rem;
+  }
+  a {
+    font-family: Recons !important;
+    font-size: 2rem;
+    text-decoration: none !important;
+    color: #fff;
+    font-weight: 100;
+    &:hover {
+      color: #fff;
+    }
   }
 }
 

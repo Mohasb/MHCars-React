@@ -1,12 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 //Material UI imports
 import Box from "@mui/material/Box";
 import SpeedDial from "@mui/material/SpeedDial";
-import SpeedDialIcon from "@mui/material/SpeedDialIcon";
 import SpeedDialAction from "@mui/material/SpeedDialAction";
 import KeyboardReturnIcon from "@mui/icons-material/KeyboardReturn";
 import NavigationIcon from "@mui/icons-material/Navigation";
+import BuildIcon from '@mui/icons-material/Build';
 
 const actions = [
   { icon: <KeyboardReturnIcon />, name: "Volver" },
@@ -18,24 +18,31 @@ export default function ControlledOpenSpeedDial() {
   const handleclick = () => setOpen(!open);
   const navigate = useNavigate();
 
+  const [speedDial, setSpeedDial] = useState()
 
+  useEffect(() => {
+    setSpeedDial(document.querySelector("#scroll-top"))
+  })
+  
+  window.onscroll = () => {
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+      speedDial.classList.add('visible')
+    } else {
+      speedDial.classList.remove('visible')
+    }
+  }
+
+  
   return (
     <Box
-      sx={{
-        height: 320,
-        transform: "translateZ(0px)",
-        flexGrow: 1,
-        position: "fixed",
-        bottom: 16,
-        right: 16,
-      }}
+    className="container-speed-dial"
     >
       <SpeedDial
-        ariaLabel="SpeedDial controlled open example"
-        sx={{ position: "absolute", bottom: 16, right: 16, mixBlendMode:"diference" }}
-        icon={<SpeedDialIcon />}
+        ariaLabel="SpeedDial"
+        icon={<BuildIcon />}
         open={open}
         onClick={handleclick}
+        id="scroll-top"
       >
         {actions.map((action) => (
           <SpeedDialAction
@@ -43,7 +50,6 @@ export default function ControlledOpenSpeedDial() {
             icon={action.icon}
             tooltipTitle={action.name}
             onClick={() => {
-              console.log(navigate);
               action.name == "Volver"
                 ? navigate(-1)
                 : window.scrollTo({ top: 0, left: 0, behavior: "smooth" });

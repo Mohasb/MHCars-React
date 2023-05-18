@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 //Components
-import DateRange from "./Components/DateRange";
-import AgeRadioButtons from "./Components/AgePicker";
-import ComboBoxBranches from "./Components/ComboBox";
-import CheckBoxTwoBranches from "./Components/CheckBox";
+import DateRange from "./componentsSearch/DateRange";
+import AgeRadioButtons from "./componentsSearch/AgePicker";
+import ComboBoxBranches from "./componentsSearch/ComboBox";
+import CheckBoxTwoBranches from "./componentsSearch/CheckBox";
+import Time from "./componentsSearch/TimePicker";
 //React-Rainbow
 import { Button } from "react-rainbow-components";
 //Material-UI
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 //Fetch
-import { fetchCars } from "../../Services/apiRequest/SearchCarServices";
-import Time from "./Components/TimePicker";
-import ConfirmationModal from "../Modals/ConfirmationModal";
+import { fetchCars } from "../../services/apiRequest/SearchCarServices";
+import ConfirmationModal from "../modals/ConfirmationModal";
 
 export const SearchCar = () => {
   //State of branch select
