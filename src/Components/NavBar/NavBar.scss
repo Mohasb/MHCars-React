@@ -4,25 +4,80 @@
 }
 
 .nav {
-  .container-logo:hover {
-    transition: filter 1s linear;
-    filter: brightness(0) saturate(100%) invert(23%) sepia(100%) saturate(1627%) hue-rotate(191deg) brightness(94%) contrast(103%);
-  }
-  .logo {
-    width: 3rem;
-  }
-  a {
-    font-family: Recons !important;
-    font-size: 2rem;
-    text-decoration: none !important;
-    color: #fff;
-    font-weight: 100;
-    &:hover {
+  .toolbar {
+    justify-content: space-between;
+    .container-logo {
+      line-height: 5rem;
+      &:hover {
+        transition: filter 0.1s linear;
+        filter: brightness(0) saturate(100%) invert(23%) sepia(100%)
+          saturate(1627%) hue-rotate(191deg) brightness(94%) contrast(103%);
+      }
+      .logo {
+        width: 3rem;
+      }
+    }
+    p {
+      font-family: Recons !important;
+      font-size: 2rem;
+      text-decoration: none !important;
       color: #fff;
+      font-weight: 100;
+      &:hover {
+        color: #fff;
+      }
+    }
+    .menu-icon {
+      transform: scale(2);
+      color: #fff;
+      border: 1px solid white;
+      border-radius: 5px;
+    }
+    .button-nav {
+      margin: 2px 0;
+      display: block;
+      color: #fff;
+      font-size: 1.5rem;
+      font-weight: bold;
+      &:hover {
+        color: #005fb2;
+      }
+    }
+    .avatar {
+      width: 50px;
+      height: 50px;
+      background-color: #f4b408;
+      border: 3px solid white;
+      &:hover {
+        transition: all 0.1s linear;
+        color: #005fb2;
+        border-color: #005fb2;
+      }
     }
   }
 }
 
-/*   .MuiToolbar-root  {
-    justify-content: space-between;
-}   */
+//width 100% nav
+.css-19r6kue-MuiContainer-root {
+  max-width: 100% !important;
+  padding: 0 1.2rem !important;
+}
+//width Avatar same as logo
+.MuiBox-root.css-2uchni {
+  display: flex;
+  justify-content: end;
+  min-width: 142.56px !important;
+}
+// Avatar
+.css-mf1cb5-MuiButtonBase-root-MuiIconButton-root {
+  padding: 0 !important;
+}
+//(width Avatar same as logo) not in phone view
+@media only screen and (max-width: 900px) {
+  .MuiBox-root.css-2uchni {
+    min-width: inherit !important;
+  }
+}
+
+.MuiBox-root.css-1k36coi {
+}

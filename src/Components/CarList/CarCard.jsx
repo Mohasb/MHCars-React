@@ -47,7 +47,7 @@ export default function CarCard({ car, booking }) {
 
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
-              {car.brand} {car.model} | {car.registration}
+              {car.brand} {car.model}
             </Typography>
             <Stack
               spacing={1}

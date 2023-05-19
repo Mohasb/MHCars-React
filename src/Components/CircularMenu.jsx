@@ -6,7 +6,7 @@ import SpeedDial from "@mui/material/SpeedDial";
 import SpeedDialAction from "@mui/material/SpeedDialAction";
 import KeyboardReturnIcon from "@mui/icons-material/KeyboardReturn";
 import NavigationIcon from "@mui/icons-material/Navigation";
-import BuildIcon from '@mui/icons-material/Build';
+import BuildIcon from "@mui/icons-material/Build";
 
 const actions = [
   { icon: <KeyboardReturnIcon />, name: "Volver" },
@@ -18,25 +18,27 @@ export default function ControlledOpenSpeedDial() {
   const handleclick = () => setOpen(!open);
   const navigate = useNavigate();
 
-  const [speedDial, setSpeedDial] = useState()
+  const [speedDial, setSpeedDial] = useState();
 
   useEffect(() => {
-    setSpeedDial(document.querySelector("#scroll-top"))
-  })
-  
-  window.onscroll = () => {
-    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-      speedDial.classList.add('visible')
-    } else {
-      speedDial.classList.remove('visible')
-    }
-  }
+    setSpeedDial(document.querySelector("#scroll-top"));
+  });
 
-  
+  window.onscroll = () => {
+    if (typeof speedDial != "undefined") {
+      if (
+        document.body.scrollTop > 20 ||
+        document.documentElement.scrollTop > 20
+      ) {
+        speedDial.classList.add("visible");
+      } else {
+        speedDial.classList.remove("visible");
+      }
+    }
+  };
+
   return (
-    <Box
-    className="container-speed-dial"
-    >
+    <Box className="container-speed-dial">
       <SpeedDial
         ariaLabel="SpeedDial"
         icon={<BuildIcon />}

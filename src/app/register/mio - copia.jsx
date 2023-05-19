@@ -1,10 +1,17 @@
-import { useState } from "react";
-import { Input, StrongPasswordInput, Button } from "react-rainbow-components";
+import { Input, Button } from "react-rainbow-components";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import "./style.scss";
+import { useRef, useState, useEffect } from "react";
+import {
+  faCheck,
+  faTimes,
+  faInfoCircle,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-router-dom";
 
-export default function Register() {
+export default function RegisterMio() {
   const [formData, setFormData] = useState({
     dni: "",
     nombre: "",
@@ -22,26 +29,14 @@ export default function Register() {
     errorBankAccount: "",
   });
 
-  const getStrength = (password) => {
-    if (password.length === 0) {
-      return undefined;
-    }
-    if (password.length <= 3) {
-      return "weak";
-    }
-    if (password.length > 3 && password.length < 8) {
-      return "average";
-    }
-    return "strong";
-  };
-  const passwordState = getStrength(formData.password.trim());
-
   const handleSubmit = (e) => {
     validateValues();
   };
   const handleChange = (event) => {
     const { name, value } = event.target;
     validateValues(name);
+    if (!errors.name) {
+    }
     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
   };
 
@@ -72,7 +67,6 @@ export default function Register() {
       case "password":
         handleErrorsPassword();
         break;
-
       default:
         handleErrorsNombre();
         handleErrorsDni();
@@ -84,17 +78,18 @@ export default function Register() {
   };
 
   const handleErrorsNombre = () => {
+    const inputNombre = document.querySelector("input[name='nombre']");
+    console.log(inputNombre);
     const nombre = formData.nombre.trim();
-    console.log(nombre);
     if (!nombre) {
       setErrors((prevState) => ({ ...prevState, errorNombre: "Vacio" }));
     } else if (nombre.length < 2) {
       setErrors((prevState) => ({ ...prevState, errorNombre: "Corto" }));
     } else {
       setErrors((prevState) => ({ ...prevState, errorNombre: "" }));
+      inputNombre.classList.add("valid");
     }
   };
-
   const handleErrorsDni = () => {
     const REGEX_DNI = /^[0-9]{8,8}[A-Za-z]$/g;
     const dni = formData.dni.trim();
@@ -177,7 +172,7 @@ export default function Register() {
     <main>
       <div className="card">
         <h1 className="title">Registro</h1>
-        <Box sx={{ width: "100%" }} className="box">
+        <Box className="box">
           <Grid
             container
             rowSpacing={1}
@@ -188,13 +183,14 @@ export default function Register() {
                 label="Nombre"
                 placeholder="Nombre"
                 type="text"
-                size="medium"
+                size="large"
                 borderRadius="semi-rounded"
                 name="nombre"
                 value={formData.name}
                 onBlur={handleChange}
                 onClick={removeError}
                 error={errors.errorNombre}
+                required
               />
             </Grid>
             <Grid item xs={6}>
@@ -202,13 +198,14 @@ export default function Register() {
                 label="Email"
                 placeholder="inputEmail@gmail.com"
                 type="email"
-                size="medium"
+                size="large"
                 name="email"
                 borderRadius="semi-rounded"
                 value={formData.name}
                 onChange={handleChange}
                 onClick={removeError}
                 error={errors.errorEmail}
+                required
               />
             </Grid>
             <Grid item xs={6}>
@@ -216,30 +213,29 @@ export default function Register() {
                 label="DNI"
                 placeholder="12345678A"
                 type="text"
-                size="medium"
+                size="large"
                 borderRadius="semi-rounded"
                 name="dni"
                 value={formData.name}
                 onChange={handleChange}
                 onClick={removeError}
                 error={errors.errorDni}
+                required
               />
-              //edmPJB
             </Grid>
             <Grid item xs={6}>
-              <StrongPasswordInput
+              <Input
                 label="Password"
                 placeholder="**********"
                 type="password"
-                size="medium"
                 name="password"
                 borderRadius="semi-rounded"
+                size="large"
                 value={formData.name}
                 onChange={handleChange}
-                onClick={removeError}
-                passwordState={passwordState}
-                required
                 error={errors.errorPassword}
+                onClick={removeError}
+                required
               />
             </Grid>
             <Grid item xs={6}>
@@ -247,27 +243,28 @@ export default function Register() {
                 label="Tarjeta De Credito"
                 placeholder="111-111-1111"
                 type="text"
-                size="medium"
+                size="large"
                 name="bankAccount"
                 borderRadius="semi-rounded"
                 value={formData.name}
                 onChange={handleChange}
                 onClick={removeError}
                 error={errors.errorBankAccount}
+                required
               />
             </Grid>
             <Grid item xs={6}>
-              <StrongPasswordInput
+              <Input
                 label="Confirmación Password"
                 placeholder="**********"
                 type="password"
-                size="medium"
                 name="confirmationPassword"
                 borderRadius="semi-rounded"
+                size="large"
                 value={formData.name}
                 onChange={handleChange}
-                onClick={removeError}
                 error={errors.errorConfirmationPassword}
+                onClick={removeError}
                 required
               />
             </Grid>
@@ -279,6 +276,7 @@ export default function Register() {
               borderRadius="semi-rounded"
               onClick={handleSubmit}
               size="large"
+              style={{ color: "#fff" }}
             />
           </Box>
         </Box>

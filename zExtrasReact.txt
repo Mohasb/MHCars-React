@@ -13,14 +13,13 @@ npm run dev
 
 
 
-client id en reservationCarService
+client id en reservationCarService(esta hardcodeado)
 
-error si no esta arrancado el servidor
-start date mayor a hoy o error
 
 
 encriptar localstorage y sessionStorage
 
-minheigth de 100vh en paginas que sean peques(por ejemplo filtro sin coches)
 
-bug si pulsas fuera del modal de registro luego no sale a la primera el otro
+
+Modales responsive
+fallo reservation en movil ????

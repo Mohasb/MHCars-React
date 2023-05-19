@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState, useContext } from "react";
+import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 //Components imports
 import "./NavBar.scss";
@@ -30,9 +30,8 @@ function ResponsiveAppBar() {
   const navigate = useNavigate();
   const { user, setUser } = useContext(Context);
 
-  const pages = ["Home", "Oficinas", "Coches", "Servicios", "Acceso"];
+  const pages = ["Oficinas", "Coches", "Servicios", "Acceso"];
   const settings = user ? ["Mi cuenta", "Cerrar Sesión"] : ["Iniciar Sesión"];
-  user ? console.log(user.name.charAt(0)) : "";
 
   if (typeof user !== "undefined" && user !== null) {
     user.rol === "Admin" ? (pages[pages.length + 1] = "admin") : "";
@@ -72,32 +71,26 @@ function ResponsiveAppBar() {
   return (
     <AppBar position="static" className="nav">
       <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <Typography
-            className="container-logo"
-            variant="h6"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-              lineHeight: "5rem",
-            }}
-          >
-            <img
-              className="logo"
-              src="/src/assets/image2vector.svg"
-              alt="Icon RentCar"
-            />
-            CARS
-          </Typography>
+        <Toolbar disableGutters className="toolbar">
+          <Box sx={{ display: { xs: "none", md: "flex" } }}>
+            <Link to={"/"}>
+              <Typography
+                className="container-logo"
+                variant="h6"
+                noWrap
+                component="p"
+              >
+                <img
+                  className="logo"
+                  src="/src/assets/image2vector.svg"
+                  alt="Icon RentCar"
+                />
+                CARS
+              </Typography>
+            </Link>
+          </Box>
 
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+          <Box sx={{ display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -106,14 +99,7 @@ function ResponsiveAppBar() {
               onClick={handleOpenNavMenu}
               color="inherit"
             >
-              <MenuIcon
-                sx={{
-                  transform: "scale(2)",
-                  color: "#fff",
-                  border: "1px solid white",
-                  borderRadius: "5px",
-                }}
-              />
+              <MenuIcon className="menu-icon" />
             </IconButton>
             <Menu
               id="menu-appbar"
@@ -141,38 +127,35 @@ function ResponsiveAppBar() {
             </Menu>
           </Box>
 
-          <Box sx={{ display: { xs: "flex", md: "none" }, mr: 1 }}>
-            <Link to={"/"} style={{ textDecoration: "none" }}>
-              <img
-                className="logo"
-                src="/src/assets/MHLogo.png"
-                alt="Icon RentCar"
-              />
+          <Box sx={{ display: { xs: "flex", md: "none" } }}>
+            <Link to={"/"}>
+              <Typography
+                className="container-logo"
+                variant="h6"
+                noWrap
+                component="p"
+              >
+                <img
+                  className="logo"
+                  src="/src/assets/image2vector.svg"
+                  alt="Icon RentCar"
+                />
+                CARS
+              </Typography>
             </Link>
           </Box>
           <Box
             sx={{
-              flexGrow: 1,
-              justifyContent: "center",
               display: { xs: "none", md: "flex" },
             }}
           >
             {pages.map((page) => (
               <Button
+                className="button-nav"
                 key={page}
                 value={page}
                 onClick={() => {
                   handleCloseNavMenu(window.event, page);
-                }}
-                sx={{
-                  my: 2,
-                  color: "white",
-                  display: "block",
-                  fontSize: "1.2rem",
-                  fontWeight: "bold",
-                  "&:hover": {
-                    color: "#005fb2",
-                  },
                 }}
               >
                 {page}
@@ -182,25 +165,11 @@ function ResponsiveAppBar() {
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Perfil">
-              <IconButton
-                size="large"
-                onClick={handleOpenUserMenu}
-                sx={{ p: 0 }}
-              >
+              <IconButton size="large" onClick={handleOpenUserMenu}>
                 <Avatar
+                  className="avatar"
                   alt="Remy Sharp"
                   src={user ? "https://i.pravatar.cc/150" : ""}
-                  sx={{
-                    width: 50,
-                    height: 50,
-                    backgroundColor: "#F4B408",
-                    border: "3px solid white",
-                    "&:hover": {
-                      transition: "all 0.1s linear",
-                      color: "#005fb2",
-                      borderColor: "#005fb2",
-                    },
-                  }}
                 />
               </IconButton>
             </Tooltip>
