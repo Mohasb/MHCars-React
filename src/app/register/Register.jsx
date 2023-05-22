@@ -1,258 +1,308 @@
-import { useRef, useState, useEffect } from "react";
-import {
-  faCheck,
-  faTimes,
-  faInfoCircle,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from "react-router-dom";
-import "./style.scss";
+import { useState } from "react";
 import { Input, Button } from "react-rainbow-components";
+import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
+import Tooltip from "./Tooltip";
+import "./style.scss";
 
-const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
-const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
-const REGISTER_URL = "/register";
+export default function Register() {
+  const [values, setValues] = useState({
+    nombre: "",
+    email: "",
+    dni: "",
+    password: "",
+    bankAccount: "",
+    confirmationPassword: "",
+  });
 
-const Register = () => {
-  const userRef = useRef();
-  const errRef = useRef();
+  const [errors, setErrors] = useState({
+    errorNombre: "",
+    errorEmail: "",
+    errorDni: "",
+    errorPassword: "",
+    errorBankAccount: "",
+    errorConfirmationPassword: "",
+  });
 
-  const [user, setUser] = useState("");
-  const [validName, setValidName] = useState(false);
-  const [userFocus, setUserFocus] = useState(false);
-
-  const [pwd, setPwd] = useState("");
-  const [validPwd, setValidPwd] = useState(false);
-  const [pwdFocus, setPwdFocus] = useState(false);
-
-  const [matchPwd, setMatchPwd] = useState("");
-  const [validMatch, setValidMatch] = useState(false);
-  const [matchFocus, setMatchFocus] = useState(false);
-
-  const [errMsg, setErrMsg] = useState("");
-  const [success, setSuccess] = useState(false);
-
-  useEffect(() => {
-    userRef.current.focus();
-  }, []);
-
-  useEffect(() => {
-    setValidName(USER_REGEX.test(user));
-  }, [user]);
-
-  useEffect(() => {
-    setValidPwd(PWD_REGEX.test(pwd));
-    setValidMatch(pwd === matchPwd);
-  }, [pwd, matchPwd]);
-
-  useEffect(() => {
-    setErrMsg("");
-  }, [user, pwd, matchPwd]);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    // if button enabled with JS hack
-    const v1 = USER_REGEX.test(user);
-    const v2 = PWD_REGEX.test(pwd);
-    if (!v1 || !v2) {
-      setErrMsg("Invalid Entry");
-      return;
-    }
-    try {
-      console.log({ user, pwd });
-      setSuccess(true);
-      setUser("");
-      setPwd("");
-      setMatchPwd("");
-      /* const response = await axios.post(
-        REGISTER_URL,
-        JSON.stringify({ user, pwd }),
-        {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: true,
-        }
-      );
-      // TODO: remove console.logs before deployment
-      console.log(JSON.stringify(response?.data));
-      //console.log(JSON.stringify(response))
-      setSuccess(true);
-      //clear state and controlled inputs
-      setUser("");
-      setPwd("");
-      setMatchPwd(""); */
-    } catch (err) {
-      /* if (!err?.response) {
-        setErrMsg("No Server Response");
-      } else if (err.response?.status === 409) {
-        setErrMsg("Username Taken");
-      } else {
-        setErrMsg("Registration Failed");
+  const handleSubmit = (values) => {
+    for (let [key, value] of Object.entries(values)) {
+      const nameError = "error" + key.charAt(0).toUpperCase() + key.slice(1);
+      if (value === "") {
+        setErrors((prevState) => ({
+          ...prevState,
+          [nameError]: `No puede quedar vacío`,
+        }));
       }
-      errRef.current.focus(); */
-      console.log(err);
+      console.log(errors.errorNombre);
+    }
+  };
+
+  const handleChange = (e) => {
+    const nameInput = e.target.name;
+    const value = e.target.value.trim();
+    validate(nameInput, value);
+  };
+
+  const validate = (nameInput, value) => {
+    switch (nameInput) {
+      case "nombre":
+        validateNombre(nameInput, value);
+        break;
+      case "email":
+        validateEmail(nameInput, value);
+        break;
+      case "dni":
+        validateDni(nameInput, value);
+        break;
+      case "password":
+        validatePassword(nameInput, value);
+        break;
+      case "bankAccount":
+        validateBankAccount(nameInput, value);
+        break;
+      case "confirmationPassword":
+        validateConfirmationPassword(nameInput, value);
+        break;
+      default:
+        break;
+    }
+  };
+
+  const validateNombre = (nameInput, value) => {
+    const nameError =
+      "error" + nameInput.charAt(0).toUpperCase() + nameInput.slice(1);
+
+    if (value.length < 2) {
+      setErrors((prevState) => ({
+        ...prevState,
+        [nameError]: "El nombre debe ser mayor a dos carácteres",
+      }));
+    } else {
+      setValues((prevState) => ({ ...prevState, [nameInput]: value }));
+      setErrors((prevState) => ({ ...prevState, [nameError]: "" }));
+    }
+  };
+
+  const validateEmail = (nameInput, value) => {
+    const REGEX_EMAIL =
+      /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g;
+    const nameError =
+      "error" + nameInput.charAt(0).toUpperCase() + nameInput.slice(1);
+    if (!REGEX_EMAIL.test(value)) {
+      setErrors((prevState) => ({
+        ...prevState,
+        [nameError]: "Formato email mal",
+      }));
+    } else {
+      setValues((prevState) => ({ ...prevState, [nameInput]: value }));
+      setErrors((prevState) => ({ ...prevState, [nameError]: "" }));
+    }
+  };
+  const validateDni = (nameInput, value) => {
+    const REGEX_DNI = /^[0-9]{8,8}[A-Za-z]$/g;
+    const nameError =
+      "error" + nameInput.charAt(0).toUpperCase() + nameInput.slice(1);
+    if (!REGEX_DNI.test(value)) {
+      setErrors((prevState) => ({
+        ...prevState,
+        [nameError]: "Formato dni mal",
+      }));
+    } else {
+      setValues((prevState) => ({ ...prevState, [nameInput]: value }));
+      setErrors((prevState) => ({ ...prevState, errorDni: "" }));
+    }
+  };
+  const validatePassword = (nameInput, value) => {
+    const regexPassword =
+      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm;
+    const nameError =
+      "error" + nameInput.charAt(0).toUpperCase() + nameInput.slice(1);
+
+    if (value.length < 8) {
+      console.log(nameError);
+      setErrors((prevState) => ({
+        ...prevState,
+        [nameError]: "Debe tener 8 caracteres como mínimo",
+      }));
+    } else if (!/[A-Z]/.test(value)) {
+      setErrors((prevState) => ({
+        ...prevState,
+        [nameError]: "Debe tener al menos 1 letra mayuscula",
+      }));
+    } else if (!/[a-z]/.test(value)) {
+      setErrors((prevState) => ({
+        ...prevState,
+        [nameError]: "Debe tener al menos 1 letra minuscula",
+      }));
+    } else if (!/\d/.test(value)) {
+      setErrors((prevState) => ({
+        ...prevState,
+        [nameError]: "Debe tener al menos 1 numero",
+      }));
+    } else if (!regexPassword.test(value)) {
+      setErrors((prevState) => ({
+        ...prevState,
+        [nameError]: "El password no es válido",
+      }));
+    } else {
+      setValues((prevState) => ({ ...prevState, [nameInput]: value }));
+      setErrors((prevState) => ({
+        ...prevState,
+        [nameError]: "",
+      }));
+    }
+  };
+  const validateBankAccount = (nameInput, value) => {
+    const nameError =
+      "error" + nameInput.charAt(0).toUpperCase() + nameInput.slice(1);
+    if (isNaN(value)) {
+      setErrors((prevState) => ({
+        ...prevState,
+        [nameError]: "Caracteres inválidos,solo numeros",
+      }));
+    } else if (value.length < 16) {
+      setErrors((prevState) => ({
+        ...prevState,
+        [nameError]: "Como minimo 16 numeros",
+      }));
+    } else if (value.length < 18) {
+      setErrors((prevState) => ({
+        ...prevState,
+        [nameError]: "Como maximo 18 numeros",
+      }));
+    } else {
+      setValues((prevState) => ({ ...prevState, [nameInput]: value }));
+      setErrors((prevState) => ({ ...prevState, nameError: "" }));
+    }
+  };
+  const validateConfirmationPassword = (nameInput, value) => {
+    const nameError =
+      "error" + nameInput.charAt(0).toUpperCase() + nameInput.slice(1);
+    if (value !== values.password) {
+      setErrors((prevState) => ({
+        ...prevState,
+        [nameError]: "No son iguales",
+      }));
+    } else {
+      setValues((prevState) => ({ ...prevState, [nameInput]: value }));
+      setErrors((prevState) => ({
+        ...prevState,
+        [nameError]: "",
+      }));
     }
   };
 
   return (
-    <>
-      {success ? (
-        <section>
-          <h1>Success!</h1>
-          <h1>logear y redirigir</h1>
-          <p>
-            <a href="#">Sign In</a>
-          </p>
-        </section>
-      ) : (
-        <section>
-          <p
-            ref={errRef}
-            className={errMsg ? "errmsg" : "offscreen"}
-            aria-live="assertive"
-          >
-            {errMsg}
-          </p>
-          <h1>Registro</h1>
-          <form onSubmit={handleSubmit}>
-            <Input
-              label="Nombre"
-              id="username"
-              placeholder="Nombre"
-              type="text"
-              size="large"
-              borderRadius="semi-rounded"
-              name="nombre"
-              value={user}
-              ref={userRef}
-              autoComplete="off"
-              onChange={(e) => setUser(e.target.value)}
-              aria-invalid={validName ? "false" : "true"}
-              aria-describedby="uidnote"
-              onFocus={() => setUserFocus(true)}
-              onBlur={() => setUserFocus(false)}
-              required
-              error={"error"}
-            />
-            <FontAwesomeIcon
-              icon={faCheck}
-              className={validName ? "valid" : "hide"}
-            />
-            <FontAwesomeIcon
-              icon={faTimes}
-              className={validName || !user ? "hide" : "invalid"}
-            />
-            <p
-              id="uidnote"
-              className={
-                userFocus && user && !validName ? "instructions" : "offscreen"
-              }
+    <main>
+      <div className="card">
+        <h1 className="title">Registro</h1>
+        <form onSubmit={handleSubmit}>
+          <Box className="box">
+            <Grid
+              container
+              rowSpacing={1}
+              columnSpacing={{ xs: 1, sm: 2, md: 3 }}
             >
-              <FontAwesomeIcon icon={faInfoCircle} />
-              4 to 24 characters.
-              <br />
-              Must begin with a letter.
-              <br />
-              Letters, numbers, underscores, hyphens allowed.
-            </p>
-
-            <Input
-              label="Password"
-              placeholder="**********"
-              type="password"
-              name="password"
-              borderRadius="semi-rounded"
-              size="large"
-              id="password"
-              onChange={(e) => setPwd(e.target.value)}
-              value={pwd}
-              aria-invalid={validPwd ? "false" : "true"}
-              aria-describedby="pwdnote"
-              onFocus={() => setPwdFocus(true)}
-              onBlur={() => setPwdFocus(false)}
-              required
-            />
-            <FontAwesomeIcon
-              icon={faCheck}
-              className={validPwd ? "valid" : "hide"}
-            />
-            <FontAwesomeIcon
-              icon={faTimes}
-              className={validPwd || !pwd ? "hide" : "invalid"}
-            />
-            <p
-              id="pwdnote"
-              className={pwdFocus && !validPwd ? "instructions" : "offscreen"}
-            >
-              <FontAwesomeIcon icon={faInfoCircle} />
-              8 to 24 characters.
-              <br />
-              Must include uppercase and lowercase letters, a number and a
-              special character.
-              <br />
-              Allowed special characters:{" "}
-              <span aria-label="exclamation mark">!</span>{" "}
-              <span aria-label="at symbol">@</span>{" "}
-              <span aria-label="hashtag">#</span>{" "}
-              <span aria-label="dollar sign">$</span>{" "}
-              <span aria-label="percent">%</span>
-            </p>
-            <Input
-              label="Confirmación Password"
-              placeholder="**********"
-              type="password"
-              name="confirmationPassword"
-              borderRadius="semi-rounded"
-              size="large"
-              id="confirm_pwd"
-              onChange={(e) => setMatchPwd(e.target.value)}
-              value={matchPwd}
-              aria-invalid={validMatch ? "false" : "true"}
-              aria-describedby="confirmnote"
-              onFocus={() => setMatchFocus(true)}
-              onBlur={() => setMatchFocus(false)}
-              required
-            />
-            <FontAwesomeIcon
-              icon={faCheck}
-              className={validMatch && matchPwd ? "valid" : "hide"}
-            />
-            <FontAwesomeIcon
-              icon={faTimes}
-              className={validMatch || !matchPwd ? "hide" : "invalid"}
-            />
-            <p
-              id="confirmnote"
-              className={
-                matchFocus && !validMatch ? "instructions" : "offscreen"
-              }
-            >
-              <FontAwesomeIcon icon={faInfoCircle} />
-              Must match the first password input field.
-            </p>
+              <Grid item xs={6}>
+                <Input
+                  required
+                  label="Nombre"
+                  placeholder="Nombre"
+                  type="text"
+                  size="large"
+                  borderRadius="semi-rounded"
+                  name="nombre"
+                  onChange={handleChange}
+                  error={errors.errorNombre}
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <Input
+                  required
+                  label="Email"
+                  placeholder="inputEmail@gmail.com"
+                  type="email"
+                  size="large"
+                  name="email"
+                  borderRadius="semi-rounded"
+                  onChange={handleChange}
+                  error={errors.errorEmail}
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <Input
+                  required
+                  label="DNI"
+                  placeholder="12345678A"
+                  type="text"
+                  size="large"
+                  name="dni"
+                  borderRadius="semi-rounded"
+                  onChange={handleChange}
+                  error={errors.errorDni}
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <Tooltip
+                  text={
+                    "- at least 8 characters \n" +
+                    "- must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number\n" +
+                    "- Can contain special characters"
+                  }
+                >
+                  <Input
+                    required
+                    label="Password"
+                    placeholder="**********"
+                    type="password"
+                    name="password"
+                    borderRadius="semi-rounded"
+                    size="large"
+                    onChange={handleChange}
+                    error={errors.errorPassword}
+                  />
+                </Tooltip>
+              </Grid>
+              <Grid item xs={6}>
+                <Input
+                  required
+                  label="Tarjeta De Credito"
+                  placeholder="111-111-1111"
+                  type="text"
+                  size="large"
+                  name="bankAccount"
+                  borderRadius="semi-rounded"
+                  onChange={handleChange}
+                  error={errors.errorBankAccount}
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <Input
+                  required
+                  label="Confirmación Password"
+                  placeholder="**********"
+                  type="password"
+                  name="confirmationPassword"
+                  borderRadius="semi-rounded"
+                  size="large"
+                  onChange={handleChange}
+                  error={errors.errorConfirmationPassword}
+                />
+              </Grid>
+            </Grid>
             <Box sx={{ textAlign: "center", margin: "2rem 0 auto" }}>
               <Button
                 label="Registrarse"
                 variant="brand"
                 borderRadius="semi-rounded"
-                onClick={handleSubmit}
+                onClick={() => handleSubmit(values)}
                 size="large"
                 style={{ color: "#fff" }}
-                disabled={!validName || !validPwd || !validMatch ? true : false}
               />
             </Box>
-          </form>
-          <p>
-            Already registered?
-            <br />
-            <span className="line">
-              <Link to="/">Sign In</Link>
-            </span>
-          </p>
-        </section>
-      )}
-    </>
+          </Box>
+        </form>
+      </div>
+    </main>
   );
-};
-
-export default Register;
+}
