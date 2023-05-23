@@ -22,9 +22,9 @@ export const theme = createTheme({
     MuiTooltip: {
       styleOverrides: {
         tooltip: {
-          backgroundColor: "pink",
-          color: "red",
-          border: "1px solid #dadde9",
+          backgroundColor: "#fff",
+          color: "black",
+          border: "1px solid black",
         },
       },
     },

@@ -168,7 +168,7 @@ function ResponsiveAppBar() {
               <IconButton size="large" onClick={handleOpenUserMenu}>
                 <Avatar
                   className="avatar"
-                  alt="Remy Sharp"
+                  alt={user ? `${user.name}` : ""}
                   src={user ? "https://i.pravatar.cc/150" : ""}
                 />
               </IconButton>

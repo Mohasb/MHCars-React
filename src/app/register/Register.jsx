@@ -1,11 +1,18 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Input, Button } from "react-rainbow-components";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Tooltip from "./Tooltip";
 import "./style.scss";
+import { useNavigate } from "react-router-dom";
+//Services
+import { PostClient } from "../../services/apiRequest/PostClient";
+import authService from "../../Services/login/auth.service";
+import Context from "../../Services/contextUser/ContextUser";
 
 export default function Register() {
+  const { user, setUser } = useContext(Context);
+  const navigate = useNavigate();
   const [values, setValues] = useState({
     nombre: "",
     email: "",
@@ -24,16 +31,57 @@ export default function Register() {
     errorConfirmationPassword: "",
   });
 
-  const handleSubmit = (values) => {
+  const handleSubmit = () => {
+    checkEmpties();
+    const isAllOk = Object.values(errors).every((err) => err === "");
+
+    if (isAllOk) {
+      const client = {
+        registration: values.dni.toLowerCase(),
+        name: values.nombre,
+        lastName: values.lastName || "undefined",
+        email: values.email.toLowerCase(),
+        password: values.password,
+        phoneNumber: values.phoneNumber || 0,
+        bankAccount: values.bankAccount,
+      };
+      PostClient(client).then((response) => {
+        if (response.isOk) {
+          authService.login(values.email, values.password).then((response) => {
+            if (response.isOk) {
+              setUser(response.userWithToken);
+              navigate(-1);
+            }
+          });
+        } else {
+          if (response.responseText == "Registration not unique") {
+            setErrors((prevState) => ({
+              ...prevState,
+              errorDni: "Este dni ya esta en uso",
+            }));
+          } else if (response.responseText == "Email not unique") {
+            setErrors((prevState) => ({
+              ...prevState,
+              errorEmail: "Este email ya esta en uso",
+            }));
+          }
+        }
+      });
+    }
+  };
+
+  const checkEmpties = () => {
     for (let [key, value] of Object.entries(values)) {
       const nameError = "error" + key.charAt(0).toUpperCase() + key.slice(1);
-      if (value === "") {
+
+      let errorValue = eval(`errors.${nameError}`);
+      errors.nameError;
+      if (value === "" && errorValue === "") {
         setErrors((prevState) => ({
           ...prevState,
           [nameError]: `No puede quedar vacío`,
         }));
       }
-      console.log(errors.errorNombre);
     }
   };
 
@@ -71,6 +119,7 @@ export default function Register() {
   const validateNombre = (nameInput, value) => {
     const nameError =
       "error" + nameInput.charAt(0).toUpperCase() + nameInput.slice(1);
+    var input = document.querySelector('input[name="nombre"]');
 
     if (value.length < 2) {
       setErrors((prevState) => ({
@@ -79,6 +128,7 @@ export default function Register() {
       }));
     } else {
       setValues((prevState) => ({ ...prevState, [nameInput]: value }));
+      input.classList.add("valid");
       setErrors((prevState) => ({ ...prevState, [nameError]: "" }));
     }
   };
@@ -88,6 +138,7 @@ export default function Register() {
       /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g;
     const nameError =
       "error" + nameInput.charAt(0).toUpperCase() + nameInput.slice(1);
+    var input = document.querySelector('input[name="email"]');
     if (!REGEX_EMAIL.test(value)) {
       setErrors((prevState) => ({
         ...prevState,
@@ -95,6 +146,7 @@ export default function Register() {
       }));
     } else {
       setValues((prevState) => ({ ...prevState, [nameInput]: value }));
+      input.classList.add("valid");
       setErrors((prevState) => ({ ...prevState, [nameError]: "" }));
     }
   };
@@ -102,6 +154,7 @@ export default function Register() {
     const REGEX_DNI = /^[0-9]{8,8}[A-Za-z]$/g;
     const nameError =
       "error" + nameInput.charAt(0).toUpperCase() + nameInput.slice(1);
+    var input = document.querySelector('input[name="dni"]');
     if (!REGEX_DNI.test(value)) {
       setErrors((prevState) => ({
         ...prevState,
@@ -109,6 +162,7 @@ export default function Register() {
       }));
     } else {
       setValues((prevState) => ({ ...prevState, [nameInput]: value }));
+      input.classList.add("valid");
       setErrors((prevState) => ({ ...prevState, errorDni: "" }));
     }
   };
@@ -117,27 +171,26 @@ export default function Register() {
       /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm;
     const nameError =
       "error" + nameInput.charAt(0).toUpperCase() + nameInput.slice(1);
-
+    var input = document.querySelector('input[name="password"]');
     if (value.length < 8) {
-      console.log(nameError);
       setErrors((prevState) => ({
         ...prevState,
-        [nameError]: "Debe tener 8 caracteres como mínimo",
+        [nameError]: "8 caracteres como mínimo",
       }));
     } else if (!/[A-Z]/.test(value)) {
       setErrors((prevState) => ({
         ...prevState,
-        [nameError]: "Debe tener al menos 1 letra mayuscula",
+        [nameError]: "Al menos 1 letra mayuscula",
       }));
     } else if (!/[a-z]/.test(value)) {
       setErrors((prevState) => ({
         ...prevState,
-        [nameError]: "Debe tener al menos 1 letra minuscula",
+        [nameError]: "Al menos 1 letra minuscula",
       }));
     } else if (!/\d/.test(value)) {
       setErrors((prevState) => ({
         ...prevState,
-        [nameError]: "Debe tener al menos 1 numero",
+        [nameError]: "Al menos 1 numero",
       }));
     } else if (!regexPassword.test(value)) {
       setErrors((prevState) => ({
@@ -146,6 +199,7 @@ export default function Register() {
       }));
     } else {
       setValues((prevState) => ({ ...prevState, [nameInput]: value }));
+      input.classList.add("valid");
       setErrors((prevState) => ({
         ...prevState,
         [nameError]: "",
@@ -155,6 +209,7 @@ export default function Register() {
   const validateBankAccount = (nameInput, value) => {
     const nameError =
       "error" + nameInput.charAt(0).toUpperCase() + nameInput.slice(1);
+    var input = document.querySelector('input[name="bankAccount"]');
     if (isNaN(value)) {
       setErrors((prevState) => ({
         ...prevState,
@@ -165,19 +220,21 @@ export default function Register() {
         ...prevState,
         [nameError]: "Como minimo 16 numeros",
       }));
-    } else if (value.length < 18) {
+    } else if (value.length > 18) {
       setErrors((prevState) => ({
         ...prevState,
         [nameError]: "Como maximo 18 numeros",
       }));
     } else {
       setValues((prevState) => ({ ...prevState, [nameInput]: value }));
-      setErrors((prevState) => ({ ...prevState, nameError: "" }));
+      input.classList.add("valid");
+      setErrors((prevState) => ({ ...prevState, [nameError]: "" }));
     }
   };
   const validateConfirmationPassword = (nameInput, value) => {
     const nameError =
       "error" + nameInput.charAt(0).toUpperCase() + nameInput.slice(1);
+    var input = document.querySelector('input[name="confirmationPassword"]');
     if (value !== values.password) {
       setErrors((prevState) => ({
         ...prevState,
@@ -185,6 +242,7 @@ export default function Register() {
       }));
     } else {
       setValues((prevState) => ({ ...prevState, [nameInput]: value }));
+      input.classList.add("valid");
       setErrors((prevState) => ({
         ...prevState,
         [nameError]: "",
@@ -212,6 +270,7 @@ export default function Register() {
                   size="large"
                   borderRadius="semi-rounded"
                   name="nombre"
+                  onBlur={handleChange}
                   onChange={handleChange}
                   error={errors.errorNombre}
                 />
@@ -225,6 +284,7 @@ export default function Register() {
                   size="large"
                   name="email"
                   borderRadius="semi-rounded"
+                  onBlur={handleChange}
                   onChange={handleChange}
                   error={errors.errorEmail}
                 />
@@ -238,6 +298,7 @@ export default function Register() {
                   size="large"
                   name="dni"
                   borderRadius="semi-rounded"
+                  onBlur={handleChange}
                   onChange={handleChange}
                   error={errors.errorDni}
                 />
@@ -258,6 +319,7 @@ export default function Register() {
                     name="password"
                     borderRadius="semi-rounded"
                     size="large"
+                    onBlur={handleChange}
                     onChange={handleChange}
                     error={errors.errorPassword}
                   />
@@ -272,6 +334,7 @@ export default function Register() {
                   size="large"
                   name="bankAccount"
                   borderRadius="semi-rounded"
+                  onBlur={handleChange}
                   onChange={handleChange}
                   error={errors.errorBankAccount}
                 />
@@ -285,6 +348,7 @@ export default function Register() {
                   name="confirmationPassword"
                   borderRadius="semi-rounded"
                   size="large"
+                  onBlur={handleChange}
                   onChange={handleChange}
                   error={errors.errorConfirmationPassword}
                 />
@@ -295,7 +359,7 @@ export default function Register() {
                 label="Registrarse"
                 variant="brand"
                 borderRadius="semi-rounded"
-                onClick={() => handleSubmit(values)}
+                onClick={handleSubmit}
                 size="large"
                 style={{ color: "#fff" }}
               />

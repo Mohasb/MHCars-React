@@ -29,7 +29,7 @@ export default function ConfirmationCard({ car, booking }) {
   const handleReservation = (car, booking) => {
       
       if (user !== null && typeof user !== 'undefined' && car && booking) {
-        ReservationCar(car, booking).then((response) => {
+        ReservationCar(car, booking, user).then((response) => {
           if (response.status === 200) {
             setShowModal(true)
           }

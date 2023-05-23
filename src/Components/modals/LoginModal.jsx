@@ -4,6 +4,7 @@ import authService from "../../Services/login/auth.service";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Context from "../../Services/contextUser/ContextUser";
+import Stack from "@mui/material/Stack";
 
 export default function LoginModal(props) {
   const { user, setUser } = useContext(Context);
@@ -15,7 +16,6 @@ export default function LoginModal(props) {
     emailError: "",
     passwordError: "",
   });
-
 
   const inputStyles = {
     width: 400,
@@ -73,6 +73,8 @@ export default function LoginModal(props) {
   };
 
   const login = (email, password) => {
+    console.log(email);
+    console.log(password);
     authService.login(email, password).then((response) => {
       if (response.isOk) {
         handleOnClose();
@@ -96,67 +98,79 @@ export default function LoginModal(props) {
 
   return (
     <div className="visually-hidden">
-        <div className="rainbow-m-bottom_xx-large rainbow-p-bottom_xx-large ">
-          <Modal
-            isOpen={isOpen}
-            onRequestClose={handleOnClose}
-            title="Iniciar Sessión"
-            variant="brand"
-            footer={
-              <div className="rainbow-flex rainbow-justify_spread">
-                <Button
-                  label="Volver"
-                  variant="neutral"
-                  onClick={handleOnClose}
-                />
+      <div className="rainbow-m-bottom_xx-large rainbow-p-bottom_xx-large ">
+        <Modal
+          isOpen={isOpen}
+          onRequestClose={handleOnClose}
+          title="Iniciar Sessión"
+          variant="brand"
+          footer={
+            <div className="rainbow-flex rainbow-justify_spread">
+              <Button
+                label="Volver"
+                variant="neutral"
+                onClick={handleOnClose}
+              />
+              <Stack
+                spacing={1}
+                direction={{ xs: "column", sm: "column" }}
+                sx={{ width: "100%" }}
+              >
                 <p className="text-center">
                   ¿No tienes cuenta?&nbsp;
                   <Link to={"/registro"} onClick={handleOnClose}>
                     Registrate
                   </Link>
                 </p>
-                <Button
-                  label="Login"
-                  variant="brand"
-                  onClick={() => {
-                    validateLogin(emailUser, passwordUser);
-                  }}
-                />
-              </div>
-            }
-          >
-            <form>
-              <Input
-                label="Email"
-                placeholder="email@gmail.com"
-                type="email"
-                name="email"
-                style={inputStyles}
-                className="rainbow-m-vertical_x-large rainbow-p-horizontal_medium rainbow-m_auto"
-                borderRadius="semi-rounded"
-                size="large"
-                value={emailUser}
-                onChange={handleChangeEmail}
-                error={errors.emailError}
-                onClick={handleClickInput}
+                <p className="text-center">
+                  ¿Has olvidado tu contraseña?&nbsp;
+                  <Link to={"/editpwd"} onClick={handleOnClose}>
+                    Modificala
+                  </Link>
+                </p>
+              </Stack>
+              <Button
+                label="Login"
+                variant="brand"
+                onClick={() => {
+                  validateLogin(emailUser, passwordUser);
+                }}
               />
-              <Input
-                label="Password"
-                placeholder="**********"
-                type="password"
-                name="password"
-                className="rainbow-m-vertical_x-large rainbow-p-horizontal_medium rainbow-m_auto"
-                borderRadius="semi-rounded"
-                style={inputStyles}
-                size="large"
-                value={passwordUser}
-                onChange={handleChagePassword}
-                error={errors.passwordError}
-                onClick={handleClickInput}
-              />
-            </form>
-          </Modal>
-        </div>
+            </div>
+          }
+        >
+          <form>
+            <Input
+              label="Email"
+              placeholder="email@gmail.com"
+              type="email"
+              name="email"
+              style={inputStyles}
+              className="rainbow-m-vertical_x-large rainbow-p-horizontal_medium rainbow-m_auto"
+              borderRadius="semi-rounded"
+              size="large"
+              value={emailUser}
+              onChange={handleChangeEmail}
+              error={errors.emailError}
+              onClick={handleClickInput}
+            />
+            <Input
+              label="Password"
+              placeholder="**********"
+              type="password"
+              name="password"
+              className="rainbow-m-vertical_x-large rainbow-p-horizontal_medium rainbow-m_auto"
+              borderRadius="semi-rounded"
+              style={inputStyles}
+              size="large"
+              value={passwordUser}
+              onChange={handleChagePassword}
+              error={errors.passwordError}
+              onClick={handleClickInput}
+            />
+          </form>
+        </Modal>
+      </div>
     </div>
   );
 }
