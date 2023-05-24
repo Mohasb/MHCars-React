@@ -13,7 +13,7 @@ export default function Home() {
         </section>
         <section>
           <div className="block">
-              <p className="line-break"></p>
+            <p className="line-break"></p>
             <p>
               <span className="first-character sc">I</span>Lorem ipsum dolor sit
               amet consectetur adipisicing elit. Facilis, illum provident? Rerum
@@ -23,19 +23,17 @@ export default function Home() {
               adipisci nostrum reprehenderit neque repellat error tempore
               accusantium aliquid fugiat harum deserunt recusandae officia
             </p>
-              <p className="line-break"></p>
+            <p className="line-break"></p>
           </div>
         </section>
-
         <section>
           <div className="parallax-two">
             <h2>Benidorm</h2>
           </div>
         </section>
-
         <section>
           <div className="block">
-              <p className="line-break"></p>
+            <p className="line-break"></p>
             <p>
               <span className="first-character ny">B</span>Lorem ipsum dolor sit
               amet consectetur adipisicing elit. Facilis, illum provident? Rerum
@@ -43,36 +41,89 @@ export default function Home() {
               explicabo expedita facilis maxime sunt aut? Cupiditate, harum. Aut
               hic laborum dolore unde distinctio cum laboriosam quisquam
             </p>
-              <p className="line-break "></p>
+            <p className="line-break "></p>
           </div>
         </section>
-
         <section>
           <div className="parallax-three">
-            <h2 style={{padding:"1rem 0 2rem 0"}}>Nuestros Coches</h2>
+            <h2 style={{ padding: "1rem 0 2rem 0" }}>Nuestros Coches</h2>
             <div className="car-images slideshow">
-            <img className="slideshow-image" src="/src/assets/Cars/AudiA1Image.webp" alt="AudiA1Image" />
-            <img className="slideshow-image" src="/src/assets/Cars/AudiA3Image.webp" alt="AudiA3Image" />
-            <img className="slideshow-image" src="/src/assets/Cars/MercedesClaseAImage.webp" alt="MercedesClaseAImage" />
-            <img className="slideshow-image" src="/src/assets/Cars/AudiA4Image.webp" alt="AudiA4Image" />
-            <img className="slideshow-image" src="/src/assets/Cars/AudiQ2Image.webp" alt="AudiQ2Image" />
-            <img className="slideshow-image" src="/src/assets/Cars/Fiat500Cabrio.webp" alt="Fiat500Cabrio" />
-            <img className="slideshow-image" src="/src/assets/Cars/FordFocusImage.webp" alt="FordFocusImage" />
-            <img className="slideshow-image" src="/src/assets/Cars/VolkswagenTROCCabrioletImage.webp" alt="VolkswagenTROCCabrioletImage" />
-            <img className="slideshow-image" src="/src/assets/Cars/VolkswagenTouranImage.webp" alt="VolkswagenTouranImage" />
-            <img className="slideshow-image" src="/src/assets/Cars/SkodaKaroqoImage.webp" alt="SkodaKaroqoImage" />
-            <img className="slideshow-image" src="/src/assets/Cars/PeugeotSpaceImage.webp" alt="PeugeotSpaceImage" />
-            <img className="slideshow-image" src="/src/assets/Cars/Peugeot5008Image.webp" alt="Peugeot5008Image" />
-            <img className="slideshow-image" src="/src/assets/Cars/OpelMokkaImage.webp" alt="OpelMokkaImage" />
-            <img className="slideshow-image" src="/src/assets/Cars/FordTransitXlImage.webp" alt="FordTransitXlImage" />
-
+              <img
+                className="slideshow-image"
+                src="/src/assets/Cars/AudiA1Image.webp"
+                alt="AudiA1Image"
+              />
+              <img
+                className="slideshow-image"
+                src="/src/assets/Cars/AudiA3Image.webp"
+                alt="AudiA3Image"
+              />
+              <img
+                className="slideshow-image"
+                src="/src/assets/Cars/MercedesClaseAImage.webp"
+                alt="MercedesClaseAImage"
+              />
+              <img
+                className="slideshow-image"
+                src="/src/assets/Cars/AudiA4Image.webp"
+                alt="AudiA4Image"
+              />
+              <img
+                className="slideshow-image"
+                src="/src/assets/Cars/AudiQ2Image.webp"
+                alt="AudiQ2Image"
+              />
+              <img
+                className="slideshow-image"
+                src="/src/assets/Cars/Fiat500Cabrio.webp"
+                alt="Fiat500Cabrio"
+              />
+              <img
+                className="slideshow-image"
+                src="/src/assets/Cars/FordFocusImage.webp"
+                alt="FordFocusImage"
+              />
+              <img
+                className="slideshow-image"
+                src="/src/assets/Cars/VolkswagenTROCCabrioletImage.webp"
+                alt="VolkswagenTROCCabrioletImage"
+              />
+              <img
+                className="slideshow-image"
+                src="/src/assets/Cars/VolkswagenTouranImage.webp"
+                alt="VolkswagenTouranImage"
+              />
+              <img
+                className="slideshow-image"
+                src="/src/assets/Cars/SkodaKaroqoImage.webp"
+                alt="SkodaKaroqoImage"
+              />
+              <img
+                className="slideshow-image"
+                src="/src/assets/Cars/PeugeotSpaceImage.webp"
+                alt="PeugeotSpaceImage"
+              />
+              <img
+                className="slideshow-image"
+                src="/src/assets/Cars/Peugeot5008Image.webp"
+                alt="Peugeot5008Image"
+              />
+              <img
+                className="slideshow-image"
+                src="/src/assets/Cars/OpelMokkaImage.webp"
+                alt="OpelMokkaImage"
+              />
+              <img
+                className="slideshow-image"
+                src="/src/assets/Cars/FordTransitXlImage.webp"
+                alt="FordTransitXlImage"
+              />
             </div>
           </div>
         </section>
-
         <section>
           <div className="block">
-              <p className="line-break margin-top-10"></p>
+            <p className="line-break margin-top-10"></p>
             <p>
               <span className="first-character atw">W</span>Lorem ipsum dolor
               sit amet consectetur adipisicing elit. Facilis, illum provident?

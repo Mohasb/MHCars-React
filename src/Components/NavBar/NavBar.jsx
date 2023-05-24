@@ -6,7 +6,7 @@ import "./NavBar.scss";
 import LoginModal from "../modals/LoginModal";
 import authService from "../../Services/login/auth.service";
 //Services
-import Context from "../../Services/contextUser/ContextUser";
+import Context from "../../services/contextUser/ContextUser";
 //Material UI imports
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -169,7 +169,11 @@ function ResponsiveAppBar() {
                 <Avatar
                   className="avatar"
                   alt={user ? `${user.name}` : ""}
-                  src={user ? "https://i.pravatar.cc/150" : ""}
+                  src={
+                    user
+                      ? "https://i.pravatar.cc/300?u=fakeee@pravatar.com"
+                      : ""
+                  }
                 />
               </IconButton>
             </Tooltip>

@@ -3,7 +3,7 @@ import { Modal, Button, Input } from "react-rainbow-components";
 import authService from "../../Services/login/auth.service";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import Context from "../../Services/contextUser/ContextUser";
+import Context from "../../services/contextUser/ContextUser";
 import Stack from "@mui/material/Stack";
 
 export default function LoginModal(props) {
@@ -73,8 +73,6 @@ export default function LoginModal(props) {
   };
 
   const login = (email, password) => {
-    console.log(email);
-    console.log(password);
     authService.login(email, password).then((response) => {
       if (response.isOk) {
         handleOnClose();

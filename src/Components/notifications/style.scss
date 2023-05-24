@@ -1,0 +1,66 @@
+.container {
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.animation {
+  height: 20px;
+  overflow: hidden;
+}
+
+.animation > div > div {
+  margin-bottom: 2.81rem;
+  display: inline-block;
+}
+
+.animation div:first-child {
+  animation: text-animation 8s 1;
+}
+
+.first div {
+  background-color: #f4b408;
+  margin-left: 1rem;
+}
+.second div {
+  background-color: #20a7d8;
+  margin-left: 1rem;
+}
+.third div {
+  background-color: #c10528;
+  margin-left: 1rem;
+}
+
+@keyframes text-animation {
+  0% {
+    margin-top: 0;
+  }
+  10% {
+    margin-top: 0;
+  }
+  20% {
+    margin-top: -4rem;
+  }
+  30% {
+    margin-top: -4rem;
+  }
+  40% {
+    margin-top: -8rem;
+  }
+  60% {
+    margin-top: -8rem;
+  }
+  70% {
+    margin-top: -4rem;
+  }
+  80% {
+    margin-top: -4rem;
+  }
+  90% {
+    margin-top: 0;
+  }
+  100% {
+    margin-top: 0;
+  }
+}
