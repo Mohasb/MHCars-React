@@ -1,7 +1,15 @@
 import { useContext, useEffect } from "react";
 import Context from "../../Services/contextUser/ContextUser";
 import { useNavigate } from "react-router-dom";
+/* import { Button } from "react-rainbow-components";
+ */
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import { Input, Button } from "react-rainbow-components";
+import Tooltip from "../register/Tooltip";
+
 import "./style.scss";
+
 export default function UserPage(props) {
   const { user, setUser } = useContext(Context);
   const navigate = useNavigate();
@@ -23,197 +31,68 @@ export default function UserPage(props) {
           <h1>{JSON.stringify(user)}</h1>
 
           <div className="emp-profile">
-            <form method="post">
-              <div className="row">
-                <div className="col-md-4">
-                  <div className="profile-img">
-                    <img
-                      src="https://i.pravatar.cc/300?u=fakeee@pravatar.com"
-                      alt=""
-                    />
-                    <div className="file btn btn-lg btn-primary">
-                      Change Photo
-                      <input type="file" name="file" />
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-6">
-                  <div className="profile-head">
-                    <span>
-                      Nombre: <h6>{user.name}</h6>
-                    </span>
-                    <h6>{user.lastName}</h6>
-                    <p className="proile-rating">
-                      EMAIL : <span>{user.email}</span>
-                    </p>
-                    {/* <ul className="nav nav-tabs" id="myTab" role="tablist">
-                    <li className="nav-item">
-                      <a
-                        className="nav-link active"
-                        id="home-tab"
-                        data-toggle="tab"
-                        href="#home"
-                        role="tab"
-                        aria-controls="home"
-                        aria-selected="true"
-                      >
-                        About
-                      </a>
-                    </li>
-                    <li className="nav-item">
-                      <a
-                        className="nav-link"
-                        id="profile-tab"
-                        data-toggle="tab"
-                        href="#profile"
-                        role="tab"
-                        aria-controls="profile"
-                        aria-selected="false"
-                      >
-                        Timeline
-                      </a>
-                    </li>
-                  </ul> */}
-                  </div>
-                </div>
-                <div className="col-md-2">
-                  <input
-                    type="submit"
-                    className="profile-edit-btn"
-                    name="btnAddMore"
-                    value="Edit Profile"
+            <div className="row">
+              <div className="col-md-6 col-xl-2">
+                <div className="profile-img">
+                  <img
+                    src="https://i.pravatar.cc/300?u=fakeee@pravatar.com"
+                    alt=""
+                    onClick={() => {
+                      document.querySelector("input[type=file]").click();
+                    }}
                   />
+                  <div className="file btn btn-lg btn-primary">
+                    Cambiar foto
+                    <input type="file" name="file" />
+                  </div>
                 </div>
               </div>
-              <div className="row">
-                <div className="col-md-4">
-                  <div className="profile-work">
-                    <p>WORK LINK</p>
-                    <a href="">Website Link</a>
-                    <br />
-                    <a href="">Bootsnipp Profile</a>
-                    <br />
-                    <a href="">Bootply Profile</a>
-                    <p>SKILLS</p>
-                    <a href="">Web Designer</a>
-                    <br />
-                    <a href="">Web Developer</a>
-                    <br />
-                    <a href="">WordPress</a>
-                    <br />
-                    <a href="">WooCommerce</a>
-                    <br />
-                    <a href="">PHP, .Net</a>
-                    <br />
-                  </div>
-                </div>
-                <div className="col-md-8">
-                  {/* <div className="tab-content profile-tab" id="myTabContent">
-                  <div
-                    className="tab-pane fade show active"
-                    id="home"
-                    role="tabpanel"
-                    aria-labelledby="home-tab"
-                  >
-                    <div className="row">
-                      <div className="col-md-6">
-                        <label>User Id</label>
-                      </div>
-                      <div className="col-md-6">
-                        <p>Kshiti123</p>
-                      </div>
+              <div className="col-md-6 h-100 datos">
+                <div className="profile-head">
+                  <div className="row mt-1">
+                    <div className="col-md-3 col-xl-2">
+                      <p className="proile-data">Nombre:</p>
                     </div>
-                    <div className="row">
-                      <div className="col-md-6">
-                        <label>Name</label>
-                      </div>
-                      <div className="col-md-6">
-                        <p>Kshiti Ghelani</p>
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-md-6">
-                        <label>Email</label>
-                      </div>
-                      <div className="col-md-6">
-                        <p>kshitighelani@gmail.com</p>
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-md-6">
-                        <label>Phone</label>
-                      </div>
-                      <div className="col-md-6">
-                        <p>123 456 7890</p>
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-md-6">
-                        <label>Profession</label>
-                      </div>
-                      <div className="col-md-6">
-                        <p>Web Developer and Designer</p>
-                      </div>
+                    <div className="col-md-9 ">
+                      <span>
+                        {user.name.charAt(0).toUpperCase() + user.name.slice(1)}{" "}
+                        {user.lastName.charAt(0).toUpperCase() +
+                          user.lastName.slice(1)}
+                      </span>
                     </div>
                   </div>
-                  <div
-                    className="tab-pane fade"
-                    id="profile"
-                    role="tabpanel"
-                    aria-labelledby="profile-tab"
-                  >
-                    <div className="row">
-                      <div className="col-md-6">
-                        <label>Experience</label>
-                      </div>
-                      <div className="col-md-6">
-                        <p>Expert</p>
-                      </div>
+                  <div className="row mt-1">
+                    <div className="col-md-3 col-xl-2">
+                      <p className="proile-data">Email:</p>
                     </div>
-                    <div className="row">
-                      <div className="col-md-6">
-                        <label>Hourly Rate</label>
-                      </div>
-                      <div className="col-md-6">
-                        <p>10$/hr</p>
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-md-6">
-                        <label>Total Projects</label>
-                      </div>
-                      <div className="col-md-6">
-                        <p>230</p>
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-md-6">
-                        <label>English Level</label>
-                      </div>
-                      <div className="col-md-6">
-                        <p>Expert</p>
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-md-6">
-                        <label>Availability</label>
-                      </div>
-                      <div className="col-md-6">
-                        <p>6 months</p>
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-md-12">
-                        <label>Your Bio</label>
-                        <br />
-                        <p>Your detail description</p>
-                      </div>
+                    <div className="col-md-9 ">
+                      <span>{user.email}</span>
                     </div>
                   </div>
-                </div> */}
+                  <div className="row mt-1">
+                    <div className="col-md-3 col-xl-2">
+                      <p className="proile-data">Telefono:</p>
+                    </div>
+                    <div className="col-md-9 ">
+                      <span>{user.phone}</span>
+                    </div>
+                  </div>
+
+                  <ul className="nav nav-tabs"></ul>
+                  <div className="col-md-12 edit-form">
+                    {/* aqui form edición */}
+                    <Input
+                      label="Nombre"
+                      placeholder="Jhon Doe"
+                      type="text"
+                      className="rainbow-p-around_medium"
+                      borderRadius="semi-rounded"
+                      value={user.name}
+                    />
+                  </div>
                 </div>
               </div>
-            </form>
+            </div>
           </div>
         </section>
       </main>

@@ -18,3 +18,5 @@ about and slogan in landingpage
 y al final testimonios con slider
 
 /* https://codepen.io/carloscdev/pen/mdBLmwP */  -> Hello im webdeveloper
+
+comprobar location.pathname; estoy en registro-> me logueo y me vuelve a registro
