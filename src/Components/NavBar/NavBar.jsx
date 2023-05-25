@@ -62,6 +62,9 @@ function ResponsiveAppBar() {
     } else if (setting === "Cerrar Sesión") {
       authService.logout();
       setUser(null);
+      if (location.pathname.startsWith("/user/")) {
+        navigate("/");
+      }
       navigate(location.pathname);
     } else if (setting === "Mi cuenta") {
       navigate(`/user/${user.name}`);

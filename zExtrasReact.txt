@@ -1,6 +1,7 @@
 npm init vite@latest react-rent-car --template react-ts
 npm run dev
 
+/* https://codepen.io/carloscdev/pen/mdBLmwP */  -> Hello im webdeveloper
 
 
 
@@ -9,14 +10,20 @@ encriptar localstorage y sessionStorage
 Modales responsive
 cookies
 icon no se ve ne modo ligth
+edit user candeactivate
 
 
-reset Password si el email esta olvidado
 
-about and slogan in landingpage
 
-y al final testimonios con slider
+function MyForm(){
+  const handleSubmit = useCallback((event) => {
+    event.preventDefault()
+    const myValue = event.target.elements.myInput.value
+    // do something with myValue
+  }, [])
+  return <form onSubmit={handleSubmit}>
+    <input type="text" name="myInput" />
+    <button type="submit">Submit</button>
+  </form>
+}
 
-/* https://codepen.io/carloscdev/pen/mdBLmwP */  -> Hello im webdeveloper
-
-comprobar location.pathname; estoy en registro-> me logueo y me vuelve a registro
