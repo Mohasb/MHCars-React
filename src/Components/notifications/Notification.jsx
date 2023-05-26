@@ -8,7 +8,7 @@ const Alert = forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-export default function CustomizedSnackbars(props) {
+export default function Notification(props) {
   const [open, setOpen] = useState(props.open);
 
   const handleClose = () => {
@@ -19,7 +19,7 @@ export default function CustomizedSnackbars(props) {
     <Stack spacing={2} sx={{ width: "100%" }}>
       <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
-          <main className="container">
+          <main className="container-alert">
             <p>Bienvenido 👋 </p>
             <section className="animation">
               <div className="first">

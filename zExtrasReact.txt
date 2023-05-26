@@ -13,17 +13,3 @@ icon no se ve ne modo ligth
 edit user candeactivate
 
 
-
-
-function MyForm(){
-  const handleSubmit = useCallback((event) => {
-    event.preventDefault()
-    const myValue = event.target.elements.myInput.value
-    // do something with myValue
-  }, [])
-  return <form onSubmit={handleSubmit}>
-    <input type="text" name="myInput" />
-    <button type="submit">Submit</button>
-  </form>
-}
-

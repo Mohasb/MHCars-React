@@ -12,7 +12,7 @@ import ResponsiveAppBar from "./components/navBar/NavBar";
 import ControlledOpenSpeedDial from "./Components/CircularMenu";
 import UserPage from "./app/userPage/UserPage";
 import Footer from "./Components/footer/Footer";
-import IntegrationNotistack from "./components/notifications/Notification";
+import Notification from "./components/notifications/Notification";
 import Cookie from "./components/cookies/cookie";
 
 function App() {
@@ -38,7 +38,7 @@ function App() {
           <Route path="/user/:name" element={<UserPage />} />
         </Routes>
         <ControlledOpenSpeedDial />
-        {user && <IntegrationNotistack user={user} open={true} />}
+        {user && <Notification user={user} open={true} />}
         <Cookie />
         <Footer />
       </ContextUser.Provider>

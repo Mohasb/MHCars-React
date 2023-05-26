@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 //Components imports
 import "./NavBar.scss";
 import LoginModal from "../modals/LoginModal";
-import authService from "../../Services/login/auth.service";
 //Services
 import Context from "../../services/contextUser/ContextUser";
+import authService from "../../services/login/auth.service";
 //Material UI imports
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -171,12 +171,8 @@ function ResponsiveAppBar() {
               <IconButton size="large" onClick={handleOpenUserMenu}>
                 <Avatar
                   className="avatar"
-                  alt={user ? `${user.name}` : ""}
-                  src={
-                    user
-                      ? "https://i.pravatar.cc/300?u=fakeee@pravatar.com"
-                      : ""
-                  }
+                  alt={user ? `image${user.name}` : "image"}
+                  src={user ? `data:image/jpeg;base64, ${user.image}` : ""}
                 />
               </IconButton>
             </Tooltip>

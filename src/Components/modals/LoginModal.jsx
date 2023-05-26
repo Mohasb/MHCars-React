@@ -10,8 +10,8 @@ export default function LoginModal(props) {
   const { user, setUser } = useContext(Context);
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(props.openModal);
-  const [emailUser, setEmail] = useState("Moha@gmail.com");
-  const [passwordUser, setPassword] = useState("Moha1234");
+  const [emailUser, setEmail] = useState("mh@gmail.com");
+  const [passwordUser, setPassword] = useState("Mh12345!");
   const [errors, setErrors] = useState({
     emailError: "",
     passwordError: "",
