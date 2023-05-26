@@ -4,9 +4,9 @@ import App from "./App.jsx";
 import "./index.scss";
 import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "@emotion/react";
-import { theme } from "./Components/Theme/Theme.js";
+import { theme } from "./components/theme/Theme.js";
 import { Application } from "react-rainbow-components";
-import { themeRainbow } from "./components/Theme/ThemeRainbow";
+import { themeRainbow } from "./components/theme/ThemeRainbow";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   //<React.StrictMode>

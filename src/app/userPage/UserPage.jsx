@@ -1,30 +1,32 @@
 import { useContext, useEffect, useState } from "react";
-import Context from "../../Services/contextUser/ContextUser";
-import { useNavigate } from "react-router-dom";
+//External components
 import { Input, Button } from "react-rainbow-components";
 import Box from "@mui/material/Box";
-
-import "./style.scss";
-import ReservationTable from "./ReservationTable";
+//Services
 import authService from "./../../services/login/auth.service";
+import Context from "../../services/contextUser/ContextUser";
 import { PutClient } from "../../services/apiRequest/PutClient";
+//Components
+import ReservationTable from "./ReservationTable";
 import EditPwd from "./../../components/modals/EditPassworModal";
 import SuccessNotification from "./../../components/notifications/SucessNotification";
+//styles
+import "./style.scss";
 
 export default function UserPage() {
+  //para mostrar notificacion de update correcto o incorrecto
   const [showNotification, setNotification] = useState(false);
+  //establece severity de la notificacion que puede ser error o success
   const [severity, setSeverity] = useState("");
   //Usuario del contexto (padre de todos los componentes)
   const { user, setUser } = useContext(Context);
-
-  const navigate = useNavigate();
   //Si se ha modificado alguún campo del from será tru
   const [isButtonDisabled, setButtonDisabled] = useState(false);
   //Para abrir el modal de cambio de password
   const [isOpenModalPwd, setIsOpenModalPwd] = useState(false);
   //Nuevos valores del user. Inicialmente son igual a los del user
   const [newValues, setNewValues] = useState({ ...user });
-
+  //errores de los campos
   const [errors, setErrors] = useState({
     errorRegistration: "",
     errorName: "",
@@ -60,12 +62,15 @@ export default function UserPage() {
       //Se establece el campo y su valor dinámicamente
       [nameInput]: value,
     }));
-    validate(nameInput, value);
+
+    //valida los valores
+    validateValues(nameInput, value);
     //Establece la propiedad del button en false
     setButtonDisabled(true);
   };
 
-  const validate = (nameInput, value) => {
+  //Recibe el "name" del input y el valor y ejecuta la vliadación en consecuencia
+  const validateValues = (nameInput, value) => {
     switch (nameInput) {
       case "registration":
         validateRegistration(nameInput, value);
@@ -91,20 +96,17 @@ export default function UserPage() {
   };
 
   const validateRegistration = (nameInput, value) => {
-    console.log(nameInput);
     const REGEX_DNI = /^[0-9]{8,8}[A-Za-z]$/g;
     const nameError =
       "error" + nameInput.charAt(0).toUpperCase() + nameInput.slice(1);
     var input = document.querySelector('input[name="registration"]');
 
     if (!REGEX_DNI.test(value)) {
-      console.log("mal");
       setErrors((prevState) => ({
         ...prevState,
         [nameError]: "Formato dni mal",
       }));
     } else {
-      console.log("bien");
       setNewValues((prevState) => ({
         //si extraen todos los valores anteriores...
         ...prevState,
@@ -120,7 +122,6 @@ export default function UserPage() {
     const nameError =
       "error" + nameInput.charAt(0).toUpperCase() + nameInput.slice(1);
     var input = document.querySelector('input[name="name"]');
-    console.log(nameError);
     if (value.length < 2) {
       setErrors((prevState) => ({
         ...prevState,
@@ -141,7 +142,6 @@ export default function UserPage() {
     const nameError =
       "error" + nameInput.charAt(0).toUpperCase() + nameInput.slice(1);
     var input = document.querySelector('input[name="lastName"]');
-    console.log(nameError);
     if (value.length < 2) {
       setErrors((prevState) => ({
         ...prevState,
@@ -183,20 +183,16 @@ export default function UserPage() {
   };
 
   const validatePhone = (nameInput, value) => {
-    console.log(nameInput);
     const REGEX_PHONE = /^\+?(6\d{2}|7[1-9]\d{1})\d{6}$/g;
     const nameError =
       "error" + nameInput.charAt(0).toUpperCase() + nameInput.slice(1);
     var input = document.querySelector('input[name="phoneNumber"]');
-    console.log(nameError);
     if (!REGEX_PHONE.test(value)) {
-      console.log("mal");
       setErrors((prevState) => ({
         ...prevState,
         [nameError]: "Formato télefono mal",
       }));
     } else {
-      console.log("bien");
       setNewValues((prevState) => ({
         //si extraen todos los valores anteriores...
         ...prevState,
@@ -238,11 +234,13 @@ export default function UserPage() {
       setErrors((prevState) => ({ ...prevState, [nameError]: "" }));
     }
   };
-
+  //checkea que no estan vacios los campos
   const checkEmpties = () => {
+    //Recorre los valores y si estan vacios y no tiene un error anterior pone el error:  `No puede quedar vacío`
     for (let [key, value] of Object.entries(newValues)) {
       const nameError = "error" + key.charAt(0).toUpperCase() + key.slice(1);
 
+      //conversion de string a variable
       let errorValue = eval(`errors.${nameError}`);
       errors.nameError;
       if (value === "" && errorValue === "") {
@@ -257,6 +255,7 @@ export default function UserPage() {
   const handleSubmit = () => {
     checkEmpties();
     const isAllOk = Object.values(errors).every((err) => err === "");
+    //Si no hay errores
     if (isAllOk) {
       //Se elimina el token por que el dto no tiene nada de token (el token se establece al hacer login)
       delete newValues.token;
@@ -279,10 +278,14 @@ export default function UserPage() {
             ...prevState,
             bankAccount: response.client.bankAccount,
           }));
+          //Muestra la notificación
           setNotification(true);
+          //la version de en verde de succes
           setSeverity("success");
         } else {
+          //Muestra la notificación
           setNotification(true);
+          //la version de en rojo de error
           setSeverity("error");
         }
       });
@@ -301,7 +304,6 @@ export default function UserPage() {
             <div className="row">
               <div className="col-md-6 col-xl-2">
                 <div className="profile-img">
-                  {console.log(user.image)}
                   <img
                     className="rounded"
                     src={`data:image/jpeg;base64, ${user.image}`}

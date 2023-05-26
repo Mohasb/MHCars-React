@@ -1,20 +1,10 @@
-import React from "react";
-import { Table, Column, Badge } from "react-rainbow-components";
+import React, { useEffect, useState } from "react";
+import { Table, Column } from "react-rainbow-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faEllipsisV,
-  faPlus,
-  faTrashAlt,
-} from "@fortawesome/free-solid-svg-icons";
-import { ButtonGroup, ButtonIcon } from "react-rainbow-components";
+import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { ButtonIcon } from "react-rainbow-components";
 
-const badgeStyles = { color: "#1de9b6", marginLeft: "0.5rem" };
-const tableContainerStyles = { height: 300 };
-
-const StatusBadge = ({ value }) => (
-  <Badge label={value} variant="lightest" style={badgeStyles} />
-);
-function CustomAction(props) {
+/* function CustomAction(props) {
   const { row, onDeleteElement } = props;
 
   return (
@@ -26,49 +16,37 @@ function CustomAction(props) {
   );
 }
 
-class TableExample extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      sortedBy: undefined,
-      sortDirection: "asc",
-      data: [
-        {
-          id: 1,
-          name: "Alberto",
-          status: "active",
-          company: "Google",
-          email: "google@gmail.com",
-        },
-        {
-          id: 2,
-          name: "Pepe",
-          status: "active",
-          company: "Google",
-          email: "google@gmail.com",
-        },
-        {
-          id: 3,
-          name: "Juan",
-          status: "active",
-          company: "Google",
-          email: "google@gmail.com",
-        },
-        {
-          id: 4,
-          name: "Zeta",
-          status: "active",
-          company: "Google",
-          email: "google@gmail.com",
-        },
-      ],
-    };
-    this.handleOnSort = this.handleOnSort.bind(this);
-  }
+const handleDeleteElement = id => {
+  const newData = data.filter(item => item.id !== id);
+  setData(newData);
+} */
 
-  handleOnSort(event, field, nextSortDirection) {
-    const { data } = this.state;
+export default function ReservationTable() {
+  const [data, setData] = useState([]);
+  const [sortedBy, setSortedBy] = useState(undefined);
+  const [sortDirection, setShortDirection] = useState("asc");
 
+  useEffect(() => {
+    try {
+      const response = fetch(
+        `http://localhost:5134/api/custom/getreservationbyclient/1`
+      )
+        .then((response) => {
+          return response.json();
+        })
+        .then((resp) => {
+          console.log(resp);
+          if (resp.isOk) {
+            //TODO
+            setData(resp.reservations);
+          }
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+
+  const handleOnSort = (event, field, nextSortDirection) => {
     const newData = [...data];
 
     const key = (value) => value[field];
@@ -80,44 +58,34 @@ class TableExample extends React.Component {
       return reverse * ((aValue > bValue) - (bValue > aValue));
     });
 
-    this.setState({
-      data: sortedData,
-      sortedBy: field,
-      sortDirection: nextSortDirection,
-    });
-  }
-
-  render() {
-    const { data, sortDirection, sortedBy } = this.state;
-    return (
+    setData(sortedData);
+    setSortedBy(field);
+    setShortDirection(nextSortDirection);
+  };
+  return (
+    <div className="rainbow-m-bottom_xx-large">
       <Table
         keyField="id"
         data={data}
-        onSort={this.handleOnSort}
+        onSort={handleOnSort}
         sortDirection={sortDirection}
         sortedBy={sortedBy}
+        showRowNumberColumn={true}
+        emptyTitle={"No hay reservas"}
+        emptyDescription={""}
+        variant={"listview"}
       >
-        <Column header="Name" field="name" sortable />
-        <Column header="Status" field="status" sortable />
-        <Column header="Company" field="company" sortable />
-        <Column header="Email" field="email" sortable />
-        <Column
+        <Column header="S.Recogida" field="recogida" sortable />
+        <Column header="F.Recogida" field="startDate" sortable />
+        <Column header="S.Devolución" field="devolucion" sortable />
+        <Column header="F.Devolución" field="endDate" sortable />
+        {/* <Column
           width={60}
           component={({ row }) => (
-            <CustomAction
-              row={row} /* onDeleteElement={handleDeleteElement} */
-            />
+            <CustomAction row={row} onDeleteElement={handleDeleteElement} />
           )}
-        />
+        /> */}
       </Table>
-    );
-  }
-}
-
-export default function ReservationTable() {
-  return (
-    <div className="rainbow-m-bottom_xx-large">
-      <TableExample />
     </div>
   );
 }
