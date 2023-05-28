@@ -14,3 +14,6 @@ edit user candeactivate
 
 
 falta el nombre de la branch de recogida, la de retorno, en lista de reservas
+
+
+error coockies

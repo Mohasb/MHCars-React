@@ -158,7 +158,6 @@ export default function UserPage() {
       setErrors((prevState) => ({ ...prevState, [nameError]: "" }));
     }
   };
-
   const validateEmail = (nameInput, value) => {
     const REGEX_EMAIL =
       /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g;
@@ -181,7 +180,6 @@ export default function UserPage() {
       setErrors((prevState) => ({ ...prevState, [nameError]: "" }));
     }
   };
-
   const validatePhone = (nameInput, value) => {
     const REGEX_PHONE = /^\+?(6\d{2}|7[1-9]\d{1})\d{6}$/g;
     const nameError =
@@ -203,7 +201,6 @@ export default function UserPage() {
       setErrors((prevState) => ({ ...prevState, [nameError]: "" }));
     }
   };
-
   const validateBankAccount = (nameInput, value) => {
     const nameError =
       "error" + nameInput.charAt(0).toUpperCase() + nameInput.slice(1);
@@ -267,6 +264,13 @@ export default function UserPage() {
         if (response.isOk) {
           //Establece el botón en disabled
           setButtonDisabled(false);
+          console.log(response.client);
+
+          document.querySelector(
+            "#user-image"
+          ).src = `data:image/jpeg;base64, ${response.client.image}`;
+          //delete response.client.image;
+
           //establece el contexto con el usuario modificado
           setUser(response.client);
           //Añade el token del usuario
@@ -292,21 +296,45 @@ export default function UserPage() {
     }
   };
 
+  const handleImage = (e) => {
+    console.log(e);
+  };
+
+  //Cargar imagen
+  /*   let reader = new FileReader();
+  reader.readAsDataURL(imagen);
+
+  reader.addEventListener("load", () => {
+      previewImagen.src = reader.result;
+      captionImagen.innerHTML = imagen.name;
+      document.querySelector('#anyadir').scrollIntoView();
+  }, false); */
+
   return (
     //Si existe el usuario del contexto y en el localstorage renderiza el resto
     user &&
     localStorage.getItem("user") && (
-      <main>
+      <main className="main-user-page">
         <section className="user-page">
-          <h1>User Page</h1>
-          <h1>{JSON.stringify(user)}</h1>
+          {/*  <h1>{JSON.stringify(user)}</h1> */}
           <div className="emp-profile">
             <div className="row">
-              <div className="col-md-6 col-xl-2">
+              <div className="wrapper-name">
+                <div className="bg">
+                  {user.name} {user.lastName}
+                </div>
+                <div className="fg">
+                  {user.name} {user.lastName}
+                </div>
+              </div>
+            </div>
+            <div className="row justify-content-center">
+              <div className="col-md-4 pt-md-4">
                 <div className="profile-img">
                   <img
+                    id="user-image"
                     className="rounded"
-                    src={`data:image/jpeg;base64, ${user.image}`}
+                    /* src={`data:image/jpeg;base64, ${user.image}`} */
                     alt={`foto ${user.name}`}
                     onClick={() => {
                       //click imagen abre el input:file
@@ -315,7 +343,7 @@ export default function UserPage() {
                   />
                   <div className="file btn btn-lg btn-primary rounded">
                     Cambiar foto
-                    <input type="file" name="file" />
+                    <input type="file" name="file" onInput={handleImage} />
                   </div>
                 </div>
                 <Box sx={{ textAlign: "center", margin: "2rem 0 auto" }}>
@@ -435,7 +463,7 @@ export default function UserPage() {
                   </div>
                 </div>
               </div>
-              <div className="col-md-12 col-xl-5 mt-xl-4">
+              <div className="col-md-12 mt-xl-12">
                 <h1>RESERVAS</h1>
                 {/* Tabla de RESERVAS */}
                 <ReservationTable />

@@ -35,9 +35,7 @@ export default function ReservationTable() {
           return response.json();
         })
         .then((resp) => {
-          console.log(resp);
           if (resp.isOk) {
-            //TODO
             setData(resp.reservations);
           }
         });
@@ -62,6 +60,10 @@ export default function ReservationTable() {
     setSortedBy(field);
     setShortDirection(nextSortDirection);
   };
+
+
+
+
   return (
     <div className="rainbow-m-bottom_xx-large">
       <Table
@@ -73,12 +75,12 @@ export default function ReservationTable() {
         showRowNumberColumn={true}
         emptyTitle={"No hay reservas"}
         emptyDescription={""}
-        variant={"listview"}
+        //variant={"listview"}
       >
-        <Column header="S.Recogida" field="recogida" sortable />
-        <Column header="F.Recogida" field="startDate" sortable />
-        <Column header="S.Devolución" field="devolucion" sortable />
-        <Column header="F.Devolución" field="endDate" sortable />
+        <Column header="Sucursal Recogida" field="pickUpBranch" sortable />
+        <Column header="Fecha Recogida" field="startDate" sortable />
+        <Column header="Sucursal Devolución" field="returnBranch" sortable />
+        <Column header="Fecha Devolución" field="endDate" sortable />
         {/* <Column
           width={60}
           component={({ row }) => (
