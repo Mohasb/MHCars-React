@@ -73,10 +73,15 @@ export default function LoginModal(props) {
   };
 
   const login = (email, password) => {
+
     authService.login(email, password).then((response) => {
       if (response.isOk) {
         handleOnClose();
         setUser(response.userWithToken);
+        const userWithoutImage = { ...response.userWithToken };
+        delete userWithoutImage.image;
+        localStorage.setItem("user", JSON.stringify(userWithoutImage));
+
         navigate(location.pathname);
       } else {
         if (response.responseText.includes("Usuario")) {

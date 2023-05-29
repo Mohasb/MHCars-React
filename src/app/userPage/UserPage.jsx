@@ -12,6 +12,8 @@ import EditPwd from "./../../components/modals/EditPassworModal";
 import SuccessNotification from "./../../components/notifications/SucessNotification";
 //styles
 import "./style.scss";
+import SvgIcon from "@mui/material/SvgIcon";
+import { FileSelector } from "react-rainbow-components";
 
 export default function UserPage() {
   //para mostrar notificacion de update correcto o incorrecto
@@ -21,7 +23,7 @@ export default function UserPage() {
   //Usuario del contexto (padre de todos los componentes)
   const { user, setUser } = useContext(Context);
   //Si se ha modificado alguún campo del from será tru
-  const [isButtonDisabled, setButtonDisabled] = useState(false);
+  const [isButtonDisabled, setButtonDisabled] = useState(true);
   //Para abrir el modal de cambio de password
   const [isOpenModalPwd, setIsOpenModalPwd] = useState(false);
   //Nuevos valores del user. Inicialmente son igual a los del user
@@ -34,18 +36,20 @@ export default function UserPage() {
     errorEmail: "",
     errorPhoneNumber: "",
     errorBankAccount: "",
+    errorImage: "",
   });
 
   //Se ejecuta en la primera carga(array  del final no tiene dependencias)
   useEffect(() => {
-    //Se obtiene el usuari oactual de localStorage
-    const user = authService.getCurrentUser();
-    //Si hay user en localstorage establece el user del contexto(Esto es para el caso que se recargue la web y se pierda el user del contexto que esta en memoria)
-    if (user) {
-      setUser(user);
+    //Se obtiene el usuario actual y se establece para el context y los valores del form de edit
+    if (localStorage.getItem("user")) {
+      const id = JSON.parse(localStorage.getItem("user")).id;
+
+      authService.getCurrentUser(id).then((response) => {
+        setUser(response);
+        setNewValues({ ...response });
+      });
     }
-    //Establece los nuevos valores con los obtenidos del localstorage
-    setNewValues(JSON.parse(JSON.stringify(user)));
   }, []);
 
   //Cuando se produce el evento change en los inputs...
@@ -66,7 +70,7 @@ export default function UserPage() {
     //valida los valores
     validateValues(nameInput, value);
     //Establece la propiedad del button en false
-    setButtonDisabled(true);
+    setButtonDisabled(false);
   };
 
   //Recibe el "name" del input y el valor y ejecuta la vliadación en consecuencia
@@ -258,25 +262,23 @@ export default function UserPage() {
       delete newValues.token;
       //valor para evitar el required del backend que luego se modifica por el correcto y siga funcionando el login
       newValues.password = "editedByBackend";
+      newValues.image = user.image;
+
+      console.log(newValues);
       //PETICIÓN PUT con los valores nuevos
       PutClient(newValues).then((response) => {
         //si el back retorna true en la propiedad isOk....
         if (response.isOk) {
           //Establece el botón en disabled
-          setButtonDisabled(false);
-          console.log(response.client);
-
-          document.querySelector(
-            "#user-image"
-          ).src = `data:image/jpeg;base64, ${response.client.image}`;
-          //delete response.client.image;
-
+          setButtonDisabled(true);
           //establece el contexto con el usuario modificado
           setUser(response.client);
           //Añade el token del usuario
           response.client.token = user.token;
-          //modifica el localstorage con el user nuevo
-          localStorage.setItem("user", JSON.stringify(response.client));
+          //modifica el localstorage con el user nuevo(sin imagen para no cargar el localstorage)
+          const userWithoutImage = { ...response.client };
+          delete userWithoutImage.image;
+          localStorage.setItem("user", JSON.stringify(userWithoutImage));
           //Para que al hacer submit muestre los *** en la cuenta bancaria (del back retorna con **)
           setNewValues((prevState) => ({
             ...prevState,
@@ -296,19 +298,37 @@ export default function UserPage() {
     }
   };
 
-  const handleImage = (e) => {
-    console.log(e);
+  const handleImage = (file) => {
+    if (file.length && typeof file !== "undefined") {
+      console.log(file);
+      if (file && file[0]["type"].split("/")[0] === "image") {
+        const image = file[0];
+        let reader = new FileReader();
+        reader.readAsDataURL(image);
+        reader.addEventListener("load", () => {
+          setUser((prevState) => ({
+            ...prevState,
+            image: reader.result,
+          }));
+          setErrors((prevState) => ({
+            //si extraen todos los valores anteriores...
+            ...prevState,
+            //Se establece el campo y su valor dinámicamente
+            errorImage: "",
+          }));
+          setButtonDisabled(false);
+        });
+      } else {
+        setErrors((prevState) => ({
+          //si extraen todos los valores anteriores...
+          ...prevState,
+          //Se establece el campo y su valor dinámicamente
+          errorImage: `Tipo no soportado: ${file[0].type}`,
+        }));
+        return;
+      }
+    }
   };
-
-  //Cargar imagen
-  /*   let reader = new FileReader();
-  reader.readAsDataURL(imagen);
-
-  reader.addEventListener("load", () => {
-      previewImagen.src = reader.result;
-      captionImagen.innerHTML = imagen.name;
-      document.querySelector('#anyadir').scrollIntoView();
-  }, false); */
 
   return (
     //Si existe el usuario del contexto y en el localstorage renderiza el resto
@@ -316,7 +336,6 @@ export default function UserPage() {
     localStorage.getItem("user") && (
       <main className="main-user-page">
         <section className="user-page">
-          {/*  <h1>{JSON.stringify(user)}</h1> */}
           <div className="emp-profile">
             <div className="row">
               <div className="wrapper-name">
@@ -331,19 +350,47 @@ export default function UserPage() {
             <div className="row justify-content-center">
               <div className="col-md-4 pt-md-4">
                 <div className="profile-img">
-                  <img
-                    id="user-image"
-                    className="rounded"
-                    /* src={`data:image/jpeg;base64, ${user.image}`} */
-                    alt={`foto ${user.name}`}
-                    onClick={() => {
-                      //click imagen abre el input:file
-                      document.querySelector("input[type=file]").click();
-                    }}
-                  />
-                  <div className="file btn btn-lg btn-primary rounded">
-                    Cambiar foto
-                    <input type="file" name="file" onInput={handleImage} />
+                  {user.image && user.image ? (
+                    <img
+                      id="user-image"
+                      className="rounded"
+                      src={user.image ? `${user.image}` : ""}
+                      alt={`foto ${user.name}`}
+                      onClick={() => {
+                        //click imagen abre el input:file
+                        document.querySelector("input[type=file]").click();
+                      }}
+                    />
+                  ) : (
+                    <SvgIcon
+                      sx={{
+                        backgroundColor: "#F4B408",
+                        width: "100%",
+                        height: "100%",
+                        borderRadius: "5px",
+                      }}
+                      onClick={() => {
+                        //click imagen abre el input:file
+                        document.querySelector("input[type=file]").click();
+                      }}
+                    >
+                      <path
+                        color="white"
+                        d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+                      ></path>
+                    </SvgIcon>
+                  )}
+                  <div className="file ">
+                    {/* Cambiar foto */}
+                    {/* <input type="file" name="file" onInput={handleImage} /> */}
+                    <FileSelector
+                      placeholder="Cambiar imagen"
+                      name="file"
+                      onChange={handleImage}
+                      error={errors.errorImage}
+                      borderRadius="semi-rounded"
+                      //TODO
+                    />
                   </div>
                 </div>
                 <Box sx={{ textAlign: "center", margin: "2rem 0 auto" }}>
@@ -357,6 +404,16 @@ export default function UserPage() {
                     }}
                     size="medium"
                     style={{ color: "#fff" }}
+                  />
+
+                  <Button
+                    label="Guardar Cambios"
+                    variant="brand"
+                    borderRadius="semi-rounded"
+                    onClick={handleSubmit}
+                    size="medium"
+                    style={{ color: "#fff" }}
+                    disabled={isButtonDisabled}
                   />
                 </Box>
               </div>
@@ -443,22 +500,6 @@ export default function UserPage() {
                         onBlur={handleOnChange}
                         error={errors.errorBankAccount}
                       />
-                      <Box
-                        sx={{
-                          textAlign: "center",
-                          margin: "1rem 2rem auto auto",
-                        }}
-                      >
-                        <Button
-                          label="Guardar Cambios"
-                          variant="brand"
-                          borderRadius="semi-rounded"
-                          onClick={handleSubmit}
-                          size="medium"
-                          style={{ color: "#fff" }}
-                          disabled={!isButtonDisabled}
-                        />
-                      </Box>
                     </form>
                   </div>
                 </div>

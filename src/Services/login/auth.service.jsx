@@ -1,4 +1,3 @@
-
 const login = (email, password) => {
   try {
     const response = fetch(`http://localhost:5134/api/custom/login`, {
@@ -13,9 +12,7 @@ const login = (email, password) => {
     })
       .then((response) => response.json())
       .then((response) => {
-        if (response.isOk) {
-          localStorage.setItem("user", JSON.stringify(response.userWithToken));
-        }
+        console.log(response);
         return response;
       });
     return response;
@@ -28,8 +25,17 @@ const logout = () => {
   localStorage.removeItem("user");
 };
 
-const getCurrentUser = () => {
-  return JSON.parse(localStorage.getItem("user"));
+const getCurrentUser = (id) => {
+  try {
+    const response = fetch(`http://localhost:5134/api/clients/${id}`)
+      .then((response) => response.json())
+      .then((response) => {
+        return response;
+      });
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const authService = {

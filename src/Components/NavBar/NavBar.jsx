@@ -171,8 +171,8 @@ function ResponsiveAppBar() {
               <IconButton size="large" onClick={handleOpenUserMenu}>
                 <Avatar
                   className="avatar"
-                  alt={user ? `image${user.name}` : "image"}
-                  src={user ? `data:image/jpeg;base64, ${user.image}` : ""}
+                  alt={user && user.image ? `image${user.name}` : ""}
+                  src={user && user.image ? `${user.image}` : ""}
                 />
               </IconButton>
             </Tooltip>

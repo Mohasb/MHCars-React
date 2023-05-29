@@ -18,9 +18,11 @@ import Cookie from "./components/cookies/cookie";
 function App() {
   const [user, setUser] = useState();
   useEffect(() => {
-    const user = AuthService.getCurrentUser();
-    if (user) {
-      setUser(user);
+    if (localStorage.getItem("user")) {
+      const id = JSON.parse(localStorage.getItem("user")).id;
+      AuthService.getCurrentUser(id).then((response) => {
+        setUser(response);
+      });
     }
   }, []);
 
