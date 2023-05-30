@@ -38,7 +38,7 @@ export const SearchCar = () => {
 
   const [pickupTime, setPickupTime] = useState("12:00");
   const [returnTime, setReturnTime] = useState("12:00");
-  const [showModal, setShowModal] = useState(false)
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     if (cars.length && booking) {
@@ -46,10 +46,6 @@ export const SearchCar = () => {
       navigate("/reserva/coche");
     }
   }, [cars, booking, navigate]);
-
-
-
-
 
   ////////////////////////////////////////////////////////////////////////////////
   function validateValues(branch, returnBranch, bookingDates, age) {
@@ -59,44 +55,44 @@ export const SearchCar = () => {
 
   return (
     <>
-    <div className="container-search-car">
-       <Box textAlign="center">
-      <ComboBoxBranches
-        name={"recogida"}
-        setBranch={setBranch}
-        errorBranch1={errorBranch1}
-        setErrorBranch1={setErrorBranch1}
-      />
-      {areCheckTwoBranches && (
-        <>
-        <ComboBoxBranches
-          name={"devolución"}
-          setReturnBranch={setReturnBranch}
-          errorBranch2={errorBranch2}
-          setErrorBranch2={setErrorBranch2}
-        />
-        </>
-      )}
-      <CheckBoxTwoBranches setCheckTwoBranches={setCheckTwoBranches} />
-      <DateRange
-        setBookingDates={setBookingDates}
-        errorDates={errorDates}
-        setErrorDates={setErrorDates}
-      />
-      <Stack
-        spacing={1}
-        direction={{ xs: "row", sm: "row" }}
-        sx={{
-          justifyContent: "center",
-          alignItems: "center",
-          marginTop: "1rem",
-          width: "100%",
-        }}
-      >
-        <Time name="recogida" setPickupTime={setPickupTime} />
-        <Time name="devolución" setReturnTime={setReturnTime} />
-      </Stack>
-        <AgeRadioButtons setAge={setAge} />
+      <div className="container-search-car">
+        <Box textAlign="center">
+          <ComboBoxBranches
+            name={"recogida"}
+            setBranch={setBranch}
+            errorBranch1={errorBranch1}
+            setErrorBranch1={setErrorBranch1}
+          />
+          {areCheckTwoBranches && (
+            <>
+              <ComboBoxBranches
+                name={"devolución"}
+                setReturnBranch={setReturnBranch}
+                errorBranch2={errorBranch2}
+                setErrorBranch2={setErrorBranch2}
+              />
+            </>
+          )}
+          <CheckBoxTwoBranches setCheckTwoBranches={setCheckTwoBranches} />
+          <DateRange
+            setBookingDates={setBookingDates}
+            errorDates={errorDates}
+            setErrorDates={setErrorDates}
+          />
+          <Stack
+            spacing={1}
+            direction={{ xs: "row", sm: "row" }}
+            sx={{
+              justifyContent: "center",
+              alignItems: "center",
+              marginTop: "1rem",
+              width: "100%",
+            }}
+          >
+            <Time name="recogida" setPickupTime={setPickupTime} />
+            <Time name="devolución" setReturnTime={setReturnTime} />
+          </Stack>
+          <AgeRadioButtons setAge={setAge} />
           <Button
             variant="brand"
             className="rainbow-m-around_medium "
@@ -108,9 +104,16 @@ export const SearchCar = () => {
           >
             Buscar
           </Button>
-       </Box>
-    </div>
-    {showModal && <ConfirmationModal openModal={showModal} text={"No hay coches disponibles para esta sucursal en las fechas indicadas"}/>}
+        </Box>
+      </div>
+      {showModal && (
+        <ConfirmationModal
+          openModal={showModal}
+          text={
+            "No hay coches disponibles para esta sucursal en las fechas indicadas"
+          }
+        />
+      )}
     </>
   );
   /////////////////////////////////////////////HELPERS/////////////////////////////////////////////////////////
@@ -146,14 +149,16 @@ export const SearchCar = () => {
         pickupTime: pickupTime,
         returnTime: returnTime,
       };
-      typeof returnBranch === "undefined" ? returnBranch = branch : returnBranch = returnBranch;
+      typeof returnBranch === "undefined"
+        ? (returnBranch = branch)
+        : (returnBranch = returnBranch);
 
       const reserva = { branch, returnBranch, bookingDates, age };
       fetchCars(reserva, setCars, setBooking).then((response) => {
         if (!response.length) {
-          setShowModal(true)
+          setShowModal(true);
         }
-      })
+      });
     }
   }
 };

@@ -55,11 +55,13 @@ export default function UserPage() {
       });
     }
     /* return () => {
-      console.log(isButtonDisabled);
-      if (isButtonDisabled) {
+      const name = JSON.parse(localStorage.getItem("user")).name;
+
+      console.log(dirty);
+      if (dirty) {
+        console.log("not");
         if (!confirm("Estas seguro de salir?Tienes cambios sin guardar")) {
-          alert("not ok");
-          navigate(location.pathname);
+          navigate(`/user/${name}`);
         }
       }
     }; */

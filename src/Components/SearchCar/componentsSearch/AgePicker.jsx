@@ -1,6 +1,8 @@
 import React from "react";
 import { RadioButtonGroup } from "react-rainbow-components";
-import "./Style.scss"
+import Stack from "@mui/material/Stack";
+
+import "./Style.scss";
 
 const options = [
   { value: "1", label: "19~24" },
@@ -30,19 +32,27 @@ class SimpleRadioButtonGroup extends React.Component {
         options={options}
         value={value}
         onChange={this.handleOnChange}
-        size="large"
+        size="medium"
         variant="brand"
         borderRadius="semi-square"
-        labelPosition="right"
-        style={{color:"white"}}
+        style={{ color: "white" }}
       />
     );
   }
 }
 export default function AgeRadioButtons({ setAge }) {
   return (
-    <div className="rainbow-p-around_x-large rainbow-align-content_center " >
+    <Stack
+      spacing={1}
+      direction={{ xs: "column", sm: "column" }}
+      sx={{
+        justifyContent: "center",
+        alignItems: "center",
+        width: "100%",
+      }}
+    >
+      <p className="label-age">Edad del conductor</p>
       <SimpleRadioButtonGroup setAge={setAge} />
-    </div>
+    </Stack>
   );
 }
