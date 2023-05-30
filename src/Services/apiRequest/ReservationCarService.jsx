@@ -1,6 +1,8 @@
-export async function ReservationCar(car, booking, user) {
-  console.log(user);
+import { baseUrl } from "../baseUrl";
+import authHeader from "../login/auth-header";
 
+export async function ReservationCar(car, booking, user) {
+  const autorization = authHeader();
   const reservation = {
     startDate: booking.bookingDates.startDate,
     endDate: booking.bookingDates.endDate,
@@ -13,10 +15,11 @@ export async function ReservationCar(car, booking, user) {
   console.log(reservation);
 
   try {
-    const response = await fetch(`http://localhost:5134/api/reservations`, {
+    const response = await fetch(`${baseUrl}reservations`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: autorization,
       },
       body: JSON.stringify(reservation),
     }).then((response) => {

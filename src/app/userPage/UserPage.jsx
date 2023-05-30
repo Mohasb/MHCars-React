@@ -14,6 +14,7 @@ import SuccessNotification from "./../../components/notifications/SucessNotifica
 import "./style.scss";
 import SvgIcon from "@mui/material/SvgIcon";
 import { FileSelector } from "react-rainbow-components";
+import { useNavigate } from "react-router-dom";
 
 export default function UserPage() {
   //para mostrar notificacion de update correcto o incorrecto
@@ -38,18 +39,30 @@ export default function UserPage() {
     errorBankAccount: "",
     errorImage: "",
   });
+  const navigate = useNavigate();
 
   //Se ejecuta en la primera carga(array  del final no tiene dependencias)
   useEffect(() => {
     //Se obtiene el usuario actual y se establece para el context y los valores del form de edit
     if (localStorage.getItem("user")) {
       const id = JSON.parse(localStorage.getItem("user")).id;
+      const token = JSON.parse(localStorage.getItem("user")).token;
 
       authService.getCurrentUser(id).then((response) => {
+        response.token = token;
         setUser(response);
         setNewValues({ ...response });
       });
     }
+    /* return () => {
+      console.log(isButtonDisabled);
+      if (isButtonDisabled) {
+        if (!confirm("Estas seguro de salir?Tienes cambios sin guardar")) {
+          alert("not ok");
+          navigate(location.pathname);
+        }
+      }
+    }; */
   }, []);
 
   //Cuando se produce el evento change en los inputs...
@@ -235,36 +248,16 @@ export default function UserPage() {
       setErrors((prevState) => ({ ...prevState, [nameError]: "" }));
     }
   };
-  //checkea que no estan vacios los campos
-  const checkEmpties = () => {
-    //Recorre los valores y si estan vacios y no tiene un error anterior pone el error:  `No puede quedar vacío`
-    for (let [key, value] of Object.entries(newValues)) {
-      const nameError = "error" + key.charAt(0).toUpperCase() + key.slice(1);
-
-      //conversion de string a variable
-      let errorValue = eval(`errors.${nameError}`);
-      errors.nameError;
-      if (value === "" && errorValue === "") {
-        setErrors((prevState) => ({
-          ...prevState,
-          [nameError]: `No puede quedar vacío`,
-        }));
-      }
-    }
-  };
 
   const handleSubmit = () => {
-    checkEmpties();
     const isAllOk = Object.values(errors).every((err) => err === "");
     //Si no hay errores
     if (isAllOk) {
       //Se elimina el token por que el dto no tiene nada de token (el token se establece al hacer login)
-      delete newValues.token;
+      //delete newValues.token;
       //valor para evitar el required del backend que luego se modifica por el correcto y siga funcionando el login
       newValues.password = "editedByBackend";
       newValues.image = user.image;
-
-      console.log(newValues);
       //PETICIÓN PUT con los valores nuevos
       PutClient(newValues).then((response) => {
         //si el back retorna true en la propiedad isOk....
@@ -276,6 +269,7 @@ export default function UserPage() {
           //Añade el token del usuario
           response.client.token = user.token;
           //modifica el localstorage con el user nuevo(sin imagen para no cargar el localstorage)
+          console.log(user);
           const userWithoutImage = { ...response.client };
           delete userWithoutImage.image;
           localStorage.setItem("user", JSON.stringify(userWithoutImage));
@@ -340,10 +334,12 @@ export default function UserPage() {
             <div className="row">
               <div className="wrapper-name">
                 <div className="bg">
-                  {user.name} {user.lastName}
+                  {user.name}{" "}
+                  {user.lastName === "undefined" ? "" : user.lastName}
                 </div>
                 <div className="fg">
-                  {user.name} {user.lastName}
+                  {user.name}{" "}
+                  {user.lastName === "undefined" ? "" : user.lastName}
                 </div>
               </div>
             </div>
@@ -452,7 +448,11 @@ export default function UserPage() {
                         name="lastName"
                         className="rainbow-p-around_medium"
                         borderRadius="semi-rounded"
-                        value={newValues.lastName}
+                        value={
+                          newValues.lastName !== "undefined"
+                            ? newValues.lastName
+                            : ""
+                        }
                         onChange={handleOnChange}
                         onBlur={handleOnChange}
                         error={errors.errorLastName}
@@ -476,7 +476,11 @@ export default function UserPage() {
                         name="phoneNumber"
                         className="rainbow-p-around_medium"
                         borderRadius="semi-rounded"
-                        value={newValues.phoneNumber}
+                        value={
+                          newValues.phoneNumber !== 0
+                            ? newValues.phoneNumber
+                            : ""
+                        }
                         onChange={handleOnChange}
                         onBlur={handleOnChange}
                         error={errors.errorPhoneNumber}

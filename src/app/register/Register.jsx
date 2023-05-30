@@ -7,8 +7,8 @@ import "./style.scss";
 import { useNavigate } from "react-router-dom";
 //Services
 import { PostClient } from "../../services/apiRequest/PostClient";
-import authService from "../../Services/login/auth.service";
-import Context from "../../Services/contextUser/ContextUser";
+import authService from "../../services/login/auth.service";
+import Context from "../../services/contextUser/ContextUser";
 
 export default function Register() {
   const { user, setUser } = useContext(Context);
@@ -50,6 +50,10 @@ export default function Register() {
           authService.login(values.email, values.password).then((response) => {
             if (response.isOk) {
               setUser(response.userWithToken);
+              localStorage.setItem(
+                "user",
+                JSON.stringify(response.userWithToken)
+              );
               navigate(-1);
             }
           });

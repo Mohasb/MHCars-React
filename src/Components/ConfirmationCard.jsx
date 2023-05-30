@@ -17,7 +17,7 @@ import Card from "@mui/material/Card";
 
 import { useEffect, useState, useContext } from "react";
 
-import Context from "../Services/contextUser/ContextUser";
+import Context from "../services/contextUser/ContextUser";
 import ConfirmationModal from "./modals/ConfirmationModal";
 
 

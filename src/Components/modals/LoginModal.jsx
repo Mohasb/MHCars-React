@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Modal, Button, Input } from "react-rainbow-components";
-import authService from "../../Services/login/auth.service";
+import authService from "../../services/login/auth.service";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Context from "../../services/contextUser/ContextUser";
@@ -17,9 +17,6 @@ export default function LoginModal(props) {
     passwordError: "",
   });
 
-  const inputStyles = {
-    width: 400,
-  };
   const handleClickInput = (e) => {
     const name = e.target.name;
     name === "email"
@@ -73,7 +70,6 @@ export default function LoginModal(props) {
   };
 
   const login = (email, password) => {
-
     authService.login(email, password).then((response) => {
       if (response.isOk) {
         handleOnClose();
@@ -148,7 +144,6 @@ export default function LoginModal(props) {
               placeholder="email@gmail.com"
               type="email"
               name="email"
-              style={inputStyles}
               className="rainbow-m-vertical_x-large rainbow-p-horizontal_medium rainbow-m_auto"
               borderRadius="semi-rounded"
               size="large"
@@ -164,7 +159,6 @@ export default function LoginModal(props) {
               name="password"
               className="rainbow-m-vertical_x-large rainbow-p-horizontal_medium rainbow-m_auto"
               borderRadius="semi-rounded"
-              style={inputStyles}
               size="large"
               value={passwordUser}
               onChange={handleChagePassword}
