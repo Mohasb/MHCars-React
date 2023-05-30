@@ -1,11 +1,11 @@
 .slideshow {
   align-items: center;
-  animation: slide-x 50s linear infinite;
+  animation: slide-x 40s linear infinite;
   display: flex;
   flex-shrink: 0;
   justify-content: space-between;
-  //min-width: 100%;
   img:hover {
+    transition: transform 1s ease-in-out;
     transform: scale(1.1);
   }
 }
@@ -20,12 +20,6 @@
     transform: translateX(-100%);
   }
 }
-/* @keyframes aumenta {
-  
- 
-    transform: scale(1.2);
-  
-} */
 
 /* Typography */
 /**************************/

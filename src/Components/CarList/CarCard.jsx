@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 //Material UI
 import Card from "@mui/material/Card";
@@ -11,10 +12,18 @@ import LocalGasStationIcon from "@mui/icons-material/LocalGasStation";
 import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 import SettingsIcon from "@mui/icons-material/Settings";
 import SellIcon from "@mui/icons-material/Sell";
-
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 export default function CarCard({ car, booking }) {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    AOS.init({
+      duration: 1200,
+    });
+    AOS.refresh();
+  }, []);
 
   const handleReservation = (car, booking) => {
     if (car && booking) {
@@ -28,7 +37,7 @@ export default function CarCard({ car, booking }) {
     }
   };
   return (
-    <>
+    <div data-aos="zoom-in">
       <Card
         sx={{ maxWidth: 345, minWidth: 350, overflow: "visible" }}
         car={car}
@@ -73,7 +82,7 @@ export default function CarCard({ car, booking }) {
           </CardContent>
         </CardActionArea>
 
-        <CardActions sx={{justifyContent: "center"}}>
+        <CardActions sx={{ justifyContent: "center" }}>
           <Button
             size="large"
             color="secondary"
@@ -85,10 +94,9 @@ export default function CarCard({ car, booking }) {
             Reservar &nbsp;
             <SellIcon color="primary" />
           </Button>
-
         </CardActions>
       </Card>
-    </>
+    </div>
   );
 }
 

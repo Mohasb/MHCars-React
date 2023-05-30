@@ -1,4 +1,4 @@
-import "./style.scss"
+import "./style.scss";
 export default function Footer() {
   return (
     <footer className="hero">
@@ -63,23 +63,24 @@ export default function Footer() {
       <div className="by flex">
         <p>Copyright © 2022 All Rights Reserved by Muhammad Hicho.</p>
         <div className="icons">
-          <a href="https://www.instagram.com/" className="icon1 icon--instagram">
+          <a
+            href="https://www.instagram.com/"
+            className="icon1 icon--instagram"
+          >
             <i className="ri-instagram-line"></i>
           </a>
-          <a href="https://twitter.com/?lang=es" className="icon1 icon--twitter">
+          <a
+            href="https://twitter.com/?lang=es"
+            className="icon1 icon--twitter"
+          >
             <i className="ri-twitter-line"></i>
           </a>
-          <a
-            href="https://es.linkedin.com/"
-            className="icon1 icon--linkedin"
-          >
+          <a href="https://es.linkedin.com/" className="icon1 icon--linkedin">
             <i className="ri-linkedin-line"></i>
           </a>
-          <a
-            href="https://github.com/"
-            className="icon1 icon--github"
-          >
+          <a href="https://github.com/" className="icon1 icon--github">
             <i className="ri-github-line"></i>
+            {/* <img src="/src/assets/github.png" alt="github" /> */}
           </a>
         </div>
       </div>

@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import CarList from "../components/carList/CarList";
-import { useContext } from "react";
-import ContextUser from "../Services/contextUser/ContextUser";
+import "./carListCss.scss";
 
 export default function CarListShow() {
   const savedData = JSON.parse(sessionStorage.getItem("data"));
@@ -17,7 +16,7 @@ export default function CarListShow() {
 
   return (
     <>
-      <main>
+      <main className="car-list">
         {savedData && (
           <CarList cars={savedData.cars} booking={savedData.booking} />
         )}
