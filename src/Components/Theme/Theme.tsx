@@ -8,6 +8,7 @@ export const theme = createTheme({
     secondary: {
       main: "#0c3675",
     },
+    /* mode: "dark", */
   },
   components: {
     MuiOutlinedInput: {

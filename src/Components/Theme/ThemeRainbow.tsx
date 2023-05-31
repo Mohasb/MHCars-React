@@ -1,7 +1,7 @@
 export const themeRainbow = {
-    rainbow: {
-      palette: {
-        brand: "#F4B408",
-      },
-    }, 
-  };
+  rainbow: {
+    palette: {
+      brand: "#F4B408",
+    },
+  },
+};

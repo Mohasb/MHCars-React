@@ -1,10 +1,39 @@
 import { SearchCar } from "../../components/searchCar/SearchCar";
+import { useEffect } from "react";
 import "./Home.scss";
+import {
+  audiA1,
+  audiA3,
+  audiA4,
+  audiQ2,
+  fiat500,
+  fordFocus,
+  fordTransit,
+  mercedesA,
+  opelMokka,
+  peugeot5008,
+  peugeotSpace,
+  skodaKaroq,
+  VwTouran,
+  VwTRock,
+} from "./cars";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import Testimonials from "../../components/testimonial/Testimonial";
+import Prueba from "./prueba";
 
 export default function Home() {
+  useEffect(() => {
+    AOS.init({
+      duration: 1200,
+    });
+    AOS.refresh();
+  }, []);
+
   return (
     <main>
-      <div id="parallax-world-of-ugg">
+      <Prueba />
+      {/* <div id="parallax-world-of-ugg">
         <section>
           <div className="parallax-one">
             <h2>Alquiler de coches</h2>
@@ -13,109 +42,84 @@ export default function Home() {
         </section>
         <section>
           <div className="block">
-            <p className="line-break"></p>
+            <h3>El alquiler de coches baratos no está reñido con la calidad</h3>
+            <p className="line-break pt-2"></p>
             <p>
-              <span className="first-character sc">I</span>Lorem ipsum dolor sit
-              amet consectetur adipisicing elit. Facilis, illum provident? Rerum
-              eveniet corporis, distinctio cumque reiciendis voluptatum
-              explicabo expedita facilis maxime sunt aut? Cupiditate, harum. Aut
-              hic laborum dolore unde distinctio cum laboriosam quisquam
-              adipisci nostrum reprehenderit neque repellat error tempore
-              accusantium aliquid fugiat harum deserunt recusandae officia
-            </p>
-            <p className="line-break"></p>
-          </div>
-        </section>
-        <section>
-          <div className="parallax-two">
-            <h2>Benidorm</h2>
-          </div>
-        </section>
-        <section>
-          <div className="block">
-            <p className="line-break"></p>
-            <p>
-              <span className="first-character ny">B</span>Lorem ipsum dolor sit
-              amet consectetur adipisicing elit. Facilis, illum provident? Rerum
-              eveniet corporis, distinctio cumque reiciendis voluptatum
-              explicabo expedita facilis maxime sunt aut? Cupiditate, harum. Aut
-              hic laborum dolore unde distinctio cum laboriosam quisquam
+              <span className="first-character sc">E</span> MHCars buscamos
+              ofrecerte un servicio de alquiler de coches al mejor precio, sin
+              que ello suponga un servicio de peor calidad. Por esto, ponemos a
+              tu disposición un servicio de alquiler de coches baratos en España
+              y en el resto del mundo con infinidad de ofertas especiales
+              conservando todas nuestras garantías de servicio. <br /> <br />{" "}
+              Nuestro objetivo es que nuestros clientes queden satisfechos,
+              deseen volver a contratar nuestros servicios y disfrutar de
+              nuestras ofertas en alquiler de coches baratos. A día de hoy más
+              de las 111.588 opiniones recibidas de nuestros clientes, el 90% se
+              muestran satisfechos con nuestro servicio de alquiler de coches,
+              lo que sin duda es la mejor garantía de calidad que podemos
+              ofrecerte.
             </p>
             <p className="line-break "></p>
           </div>
         </section>
         <section>
-          <div className="parallax-three">
-            <h2 style={{ padding: "1rem 0 2rem 0" }}>Nuestros Coches</h2>
+          <div className="parallax-two">
+            <h2 style={{ padding: "1rem 0 2rem 0" }} data-aos="zoom-in">
+              Nuestros Coches
+            </h2>
             <div className="car-images slideshow">
+              <img className="slideshow-image" src={audiA1} alt="AudiA1Image" />
+              <img className="slideshow-image" src={audiA3} alt="AudiA3Image" />
               <img
                 className="slideshow-image"
-                src="/src/assets/Cars/AudiA1Image.webp"
-                alt="AudiA1Image"
-              />
-              <img
-                className="slideshow-image"
-                src="/src/assets/Cars/AudiA3Image.webp"
-                alt="AudiA3Image"
-              />
-              <img
-                className="slideshow-image"
-                src="/src/assets/Cars/MercedesClaseAImage.webp"
+                src={mercedesA}
                 alt="MercedesClaseAImage"
               />
+              <img className="slideshow-image" src={audiA4} alt="AudiA4Image" />
+              <img className="slideshow-image" src={audiQ2} alt="AudiQ2Image" />
               <img
                 className="slideshow-image"
-                src="/src/assets/Cars/AudiA4Image.webp"
-                alt="AudiA4Image"
-              />
-              <img
-                className="slideshow-image"
-                src="/src/assets/Cars/AudiQ2Image.webp"
-                alt="AudiQ2Image"
-              />
-              <img
-                className="slideshow-image"
-                src="/src/assets/Cars/Fiat500Cabrio.webp"
+                src={fiat500}
                 alt="Fiat500Cabrio"
               />
               <img
                 className="slideshow-image"
-                src="/src/assets/Cars/FordFocusImage.webp"
+                src={fordFocus}
                 alt="FordFocusImage"
               />
               <img
                 className="slideshow-image"
-                src="/src/assets/Cars/VolkswagenTROCCabrioletImage.webp"
+                src={VwTRock}
                 alt="VolkswagenTROCCabrioletImage"
               />
               <img
                 className="slideshow-image"
-                src="/src/assets/Cars/VolkswagenTouranImage.webp"
+                src={VwTouran}
                 alt="VolkswagenTouranImage"
               />
               <img
                 className="slideshow-image"
-                src="/src/assets/Cars/SkodaKaroqoImage.webp"
+                src={skodaKaroq}
                 alt="SkodaKaroqoImage"
               />
               <img
                 className="slideshow-image"
-                src="/src/assets/Cars/PeugeotSpaceImage.webp"
+                src={peugeotSpace}
                 alt="PeugeotSpaceImage"
               />
               <img
                 className="slideshow-image"
-                src="/src/assets/Cars/Peugeot5008Image.webp"
+                src={peugeot5008}
                 alt="Peugeot5008Image"
               />
               <img
                 className="slideshow-image"
-                src="/src/assets/Cars/OpelMokkaImage.webp"
+                src={opelMokka}
                 alt="OpelMokkaImage"
               />
               <img
                 className="slideshow-image"
-                src="/src/assets/Cars/FordTransitXlImage.webp"
+                src={fordTransit}
                 alt="FordTransitXlImage"
               />
             </div>
@@ -123,26 +127,48 @@ export default function Home() {
         </section>
         <section>
           <div className="block">
-            <p className="line-break margin-top-10"></p>
+            <p className="line-break"></p>
             <p>
-              <span className="first-character atw">W</span>Lorem ipsum dolor
-              sit amet consectetur adipisicing elit. Facilis, illum provident?
-              Rerum eveniet corporis, distinctio cumque reiciendis voluptatum
-              explicabo expedita facilis maxime sunt aut? Cupiditate, harum. Aut
-              hic laborum dolore unde distinctio cum laboriosam quisquam
-              adipisci nostrum reprehenderit neque repellat error tempore
-              accusantium aliquid fugiat harum deserunt recusandae officia,
-              provident ut quod quidem nisi corporis. Eius voluptates illum
-              nostrum magni tenetur mollitia, dolores excepturi unde quo
-              molestias possimus eum. Ducimus velit earum minus quibusdam iusto
-              obcaecati aspernatur id excepturi. Doloribus optio recusandae
-              praesentium, accusamus ullam commodi vitae nemo tempora adipisci
-              facere cupiditate, neque quam molestiae. Eius quas tempore
-              explicabo reprehenderit?
+              <span className="first-character ny">O</span>frecemos los mejores
+              servicios complementarios para que tu alquiler de coche sea de la
+              mayor calidad posible. Para ello, damos la posibilidad de:
+              contratar una cobertura a todo riesgo, elegir la política de
+              combustible que mejor se adecúe a tus necesidades, contratar una
+              cobertura exterior para poder viajar a otros países, contratar un
+              alquiler para jóvenes a partir de 19 años, un alquiler senior para
+              las personas de 75 años o más, alquilar sillas para bebés y niños,
+              contratar la recogida del coche sin esperas, añadir conductores
+              adicionales, alquilar un GPS o cadenas para la nieve.
             </p>
+            <p className="line-break "></p>
           </div>
         </section>
-      </div>
+        <section>
+          <div className="parallax-three">
+            <Testimonials />
+          </div>
+        </section>
+        <section>
+          <div className="block">
+            <p className="line-break"></p>
+            <p>
+              <span className="first-character atw">P</span>ara MHCars la
+              innovación es especialmente relevante y transversal en todos los
+              ámbitos de nuestra actividad. Por ello, la compañía ha ido
+              evolucionando en línea con el mercado para adaptarse a las
+              necesidades de movilidad de nuestros clientes. En los últimos
+              años, hemos sumado nuestros esfuerzos en mejorar la experiencia
+              del cliente en nuestra web y app, apostando por una interfaz más
+              sencilla e intuitiva, que conecte con el usuario y facilite al
+              máximo cualquier tipo de consulta o gestión. En esa línea, durante
+              esta última etapa estamos apostando por la creación de servicios
+              que aprovechan los últimos adelantos tecnológicos para conseguir
+              la recogida de vehículo más rápida del mercado
+            </p>
+            <p className="line-break"></p>
+          </div>
+        </section>
+      </div> */}
     </main>
   );
 }

@@ -20,6 +20,7 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
+import Logo from "/src/assets/MHIcon.svg";
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -85,7 +86,8 @@ function ResponsiveAppBar() {
               >
                 <img
                   className="logo"
-                  src="/src/assets/image2vector.svg"
+                  //TODO
+                  src={Logo}
                   alt="Icon RentCar"
                 />
                 CARS
@@ -138,11 +140,7 @@ function ResponsiveAppBar() {
                 noWrap
                 component="p"
               >
-                <img
-                  className="logo"
-                  src="/src/assets/image2vector.svg"
-                  alt="Icon RentCar"
-                />
+                <img className="logo" src={Logo} alt="Icon RentCar" />
                 CARS
               </Typography>
             </Link>

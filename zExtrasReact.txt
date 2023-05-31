@@ -1,6 +1,8 @@
 npm init vite@latest react-rent-car --template react-ts
 npm run dev
 
+npm run build && npm run preview
+
 /* https://codepen.io/carloscdev/pen/mdBLmwP */  -> Hello im webdeveloper
 
 
