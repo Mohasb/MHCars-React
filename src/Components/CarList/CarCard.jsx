@@ -43,8 +43,8 @@ export default function CarCard({ car, booking }) {
       <Card
         sx={{
           overflow: "visible",
-          maxWidth: 350,
-          minWidth: 350,
+          maxWidth: 360,
+          minWidth: 360,
         }}
         car={car}
       >
