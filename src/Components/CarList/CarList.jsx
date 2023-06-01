@@ -7,6 +7,7 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Unstable_Grid2";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
+import "./style.scss";
 
 export default function CarList({ cars, booking }) {
   const [oilFilter, setOilFilter] = useState("todos");
@@ -14,7 +15,6 @@ export default function CarList({ cars, booking }) {
   const [carTypeFilter, setCarTypeFilter] = useState("todos");
 
   const [filteredCars, setfilteredCars] = useState(cars);
-
 
   useEffect(() => {
     setfilteredCars(
@@ -34,11 +34,10 @@ export default function CarList({ cars, booking }) {
       <Stack
         spacing={0}
         direction={{ xs: "column", sm: "row" }}
-        sx={{ justifyContent: "center", margin: "1rem 0" }}
+        className="container-top-carlist"
       >
-        <Box sx={{ flexGrow: 1, textAlign: "center", marginTop: "1rem" }}>
+        <Box sx={{ flexGrow: 1 }} className="text-top-carlist">
           <Typography gutterBottom variant="h4" component="div">
-            Lugar y Fechas <br />
             {booking.returnBranch ? "Recogida" : ""}
             <Typography gutterBottom variant="h6" component="div">
               {`${booking.branch.name} (${booking.branch.population})`}
@@ -61,9 +60,8 @@ export default function CarList({ cars, booking }) {
         </Box>
         {/* Si hay dos branches */}
         {booking.returnBranch ? (
-          <Box sx={{ flexGrow: 1, textAlign: "center", marginTop: "1rem" }}>
+          <Box sx={{ flexGrow: 1 }}>
             <Typography gutterBottom variant="h4" component="div">
-              Lugar y Fechas <br />
               {booking.returnBranch ? "Devolución" : ""}
               <Typography gutterBottom variant="h6" component="div">
                 {`${booking.returnBranch.name} (${booking.returnBranch.population})`}
@@ -151,11 +149,11 @@ export default function CarList({ cars, booking }) {
           spacing={{ xs: 5, md: 5 }}
           columns={{ xs: 4, sm: 8, md: 12 }}
           style={{ width: "100%", justifyContent: "center" }}
+          className="grid-cars"
         >
           {filteredCars.length ? (
             filteredCars.map((car) => (
               <Grid
-                gridTemplateColumns="repeat( auto-fit, minmax(250px, 1fr)"
                 key={car.id}
                 sx={{ margin: "auto" }}
                 className="justify-content-center"
@@ -164,12 +162,7 @@ export default function CarList({ cars, booking }) {
               </Grid>
             ))
           ) : (
-            <Typography
-              style={{ marginTop: 100 }}
-              gutterBottom
-              variant="h4"
-              component="p"
-            >
+            <Typography gutterBottom variant="h4" component="p">
               No hay ningún resultado con estos filtros.
             </Typography>
           )}

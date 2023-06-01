@@ -38,9 +38,7 @@ export default function Testimonials() {
                   He alquilado en 2 ocasiones un vehículo. Genial las 2 veces,
                   magnifico estado del vehiculo, transparencia en las
                   condiciones y precios muy competitivos. Ayer alquilé un
-                  vehículo a través de mutua, y fue perfecto todo. No os lo
-                  penséis si necesitáis un vehículo de alquiler, esta es vuestra
-                  agencia.
+                  vehículo a través de mutua, y fue perfecto todo.
                 </p>
               </div>
             </div>
@@ -53,12 +51,10 @@ export default function Testimonials() {
                 <h4>Opinión de Andrea Aparicio</h4>
                 <Stars />
                 <p>
-                  He alquilado en 2 ocasiones un vehículo. Genial las 2 veces,
-                  magnifico estado del vehiculo, transparencia en las
-                  condiciones y precios muy competitivos. Ayer alquilé un
-                  vehículo a través de mutua, y fue perfecto todo. No os lo
-                  penséis si necesitáis un vehículo de alquiler, esta es vuestra
-                  agencia.
+                  Personal servicial en la agencia con habilidades y
+                  comportamiento profesional impecable. Nos ofrecieron todas las
+                  herramientas y consejos que necesitábamos. Quedamos
+                  completamente satisfechos y agradecidos, ¡gracias!
                 </p>
               </div>
             </div>
@@ -75,8 +71,7 @@ export default function Testimonials() {
                   publicadas y que se consideran baratas. En mi caso vehículo
                   muy nuevo, con todos los extras, incluido navegador. La
                   atención por parte del personal no pudo ser más rápida y
-                  eficiente. No conocía la firma, pero desde ahora será mi
-                  empresa de alquiler.
+                  eficiente
                 </p>
               </div>
             </div>

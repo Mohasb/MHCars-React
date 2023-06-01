@@ -14,6 +14,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import SellIcon from "@mui/icons-material/Sell";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import "./style.scss";
 
 export default function CarCard({ car, booking }) {
   const navigate = useNavigate();
@@ -36,47 +37,61 @@ export default function CarCard({ car, booking }) {
       navigate("/booking");
     }
   };
+  console.log(car);
   return (
-    <div data-aos="zoom-in">
+    <div className="wraper-card" data-aos="zoom-in">
       <Card
-        sx={{ maxWidth: 345, minWidth: 350, overflow: "visible" }}
+        sx={{
+          overflow: "visible",
+          maxWidth: 350,
+          minWidth: 350,
+        }}
         car={car}
       >
         <CardActionArea
           onClick={() => {
             handleReservation(car, booking);
           }}
+          className="card-action-area"
         >
           <CardMedia
             component="img"
             className="car-img"
             image={`/src/assets/Cars/${car.image}.webp`}
             alt={`car ${car.brand}`}
+            data-aos="flip-left"
           />
 
           <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
+            <Typography variant="h4" component="p">
               {car.brand} {car.model}
+            </Typography>
+            <Typography gutterBottom variant="h6" component="p">
+              {car.price}€/dia
             </Typography>
             <Stack
               spacing={1}
               direction={{ xs: "column", sm: "row" }}
               sx={{ justifyContent: "center" }}
+              className="chips"
             >
               <Chip
                 icon={<DirectionsCarIcon color="secondary" />}
                 label={`Clase: ${car.category}`}
-                variant="outlined"
+                variant="filled"
+                color="primary"
               />
               <Chip
-                icon={<SettingsIcon color="primary" />}
+                icon={<SettingsIcon color="secondary" />}
                 label={car.gearShiftType}
-                variant="outlined"
+                variant="filled"
+                color="primary"
               />
               <Chip
                 icon={<LocalGasStationIcon color="secondary" />}
                 label={car.fuelType}
-                variant="outlined"
+                variant="filled"
+                color="primary"
               />
             </Stack>
           </CardContent>

@@ -1,34 +1,36 @@
 .hero {
-  height: auto;
   background: url("../../assets/homePics/Benidorm.webp") left bottom no-repeat;
   background-color: rgba(0, 0, 0, 0.747);
   background-size: cover;
   background-position: right;
   background-blend-mode: multiply;
   color: rgb(255, 255, 255);
-  padding: 30px 80px 30px 30px;
-  h1 {
-    font-size: 2rem;
-  }
-  .mobile {
-    img {
-      width: 4rem;
+  padding: 2rem;
+  .superior {
+    h1 {
+      font-size: 2rem;
+      text-transform: uppercase;
+      text-align: center;
+      margin: 5%;
     }
-    p {
-      white-space: nowrap;
+    .mobile {
+      display: flex;
+      gap: 1rem;
+      width: 100%;
+      justify-content: center;
+      /*       a,
+      a:hover,
+      a:link,
+      a:visited,
+      a:active {
+        text-decoration: none;
+      } */
     }
   }
 }
-.hero .container {
-  justify-content: space-between;
-  flex-wrap: wrap;
-  flex: 1;
-}
-.flex {
-  display: flex;
-}
+
 .container__about {
-  margin-bottom: 30px;
+  margin-top: 2rem;
 }
 
 .container__about p {
@@ -38,26 +40,7 @@
   font-size: 14px;
 }
 
-.container-pages {
-  column-gap: 30px;
-}
-
-.container-pages ul {
-  padding-top: 10px;
-  list-style: none;
-  line-height: 24px;
-}
-.container-pages ul a {
-  color: inherit;
-  text-decoration: none;
-  color: rgba(255, 255, 255, 0.6);
-  font-size: 14px;
-}
-.container-pages ul a:hover {
-  color: #f4b408;
-}
 footer .by {
-  margin-top: 30px;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
@@ -65,8 +48,9 @@ footer .by {
 footer .by p {
   color: rgba(255, 255, 255, 0.605);
   font-size: 14px;
+  text-align: center;
 }
-.line__separete {
+.line__separate {
   margin-top: 30px;
   width: 100%;
   height: 2px;
@@ -74,8 +58,9 @@ footer .by p {
   z-index: 999;
 }
 .icons {
-  margin-top: 20px;
+  margin: 20px;
   display: flex;
+  justify-content: center;
   column-gap: 25px;
 }
 
@@ -147,67 +132,5 @@ footer .by p {
 
   40% {
     transform: rotate(-15deg);
-  }
-}
-
-@media only screen and (max-width: 800px) {
-  .hero {
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .container__about h2 {
-    font-size: 20px;
-  }
-  .container__about p {
-    font-size: 12px;
-  }
-  .container__recentpages h2 {
-    font-size: 20px;
-  }
-  .container-pages ul a {
-    font-size: 12px;
-  }
-  footer .by p {
-    font-size: 12px;
-  }
-}
-
-.flex {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.app {
-  &-btn {
-    width: 45%;
-    max-width: 160px;
-    color: #fff;
-    margin: 20px 10px;
-    text-align: left;
-    border-radius: 5px;
-    text-decoration: none;
-    font-family: "Lucida Grande", sans-serif;
-    font-size: 10px;
-    text-transform: uppercase;
-    &.blu {
-      background-color: #101010;
-      transition: background-color 0.25s linear;
-      &:hover {
-        background-color: #454545;
-      }
-    }
-    i {
-      width: 20%;
-      text-align: center;
-      font-size: 28px;
-      margin-right: 7px;
-    }
-    .big-txt {
-      font-size: 17px;
-      text-transform: capitalize;
-    }
   }
 }

@@ -1,0 +1,45 @@
+.card {
+  margin: 5% auto;
+  border: 3px solid #f4b408;
+  box-shadow: 0 30px 20px rgba(0, 0, 0, 0.3);
+  max-width: 1050px;
+  padding: 2%;
+  .MuiPaper-root {
+    box-shadow: none;
+    .confirmation-header {
+      text-align: center;
+      padding: 2%;
+      span {
+        text-transform: uppercase;
+        font-size: 5rem;
+      }
+    }
+
+    .chips {
+      justify-content: center;
+      font-weight: bold;
+    }
+    .container-extras {
+      width: 100%;
+      .checkboxes {
+        justify-content: space-between;
+        flex-direction: row-reverse;
+        span {
+          font-size: 1rem;
+        }
+      }
+      .counter-input {
+        label {
+          font-size: 1rem;
+        }
+      }
+      .total {
+        justify-content: space-between;
+      }
+      .extras div {
+        font-size: 1rem;
+        justify-content: space-between;
+      }
+    }
+  }
+}

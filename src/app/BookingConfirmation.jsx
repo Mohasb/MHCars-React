@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import ConfirmationCard from "../components/ConfirmationCard";
+import ConfirmationCard from "../components/confirmationCard/ConfirmationCard";
 
 export default function ConfirmationBoocking() {
   const navigate = useNavigate();

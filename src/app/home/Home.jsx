@@ -20,7 +20,6 @@ import {
 import AOS from "aos";
 import "aos/dist/aos.css";
 import Testimonials from "../../components/testimonial/Testimonial";
-import Prueba from "./prueba";
 
 export default function Home() {
   useEffect(() => {
@@ -32,8 +31,7 @@ export default function Home() {
 
   return (
     <main>
-      <Prueba />
-      {/* <div id="parallax-world-of-ugg">
+      <div id="parallax-world-of-ugg">
         <section>
           <div className="parallax-one">
             <h2>Alquiler de coches</h2>
@@ -168,7 +166,7 @@ export default function Home() {
             <p className="line-break"></p>
           </div>
         </section>
-      </div> */}
+      </div>
     </main>
   );
 }
