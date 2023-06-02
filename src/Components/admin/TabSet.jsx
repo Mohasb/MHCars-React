@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Tabset, Tab, ButtonGroup, ButtonIcon } from "react-rainbow-components";
+import { Tabset, Tab } from "react-rainbow-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCog,
@@ -16,7 +16,7 @@ import Login from "./components/extras/Login";
 import CarsByBranch from "./components/extras/CarsByBranch";
 import CarsAvailables from "./components/extras/CarsAvailables";
 import ReservationByClient from "./components/extras/ReservationClient";
-import { GetBranches } from "./components/sucursales/BranchCrud";
+import { CrudTable } from "./components/sucursales/BranchCrud";
 
 const StyledHeader = styled.div.attrs((props) => {
   return props.theme.rainbow.palette;
@@ -48,31 +48,11 @@ export default function TabsAdmin() {
           id="primaryTab"
           className="rainbow-p-around_xx-large rainbow-font-size-text_large rainbow-align-text-center"
         >
-          <Accordion>
-            <AccordionSection label="GET SUSCURSALES">
-              <GetBranches />
-            </AccordionSection>
-            <AccordionSection label="GET SUSCURSAL/{ID}">
-              A rainbow is a meteorological phenomenon that is caused by
-              reflection, refraction and dispersion of light in water droplets
-              resulting in a spectrum of light appearing in the sky.
-            </AccordionSection>
-            <AccordionSection label="POST SUCURSAL">
-              A rainbow is a meteorological phenomenon that is caused by
-              reflection, refraction and dispersion of light in water droplets
-              resulting in a spectrum of light appearing in the sky.
-            </AccordionSection>
-            <AccordionSection label="PUT SUCURSAL/{ID}">
-              A rainbow is a meteorological phenomenon that is caused by
-              reflection, refraction and dispersion of light in water droplets
-              resulting in a spectrum of light appearing in the sky.
-            </AccordionSection>
-            <AccordionSection label="DELETE SUCURSAL/{ID}">
-              A rainbow is a meteorological phenomenon that is caused by
-              reflection, refraction and dispersion of light in water droplets
-              resulting in a spectrum of light appearing in the sky.
-            </AccordionSection>
-          </Accordion>
+          <CrudTable
+            endPoint={"Branches"}
+            headers={["id", "cif", "nombre", "dirección", "país", "población"]}
+            fields={["id", "cif", "name", "address", "country", "population"]}
+          />
         </StyledTabContent>
       );
     }
@@ -83,33 +63,31 @@ export default function TabsAdmin() {
           id="recentsTab"
           className="rainbow-p-around_xx-large rainbow-font-size-text_large rainbow-align-text-center"
         >
-          <Accordion>
-            <AccordionSection label="GET COCHES">
-              A rainbow is a meteorological phenomenon that is caused by
-              reflection, refraction and dispersion of light in water droplets
-              resulting in a spectrum of light appearing in the sky.
-            </AccordionSection>
-            <AccordionSection label="GET COCHE/{ID}">
-              A rainbow is a meteorological phenomenon that is caused by
-              reflection, refraction and dispersion of light in water droplets
-              resulting in a spectrum of light appearing in the sky.
-            </AccordionSection>
-            <AccordionSection label="POST COCHE">
-              A rainbow is a meteorological phenomenon that is caused by
-              reflection, refraction and dispersion of light in water droplets
-              resulting in a spectrum of light appearing in the sky.
-            </AccordionSection>
-            <AccordionSection label="PUT COCHE/{ID}">
-              A rainbow is a meteorological phenomenon that is caused by
-              reflection, refraction and dispersion of light in water droplets
-              resulting in a spectrum of light appearing in the sky.
-            </AccordionSection>
-            <AccordionSection label="DELETE COCHE/{ID}">
-              A rainbow is a meteorological phenomenon that is caused by
-              reflection, refraction and dispersion of light in water droplets
-              resulting in a spectrum of light appearing in the sky.
-            </AccordionSection>
-          </Accordion>
+          <CrudTable
+            endPoint={"cars"}
+            headers={[
+              "id",
+              "id sucursal",
+              "matricula",
+              "categoría",
+              "marca",
+              "modelo",
+              "cambio",
+              "combustible",
+              "imagen",
+            ]}
+            fields={[
+              "id",
+              "branchId",
+              "registration",
+              "category",
+              "brand",
+              "model",
+              "gearShiftType",
+              "fuelType",
+              "image",
+            ]}
+          />
         </StyledTabContent>
       );
     }
@@ -120,33 +98,31 @@ export default function TabsAdmin() {
           id="sharedTab"
           className="rainbow-p-around_xx-large rainbow-font-size-text_large rainbow-align-text-center"
         >
-          <Accordion>
-            <AccordionSection label="GET CLIENTES">
-              A rainbow is a meteorological phenomenon that is caused by
-              reflection, refraction and dispersion of light in water droplets
-              resulting in a spectrum of light appearing in the sky.
-            </AccordionSection>
-            <AccordionSection label="GET CLIENTE/{ID}">
-              A rainbow is a meteorological phenomenon that is caused by
-              reflection, refraction and dispersion of light in water droplets
-              resulting in a spectrum of light appearing in the sky.
-            </AccordionSection>
-            <AccordionSection label="POST CLIENTE">
-              A rainbow is a meteorological phenomenon that is caused by
-              reflection, refraction and dispersion of light in water droplets
-              resulting in a spectrum of light appearing in the sky.
-            </AccordionSection>
-            <AccordionSection label="PUT CLIENTE/{ID}">
-              A rainbow is a meteorological phenomenon that is caused by
-              reflection, refraction and dispersion of light in water droplets
-              resulting in a spectrum of light appearing in the sky.
-            </AccordionSection>
-            <AccordionSection label="DELETE CLIENTE/{ID}">
-              A rainbow is a meteorological phenomenon that is caused by
-              reflection, refraction and dispersion of light in water droplets
-              resulting in a spectrum of light appearing in the sky.
-            </AccordionSection>
-          </Accordion>
+          <CrudTable
+            endPoint={"clients"}
+            headers={[
+              "id",
+              "registration",
+              "Nombre",
+              "apellidos",
+              "email",
+              "telefono",
+              "Cuenta",
+              "permisos",
+              "imagen",
+            ]}
+            fields={[
+              "id",
+              "registration",
+              "name",
+              "lastName",
+              "email",
+              "phoneNumber",
+              "bankAccount",
+              "rol",
+              //"image",
+            ]}
+          />
         </StyledTabContent>
       );
     }
@@ -157,33 +133,29 @@ export default function TabsAdmin() {
           id="sharedTab"
           className="rainbow-p-around_xx-large rainbow-font-size-text_large rainbow-align-text-center"
         >
-          <Accordion>
-            <AccordionSection label="GET RESERVAS">
-              A rainbow is a meteorological phenomenon that is caused by
-              reflection, refraction and dispersion of light in water droplets
-              resulting in a spectrum of light appearing in the sky.
-            </AccordionSection>
-            <AccordionSection label="GET RESERVA/{ID}">
-              A rainbow is a meteorological phenomenon that is caused by
-              reflection, refraction and dispersion of light in water droplets
-              resulting in a spectrum of light appearing in the sky.
-            </AccordionSection>
-            <AccordionSection label="POST RESERVAS">
-              A rainbow is a meteorological phenomenon that is caused by
-              reflection, refraction and dispersion of light in water droplets
-              resulting in a spectrum of light appearing in the sky.
-            </AccordionSection>
-            <AccordionSection label="PUT RESERVA/{ID}">
-              A rainbow is a meteorological phenomenon that is caused by
-              reflection, refraction and dispersion of light in water droplets
-              resulting in a spectrum of light appearing in the sky.
-            </AccordionSection>
-            <AccordionSection label="DELETE RESERVA/{ID}">
-              A rainbow is a meteorological phenomenon that is caused by
-              reflection, refraction and dispersion of light in water droplets
-              resulting in a spectrum of light appearing in the sky.
-            </AccordionSection>
-          </Accordion>
+          <CrudTable
+            endPoint={"reservations"}
+            headers={[
+              "id",
+              "id sucursal",
+              "id sucursal retorno",
+              "fecha inicio",
+              "fecha fin",
+              "id coche",
+              "categoria",
+              "Cliente",
+            ]}
+            fields={[
+              "id",
+              "branchId",
+              "returnBranchId",
+              "startDate",
+              "endDate",
+              "carId",
+              "carCategory",
+              "clientId",
+            ]}
+          />
         </StyledTabContent>
       );
     }
