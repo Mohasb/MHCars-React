@@ -1,14 +1,11 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import "./style.scss";
 
 export default function NotFound() {
   return (
     <main>
-      <div>
-        <h1>Oops! You seem to be lost.</h1>
-        <p>Here are some helpful links:</p>
-        {/* https://codepen.io/arcs/pen/aGzNKY */}
-        <Link to="/">Home</Link>
-      </div>
+      <Link to="/">Home</Link>
     </main>
   );
 }

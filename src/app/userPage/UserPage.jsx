@@ -53,6 +53,8 @@ export default function UserPage() {
         setUser(response);
         setNewValues({ ...response });
       });
+    } else {
+      navigate("/");
     }
     /* return () => {
       const name = JSON.parse(localStorage.getItem("user")).name;

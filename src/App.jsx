@@ -14,6 +14,7 @@ import UserPage from "./app/userPage/UserPage";
 import Footer from "./Components/footer/Footer";
 import Notification from "./components/notifications/Notification";
 import Cookie from "./components/cookies/cookie";
+import Admin from "./app/admin/Admin";
 
 function App() {
   const [user, setUser] = useState();
@@ -38,6 +39,7 @@ function App() {
           <Route path="/booking" element={<ConfirmationBoocking />} />
           <Route path="/registro" element={<Register />} />
           <Route path="/user/:name" element={<UserPage />} />
+          <Route path="/admin" element={<Admin />} />
         </Routes>
         <ControlledOpenSpeedDial />
         {user && <Notification user={user} open={true} />}

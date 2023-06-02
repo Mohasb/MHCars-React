@@ -256,7 +256,7 @@ export default function Register() {
 
   return (
     <main>
-      <div className="card">
+      <div className="register-container">
         <h1 className="title">Registro</h1>
         <form onSubmit={handleSubmit}>
           <Box className="box">
@@ -265,7 +265,7 @@ export default function Register() {
               rowSpacing={1}
               columnSpacing={{ xs: 1, sm: 2, md: 3 }}
             >
-              <Grid item xs={6}>
+              <Grid item xs={12}>
                 <Input
                   required
                   label="Nombre"
@@ -279,7 +279,7 @@ export default function Register() {
                   error={errors.errorNombre}
                 />
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={12}>
                 <Input
                   required
                   label="Email"
@@ -293,7 +293,7 @@ export default function Register() {
                   error={errors.errorEmail}
                 />
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={12}>
                 <Input
                   required
                   label="DNI"
@@ -307,7 +307,22 @@ export default function Register() {
                   error={errors.errorDni}
                 />
               </Grid>
-              <Grid item xs={6}>
+
+              <Grid item xs={12}>
+                <Input
+                  required
+                  label="Tarjeta De Credito"
+                  placeholder="111-111-1111"
+                  type="text"
+                  size="large"
+                  name="bankAccount"
+                  borderRadius="semi-rounded"
+                  onBlur={handleChange}
+                  onChange={handleChange}
+                  error={errors.errorBankAccount}
+                />
+              </Grid>
+              <Grid item xs={12}>
                 <Tooltip
                   text={
                     "- at least 8 characters \n" +
@@ -329,21 +344,7 @@ export default function Register() {
                   />
                 </Tooltip>
               </Grid>
-              <Grid item xs={6}>
-                <Input
-                  required
-                  label="Tarjeta De Credito"
-                  placeholder="111-111-1111"
-                  type="text"
-                  size="large"
-                  name="bankAccount"
-                  borderRadius="semi-rounded"
-                  onBlur={handleChange}
-                  onChange={handleChange}
-                  error={errors.errorBankAccount}
-                />
-              </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={12}>
                 <Input
                   required
                   label="Confirmación Password"

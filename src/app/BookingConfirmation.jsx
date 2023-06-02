@@ -5,18 +5,19 @@ import ConfirmationCard from "../components/confirmationCard/ConfirmationCard";
 export default function ConfirmationBoocking() {
   const navigate = useNavigate();
 
-  const [data, setData] = useState(
-    JSON.parse(sessionStorage.getItem("booking"))
-  );
+  const [data, setData] = useState(null);
 
   useEffect(() => {
-    if (!data) {
+    if (JSON.parse(sessionStorage.getItem("booking"))) {
+      setData(JSON.parse(sessionStorage.getItem("booking")));
+    } else {
       navigate("/");
     }
-  }, []);
+  });
+  
   return (
     <main>
-      <ConfirmationCard car={data.car} booking={data.booking} />
+      {data && <ConfirmationCard car={data.car} booking={data.booking} />}
     </main>
   );
 }

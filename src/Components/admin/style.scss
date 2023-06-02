@@ -1,0 +1,6 @@
+#tabset-2 > div + div {
+  overflow: visible !important;
+}
+#tabset-2 > div > ul {
+  overflow: visible !important;
+}
