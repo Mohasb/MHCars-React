@@ -15,6 +15,7 @@ import Footer from "./Components/footer/Footer";
 import Notification from "./components/notifications/Notification";
 import Cookie from "./components/cookies/cookie";
 import Admin from "./app/admin/Admin";
+import { Outlet } from "react-router-dom";
 
 function App() {
   const [user, setUser] = useState();
@@ -27,24 +28,32 @@ function App() {
     }
   }, []);
 
+  const PageLayout = () => (
+    <>
+      <Outlet />
+      <Footer />
+      <ControlledOpenSpeedDial />
+      <Cookie />
+    </>
+  );
+
   return (
     <>
       <ContextUser.Provider value={{ user, setUser }}>
         <ResponsiveAppBar />
         <Routes>
-          <Route path="*" element={<NotFound />} />
-          <Route path="/" element={<Home />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/reserva/coche" element={<CarListShow />} />
-          <Route path="/booking" element={<ConfirmationBoocking />} />
-          <Route path="/registro" element={<Register />} />
-          <Route path="/user/:name" element={<UserPage />} />
+          <Route element={<PageLayout />}>
+            <Route path="*" element={<NotFound />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/reserva/coche" element={<CarListShow />} />
+            <Route path="/booking" element={<ConfirmationBoocking />} />
+            <Route path="/registro" element={<Register />} />
+            <Route path="/user/:name" element={<UserPage />} />
+          </Route>
           <Route path="/admin" element={<Admin />} />
         </Routes>
-        <ControlledOpenSpeedDial />
         {user && <Notification user={user} open={true} />}
-        <Cookie />
-        <Footer />
       </ContextUser.Provider>
     </>
   );

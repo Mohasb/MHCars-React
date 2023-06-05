@@ -9,14 +9,9 @@ import {
   faCalendarCheck,
 } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
-import { Accordion, AccordionSection } from "react-rainbow-components";
 import "./style.scss";
-import SetAdmin from "./components/extras/SetAdmin";
-import Login from "./components/extras/Login";
-import CarsByBranch from "./components/extras/CarsByBranch";
-import CarsAvailables from "./components/extras/CarsAvailables";
-import ReservationByClient from "./components/extras/ReservationClient";
-import { CrudTable } from "./components/sucursales/BranchCrud";
+import BranchCrud from "./components/CrudTables/BranchCrud";
+import CarsCrud from "./components/CrudTables/CarsCrud";
 
 const StyledHeader = styled.div.attrs((props) => {
   return props.theme.rainbow.palette;
@@ -48,11 +43,7 @@ export default function TabsAdmin() {
           id="primaryTab"
           className="rainbow-p-around_xx-large rainbow-font-size-text_large rainbow-align-text-center"
         >
-          <CrudTable
-            endPoint={"Branches"}
-            headers={["id", "cif", "nombre", "dirección", "país", "población"]}
-            fields={["id", "cif", "name", "address", "country", "population"]}
-          />
+          <BranchCrud />
         </StyledTabContent>
       );
     }
@@ -63,31 +54,7 @@ export default function TabsAdmin() {
           id="recentsTab"
           className="rainbow-p-around_xx-large rainbow-font-size-text_large rainbow-align-text-center"
         >
-          <CrudTable
-            endPoint={"cars"}
-            headers={[
-              "id",
-              "id sucursal",
-              "matricula",
-              "categoría",
-              "marca",
-              "modelo",
-              "cambio",
-              "combustible",
-              "imagen",
-            ]}
-            fields={[
-              "id",
-              "branchId",
-              "registration",
-              "category",
-              "brand",
-              "model",
-              "gearShiftType",
-              "fuelType",
-              "image",
-            ]}
-          />
+          <CarsCrud />
         </StyledTabContent>
       );
     }
@@ -98,31 +65,7 @@ export default function TabsAdmin() {
           id="sharedTab"
           className="rainbow-p-around_xx-large rainbow-font-size-text_large rainbow-align-text-center"
         >
-          <CrudTable
-            endPoint={"clients"}
-            headers={[
-              "id",
-              "registration",
-              "Nombre",
-              "apellidos",
-              "email",
-              "telefono",
-              "Cuenta",
-              "permisos",
-              "imagen",
-            ]}
-            fields={[
-              "id",
-              "registration",
-              "name",
-              "lastName",
-              "email",
-              "phoneNumber",
-              "bankAccount",
-              "rol",
-              //"image",
-            ]}
-          />
+          {/* Aquiiiiiiiiiiiiiiiii */}
         </StyledTabContent>
       );
     }
@@ -133,29 +76,7 @@ export default function TabsAdmin() {
           id="sharedTab"
           className="rainbow-p-around_xx-large rainbow-font-size-text_large rainbow-align-text-center"
         >
-          <CrudTable
-            endPoint={"reservations"}
-            headers={[
-              "id",
-              "id sucursal",
-              "id sucursal retorno",
-              "fecha inicio",
-              "fecha fin",
-              "id coche",
-              "categoria",
-              "Cliente",
-            ]}
-            fields={[
-              "id",
-              "branchId",
-              "returnBranchId",
-              "startDate",
-              "endDate",
-              "carId",
-              "carCategory",
-              "clientId",
-            ]}
-          />
+          {/* Aquiiiiiiiiiiiiiiiii */}
         </StyledTabContent>
       );
     }
@@ -165,23 +86,7 @@ export default function TabsAdmin() {
         id="sharedTab"
         className="rainbow-p-around_xx-large rainbow-font-size-text_large rainbow-align-text-center"
       >
-        <Accordion>
-          <AccordionSection label="SET ADMIN/{EMAIL}">
-            <SetAdmin />
-          </AccordionSection>
-          <AccordionSection label="LOGIN/{EMAIL}">
-            <Login />
-          </AccordionSection>
-          <AccordionSection label="COCHES POR SUCURSAL/{ID}">
-            <CarsByBranch />
-          </AccordionSection>
-          <AccordionSection label="COCHES DISPONIBLES/{ID}/{START}/{END}">
-            <CarsAvailables />
-          </AccordionSection>
-          <AccordionSection label="RESERVAS POR CLIENTE/{ID}">
-            <ReservationByClient />
-          </AccordionSection>
-        </Accordion>
+        {/* Aquiiiiiiiiiiiiiiiii */}
       </StyledTabContent>
     );
   };
