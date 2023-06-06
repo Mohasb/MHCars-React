@@ -23,9 +23,17 @@ export default function CookieModal(props) {
     return check;
   };
   const handleClick = () => {
-    document.cookie = `_ksdf=${btoa(window.navigator.userAgent)}`;
-    document.cookie = `_sgd=${btoa(navigator.language)}`;
-    document.cookie = `_sghyj=${btoa(window.mobileCheck().toString())}`;
+    var expires = new Date(Date.now() + 86400 * 1000).toUTCString();
+
+    document.cookie = `_ksdf=${btoa(
+      window.navigator.userAgent
+    )};expires=${expires};SameSite=lax`;
+    document.cookie = `_sgd=${btoa(
+      navigator.language
+    )};expires=${expires};SameSite=lax`;
+    document.cookie = `_sghyj=${btoa(
+      window.mobileCheck().toString()
+    )};expires=${expires};SameSite=lax`;
     setIsOpen(false);
   };
 

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 //Components imports
 import "./NavBar.scss";
 import LoginModal from "../modals/LoginModal";
+import Notification from "../notifications/Notification";
 //Services
 import Context from "../../services/contextUser/ContextUser";
 import authService from "../../services/login/auth.service";
@@ -25,17 +26,14 @@ import Logo from "/src/assets/MHIcon.svg";
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
-
   const [openModal, setOpenModal] = useState(false);
-
+  const [openNotification, setOpenNotification] = useState(false);
   const navigate = useNavigate();
   const { user, setUser } = useContext(Context);
-
   const pages = ["Oficinas", "Coches", "Servicios", "Acceso"];
   const settings = user ? ["Mi cuenta", "Cerrar Sesión"] : ["Iniciar Sesión"];
-
   if (typeof user !== "undefined" && user !== null) {
-    user.rol === "Admin" ? (pages[pages.length + 1] = "admin") : "";
+    user.rol === "Admin" ? (pages[pages.length + 1] = "Admin") : "";
   }
 
   const handleOpenNavMenu = (event) => {
@@ -204,8 +202,9 @@ function ResponsiveAppBar() {
         </Toolbar>
       </Container>
       {openModal && (
-        <LoginModal openModal={openModal} setOpenModal={setOpenModal} />
+        <LoginModal openModal={openModal} setOpenModal={setOpenModal} setOpenNotification={setOpenNotification} />
       )}
+      {user && <Notification user={user} open={openNotification} />}
     </AppBar>
   );
 }

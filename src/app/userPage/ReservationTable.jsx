@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Table, Column } from "react-rainbow-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { ButtonIcon } from "react-rainbow-components";
+import DeleteModal from "../../components/modals/DeleteModal";
+import SuccessNotification from "../../components/notifications/SucessNotification";
 
-/* function CustomAction(props) {
+function CustomAction(props) {
   const { row, onDeleteElement } = props;
-
   return (
     <ButtonIcon
       onClick={() => onDeleteElement(row.id)}
@@ -16,20 +17,31 @@ import { ButtonIcon } from "react-rainbow-components";
   );
 }
 
-const handleDeleteElement = id => {
-  const newData = data.filter(item => item.id !== id);
-  setData(newData);
-} */
-
-export default function ReservationTable() {
+export default function ReservationTable({ user }) {
   const [data, setData] = useState([]);
   const [sortedBy, setSortedBy] = useState(undefined);
   const [sortDirection, setShortDirection] = useState("asc");
+  const [isOpenModal, setIsOpenModal] = useState(false);
+  const [idToEliminate, setIdToEliminate] = useState(null);
+  const [showNotification, setNotification] = useState(false);
+
+  const handleResponseModal = (result, id) => {
+    if (result === "OK") {
+      setNotification(true);
+      const newData = data.filter((item) => item.id !== id);
+      setData(newData);
+    }
+  };
+
+  const handleDeleteElement = (id) => {
+    setIsOpenModal(true);
+    setIdToEliminate(id);
+  };
 
   useEffect(() => {
     try {
       const response = fetch(
-        `http://localhost:5134/api/custom/getreservationbyclient/1`
+        `http://localhost:5134/api/custom/getreservationbyclient/${user.id}`
       )
         .then((response) => {
           return response.json();
@@ -61,9 +73,6 @@ export default function ReservationTable() {
     setShortDirection(nextSortDirection);
   };
 
-
-
-
   return (
     <div className="rainbow-m-bottom_xx-large">
       <Table
@@ -75,19 +84,33 @@ export default function ReservationTable() {
         showRowNumberColumn={true}
         emptyTitle={"No hay reservas"}
         emptyDescription={""}
-        //variant={"listview"}
       >
         <Column header="Sucursal Recogida" field="pickUpBranch" sortable />
         <Column header="Fecha Recogida" field="startDate" sortable />
         <Column header="Sucursal Devolución" field="returnBranch" sortable />
         <Column header="Fecha Devolución" field="endDate" sortable />
-        {/* <Column
+        <Column
           width={60}
           component={({ row }) => (
             <CustomAction row={row} onDeleteElement={handleDeleteElement} />
           )}
-        /> */}
+        />
       </Table>
+      <DeleteModal
+        isOpenModal={isOpenModal}
+        setIsOpenModal={setIsOpenModal}
+        element={"Reserva"}
+        text={
+          "¿Estas seguro de eliminar esta reserva? Esta acción no se puede revertir"
+        }
+        idToEliminate={idToEliminate}
+        handleResponseModal={handleResponseModal}
+      />
+      <SuccessNotification
+        open={showNotification}
+        setNotification={setNotification}
+        severity={"success"}
+      />
     </div>
   );
 }

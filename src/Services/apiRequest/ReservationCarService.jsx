@@ -3,9 +3,16 @@ import authHeader from "../login/auth-header";
 
 export async function ReservationCar(car, booking, user) {
   const autorization = authHeader();
+  console.log(booking);
+  const startDate = new Date(
+    booking.bookingDates.startDate + " " + booking.bookingDates.pickupTime
+  );
+  const endDate = new Date(
+    booking.bookingDates.endDate + " " + booking.bookingDates.returnTime
+  );
   const reservation = {
-    startDate: booking.bookingDates.startDate,
-    endDate: booking.bookingDates.endDate,
+    startDate: startDate,
+    endDate: endDate,
     branchId: booking.branch.id,
     returnBranchId: booking.returnBranch.id,
     clientId: user.id,

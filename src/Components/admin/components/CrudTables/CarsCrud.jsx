@@ -178,7 +178,7 @@ const CarsCrud = () => {
     } catch (error) {
       console.log(error);
     }
-  }, [autorization]);
+  }, []);
 
   /* const handleCreateNewRow = (values) => {
     tableData.push(values);

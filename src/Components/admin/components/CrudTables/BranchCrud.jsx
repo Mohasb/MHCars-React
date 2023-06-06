@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { MaterialReactTable } from "material-react-table";
 import {
   Box,
@@ -14,7 +20,7 @@ import {
   Tooltip,
 } from "@mui/material";
 import { Delete, Edit } from "@mui/icons-material";
-import { baseUrl } from "../../../../Services/baseUrl";
+import { baseUrl } from "../../../../services/baseUrl";
 import authHeader from "../../../../services/login/auth-header";
 //Import Material React Table Translations
 import { MRT_Localization_ES } from "material-react-table/locales/es";
@@ -44,7 +50,7 @@ const BranchCrud = () => {
     } catch (error) {
       console.log(error);
     }
-  }, [autorization]);
+  }, []);
 
   /* const handleCreateNewRow = (values) => {
     tableData.push(values);
@@ -134,27 +140,6 @@ const BranchCrud = () => {
         muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
           ...getCommonEditTextFieldProps(cell),
         }),
-        /* muiTableBodyCellEditTextFieldProps: {
-          error: !!validationErrors.cif, //highlight mui text field red error color
-          helperText: validationErrors.cif, //show error message in helper text.
-          required: true,
-          onChange: (event) => {
-            const value = event.target.value;
-            //validation logic
-            console.log(value);
-            if (!value) {
-              console.log("valueee" + value);
-              setValidationErrors((prev) => ({
-                ...prev,
-                cif: "Cif is required",
-              }));
-            } else {
-              delete validationErrors.cif;
-              setValidationErrors({ ...validationErrors });
-            }
-            console.log(validationErrors);
-          },
-        }, */
       },
       {
         accessorKey: "name",
@@ -264,10 +249,22 @@ export const CreateNewBranchModal = ({ open, columns, onClose, onSubmit }) => {
     }, {})
   );
   const [validationErrors, setValidationErrors] = useState({});
+  let isValid = useRef(false);
+
+  useEffect(() => {
+    if (!Object.keys(validationErrors).length) {
+      isValid = true;
+    } else {
+      isValid = false;
+    }
+  }, [validationErrors]);
 
   const handleSubmit = () => {
     //put your validation logic here
-    console.log(values);
+    for (const key in values) {
+      validateField(key, values[key]);
+    }
+    console.log(isValid);
 
     /* onSubmit(values);
     onClose(); */
@@ -278,16 +275,21 @@ export const CreateNewBranchModal = ({ open, columns, onClose, onSubmit }) => {
     validateField(name, value);
   };
   const validateField = (fieldName, value) => {
-    let errors = { ...validationErrors };
-
-    // Realiza la validación específica para el campo modificado
-    if (fieldName === "cif" && !validateRequired(value)) {
-      errors[fieldName] = "Cif es requerido";
+    if (!value) {
+      setValidationErrors((prevState) => ({
+        //si extraen todos los valores anteriores...
+        ...prevState,
+        //Se establece el campo y su valor dinámicamente
+        [fieldName]: `${fieldName} es requerido`,
+      }));
     } else {
-      delete errors[fieldName];
+      setValidationErrors((prevState) => ({
+        //si extraen todos los valores anteriores...
+        ...prevState,
+        //Se establece el campo y su valor dinámicamente
+        [fieldName]: ``,
+      }));
     }
-
-    setValidationErrors(errors);
   };
 
   return (

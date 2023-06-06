@@ -77,7 +77,7 @@ export default function LoginModal(props) {
         const userWithoutImage = { ...response.userWithToken };
         delete userWithoutImage.image;
         localStorage.setItem("user", JSON.stringify(userWithoutImage));
-
+        props.setOpenNotification(true);
         navigate(location.pathname);
       } else {
         if (response.responseText.includes("Usuario")) {
@@ -129,6 +129,7 @@ export default function LoginModal(props) {
                 </p>
               </Stack>
               <Button
+                id="login"
                 label="Login"
                 variant="brand"
                 onClick={() => {
@@ -138,7 +139,12 @@ export default function LoginModal(props) {
             </div>
           }
         >
-          <form>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              document.querySelector("#login").click();
+            }}
+          >
             <Input
               label="Email"
               placeholder="email@gmail.com"
@@ -165,6 +171,7 @@ export default function LoginModal(props) {
               error={errors.passwordError}
               onClick={handleClickInput}
             />
+            <input type="submit" value="" hidden />
           </form>
         </Modal>
       </div>

@@ -3,7 +3,6 @@ import { useContext, useEffect, useState } from "react";
 import { Input, Button } from "react-rainbow-components";
 import Box from "@mui/material/Box";
 //Services
-import authService from "./../../services/login/auth.service";
 import Context from "../../services/contextUser/ContextUser";
 import { PutClient } from "../../services/apiRequest/PutClient";
 //Components
@@ -23,7 +22,7 @@ export default function UserPage() {
   const [severity, setSeverity] = useState("");
   //Usuario del contexto (padre de todos los componentes)
   const { user, setUser } = useContext(Context);
-  //Si se ha modificado alguún campo del from será tru
+  //Si se ha modificado algún campo del form será true
   const [isButtonDisabled, setButtonDisabled] = useState(true);
   //Para abrir el modal de cambio de password
   const [isOpenModalPwd, setIsOpenModalPwd] = useState(false);
@@ -41,32 +40,12 @@ export default function UserPage() {
   });
   const navigate = useNavigate();
 
-  //Se ejecuta en la primera carga(array  del final no tiene dependencias)
+  //Se ejecuta en la primera carga(array del final no tiene dependencias)
   useEffect(() => {
     //Se obtiene el usuario actual y se establece para el context y los valores del form de edit
-    if (localStorage.getItem("user")) {
-      const id = JSON.parse(localStorage.getItem("user")).id;
-      const token = JSON.parse(localStorage.getItem("user")).token;
-
-      authService.getCurrentUser(id).then((response) => {
-        response.token = token;
-        setUser(response);
-        setNewValues({ ...response });
-      });
-    } else {
+    if (!localStorage.getItem("user")) {
       navigate("/");
     }
-    /* return () => {
-      const name = JSON.parse(localStorage.getItem("user")).name;
-
-      console.log(dirty);
-      if (dirty) {
-        console.log("not");
-        if (!confirm("Estas seguro de salir?Tienes cambios sin guardar")) {
-          navigate(`/user/${name}`);
-        }
-      }
-    }; */
   }, []);
 
   //Cuando se produce el evento change en los inputs...
@@ -297,8 +276,7 @@ export default function UserPage() {
   };
 
   const handleImage = (file) => {
-    if (file.length && typeof file !== "undefined") {
-      console.log(file);
+     if (file.length && typeof file !== "undefined") {
       if (file && file[0]["type"].split("/")[0] === "image") {
         const image = file[0];
         let reader = new FileReader();
@@ -325,7 +303,7 @@ export default function UserPage() {
         }));
         return;
       }
-    }
+    }  
   };
 
   return (
@@ -515,8 +493,8 @@ export default function UserPage() {
               <div className="col-md-12 mt-xl-12">
                 <h1>RESERVAS</h1>
                 {/* Tabla de RESERVAS */}
-                <ReservationTable />
-                {/* Modal de cambi ode password */}
+                <ReservationTable user={user} />
+                {/* Modal de cambio password */}
                 <EditPwd
                   isOpenModalPwd={isOpenModalPwd}
                   setIsOpenModalPwd={setIsOpenModalPwd}

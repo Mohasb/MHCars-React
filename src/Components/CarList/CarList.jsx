@@ -8,6 +8,7 @@ import Grid from "@mui/material/Unstable_Grid2";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import "./style.scss";
+import NoFound from "../../assets/extras/notFound.svg";
 
 export default function CarList({ cars, booking }) {
   const [oilFilter, setOilFilter] = useState("todos");
@@ -75,9 +76,9 @@ export default function CarList({ cars, booking }) {
                     : ""}
                   {` ${new Date(
                     booking.bookingDates.endDate
-                  ).toLocaleDateString("es-ES")} (${
-                    booking.returnBranch.population
-                  })`}
+                  ).toLocaleDateString("es-ES")} ${
+                    booking.bookingDates.returnTime
+                  } (${booking.returnBranch.population})`}
                 </Typography>
               </Typography>
             </Typography>
@@ -162,7 +163,14 @@ export default function CarList({ cars, booking }) {
               </Grid>
             ))
           ) : (
-            <Typography gutterBottom variant="h4" component="p">
+            <Typography
+              gutterBottom
+              variant="h4"
+              component="p"
+              className="not-found"
+            >
+              <img className="not-found-image" src={NoFound} alt="No found" />
+              <br />
               No hay ningún resultado con estos filtros.
             </Typography>
           )}

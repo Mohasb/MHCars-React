@@ -9,14 +9,8 @@ npm run build && npm run preview
 
 
 encriptar localstorage y sessionStorage
-icon no se ve ne modo ligth
 edit user candeactivate
 
 
-
-
-
-
-label edad
-input edad se ve mal
 spacio entre boton de modificar contraseña y guardar cambios
+buton disabled no funciona con imagen

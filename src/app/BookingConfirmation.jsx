@@ -13,8 +13,8 @@ export default function ConfirmationBoocking() {
     } else {
       navigate("/");
     }
-  });
-  
+  }, []);
+
   return (
     <main>
       {data && <ConfirmationCard car={data.car} booking={data.booking} />}

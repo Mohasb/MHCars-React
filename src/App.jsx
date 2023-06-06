@@ -12,7 +12,6 @@ import ResponsiveAppBar from "./components/navBar/NavBar";
 import ControlledOpenSpeedDial from "./Components/CircularMenu";
 import UserPage from "./app/userPage/UserPage";
 import Footer from "./Components/footer/Footer";
-import Notification from "./components/notifications/Notification";
 import Cookie from "./components/cookies/cookie";
 import Admin from "./app/admin/Admin";
 import { Outlet } from "react-router-dom";
@@ -53,7 +52,6 @@ function App() {
           </Route>
           <Route path="/admin" element={<Admin />} />
         </Routes>
-        {user && <Notification user={user} open={true} />}
       </ContextUser.Provider>
     </>
   );

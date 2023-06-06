@@ -30,14 +30,16 @@ export const SearchCar = () => {
   const [errorBranch1, setErrorBranch1] = useState();
   const [errorBranch2, setErrorBranch2] = useState();
   const [errorDates, setErrorDates] = useState();
+  const [errorPickupTime, setErrorPickUpTime] = useState();
+  const [errorReturnTime, setErrorReturnTime] = useState();
   //to navigate to other routes
   const navigate = useNavigate();
   //to sessionStorage
   const [cars, setCars] = useState([]);
   const [booking, setBooking] = useState([]);
 
-  const [pickupTime, setPickupTime] = useState("12:00");
-  const [returnTime, setReturnTime] = useState("12:00");
+  const [pickupTime, setPickupTime] = useState("");
+  const [returnTime, setReturnTime] = useState("");
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
@@ -89,8 +91,16 @@ export const SearchCar = () => {
               width: "100%",
             }}
           >
-            <Time name="recogida" setPickupTime={setPickupTime} />
-            <Time name="devolución" setReturnTime={setReturnTime} />
+            <Time
+              name="recogida"
+              setPickupTime={setPickupTime}
+              error={errorPickupTime}
+            />
+            <Time
+              name="devolución"
+              setReturnTime={setReturnTime}
+              error={errorReturnTime}
+            />
           </Stack>
           <AgeRadioButtons setAge={setAge} />
           <Button
@@ -131,6 +141,13 @@ export const SearchCar = () => {
     //error return Branch
     if (areCheckTwoBranches && !returnBranch) {
       setErrorBranch2("Selecciona una sucursal de devolución");
+    }
+    console.log(!!pickupTime);
+    if (!pickupTime) {
+      setErrorPickUpTime("Selecciona hora de recogida");
+    }
+    if (!returnTime) {
+      setErrorReturnTime("Selecciona hora de devolución");
     }
   }
   function fetchData(branch, returnBranch, bookingDates, age) {

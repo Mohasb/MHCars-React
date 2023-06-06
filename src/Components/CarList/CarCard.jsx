@@ -37,14 +37,12 @@ export default function CarCard({ car, booking }) {
       navigate("/booking");
     }
   };
-  console.log(car);
   return (
     <div className="wraper-card" data-aos="zoom-in">
       <Card
         sx={{
           overflow: "visible",
-          maxWidth: 360,
-          minWidth: 360,
+          width: "300px",
         }}
         car={car}
       >

@@ -16,6 +16,7 @@ import { CheckboxToggle } from "react-rainbow-components";
 import { CounterInput } from "react-rainbow-components";
 import Card from "@mui/material/Card";
 import { useNavigate } from "react-router-dom";
+import Box from "@mui/material/Box";
 
 import { useEffect, useState, useContext } from "react";
 
@@ -272,10 +273,7 @@ export default function ConfirmationCard({ car, booking }) {
                         </Stack>
                       )}
                       {extras.drivers > 1 && (
-                        <Stack
-                          spacing={1}
-                          direction={{ xs: "row", sm: "row" }}
-                        >
+                        <Stack spacing={1} direction={{ xs: "row", sm: "row" }}>
                           <Typography gutterBottom variant="p" component="div">
                             Conductor extra
                           </Typography>
@@ -320,6 +318,28 @@ export default function ConfirmationCard({ car, booking }) {
                 <SellIcon color="primary" />
               </Button>
             </CardActions>
+            <Box sx={{ textAlign: "center" }} className="">
+              <Typography gutterBottom variant="h6" component="div">
+                <strong>
+                  <u>Recogida:</u>
+                </strong>{" "}
+                {booking.branch.name} (
+                {new Date(booking.bookingDates.startDate).toLocaleDateString(
+                  "es-ES"
+                )}{" "}
+                {booking.bookingDates.pickupTime})
+              </Typography>
+              <Typography gutterBottom variant="h6" component="div">
+                <strong>
+                  <u>Devolución:</u>
+                </strong>{" "}
+                {booking.returnBranch.name} (
+                {new Date(booking.bookingDates.endDate).toLocaleDateString(
+                  "es-ES"
+                )}{" "}
+                {booking.bookingDates.returnTime})
+              </Typography>
+            </Box>
           </Card>
         </div>
         {showModal && (

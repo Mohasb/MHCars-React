@@ -13,6 +13,7 @@ export async function PostClient(client) {
   })
     .then((res) => res.json())
     .then((resp) => {
+      console.log(resp);
       return resp;
     });
   return response;
