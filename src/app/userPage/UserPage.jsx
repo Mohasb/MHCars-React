@@ -240,7 +240,7 @@ export default function UserPage() {
       //delete newValues.token;
       //valor para evitar el required del backend que luego se modifica por el correcto y siga funcionando el login
       newValues.password = "editedByBackend";
-      newValues.image = user.image;
+      newValues.image = document.querySelector("#user-image").src;
       //PETICIÓN PUT con los valores nuevos
       PutClient(newValues).then((response) => {
         //si el back retorna true en la propiedad isOk....
@@ -252,7 +252,6 @@ export default function UserPage() {
           //Añade el token del usuario
           response.client.token = user.token;
           //modifica el localstorage con el user nuevo(sin imagen para no cargar el localstorage)
-          console.log(user);
           const userWithoutImage = { ...response.client };
           delete userWithoutImage.image;
           localStorage.setItem("user", JSON.stringify(userWithoutImage));
@@ -275,36 +274,38 @@ export default function UserPage() {
     }
   };
 
-  const handleImage = (file) => {
-     if (file.length && typeof file !== "undefined") {
-      if (file && file[0]["type"].split("/")[0] === "image") {
-        const image = file[0];
+  const handleImage = (fileList) => {
+    if (fileList.length && typeof fileList !== "undefined") {
+      if (fileList && fileList[0]["type"].split("/")[0] === "image") {
+        const image = fileList[0];
+        //
         let reader = new FileReader();
         reader.readAsDataURL(image);
         reader.addEventListener("load", () => {
-          setUser((prevState) => ({
-            ...prevState,
-            image: reader.result,
-          }));
-          setErrors((prevState) => ({
-            //si extraen todos los valores anteriores...
-            ...prevState,
-            //Se establece el campo y su valor dinámicamente
-            errorImage: "",
-          }));
+          document.querySelector("#user-image").src = reader.result;
           setButtonDisabled(false);
         });
       } else {
         setErrors((prevState) => ({
-          //si extraen todos los valores anteriores...
           ...prevState,
-          //Se establece el campo y su valor dinámicamente
           errorImage: `Tipo no soportado: ${file[0].type}`,
         }));
-        return;
       }
-    }  
+    } else {
+      //cuando se pulsa en la X de cerrar
+      setButtonDisabled(true);
+      document.querySelector("#user-image").src =
+        user.image ||
+        `https://www.gravatar.com/avatar/EMAIL_MD5?d=https%3A%2F%2Fui-avatars.com%2Fapi%2F/${
+          user.name
+        }${
+          user.lastName && user.lastName
+        }/512/F4B408/fff/2/0.5/false/true/true`;
+    }
   };
+
+  var style = getComputedStyle(document.body);
+  const primaryColor = style.getPropertyValue("--primary-color");
 
   return (
     //Si existe el usuario del contexto y en el localstorage renderiza el resto
@@ -340,38 +341,41 @@ export default function UserPage() {
                       }}
                     />
                   ) : (
-                    <SvgIcon
-                      sx={{
-                        backgroundColor: "#F4B408",
-                        width: "100%",
-                        height: "100%",
-                        borderRadius: "5px",
-                      }}
+                    <img
+                      id="user-image"
                       onClick={() => {
                         //click imagen abre el input:file
                         document.querySelector("input[type=file]").click();
                       }}
-                    >
-                      <path
-                        color="white"
-                        d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
-                      ></path>
-                    </SvgIcon>
+                      src={`https://www.gravatar.com/avatar/EMAIL_MD5?d=https%3A%2F%2Fui-avatars.com%2Fapi%2F/${
+                        user.name
+                      }${
+                        user.lastName ? "+" + user.lastName : ""
+                      }/512/${primaryColor}/fff/2/0.5/false/true/true`}
+                    />
                   )}
                   <div className="file ">
-                    {/* Cambiar foto */}
-                    {/* <input type="file" name="file" onInput={handleImage} /> */}
                     <FileSelector
                       placeholder="Cambiar imagen"
                       name="file"
                       onChange={handleImage}
                       error={errors.errorImage}
                       borderRadius="semi-rounded"
-                      //TODO
                     />
                   </div>
                 </div>
                 <Box sx={{ textAlign: "center", margin: "2rem 0 auto" }}>
+                  <Button
+                    label="Guardar Cambios"
+                    variant="brand"
+                    borderRadius="semi-rounded"
+                    onClick={handleSubmit}
+                    size="large"
+                    style={{ color: "#fff" }}
+                    disabled={isButtonDisabled}
+                  />
+                  <br />
+                  <br />
                   <Button
                     label="Modificar Contraseña"
                     variant="brand"
@@ -382,16 +386,6 @@ export default function UserPage() {
                     }}
                     size="medium"
                     style={{ color: "#fff" }}
-                  />
-
-                  <Button
-                    label="Guardar Cambios"
-                    variant="brand"
-                    borderRadius="semi-rounded"
-                    onClick={handleSubmit}
-                    size="medium"
-                    style={{ color: "#fff" }}
-                    disabled={isButtonDisabled}
                   />
                 </Box>
               </div>

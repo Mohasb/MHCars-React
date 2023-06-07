@@ -16,6 +16,10 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import "./style.scss";
 
+import getImageByKey from "../../app/home/cars";
+
+//import CarImage from `/src/assets/Cars/${car.image}.webp`;
+
 export default function CarCard({ car, booking }) {
   const navigate = useNavigate();
 
@@ -55,7 +59,7 @@ export default function CarCard({ car, booking }) {
           <CardMedia
             component="img"
             className="car-img"
-            image={`/src/assets/Cars/${car.image}.webp`}
+            image={getImageByKey(car.image)}
             alt={`car ${car.brand}`}
             data-aos="flip-left"
           />

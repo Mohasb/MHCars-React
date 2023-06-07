@@ -1,12 +1,16 @@
 import { createTheme } from "@mui/material/styles";
 
+var style = getComputedStyle(document.body);
+const primaryColor = style.getPropertyValue("--primary-color");
+const secondaryColor = style.getPropertyValue("--secondary-color");
+
 export const theme = createTheme({
   palette: {
     primary: {
-      main: "#F4B408",
+      main: primaryColor,
     },
     secondary: {
-      main: "#0c3675",
+      main: secondaryColor,
     },
     /* mode: "dark", */
   },
@@ -14,9 +18,9 @@ export const theme = createTheme({
     MuiOutlinedInput: {
       styleOverrides: {
         root: {
-          "&:hover .MuiOutlinedInput-notchedOutline": {
+          /* "&:hover .MuiOutlinedInput-notchedOutline": {
             border: "none",
-          },
+          }, */
         },
       },
     },

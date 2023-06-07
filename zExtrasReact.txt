@@ -1,6 +1,7 @@
 npm init vite@latest react-rent-car --template react-ts
 npm run dev
 
+
 npm run build && npm run preview
 
 /* https://codepen.io/carloscdev/pen/mdBLmwP */  -> Hello im webdeveloper
@@ -14,3 +15,10 @@ edit user candeactivate
 
 spacio entre boton de modificar contraseña y guardar cambios
 buton disabled no funciona con imagen
+he entrado a admin sin user
+notificación user no se ver
+
+validación horario fuera de laboral
+
+Use of eval in "src/app/register/Register.jsx" is strongly discouraged as it poses security risks and may 
+cause issues with minification.

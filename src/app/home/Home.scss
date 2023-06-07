@@ -25,7 +25,7 @@
 
 /* Typography */
 /**************************/
-#parallax-world-of-ugg h1 {
+#parallax h1 {
   font-size: 24px;
   font-weight: 400;
   text-transform: uppercase;
@@ -33,7 +33,7 @@
   padding: 0;
   margin: 0;
 }
-#parallax-world-of-ugg h2 {
+#parallax h2 {
   font-size: 70px;
   letter-spacing: 10px;
   text-align: center;
@@ -43,7 +43,7 @@
   z-index: 10;
   opacity: 0.9;
 }
-#parallax-world-of-ugg h3 {
+#parallax h3 {
   font-size: 2rem;
   text-align: center;
   color: black;
@@ -52,7 +52,7 @@
   z-index: 10;
   opacity: 0.9;
 }
-#parallax-world-of-ugg p {
+#parallax p {
   font-weight: 400;
   font-size: 1.2rem;
   line-height: 24px;
@@ -69,7 +69,7 @@
 }
 
 .sc {
-  color: #f4b408;
+  color: var(--primary-color);
 }
 .ny {
   color: #3d3c3a;
@@ -80,18 +80,18 @@
 
 /* Section - Block */
 /**************************/
-#parallax-world-of-ugg .block {
+#parallax .block {
   background: white;
   padding: 60px;
   width: 820px;
   margin: 0 auto;
   text-align: justify;
 }
-#parallax-world-of-ugg .block-gray {
+#parallax .block-gray {
   background: #f2f2f2;
   padding: 60px;
 }
-#parallax-world-of-ugg .section-overlay-mask {
+#parallax .section-overlay-mask {
   position: absolute;
   top: 0;
   left: 0;
@@ -103,7 +103,12 @@
 
 /* Section - Parallax */
 /**************************/
-#parallax-world-of-ugg .parallax-one {
+#parallax .parallax-one {
+  .title-search-car {
+    padding-top: var(--padding-to-main);
+    font-size: 4rem;
+  }
+  padding-top: 30px;
   padding-bottom: 100px;
   overflow: hidden;
   position: relative;
@@ -116,7 +121,7 @@
   background-repeat: no-repeat;
   background-position: top center;
 }
-#parallax-world-of-ugg .parallax-two {
+#parallax .parallax-two {
   /* padding-top: 200px;
   padding-bottom: 200px; */
   overflow: hidden;
@@ -130,7 +135,7 @@
   background-repeat: no-repeat;
   background-position: center center;
 }
-#parallax-world-of-ugg .parallax-three {
+#parallax .parallax-three {
   overflow: hidden;
   position: relative;
   width: 100%;
@@ -138,7 +143,7 @@
 
 /* Extras */
 /**************************/
-#parallax-world-of-ugg .line-break {
+#parallax .line-break {
   border-bottom: 1px solid black;
   width: 200px;
   margin: 0 auto;
@@ -147,29 +152,29 @@
 /* Media Queries */
 /**************************/
 @media screen and (max-width: 959px) and (min-width: 768px) {
-  #parallax-world-of-ugg .block {
+  #parallax .block {
     padding: 40px;
     width: 620px;
   }
 }
 @media screen and (max-width: 767px) {
-  #parallax-world-of-ugg .block {
+  #parallax .block {
     padding: 30px;
     width: 420px;
   }
-  #parallax-world-of-ugg h2 {
+  #parallax h2 {
     font-size: 30px;
   }
-  #parallax-world-of-ugg .block {
+  #parallax .block {
     padding: 30px;
   }
-  #parallax-world-of-ugg .parallax-one {
+  #parallax .parallax-one {
     padding-top: 0;
     padding-bottom: 0;
   }
 }
 @media screen and (max-width: 479px) {
-  #parallax-world-of-ugg .block {
+  #parallax .block {
     padding: 30px 15px;
     width: 290px;
   }

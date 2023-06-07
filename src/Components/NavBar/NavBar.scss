@@ -3,15 +3,26 @@
   src: url("../../assets/Fonts/Recons.ttf") format("opentype");
 }
 
-.nav {
+#nav {
+  position: fixed;
+  top: 0;
+  background-color: transparent;
+  -webkit-transition: background-color 0.5s ease, padding-top 0.5s,
+    padding-botom 0.5s;
+  transition: background-color 0.5s ease, padding-top 0.5s, padding-botom 0.5s;
+  box-shadow: none;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
   .toolbar {
     justify-content: space-between;
     .container-logo {
       line-height: 5rem;
       &:hover {
-        transition: filter 0.1s linear;
-        filter: brightness(0) saturate(100%) invert(23%) sepia(100%)
-          saturate(1627%) hue-rotate(191deg) brightness(94%) contrast(103%);
+        //transition: filter 0.1s linear;
+        /*  filter: brightness(0) saturate(100%) invert(23%) sepia(100%)
+          saturate(1627%) hue-rotate(191deg) brightness(94%) contrast(103%); */
+        filter: brightness(0) saturate(100%) invert(73%) sepia(100%)
+          saturate(553%) hue-rotate(327deg) brightness(100%) contrast(103%);
       }
       .logo {
         width: 3rem;
@@ -28,10 +39,14 @@
       }
     }
     .menu-icon {
-      transform: scale(2);
+      transform: scale(2.5);
       color: #fff;
       border: 1px solid white;
       border-radius: 5px;
+      &:hover {
+        filter: brightness(0) saturate(100%) invert(73%) sepia(100%)
+          saturate(553%) hue-rotate(327deg) brightness(100%) contrast(103%);
+      }
     }
     .button-nav {
       margin: 2px 0;
@@ -40,21 +55,28 @@
       font-size: 1.5rem;
       font-weight: bold;
       &:hover {
-        color: #005fb2;
+        color: var(--gold);
       }
     }
     .avatar {
-      width: 50px;
-      height: 50px;
-      background-color: #f4b408;
+      width: 70px;
+      height: 70px;
+      background-color: transparent;
       border: 3px solid white;
       &:hover {
         transition: all 0.1s linear;
-        color: #005fb2;
-        border-color: #005fb2;
+        color: var(--gold);
+        border-color: var(--gold);
       }
     }
   }
+}
+
+#nav.colored {
+  background-color: var(--primary-color);
+  box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
+    0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+  padding: 0.5rem 0;
 }
 
 //width 100% nav

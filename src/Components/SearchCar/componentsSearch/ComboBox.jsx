@@ -42,7 +42,7 @@ export default function ComboBoxBranches({
       return undefined;
     }
     //
-    fetcBranches(active, setOptions)
+    fetcBranches(active, setOptions);
 
     return () => {
       active = false;
@@ -82,10 +82,7 @@ export default function ComboBoxBranches({
         sx={{
           maxWidth: 600,
           margin: "1rem auto",
-          "& .MuiInputBase-root": {
-            backgroundColor: "#fff",
-            "&:hover": { border: "none" },
-          },
+
           "& .MuiFormHelperText-root": {
             textAlign: "center",
             background: "#FF0000",
@@ -138,7 +135,7 @@ const GroupHeader = styled("div")(({ theme }) => ({
   color: theme.palette.secondary.main,
   backgroundColor:
     theme.palette.mode === "light"
-      ? lighten(theme.palette.primary.light, 0.2)
+      ? lighten(theme.palette.primary.light, 0.8)
       : darken(theme.palette.primary.main, 0.8),
 }));
 const GroupItems = styled("ul")({

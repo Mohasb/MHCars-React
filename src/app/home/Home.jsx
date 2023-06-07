@@ -1,7 +1,7 @@
 import { SearchCar } from "../../components/searchCar/SearchCar";
 import { useEffect } from "react";
 import "./Home.scss";
-import {
+/* import {
   audiA1,
   audiA3,
   audiA4,
@@ -16,7 +16,7 @@ import {
   skodaKaroq,
   VwTouran,
   VwTRock,
-} from "./cars";
+} from "./cars"; */
 import AOS from "aos";
 import "aos/dist/aos.css";
 import Testimonials from "../../components/testimonial/Testimonial";
@@ -31,10 +31,10 @@ export default function Home() {
 
   return (
     <main>
-      <div id="parallax-world-of-ugg">
+      <div id="parallax">
         <section>
           <div className="parallax-one">
-            <h2>Alquiler de coches</h2>
+            <h2 className="title-search-car">Alquiler de coches</h2>
             <SearchCar />
           </div>
         </section>
@@ -65,7 +65,7 @@ export default function Home() {
             <h2 style={{ padding: "1rem 0 2rem 0" }} data-aos="zoom-in">
               Nuestros Coches
             </h2>
-            <div className="car-images slideshow">
+            {/* <div className="car-images slideshow">
               <img className="slideshow-image" src={audiA1} alt="AudiA1Image" />
               <img className="slideshow-image" src={audiA3} alt="AudiA3Image" />
               <img
@@ -120,7 +120,7 @@ export default function Home() {
                 src={fordTransit}
                 alt="FordTransitXlImage"
               />
-            </div>
+            </div> */}
           </div>
         </section>
         <section>

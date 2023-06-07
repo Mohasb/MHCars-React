@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 //Components imports
 import "./NavBar.scss";
@@ -70,8 +70,22 @@ function ResponsiveAppBar() {
     }
   };
 
+  window.addEventListener("scroll", () => {
+    const nav = document.querySelector("#nav");
+    if (typeof nav != "undefined") {
+      if (
+        document.body.scrollTop > 20 ||
+        document.documentElement.scrollTop > 20
+      ) {
+        nav.classList.add("colored");
+      } else {
+        nav.classList.remove("colored");
+      }
+    }
+  });
+
   return (
-    <AppBar position="static" className="nav">
+    <AppBar /* position="static" */ id="nav">
       <Container maxWidth="xl">
         <Toolbar disableGutters className="toolbar">
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
@@ -82,12 +96,7 @@ function ResponsiveAppBar() {
                 noWrap
                 component="p"
               >
-                <img
-                  className="logo"
-                  //TODO
-                  src={Logo}
-                  alt="Icon RentCar"
-                />
+                <img className="logo" src={Logo} alt="Icon RentCar" />
                 CARS
               </Typography>
             </Link>
@@ -168,7 +177,17 @@ function ResponsiveAppBar() {
                 <Avatar
                   className="avatar"
                   alt={user && user.image ? `image${user.name}` : ""}
-                  src={user && user.image ? `${user.image}` : ""}
+                  src={
+                    user
+                      ? user && user.image
+                        ? `${user.image}`
+                        : `https://www.gravatar.com/avatar/EMAIL_MD5?d=https%3A%2F%2Fui-avatars.com%2Fapi%2F/${
+                            user.name
+                          }${
+                            user.lastName && user.lastName
+                          }/512/F4B408/fff/2/0.5/false/true/true`
+                      : ""
+                  }
                 />
               </IconButton>
             </Tooltip>
@@ -202,7 +221,11 @@ function ResponsiveAppBar() {
         </Toolbar>
       </Container>
       {openModal && (
-        <LoginModal openModal={openModal} setOpenModal={setOpenModal} setOpenNotification={setOpenNotification} />
+        <LoginModal
+          openModal={openModal}
+          setOpenModal={setOpenModal}
+          setOpenNotification={setOpenNotification}
+        />
       )}
       {user && <Notification user={user} open={openNotification} />}
     </AppBar>

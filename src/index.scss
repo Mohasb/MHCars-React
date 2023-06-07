@@ -3,10 +3,20 @@
   margin: 0;
   box-sizing: border-box;
 }
+/* --primary-color: #f4b408; */
+:root {
+  --gold: #ffb338;
+  --light-shadow: #77571d;
+  --dark-shadow: #3e2904;
+  --primary-color: #ff0000;
+  --secondary-color: #005fb2;
+  --padding-to-main: 150px;
+}
 
 html,
 body {
   font-family: "Poppins", sans-serif;
+  scroll-behavior: smooth;
 }
 
 //Circularmenu bottom
@@ -54,5 +64,5 @@ body {
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:active {
-  background: #f4b408;
+  background: var(--primary-color);
 }

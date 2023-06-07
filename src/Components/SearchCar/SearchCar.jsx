@@ -95,11 +95,13 @@ export const SearchCar = () => {
               name="recogida"
               setPickupTime={setPickupTime}
               error={errorPickupTime}
+              setErrorPickUpTime={setErrorPickUpTime}
             />
             <Time
               name="devolución"
               setReturnTime={setReturnTime}
               error={errorReturnTime}
+              setErrorReturnTime={setErrorReturnTime}
             />
           </Stack>
           <AgeRadioButtons setAge={setAge} />
@@ -154,7 +156,9 @@ export const SearchCar = () => {
     if (
       typeof branch !== "undefined" &&
       typeof bookingDates.range !== "undefined" &&
-      bookingDates.range.length == 2
+      bookingDates.range.length == 2 &&
+      pickupTime &&
+      returnTime
     ) {
       //format data
       const start = new Date(bookingDates.range[0]);

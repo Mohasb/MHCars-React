@@ -9,7 +9,7 @@ import Register from "./app/register/Register";
 import NotFound from "./app/notFound/NotFound";
 import ContextUser from "./services/contextUser/ContextUser";
 import ResponsiveAppBar from "./components/navBar/NavBar";
-import ControlledOpenSpeedDial from "./Components/CircularMenu";
+import ControlledOpenSpeedDial from "./components/CircularMenu";
 import UserPage from "./app/userPage/UserPage";
 import Footer from "./Components/footer/Footer";
 import Cookie from "./components/cookies/cookie";

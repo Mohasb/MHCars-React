@@ -16,6 +16,7 @@
 
 //Combobox branches
 .MuiInputBase-root {
+  background-color: #fff;
   .MuiInputBase-input {
     font-weight: 400;
     font-size: 1.25rem;
@@ -47,7 +48,7 @@
 .label-combobox {
   width: 100%;
   margin: auto;
-  color: #f4b408;
+  color: var(--primary-color);
   font-size: 2rem;
 }
 

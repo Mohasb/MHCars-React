@@ -28,7 +28,11 @@ export default function Time(props) {
       hour24
       error={props.error}
       onClick={() => {
-        error = "";
+        if (props.name === "recogida") {
+          props.setErrorPickUpTime("");
+        } else {
+          props.setErrorReturnTime("");
+        }
       }}
     />
   );
