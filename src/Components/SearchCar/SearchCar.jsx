@@ -86,8 +86,8 @@ export const SearchCar = () => {
             direction={{ xs: "row", sm: "row" }}
             sx={{
               justifyContent: "center",
-              alignItems: "center",
-              marginTop: "1rem",
+              alignItems: "start",
+              marginY: "2rem",
               width: "100%",
             }}
           >
@@ -130,11 +130,11 @@ export const SearchCar = () => {
   );
   /////////////////////////////////////////////HELPERS/////////////////////////////////////////////////////////
   function errorHandler() {
-    //error pickup Branch
+    ///error pickup Branch
     if (!branch) {
       setErrorBranch1("Seleciona una sucursal de recogida");
     }
-    //errors range dates
+    ///errors range dates
     if (typeof bookingDates.range === "undefined") {
       setErrorDates("Selecciona las fechas de la reserva");
     } else if (bookingDates.range.length == 1) {
@@ -144,12 +144,42 @@ export const SearchCar = () => {
     if (areCheckTwoBranches && !returnBranch) {
       setErrorBranch2("Selecciona una sucursal de devolución");
     }
-    console.log(!!pickupTime);
+    ///errors timers
+
+    const horaInicio = new Date().setHours(8, 0, 0);
+    const horaFin = new Date().setHours(20, 0, 0);
+    //
+    let horaSeleccionadaInicio = new Date();
+    const partesHoraInicio = pickupTime.split(":");
+    horaSeleccionadaInicio.setHours(
+      parseInt(partesHoraInicio[0]),
+      parseInt(partesHoraInicio[1]),
+      0
+    );
+    //
+    let horaSeleccionadaFin = new Date();
+    const partesHoraFin = returnTime.split(":");
+    horaSeleccionadaFin.setHours(
+      parseInt(partesHoraFin[0]),
+      parseInt(partesHoraFin[1]),
+      0
+    );
+
     if (!pickupTime) {
       setErrorPickUpTime("Selecciona hora de recogida");
+    } else if (
+      horaSeleccionadaInicio < horaInicio ||
+      horaSeleccionadaInicio > horaFin
+    ) {
+      setErrorPickUpTime("El horario es de 08:00 a 20:00");
     }
     if (!returnTime) {
       setErrorReturnTime("Selecciona hora de devolución");
+    } else if (
+      horaSeleccionadaFin < horaInicio ||
+      horaSeleccionadaFin > horaFin
+    ) {
+      setErrorReturnTime("El horario es de 08:00 a 20:00");
     }
   }
   function fetchData(branch, returnBranch, bookingDates, age) {

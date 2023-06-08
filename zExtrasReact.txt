@@ -18,7 +18,7 @@ buton disabled no funciona con imagen
 he entrado a admin sin user
 notificación user no se ver
 
-validación horario fuera de laboral
+
 
 Use of eval in "src/app/register/Register.jsx" is strongly discouraged as it poses security risks and may 
 cause issues with minification.

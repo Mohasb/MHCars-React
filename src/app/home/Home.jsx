@@ -20,6 +20,7 @@ import "./Home.scss";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import Testimonials from "../../components/testimonial/Testimonial";
+import getImageByKey from "../../app/home/cars";
 
 export default function Home() {
   useEffect(() => {
@@ -65,62 +66,78 @@ export default function Home() {
             <h2 style={{ padding: "1rem 0 2rem 0" }} data-aos="zoom-in">
               Nuestros Coches
             </h2>
-            {/* <div className="car-images slideshow">
-              <img className="slideshow-image" src={audiA1} alt="AudiA1Image" />
-              <img className="slideshow-image" src={audiA3} alt="AudiA3Image" />
+            <div className="car-images slideshow">
               <img
                 className="slideshow-image"
-                src={mercedesA}
+                src={getImageByKey("AudiA1Image")}
+                alt="AudiA1Image"
+              />
+              <img
+                className="slideshow-image"
+                src={getImageByKey("AudiA3Image")}
+                alt="AudiA3Image"
+              />
+              <img
+                className="slideshow-image"
+                src={getImageByKey("MercedesClaseAImage")}
                 alt="MercedesClaseAImage"
               />
-              <img className="slideshow-image" src={audiA4} alt="AudiA4Image" />
-              <img className="slideshow-image" src={audiQ2} alt="AudiQ2Image" />
               <img
                 className="slideshow-image"
-                src={fiat500}
+                src={getImageByKey("AudiA4Image")}
+                alt="AudiA4Image"
+              />
+              <img
+                className="slideshow-image"
+                src={getImageByKey("AudiQ2Image")}
+                alt="AudiQ2Image"
+              />
+              <img
+                className="slideshow-image"
+                src={getImageByKey("Fiat500Cabrio")}
                 alt="Fiat500Cabrio"
               />
               <img
                 className="slideshow-image"
-                src={fordFocus}
+                src={getImageByKey("FordFocusImage")}
                 alt="FordFocusImage"
               />
               <img
                 className="slideshow-image"
-                src={VwTRock}
+                src={getImageByKey("VolkswagenTROCCabrioletImage")}
                 alt="VolkswagenTROCCabrioletImage"
               />
               <img
                 className="slideshow-image"
-                src={VwTouran}
+                src={getImageByKey("VolkswagenTouranImage")}
                 alt="VolkswagenTouranImage"
               />
               <img
                 className="slideshow-image"
-                src={skodaKaroq}
+                src={getImageByKey("SkodaKaroqoImage")}
                 alt="SkodaKaroqoImage"
               />
               <img
                 className="slideshow-image"
-                src={peugeotSpace}
+                src={getImageByKey("PeugeotSpaceImage")}
                 alt="PeugeotSpaceImage"
               />
               <img
                 className="slideshow-image"
-                src={peugeot5008}
+                src={getImageByKey("Peugeot5008Image")}
                 alt="Peugeot5008Image"
               />
               <img
                 className="slideshow-image"
-                src={opelMokka}
+                src={getImageByKey("OpelMokkaImage")}
                 alt="OpelMokkaImage"
               />
               <img
                 className="slideshow-image"
-                src={fordTransit}
+                src={getImageByKey("FordTransitXlImage")}
                 alt="FordTransitXlImage"
               />
-            </div> */}
+            </div>
           </div>
         </section>
         <section>
