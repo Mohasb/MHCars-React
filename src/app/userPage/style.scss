@@ -1,3 +1,4 @@
+@import "../../primaryVariables.scss";
 .user-page {
   margin: 2%;
   .wrapper-name {
@@ -19,9 +20,9 @@
     .bg {
       background-image: repeating-linear-gradient(
         105deg,
-        var(--gold) 0%,
-        var(--dark-shadow) 5%,
-        var(--gold) 12%
+        $secondary 0%,
+        #3e2904 5%,
+        $secondary 12%
       );
       color: transparent;
       filter: drop-shadow(5px 15px 15px black);
@@ -31,9 +32,9 @@
     .fg {
       background-image: repeating-linear-gradient(
         5deg,
-        var(--gold) 0%,
-        var(--light-shadow) 23%,
-        var(--gold) 31%
+        $secondary 0%,
+        #77571d 23%,
+        $secondary 31%
       );
       color: #ffffff;
       transform: scale(1);
@@ -42,7 +43,7 @@
   .emp-profile {
     box-shadow: 0 30px 20px rgba(0, 0, 0, 0.3);
     padding: 1% 3%;
-    border: 3px solid var(--primary-color);
+    border: 3px solid $primary;
     border-radius: 0.5rem;
     background: #fff;
   }

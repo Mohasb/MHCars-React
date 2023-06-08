@@ -23,7 +23,7 @@ export default function CookieModal(props) {
     return check;
   };
   const handleClick = () => {
-    var expires = new Date(Date.now() + 86400 * 1000).toUTCString();
+    const expires = new Date(Date.now() + 86400 * 1000).toUTCString();
 
     document.cookie = `_ksdf=${btoa(
       window.navigator.userAgent

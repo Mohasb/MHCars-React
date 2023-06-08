@@ -19,7 +19,7 @@ export default function FilterButtons(props) {
   return (
     <>
       <Box textAlign="center">
-        <p>{`Tipo de ${props.filter}`}</p>
+        <p className="label-filters">{`Tipo de ${props.filter}`}</p>
         <RadioButtonGroup
           id="radio-button-group-component-1"
           options={props.options}

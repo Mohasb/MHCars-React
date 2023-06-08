@@ -15,7 +15,6 @@ import CarsCrud from "./components/CrudTables/CarsCrud";
 import { useNavigate } from "react-router-dom";
 import CryptoJS from "crypto-js";
 
-
 const StyledHeader = styled.div.attrs((props) => {
   return props.theme.rainbow.palette;
 })`
@@ -48,7 +47,7 @@ export default function TabsAdmin() {
 
     if (
       !localStorage.getItem("_ughVjkKj") ||
-      JSON.parse(JSON.parse(decrypt)).rol !== "Admin"
+      JSON.parse(decrypt).rol !== "Admin"
     ) {
       navigate("/");
     }

@@ -16,6 +16,7 @@ export default function ConfirmationBoocking() {
       secretKeyCripto
     ).toString(CryptoJS.enc.Utf8);
 
+    
     if (JSON.parse(JSON.parse(decrypt))) {
       setData(JSON.parse(JSON.parse(decrypt)));
     } else {

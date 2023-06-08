@@ -70,6 +70,12 @@ function ResponsiveAppBar() {
     }
   };
 
+  console.log(location.pathname);
+
+  /* if (location.pathname ===) {
+    
+  } */
+
   window.addEventListener("scroll", () => {
     const nav = document.querySelector("#nav");
     if (typeof nav != "undefined") {
@@ -85,7 +91,7 @@ function ResponsiveAppBar() {
   });
 
   return (
-    <AppBar /* position="static" */ id="nav">
+    <AppBar id="nav">
       <Container maxWidth="xl">
         <Toolbar disableGutters className="toolbar">
           <Box sx={{ display: { xs: "none", md: "flex" } }}>

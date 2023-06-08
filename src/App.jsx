@@ -25,13 +25,11 @@ function App() {
   useEffect(() => {
     if (localStorage.getItem("_ughVjkKj")) {
       const encrypt = localStorage.getItem("_ughVjkKj");
-
       const decrypt = CryptoJS.AES.decrypt(
         encrypt.toString(),
         secretKeyCripto
       ).toString(CryptoJS.enc.Utf8);
-
-      const id = JSON.parse(JSON.parse(decrypt)).id;
+      const id = JSON.parse(decrypt).id;
       AuthService.getCurrentUser(id).then((response) => {
         setUser(response);
       });
@@ -55,7 +53,6 @@ function App() {
           <Route element={<PageLayout />}>
             <Route path="*" element={<NotFound />} />
             <Route path="/" element={<Home />} />
-            <Route path="/home" element={<Home />} />
             <Route path="/reserva/coche" element={<CarListShow />} />
             <Route path="/booking" element={<ConfirmationBoocking />} />
             <Route path="/registro" element={<Register />} />

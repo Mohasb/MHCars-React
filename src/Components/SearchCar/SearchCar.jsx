@@ -95,7 +95,7 @@ export const SearchCar = () => {
           />
           <Stack
             spacing={1}
-            direction={{ xs: "row", sm: "row" }}
+            direction={{ xs: "column", sm: "row" }}
             sx={{
               justifyContent: "center",
               alignItems: "start",
@@ -194,13 +194,37 @@ export const SearchCar = () => {
       setErrorReturnTime("El horario es de 08:00 a 20:00");
     }
   }
+  function isValidTime(time) {
+    const horaInicio = new Date().setHours(8, 0, 0);
+    const horaFin = new Date().setHours(20, 0, 0);
+    let horaSeleccionada = new Date();
+    const partesHoraInicio = time.split(":");
+    horaSeleccionada.setHours(
+      parseInt(partesHoraInicio[0]),
+      parseInt(partesHoraInicio[1]),
+      0
+    );
+    if (!horaSeleccionada) {
+      return false;
+    }
+
+    if (horaSeleccionada < horaInicio || horaSeleccionada > horaFin) {
+      return false;
+    } else {
+      return true;
+    }
+  }
   function fetchData(branch, returnBranch, bookingDates, age) {
+    console.log(isValidTime(pickupTime));
+    console.log(isValidTime(returnTime));
     if (
       typeof branch !== "undefined" &&
       typeof bookingDates.range !== "undefined" &&
       bookingDates.range.length == 2 &&
       pickupTime &&
-      returnTime
+      returnTime &&
+      isValidTime(pickupTime) &&
+      isValidTime(returnTime)
     ) {
       //format data
       const start = new Date(bookingDates.range[0]);

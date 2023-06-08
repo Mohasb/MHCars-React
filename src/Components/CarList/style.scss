@@ -1,8 +1,34 @@
+@import "../../primaryVariables.scss";
 .carsList {
-  padding-top: var(--padding-to-main);
-  .container-top-carlist {
+  padding-top: $paddingToMain;
+  background-image: url("../../assets/homePics/home2.webp");
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+  
+  .container-superior {
+    backdrop-filter: contrast(40%);
+    -webkit-backdrop-filter: contrast(40%);
+    background-color: rgba(0, 0, 0, 0.6);
     text-align: center;
     margin-top: 1rem;
+    color: white;
+    width: 85%;
+    margin: auto;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    border-radius: 5px;
+    border: 3px solid $primary;
+  }
+  .container-filters {
+    margin-top: 1rem;
+  }
+  .label-filters {
+    color: white;
+    font-size: 1rem;
+    width: 30vh;
+    margin: auto;
   }
   .grid-cars {
     margin: 2rem auto;
@@ -10,12 +36,14 @@
       box-shadow: 0 30px 20px rgba(0, 0, 0, 0.3);
       border-radius: 10px;
       .MuiPaper-root {
-        border: 3px solid var(--primary-color);
+        border: 3px solid $primary;
         border-radius: 10px;
-        background-color: rgba(255, 255, 255);
+        backdrop-filter: contrast(40%);
+        background-color: rgba(0, 0, 0, 0.6);
         p {
           text-align: center;
           text-transform: uppercase;
+          color: #fff;
         }
         .chips {
           margin: auto;
@@ -44,57 +72,4 @@
     margin: 5rem auto;
     width: 100%;
   }
-}
-///////////////////////////////////bg/////////////////////////////////////////
-
-.bg {
-  position: absolute;
-  top: 0;
-  z-index: -1;
-}
-
-.fixed-background {
-  width: 100vw;
-  height: 100vh;
-}
-
-.fixed-background {
-  background-image: url("../../assets/homePics/home2.webp");
-  /* --start-color: #09f;
-  --stop-color: #90f; */
-  background-position: center;
-  background-size: cover;
-  /* background-image: var(
-    --bg-image
-  ); */ /* linear-gradient(
-      to bottom,
-      var(--start-color),
-      var(--stop-color)
-    ),
-    var(--bg-image); */
-  background-attachment: fixed;
-  //background-blend-mode: overlay, exclusion;
-}
-
-.img-1 {
-  /* --start-color: #00deff;
-  --stop-color: #ff8c00; */
-  /* --bg-image: url("../../assets/homePics/home1.webp"); */
-}
-
-.img-2 {
-  /* --start-color: #111340;
-  --stop-color: #4800ff; */
-  /*  --bg-image: url("../../assets/homePics/home2.webp"); */
-}
-
-.img-3 {
-  /* --start-color: #7c87a8;
-  --stop-color: #ff0028; */
-  /* --bg-image: url("../../assets/homePics/home3.webp"); */
-}
-.img-4 {
-  /* --start-color: #84a87c;
-  --stop-color: #1b6571; */
-  /*  --bg-image: url("../../assets/homePics/home1.webp"); */
 }

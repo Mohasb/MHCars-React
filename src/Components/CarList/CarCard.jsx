@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 //Material UI
 import Card from "@mui/material/Card";
@@ -17,12 +17,18 @@ import "aos/dist/aos.css";
 import "./style.scss";
 import CryptoJS from "crypto-js";
 import getImageByKey from "../../app/home/cars";
-
-//import CarImage from `/src/assets/Cars/${car.image}.webp`;
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 export default function CarCard({ car, booking }) {
   const navigate = useNavigate();
   const secretKeyCripto = "Muhammad";
+  const theme = useTheme();
+  const greaterThanLg = useMediaQuery(theme.breakpoints.up("lg"));
+  const greaterThanMid = useMediaQuery(theme.breakpoints.up("md"));
+  const smallToMid = useMediaQuery(theme.breakpoints.between("sm", "md"));
+  const lessThanSmall = useMediaQuery(theme.breakpoints.down("sm"));
+  const [width, setWidth] = useState();
 
   const ecryptStorage = (name, data) => {
     const encrypt = CryptoJS.AES.encrypt(
@@ -34,6 +40,16 @@ export default function CarCard({ car, booking }) {
   };
 
   useEffect(() => {
+    /* if (greaterThanLg) {
+      setWidth("400px");
+    } else if (greaterThanMid) {
+      setWidth("400px");
+    } else if (smallToMid) {
+      setWidth("300px");
+    } else if (lessThanSmall) {
+      setWidth("350px");
+    } */
+
     AOS.init({
       duration: 1200,
     });
@@ -56,7 +72,11 @@ export default function CarCard({ car, booking }) {
       <Card
         sx={{
           overflow: "visible",
-          width: "300px",
+          width: {
+            sx: "300px",
+            sm: "350px",
+            md: "400px",
+          },
         }}
         car={car}
       >
@@ -83,7 +103,7 @@ export default function CarCard({ car, booking }) {
             </Typography>
             <Stack
               spacing={1}
-              direction={{ xs: "column", sm: "row" }}
+              direction={{ xs: "column", sm: "column", lg: "row" }}
               sx={{ justifyContent: "center" }}
               className="chips"
             >
@@ -112,24 +132,17 @@ export default function CarCard({ car, booking }) {
         <CardActions sx={{ justifyContent: "center" }}>
           <Button
             size="large"
-            color="secondary"
+            color="primary"
             variant="contained"
             onClick={() => {
               handleReservation(car, booking);
             }}
           >
             Reservar &nbsp;
-            <SellIcon color="primary" />
+            <SellIcon color="secondary" />
           </Button>
         </CardActions>
       </Card>
     </div>
   );
 }
-
-const styles = {
-  cardAction: {
-    display: "block",
-    textAlign: "initial",
-  },
-};

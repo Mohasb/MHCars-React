@@ -109,7 +109,7 @@ export default function UserPage() {
     const REGEX_DNI = /^[0-9]{8,8}[A-Za-z]$/g;
     const nameError =
       "error" + nameInput.charAt(0).toUpperCase() + nameInput.slice(1);
-    var input = document.querySelector('input[name="registration"]');
+    const input = document.querySelector('input[name="registration"]');
 
     if (!REGEX_DNI.test(value)) {
       setErrors((prevState) => ({
@@ -131,7 +131,7 @@ export default function UserPage() {
   const validateNombre = (nameInput, value) => {
     const nameError =
       "error" + nameInput.charAt(0).toUpperCase() + nameInput.slice(1);
-    var input = document.querySelector('input[name="name"]');
+    const input = document.querySelector('input[name="name"]');
     if (value.length < 2) {
       setErrors((prevState) => ({
         ...prevState,
@@ -151,7 +151,7 @@ export default function UserPage() {
   const validateLastName = (nameInput, value) => {
     const nameError =
       "error" + nameInput.charAt(0).toUpperCase() + nameInput.slice(1);
-    var input = document.querySelector('input[name="lastName"]');
+    const input = document.querySelector('input[name="lastName"]');
     if (value.length < 2) {
       setErrors((prevState) => ({
         ...prevState,
@@ -173,7 +173,7 @@ export default function UserPage() {
       /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g;
     const nameError =
       "error" + nameInput.charAt(0).toUpperCase() + nameInput.slice(1);
-    var input = document.querySelector('input[name="email"]');
+    const input = document.querySelector('input[name="email"]');
     if (!REGEX_EMAIL.test(value)) {
       setErrors((prevState) => ({
         ...prevState,
@@ -194,7 +194,7 @@ export default function UserPage() {
     const REGEX_PHONE = /^\+?(6\d{2}|7[1-9]\d{1})\d{6}$/g;
     const nameError =
       "error" + nameInput.charAt(0).toUpperCase() + nameInput.slice(1);
-    var input = document.querySelector('input[name="phoneNumber"]');
+    const input = document.querySelector('input[name="phoneNumber"]');
     if (!REGEX_PHONE.test(value)) {
       setErrors((prevState) => ({
         ...prevState,
@@ -214,7 +214,7 @@ export default function UserPage() {
   const validateBankAccount = (nameInput, value) => {
     const nameError =
       "error" + nameInput.charAt(0).toUpperCase() + nameInput.slice(1);
-    var input = document.querySelector('input[name="bankAccount"]');
+    const input = document.querySelector('input[name="bankAccount"]');
     if (isNaN(value)) {
       setErrors((prevState) => ({
         ...prevState,
@@ -315,7 +315,7 @@ export default function UserPage() {
     }
   };
 
-  var style = getComputedStyle(document.body);
+  const style = getComputedStyle(document.body);
   const primaryColor = style.getPropertyValue("--primary-color");
 
   return (

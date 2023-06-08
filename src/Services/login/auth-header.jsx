@@ -8,7 +8,7 @@ export default function authHeader() {
     secretKeyCripto
   ).toString(CryptoJS.enc.Utf8);
 
-  const user = JSON.parse(JSON.parse(decrypt));
+  const user = JSON.parse(decrypt);
   if (user && user.token) {
     return "Bearer " + user.token;
   } else {

@@ -1,10 +1,12 @@
+@import "../../primaryVariables.scss";
+
 .valid {
   border: 2px solid aquamarine !important;
   transition-property: border !important;
   transition-duration: 0.25s !important;
 }
 .register-container {
-  border: 3px solid var(--primary-color);
+  border: 3px solid $primary;
   padding: 2%;
   margin: 5% auto;
   width: 80%;

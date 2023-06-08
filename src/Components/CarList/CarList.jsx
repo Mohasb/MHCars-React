@@ -9,7 +9,6 @@ import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import "./style.scss";
 import NoFound from "../../assets/extras/notFound.svg";
-import BackGround from "./BackGround";
 
 export default function CarList({ cars, booking }) {
   const [oilFilter, setOilFilter] = useState("todos");
@@ -32,8 +31,8 @@ export default function CarList({ cars, booking }) {
   }, [oilFilter, gearFilter, cars, carTypeFilter]);
 
   return (
-    <BackGround>
-      <section className="carsList">
+    <section className="carsList">
+      <div className="container-superior">
         <Stack
           spacing={0}
           direction={{ xs: "column", sm: "row" }}
@@ -93,8 +92,9 @@ export default function CarList({ cars, booking }) {
         <Box style={{ textAlign: "center" }}>
           <Stack
             spacing={0}
-            direction={{ xs: "column", sm: "row" }}
+            direction={{ xs: "column", sm: "column", lg: "row" }}
             sx={{ justifyContent: "center" }}
+            className="container-filters"
           >
             <div>
               <FilterButtons
@@ -120,12 +120,6 @@ export default function CarList({ cars, booking }) {
                 filter="cambio"
               />
             </div>
-          </Stack>
-          <Stack
-            spacing={0}
-            direction={{ xs: "column", sm: "row" }}
-            sx={{ justifyContent: "center" }}
-          >
             <div>
               <FilterButtons
                 options={[
@@ -142,40 +136,40 @@ export default function CarList({ cars, booking }) {
             </div>
           </Stack>
         </Box>
-        {/* ////////////////////////// */}
-        <Box sx={{ flexGrow: 1 }}>
-          <Grid
-            container
-            spacing={{ xs: 5, md: 5 }}
-            columns={{ xs: 4, sm: 8, md: 12 }}
-            style={{ width: "100%", justifyContent: "center" }}
-            className="grid-cars"
-          >
-            {filteredCars.length ? (
-              filteredCars.map((car) => (
-                <Grid
-                  key={car.id}
-                  sx={{ margin: "auto" }}
-                  className="justify-content-center"
-                >
-                  <CarCard car={car} booking={booking} />
-                </Grid>
-              ))
-            ) : (
-              <Typography
-                gutterBottom
-                variant="h4"
-                component="p"
-                className="not-found"
+      </div>
+      {/* ////////////////////////// */}
+      <Box sx={{ flexGrow: 1 }}>
+        <Grid
+          container
+          spacing={{ xs: 5, md: 5 }}
+          columns={{ xs: 4, sm: 8, md: 12 }}
+          style={{ width: "100%", justifyContent: "center" }}
+          className="grid-cars"
+        >
+          {filteredCars.length ? (
+            filteredCars.map((car) => (
+              <Grid
+                key={car.id}
+                sx={{ margin: "auto" }}
+                className="justify-content-center"
               >
-                <img className="not-found-image" src={NoFound} alt="No found" />
-                <br />
-                No hay ningún resultado con estos filtros.
-              </Typography>
-            )}
-          </Grid>
-        </Box>
-      </section>
-    </BackGround>
+                <CarCard car={car} booking={booking} />
+              </Grid>
+            ))
+          ) : (
+            <Typography
+              gutterBottom
+              variant="h4"
+              component="p"
+              className="not-found"
+            >
+              <img className="not-found-image" src={NoFound} alt="No found" />
+              <br />
+              No hay ningún resultado con estos filtros.
+            </Typography>
+          )}
+        </Grid>
+      </Box>
+    </section>
   );
 }

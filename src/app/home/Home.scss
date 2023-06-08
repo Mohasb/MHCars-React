@@ -1,3 +1,5 @@
+@import "../../primaryVariables.scss";
+
 .slideshow {
   align-items: center;
   animation: slide-x 40s linear infinite;
@@ -69,7 +71,7 @@
 }
 
 .sc {
-  color: var(--primary-color);
+  color: $primary;
 }
 .ny {
   color: #3d3c3a;
@@ -105,7 +107,7 @@
 /**************************/
 #parallax .parallax-one {
   .title-search-car {
-    padding-top: var(--padding-to-main);
+    padding-top: $paddingToMain;
     font-size: 4rem;
   }
   padding-top: 30px;

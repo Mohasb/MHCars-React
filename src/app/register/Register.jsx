@@ -129,7 +129,7 @@ export default function Register() {
   const validateNombre = (nameInput, value) => {
     const nameError =
       "error" + nameInput.charAt(0).toUpperCase() + nameInput.slice(1);
-    var input = document.querySelector('input[name="nombre"]');
+    const input = document.querySelector('input[name="nombre"]');
 
     if (value.length < 2) {
       setErrors((prevState) => ({
@@ -148,7 +148,7 @@ export default function Register() {
       /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g;
     const nameError =
       "error" + nameInput.charAt(0).toUpperCase() + nameInput.slice(1);
-    var input = document.querySelector('input[name="email"]');
+    const input = document.querySelector('input[name="email"]');
     if (!REGEX_EMAIL.test(value)) {
       setErrors((prevState) => ({
         ...prevState,
@@ -164,7 +164,7 @@ export default function Register() {
     const REGEX_DNI = /^[0-9]{8,8}[A-Za-z]$/g;
     const nameError =
       "error" + nameInput.charAt(0).toUpperCase() + nameInput.slice(1);
-    var input = document.querySelector('input[name="dni"]');
+    const input = document.querySelector('input[name="dni"]');
     if (!REGEX_DNI.test(value)) {
       setErrors((prevState) => ({
         ...prevState,
@@ -181,7 +181,7 @@ export default function Register() {
       /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm;
     const nameError =
       "error" + nameInput.charAt(0).toUpperCase() + nameInput.slice(1);
-    var input = document.querySelector('input[name="password"]');
+    const input = document.querySelector('input[name="password"]');
     if (value.length < 8) {
       setErrors((prevState) => ({
         ...prevState,
@@ -219,7 +219,7 @@ export default function Register() {
   const validateBankAccount = (nameInput, value) => {
     const nameError =
       "error" + nameInput.charAt(0).toUpperCase() + nameInput.slice(1);
-    var input = document.querySelector('input[name="bankAccount"]');
+    const input = document.querySelector('input[name="bankAccount"]');
     if (isNaN(value)) {
       setErrors((prevState) => ({
         ...prevState,
@@ -244,7 +244,7 @@ export default function Register() {
   const validateConfirmationPassword = (nameInput, value) => {
     const nameError =
       "error" + nameInput.charAt(0).toUpperCase() + nameInput.slice(1);
-    var input = document.querySelector('input[name="confirmationPassword"]');
+    const input = document.querySelector('input[name="confirmationPassword"]');
     if (value !== values.password) {
       setErrors((prevState) => ({
         ...prevState,

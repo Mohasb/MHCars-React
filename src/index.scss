@@ -1,22 +1,22 @@
+@import "./primaryVariables.scss";
+
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
 }
-/* --primary-color: #f4b408; */
 :root {
-  --gold: #ffb338;
-  --light-shadow: #77571d;
-  --dark-shadow: #3e2904;
-  --primary-color: #005fb2;
-  --secondary-color: #005fb2;
-  --padding-to-main: 150px;
+  /* --primary-color: #f4b408; */
+  --primary-color: #{$primary};
+  --secondary-color: #{$secondary};
+  --padding-to-main: #{$paddingToMain};
 }
 
 html,
 body {
   font-family: "Poppins", sans-serif;
   scroll-behavior: smooth;
+  height: 100%;
 }
 
 //Circularmenu bottom
@@ -64,5 +64,5 @@ body {
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:active {
-  background: var(--primary-color);
+  background: $primary;
 }
