@@ -78,9 +78,7 @@ export default function Register() {
     for (let [key, value] of Object.entries(values)) {
       const nameError = "error" + key.charAt(0).toUpperCase() + key.slice(1);
 
-      let errorValue = eval(`errors.${nameError}`);
-      errors.nameError;
-      if (value === "" && errorValue === "") {
+      if (value === "" && errors[nameError] === "") {
         setErrors((prevState) => ({
           ...prevState,
           [nameError]: `No puede quedar vacío`,
