@@ -14,11 +14,8 @@ edit user candeactivate
 
 
 spacio entre boton de modificar contraseña y guardar cambios
-buton disabled no funciona con imagen
-he entrado a admin sin user
-notificación user no se ver
 
 
 
-Use of eval in "src/app/register/Register.jsx" is strongly discouraged as it poses security risks and may 
-cause issues with minification.
+notificación user no se ver ni al borrar en su tabla
+falta edit password

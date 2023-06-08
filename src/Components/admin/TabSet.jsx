@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Tabset, Tab } from "react-rainbow-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -12,6 +12,7 @@ import styled from "styled-components";
 import "./style.scss";
 import BranchCrud from "./components/CrudTables/BranchCrud";
 import CarsCrud from "./components/CrudTables/CarsCrud";
+import { useNavigate } from "react-router-dom";
 
 const StyledHeader = styled.div.attrs((props) => {
   return props.theme.rainbow.palette;
@@ -30,10 +31,19 @@ const StyledTabContent = styled.div.attrs((props) => {
 
 export default function TabsAdmin() {
   const [selected, setSelected] = useState("sucursales");
-
+  const navigate = useNavigate();
   const handleOnSelect = (event, selected) => {
     setSelected(selected);
   };
+
+  useEffect(() => {
+    if (
+      !localStorage.getItem("user") ||
+      JSON.parse(localStorage.getItem("user")).rol !== "Admin"
+    ) {
+      navigate("/");
+    }
+  }, []);
 
   const getTabContent = () => {
     if (selected === "sucursales") {

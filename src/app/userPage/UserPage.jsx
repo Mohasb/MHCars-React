@@ -8,16 +8,15 @@ import { PutClient } from "../../services/apiRequest/PutClient";
 //Components
 import ReservationTable from "./ReservationTable";
 import EditPwd from "./../../components/modals/EditPassworModal";
-import SuccessNotification from "./../../components/notifications/SucessNotification";
 //styles
 import "./style.scss";
-import SvgIcon from "@mui/material/SvgIcon";
 import { FileSelector } from "react-rainbow-components";
 import { useNavigate } from "react-router-dom";
+import Notification from "../../components/notifications/Notification";
 
 export default function UserPage() {
   //para mostrar notificacion de update correcto o incorrecto
-  const [showNotification, setNotification] = useState(false);
+  const [showNotification, setShowNotification] = useState(false);
   //establece severity de la notificacion que puede ser error o success
   const [severity, setSeverity] = useState("");
   //Usuario del contexto (padre de todos los componentes)
@@ -68,7 +67,6 @@ export default function UserPage() {
     //Establece la propiedad del button en false
     setButtonDisabled(false);
   };
-
   //Recibe el "name" del input y el valor y ejecuta la vliadación en consecuencia
   const validateValues = (nameInput, value) => {
     switch (nameInput) {
@@ -232,7 +230,8 @@ export default function UserPage() {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     const isAllOk = Object.values(errors).every((err) => err === "");
     //Si no hay errores
     if (isAllOk) {
@@ -245,8 +244,6 @@ export default function UserPage() {
       PutClient(newValues).then((response) => {
         //si el back retorna true en la propiedad isOk....
         if (response.isOk) {
-          //Establece el botón en disabled
-          setButtonDisabled(true);
           //establece el contexto con el usuario modificado
           setUser(response.client);
           //Añade el token del usuario
@@ -260,13 +257,15 @@ export default function UserPage() {
             ...prevState,
             bankAccount: response.client.bankAccount,
           }));
+          //Establece el botón en disabled
+          setButtonDisabled(true);
           //Muestra la notificación
-          setNotification(true);
+          setShowNotification(true);
           //la version de en verde de succes
           setSeverity("success");
         } else {
           //Muestra la notificación
-          setNotification(true);
+          setShowNotification(true);
           //la version de en rojo de error
           setSeverity("error");
         }
@@ -480,6 +479,7 @@ export default function UserPage() {
                         onBlur={handleOnChange}
                         error={errors.errorBankAccount}
                       />
+                      <input type="submit" value="" hidden />
                     </form>
                   </div>
                 </div>
@@ -493,15 +493,16 @@ export default function UserPage() {
                   isOpenModalPwd={isOpenModalPwd}
                   setIsOpenModalPwd={setIsOpenModalPwd}
                 />
-                <SuccessNotification
-                  open={showNotification}
-                  setNotification={setNotification}
-                  severity={severity}
-                />
               </div>
             </div>
           </div>
         </section>
+        <Notification
+          open={showNotification}
+          setShowNotification={setShowNotification}
+          severity={"success"}
+          caller={"userPage"}
+        />
       </main>
     )
   );

@@ -17,6 +17,12 @@ export default function DeleteModal({
     <div>
       <Modal
         isOpen={isOpenModal}
+        style={{
+          textAlign: "center",
+          fontSize: "2rem",
+          color: "red",
+          textTransform: "uppercase",
+        }}
         onRequestClose={handleOnClose}
         title={`¿Eliminar ${element} ${idToEliminate}?`}
         footer={
@@ -32,6 +38,7 @@ export default function DeleteModal({
             <Button
               label="OK"
               variant="brand"
+              style={{ backgroundColor: "red", border: "1px solid red" }}
               onClick={() => {
                 handleResponseModal("OK", idToEliminate);
                 DeleteReservation(idToEliminate).then((resp) => {

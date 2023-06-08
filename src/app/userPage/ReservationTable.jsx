@@ -4,7 +4,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { ButtonIcon } from "react-rainbow-components";
 import DeleteModal from "../../components/modals/DeleteModal";
-import SuccessNotification from "../../components/notifications/SucessNotification";
+import { baseUrl } from "../../services/baseUrl";
+import Notification from "../../components/notifications/Notification";
 
 function CustomAction(props) {
   const { row, onDeleteElement } = props;
@@ -23,11 +24,11 @@ export default function ReservationTable({ user }) {
   const [sortDirection, setShortDirection] = useState("asc");
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [idToEliminate, setIdToEliminate] = useState(null);
-  const [showNotification, setNotification] = useState(false);
+  const [showNotification, setShowNotification] = useState(false);
 
   const handleResponseModal = (result, id) => {
     if (result === "OK") {
-      setNotification(true);
+      setShowNotification(true);
       const newData = data.filter((item) => item.id !== id);
       setData(newData);
     }
@@ -41,7 +42,7 @@ export default function ReservationTable({ user }) {
   useEffect(() => {
     try {
       const response = fetch(
-        `http://localhost:5134/api/custom/getreservationbyclient/${user.id}`
+        `${baseUrl}custom/getreservationbyclient/${user.id}`
       )
         .then((response) => {
           return response.json();
@@ -106,10 +107,11 @@ export default function ReservationTable({ user }) {
         idToEliminate={idToEliminate}
         handleResponseModal={handleResponseModal}
       />
-      <SuccessNotification
+      <Notification
         open={showNotification}
-        setNotification={setNotification}
+        setShowNotification={setShowNotification}
         severity={"success"}
+        caller={"userPage"}
       />
     </div>
   );

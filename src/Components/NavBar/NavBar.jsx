@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 //Components imports
 import "./NavBar.scss";
 import LoginModal from "../modals/LoginModal";
-import Notification from "../notifications/Notification";
+import Notification from "../notifications/NotificationLogin";
 //Services
 import Context from "../../services/contextUser/ContextUser";
 import authService from "../../services/login/auth.service";
