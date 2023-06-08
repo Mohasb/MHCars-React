@@ -9,8 +9,10 @@ import { useNavigate } from "react-router-dom";
 import { PostClient } from "../../services/apiRequest/PostClient";
 import authService from "../../services/login/auth.service";
 import Context from "../../services/contextUser/ContextUser";
+import CryptoJS from "crypto-js";
 
 export default function Register() {
+  const secretKeyCripto = "Muhammad";
   const { user, setUser } = useContext(Context);
   const navigate = useNavigate();
   const [values, setValues] = useState({
@@ -31,6 +33,15 @@ export default function Register() {
     errorConfirmationPassword: "",
   });
 
+  const ecryptStorage = (name, data) => {
+    const encrypt = CryptoJS.AES.encrypt(
+      JSON.stringify(data),
+      secretKeyCripto
+    ).toString();
+
+    localStorage.setItem(name, encrypt);
+  };
+
   const handleSubmit = () => {
     checkEmpties();
     const isAllOk = Object.values(errors).every((err) => err === "");
@@ -50,10 +61,7 @@ export default function Register() {
           authService.login(values.email, values.password).then((response) => {
             if (response.isOk) {
               setUser(response.userWithToken);
-              localStorage.setItem(
-                "user",
-                JSON.stringify(response.userWithToken)
-              );
+              ecryptStorage("_ughVjkKj", response.userWithToken);
               navigate(-1);
             }
           });

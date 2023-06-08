@@ -13,6 +13,7 @@ import "./style.scss";
 import { FileSelector } from "react-rainbow-components";
 import { useNavigate } from "react-router-dom";
 import Notification from "../../components/notifications/Notification";
+import CryptoJS from "crypto-js";
 
 export default function UserPage() {
   //para mostrar notificacion de update correcto o incorrecto
@@ -38,11 +39,22 @@ export default function UserPage() {
     errorImage: "",
   });
   const navigate = useNavigate();
+  //key cryptojs
+  const secretKeyCripto = "Muhammad";
+
+  const ecryptStorage = (name, data) => {
+    const encrypt = CryptoJS.AES.encrypt(
+      JSON.stringify(data),
+      secretKeyCripto
+    ).toString();
+
+    localStorage.setItem(name, encrypt);
+  };
 
   //Se ejecuta en la primera carga(array del final no tiene dependencias)
   useEffect(() => {
     //Se obtiene el usuario actual y se establece para el context y los valores del form de edit
-    if (!localStorage.getItem("user")) {
+    if (!localStorage.getItem("_ughVjkKj")) {
       navigate("/");
     }
   }, []);
@@ -251,7 +263,7 @@ export default function UserPage() {
           //modifica el localstorage con el user nuevo(sin imagen para no cargar el localstorage)
           const userWithoutImage = { ...response.client };
           delete userWithoutImage.image;
-          localStorage.setItem("user", JSON.stringify(userWithoutImage));
+          ecryptStorage("_ughVjkKj", userWithoutImage);
           //Para que al hacer submit muestre los *** en la cuenta bancaria (del back retorna con **)
           setNewValues((prevState) => ({
             ...prevState,
@@ -309,7 +321,7 @@ export default function UserPage() {
   return (
     //Si existe el usuario del contexto y en el localstorage renderiza el resto
     user &&
-    localStorage.getItem("user") && (
+    localStorage.getItem("_ughVjkKj") && (
       <main className="main-user-page">
         <section className="user-page">
           <div className="emp-profile">

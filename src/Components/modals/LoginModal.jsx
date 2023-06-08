@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Context from "../../services/contextUser/ContextUser";
 import Stack from "@mui/material/Stack";
+import CryptoJS from "crypto-js";
 
 export default function LoginModal(props) {
   const { user, setUser } = useContext(Context);
@@ -16,6 +17,15 @@ export default function LoginModal(props) {
     emailError: "",
     passwordError: "",
   });
+  const secretKeyCripto = "Muhammad";
+  const ecryptStorage = (name, data) => {
+    const encrypt = CryptoJS.AES.encrypt(
+      JSON.stringify(data),
+      secretKeyCripto
+    ).toString();
+
+    localStorage.setItem(name, encrypt);
+  };
 
   const handleClickInput = (e) => {
     const name = e.target.name;
@@ -76,7 +86,7 @@ export default function LoginModal(props) {
         setUser(response.userWithToken);
         const userWithoutImage = { ...response.userWithToken };
         delete userWithoutImage.image;
-        localStorage.setItem("user", JSON.stringify(userWithoutImage));
+        ecryptStorage("_ughVjkKj", JSON.stringify(userWithoutImage));
         props.setOpenNotification(true);
         navigate(location.pathname);
       } else {

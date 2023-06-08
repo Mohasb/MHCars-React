@@ -13,6 +13,8 @@ import "./style.scss";
 import BranchCrud from "./components/CrudTables/BranchCrud";
 import CarsCrud from "./components/CrudTables/CarsCrud";
 import { useNavigate } from "react-router-dom";
+import CryptoJS from "crypto-js";
+
 
 const StyledHeader = styled.div.attrs((props) => {
   return props.theme.rainbow.palette;
@@ -37,9 +39,16 @@ export default function TabsAdmin() {
   };
 
   useEffect(() => {
+    const secretKeyCripto = "Muhammad";
+    const encrypt = localStorage.getItem("_ughVjkKj");
+    const decrypt = CryptoJS.AES.decrypt(
+      encrypt.toString(),
+      secretKeyCripto
+    ).toString(CryptoJS.enc.Utf8);
+
     if (
-      !localStorage.getItem("user") ||
-      JSON.parse(localStorage.getItem("user")).rol !== "Admin"
+      !localStorage.getItem("_ughVjkKj") ||
+      JSON.parse(JSON.parse(decrypt)).rol !== "Admin"
     ) {
       navigate("/");
     }

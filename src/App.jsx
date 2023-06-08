@@ -15,12 +15,23 @@ import Footer from "./Components/footer/Footer";
 import Cookie from "./components/cookies/cookie";
 import Admin from "./app/admin/Admin";
 import { Outlet } from "react-router-dom";
+import CryptoJS from "crypto-js";
 
 function App() {
   const [user, setUser] = useState();
+
+  const secretKeyCripto = "Muhammad";
+
   useEffect(() => {
-    if (localStorage.getItem("user")) {
-      const id = JSON.parse(localStorage.getItem("user")).id;
+    if (localStorage.getItem("_ughVjkKj")) {
+      const encrypt = localStorage.getItem("_ughVjkKj");
+
+      const decrypt = CryptoJS.AES.decrypt(
+        encrypt.toString(),
+        secretKeyCripto
+      ).toString(CryptoJS.enc.Utf8);
+
+      const id = JSON.parse(JSON.parse(decrypt)).id;
       AuthService.getCurrentUser(id).then((response) => {
         setUser(response);
       });

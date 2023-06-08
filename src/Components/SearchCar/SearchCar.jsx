@@ -14,6 +14,7 @@ import Stack from "@mui/material/Stack";
 //Fetch
 import { fetchCars } from "../../services/apiRequest/SearchCarServices";
 import ConfirmationModal from "../modals/ConfirmationModal";
+import CryptoJS from "crypto-js";
 
 export const SearchCar = () => {
   //State of branch select
@@ -42,9 +43,20 @@ export const SearchCar = () => {
   const [returnTime, setReturnTime] = useState("");
   const [showModal, setShowModal] = useState(false);
 
+  const secretKeyCripto = "Muhammad";
+  const ecryptStorage = (name, data) => {
+    const encrypt = CryptoJS.AES.encrypt(
+      JSON.stringify(data),
+      secretKeyCripto
+    ).toString();
+
+    sessionStorage.setItem(name, encrypt);
+  };
+
   useEffect(() => {
     if (cars.length && booking) {
-      sessionStorage.setItem("data", JSON.stringify({ cars, booking }));
+      /* sessionStorage.setItem("data", JSON.stringify({ cars, booking })); */
+      ecryptStorage("_dghVjkKj", JSON.stringify({ cars, booking }));
       navigate("/reserva/coche");
     }
   }, [cars, booking, navigate]);

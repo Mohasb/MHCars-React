@@ -15,13 +15,23 @@ import SellIcon from "@mui/icons-material/Sell";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import "./style.scss";
-
+import CryptoJS from "crypto-js";
 import getImageByKey from "../../app/home/cars";
 
 //import CarImage from `/src/assets/Cars/${car.image}.webp`;
 
 export default function CarCard({ car, booking }) {
   const navigate = useNavigate();
+  const secretKeyCripto = "Muhammad";
+
+  const ecryptStorage = (name, data) => {
+    const encrypt = CryptoJS.AES.encrypt(
+      JSON.stringify(data),
+      secretKeyCripto
+    ).toString();
+
+    sessionStorage.setItem(name, encrypt);
+  };
 
   useEffect(() => {
     AOS.init({
@@ -36,7 +46,7 @@ export default function CarCard({ car, booking }) {
         car,
         booking,
       };
-      sessionStorage.setItem("booking", JSON.stringify(data));
+      ecryptStorage("_bghVjkKj", JSON.stringify(data));
 
       navigate("/booking");
     }
