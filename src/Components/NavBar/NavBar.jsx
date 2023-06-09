@@ -70,9 +70,11 @@ function ResponsiveAppBar() {
     }
   };
 
-  if (location.pathname.includes("user/")) {
-    console.log("user page");
-  }
+  console.log(location.pathname);
+
+  /* if (location.pathname ===) {
+    
+  } */
 
   window.addEventListener("scroll", () => {
     const nav = document.querySelector("#nav");
