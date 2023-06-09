@@ -16,11 +16,9 @@ spacio entre boton de modificar contraseña y guardar cambios
 notificación user no se ver ni al borrar en su tabla
 falta edit password
 arreglar nav en todas las paginas
-arreglar card de cardlist(se salen las cosas)
-arreglar el texto del pricipio en carlist
 confirmar reserva poner que envie email
 
-heigth carlist en md y xs mal
 
 
-carga dos veces carlist
+Protected routes react-router
+añadir bearer a todas las peticiones

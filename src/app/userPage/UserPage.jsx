@@ -288,18 +288,19 @@ export default function UserPage() {
   const handleImage = (fileList) => {
     if (fileList.length && typeof fileList !== "undefined") {
       if (fileList && fileList[0]["type"].split("/")[0] === "image") {
-        const image = fileList[0];
+        const file = fileList[0];
         //
         let reader = new FileReader();
-        reader.readAsDataURL(image);
+        reader.readAsDataURL(file);
         reader.addEventListener("load", () => {
           document.querySelector("#user-image").src = reader.result;
           setButtonDisabled(false);
         });
       } else {
+        const file = fileList[0];
         setErrors((prevState) => ({
           ...prevState,
-          errorImage: `Tipo no soportado: ${file[0].type}`,
+          errorImage: `Tipo no soportado ${": " + file.type}`,
         }));
       }
     } else {

@@ -9,6 +9,7 @@ import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import "./style.scss";
 import NoFound from "../../assets/extras/notFound.svg";
+import Divider from "@mui/material/Divider";
 
 export default function CarList({ cars, booking }) {
   const [oilFilter, setOilFilter] = useState("todos");
@@ -32,7 +33,7 @@ export default function CarList({ cars, booking }) {
 
   return (
     <section className="carsList">
-      <div className="container-superior">
+      <div className="container-superior col-11 col-sm-10 col-lg-8 p-4">
         <Stack
           spacing={0}
           direction={{ xs: "column", sm: "row" }}
@@ -61,6 +62,7 @@ export default function CarList({ cars, booking }) {
             </Typography>
           </Box>
           {/* Si hay dos branches */}
+          <Divider orientation="vertical" flexItem className="divider" />
           {booking.returnBranch ? (
             <Box sx={{ flexGrow: 1 }}>
               <Typography gutterBottom variant="h4" component="div">
@@ -161,7 +163,7 @@ export default function CarList({ cars, booking }) {
               gutterBottom
               variant="h4"
               component="p"
-              className="not-found"
+              className="not-found col-11 col-sm-10 col-lg-8"
             >
               <img className="not-found-image" src={NoFound} alt="No found" />
               <br />

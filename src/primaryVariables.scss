@@ -1,3 +1,8 @@
 $primary: #005fb2;
 $secondary: #ffb338;
 $paddingToMain: 150px;
+
+@mixin borderContainers {
+  border-radius: 10px;
+  border: 3px solid $primary;
+}

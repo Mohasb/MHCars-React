@@ -29,10 +29,21 @@ function App() {
         encrypt.toString(),
         secretKeyCripto
       ).toString(CryptoJS.enc.Utf8);
-      const id = JSON.parse(decrypt).id;
-      AuthService.getCurrentUser(id).then((response) => {
-        setUser(response);
-      });
+
+      //firefox and chrome don´t work the same with cryptojs(chrome remove \ automatic and firefox no)
+      if (typeof JSON.parse(decrypt) === "string") {
+        //Firefox
+        const id = JSON.parse(JSON.parse(decrypt)).id;
+        AuthService.getCurrentUser(id).then((response) => {
+          setUser(response);
+        });
+      } else {
+        //Chrome
+        const id = JSON.parse(decrypt).id;
+        AuthService.getCurrentUser(id).then((response) => {
+          setUser(response);
+        });
+      }
     }
   }, []);
 

@@ -18,38 +18,19 @@ import "./style.scss";
 import CryptoJS from "crypto-js";
 import getImageByKey from "../../app/home/cars";
 import { useTheme } from "@mui/material/styles";
-import useMediaQuery from "@mui/material/useMediaQuery";
 
 export default function CarCard({ car, booking }) {
   const navigate = useNavigate();
   const secretKeyCripto = "Muhammad";
-  const theme = useTheme();
-  const greaterThanLg = useMediaQuery(theme.breakpoints.up("lg"));
-  const greaterThanMid = useMediaQuery(theme.breakpoints.up("md"));
-  const smallToMid = useMediaQuery(theme.breakpoints.between("sm", "md"));
-  const lessThanSmall = useMediaQuery(theme.breakpoints.down("sm"));
-  const [width, setWidth] = useState();
-
   const ecryptStorage = (name, data) => {
     const encrypt = CryptoJS.AES.encrypt(
       JSON.stringify(data),
       secretKeyCripto
     ).toString();
-
     sessionStorage.setItem(name, encrypt);
   };
 
   useEffect(() => {
-    /* if (greaterThanLg) {
-      setWidth("400px");
-    } else if (greaterThanMid) {
-      setWidth("400px");
-    } else if (smallToMid) {
-      setWidth("300px");
-    } else if (lessThanSmall) {
-      setWidth("350px");
-    } */
-
     AOS.init({
       duration: 1200,
     });
@@ -73,9 +54,9 @@ export default function CarCard({ car, booking }) {
         sx={{
           overflow: "visible",
           width: {
-            sx: "300px",
-            sm: "350px",
-            md: "400px",
+            xs: "320px",
+            sm: "300px",
+            md: "360px",
           },
         }}
         car={car}
@@ -96,10 +77,10 @@ export default function CarCard({ car, booking }) {
 
           <CardContent>
             <Typography variant="h4" component="p">
-              {car.brand} {car.model}
+              {car.brand} <br /> {car.model}
             </Typography>
             <Typography gutterBottom variant="h6" component="p">
-              {car.price}€/dia
+              {car.price}€ /dia
             </Typography>
             <Stack
               spacing={1}

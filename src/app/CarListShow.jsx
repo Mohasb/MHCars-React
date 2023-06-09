@@ -17,7 +17,15 @@ export default function CarListShow() {
         secretKeyCripto
       ).toString(CryptoJS.enc.Utf8);
 
-      setSavedDAta(JSON.parse(JSON.parse(decrypt)));
+      //firefox and chrome don´t work the same with cryptojs(chrome remove \ automatic and firefox no)
+      if (typeof JSON.parse(decrypt) === "string") {
+        //Firefox
+        setSavedDAta(JSON.parse(JSON.parse(decrypt)));
+      } else {
+        //Chrome
+        setSavedDAta(JSON.parse(decrypt));
+      }
+
     } else {
       navigate("/");
     }

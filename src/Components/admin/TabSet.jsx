@@ -39,19 +39,28 @@ export default function TabsAdmin() {
 
   useEffect(() => {
     const secretKeyCripto = "Muhammad";
-    const encrypt = localStorage.getItem("_ughVjkKj");
-    const decrypt = CryptoJS.AES.decrypt(
-      encrypt.toString(),
-      secretKeyCripto
-    ).toString(CryptoJS.enc.Utf8);
 
-    if (
-      !localStorage.getItem("_ughVjkKj") ||
-      JSON.parse(decrypt).rol !== "Admin"
-    ) {
+    const isADmin = () => {
+      const encrypt = localStorage.getItem("_ughVjkKj");
+      const decrypt = CryptoJS.AES.decrypt(
+        encrypt.toString(),
+        secretKeyCripto
+      ).toString(CryptoJS.enc.Utf8);
+
+      //firefox and chrome don´t work the same with cryptojs(chrome remove \ automatic and firefox no)
+      if (typeof JSON.parse(decrypt) === "string") {
+        //Firefox
+        return JSON.parse(JSON.parse(decrypt)).rol === "Admin";
+      } else {
+        //Chrome
+        return JSON.parse(decrypt).rol === "Admin";
+      }
+    };
+
+    if (!localStorage.getItem("_ughVjkKj") || !isADmin()) {
       navigate("/");
     }
-  }, []);
+  }, [localStorage.getItem("_ughVjkKj")]);
 
   const getTabContent = () => {
     if (selected === "sucursales") {

@@ -10,15 +10,21 @@ export default function ConfirmationBoocking() {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    const encrypt = sessionStorage.getItem("_bghVjkKj");
-    const decrypt = CryptoJS.AES.decrypt(
-      encrypt.toString(),
-      secretKeyCripto
-    ).toString(CryptoJS.enc.Utf8);
+    if (sessionStorage.getItem("_bghVjkKj")) {
+      const encrypt = sessionStorage.getItem("_bghVjkKj");
+      const decrypt = CryptoJS.AES.decrypt(
+        encrypt.toString(),
+        secretKeyCripto
+      ).toString(CryptoJS.enc.Utf8);
 
-    
-    if (JSON.parse(JSON.parse(decrypt))) {
-      setData(JSON.parse(JSON.parse(decrypt)));
+      //firefox and chrome don´t work the same with cryptojs(chrome remove \ automatic and firefox no)
+      if (typeof JSON.parse(decrypt) === "string") {
+        //Firefox
+        setData(JSON.parse(JSON.parse(decrypt)));
+      } else {
+        //Chrome
+        setData(JSON.parse(decrypt));
+      }
     } else {
       navigate("/");
     }
@@ -26,6 +32,7 @@ export default function ConfirmationBoocking() {
 
   return (
     <main>
+      {console.log(data)}
       {data && <ConfirmationCard car={data.car} booking={data.booking} />}
     </main>
   );

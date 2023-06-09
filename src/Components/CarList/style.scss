@@ -1,11 +1,12 @@
 @import "../../primaryVariables.scss";
+
 .carsList {
   padding-top: $paddingToMain;
   background-image: url("../../assets/homePics/home2.webp");
   background-position: center;
   background-size: cover;
   background-attachment: fixed;
-  
+
   .container-superior {
     backdrop-filter: contrast(40%);
     -webkit-backdrop-filter: contrast(40%);
@@ -13,13 +14,14 @@
     text-align: center;
     margin-top: 1rem;
     color: white;
-    width: 85%;
     margin: auto;
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
-    border-radius: 5px;
-    border: 3px solid $primary;
+    @include borderContainers;
+    .divider {
+      width: 1rem;
+    }
   }
   .container-filters {
     margin-top: 1rem;
@@ -31,13 +33,11 @@
     margin: auto;
   }
   .grid-cars {
-    margin: 2rem auto;
+    margin: 2rem auto 0 auto;
     .wraper-card {
       box-shadow: 0 30px 20px rgba(0, 0, 0, 0.3);
-      border-radius: 10px;
       .MuiPaper-root {
-        border: 3px solid $primary;
-        border-radius: 10px;
+        @include borderContainers;
         backdrop-filter: contrast(40%);
         background-color: rgba(0, 0, 0, 0.6);
         p {
@@ -50,14 +50,15 @@
         }
       }
       .card-action-area {
-        .car-img {
-          // >= mobile
-          @media only screen and (min-width: 576px) {
-            transform: scale(1.2);
-            &:hover {
-              transform: scale(1.3);
-            }
+        &:hover {
+          .car-img {
+            transform: translate(0, -15px);
           }
+        }
+        .car-img {
+          transition: transform 0.3s ease;
+          scale: 1.2;
+          // >= mobile
         }
         .chips {
           font-weight: bold;
@@ -68,8 +69,15 @@
 }
 .not-found {
   text-align: center;
+  backdrop-filter: contrast(40%);
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  @include borderContainers;
+  padding: 1rem;
   .not-found-image {
     margin: 5rem auto;
     width: 100%;
+    filter: invert(100%) sepia(8%) saturate(0%) hue-rotate(231deg)
+      brightness(114%) contrast(100%);
   }
 }
