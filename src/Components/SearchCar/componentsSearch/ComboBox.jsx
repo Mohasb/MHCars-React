@@ -62,10 +62,11 @@ export default function ComboBoxBranches({
         open={open}
         onOpen={() => {
           setOpen(true);
+          console.log(name);
           if (name == "recogida") {
             setErrorBranch1();
           }
-          if (name == "devolucion") {
+          if (name == "devolución") {
             setErrorBranch2();
           }
         }}
@@ -74,9 +75,6 @@ export default function ComboBoxBranches({
         }}
         onChange={(event, newValue) => {
           handleData(newValue);
-        }}
-        onClick={() => {
-          errorBranch1 = "";
         }}
         groupBy={(options) => options.country}
         sx={{

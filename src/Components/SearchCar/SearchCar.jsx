@@ -215,8 +215,6 @@ export const SearchCar = () => {
     }
   }
   function fetchData(branch, returnBranch, bookingDates, age) {
-    console.log(isValidTime(pickupTime));
-    console.log(isValidTime(returnTime));
     if (
       typeof branch !== "undefined" &&
       typeof bookingDates.range !== "undefined" &&

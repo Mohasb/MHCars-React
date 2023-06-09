@@ -22,3 +22,4 @@ confirmar reserva poner que envie email
 
 Protected routes react-router
 añadir bearer a todas las peticiones
+click no borra error de secursal de devolución
