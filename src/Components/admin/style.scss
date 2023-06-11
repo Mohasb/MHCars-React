@@ -1,3 +1,24 @@
+@import "../../primaryVariables.scss";
+.container-admin {
+  padding-top: $paddingToMain;
+  height: 100vh;
+  background-image: url("../../assets/homePics/home2.webp");
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+
+  .header-admin {
+    color: #fff;
+  }
+  .container-tabset {
+    height: 70vh;
+    margin: 2%;
+    .tab {
+      height: max-content;
+    }
+    //background-color: #fff;
+  }
+}
 #tabset-2 > div + div {
   overflow: visible !important;
 }

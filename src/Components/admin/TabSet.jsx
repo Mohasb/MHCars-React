@@ -27,7 +27,6 @@ const StyledTabContent = styled.div.attrs((props) => {
   background: ${(props) => props.background.main};
   color: ${(props) => props.text.label};
   height: 200px;
-  border-radius: 0 0 0.875rem 0.875rem;
 `;
 
 export default function TabsAdmin() {
@@ -60,7 +59,7 @@ export default function TabsAdmin() {
     if (!localStorage.getItem("_ughVjkKj") || !isADmin()) {
       navigate("/");
     }
-  }, [localStorage.getItem("_ughVjkKj")]);
+  }, [navigate]);
 
   const getTabContent = () => {
     if (selected === "sucursales") {
@@ -68,7 +67,7 @@ export default function TabsAdmin() {
         <StyledTabContent
           aria-labelledby="sucursales"
           id="primaryTab"
-          className="rainbow-p-around_xx-large rainbow-font-size-text_large rainbow-align-text-center"
+          className="tab rainbow-p-around_xx-large rainbow-font-size-text_large rainbow-align-text-center"
         >
           <BranchCrud />
         </StyledTabContent>
@@ -79,7 +78,7 @@ export default function TabsAdmin() {
         <StyledTabContent
           aria-labelledby="coches"
           id="recentsTab"
-          className="rainbow-p-around_xx-large rainbow-font-size-text_large rainbow-align-text-center"
+          className="tab rainbow-p-around_xx-large rainbow-font-size-text_large rainbow-align-text-center"
         >
           <CarsCrud />
         </StyledTabContent>
@@ -90,10 +89,8 @@ export default function TabsAdmin() {
         <StyledTabContent
           aria-labelledby="clientes"
           id="sharedTab"
-          className="rainbow-p-around_xx-large rainbow-font-size-text_large rainbow-align-text-center"
-        >
-          {/* Aquiiiiiiiiiiiiiiiii */}
-        </StyledTabContent>
+          className="tab rainbow-p-around_xx-large rainbow-font-size-text_large rainbow-align-text-center"
+        ></StyledTabContent>
       );
     }
     if (selected === "reservas") {
@@ -101,30 +98,28 @@ export default function TabsAdmin() {
         <StyledTabContent
           aria-labelledby="reservas"
           id="sharedTab"
-          className="rainbow-p-around_xx-large rainbow-font-size-text_large rainbow-align-text-center"
-        >
-          {/* Aquiiiiiiiiiiiiiiiii */}
-        </StyledTabContent>
+          className="tab rainbow-p-around_xx-large rainbow-font-size-text_large rainbow-align-text-center"
+        ></StyledTabContent>
       );
     }
     return (
       <StyledTabContent
         aria-labelledby="EXTRAS"
         id="sharedTab"
-        className="rainbow-p-around_xx-large rainbow-font-size-text_large rainbow-align-text-center"
+        className="tab rainbow-p-around_xx-large rainbow-font-size-text_large rainbow-align-text-center"
       >
         {/* Aquiiiiiiiiiiiiiiiii */}
       </StyledTabContent>
     );
   };
   return (
-    <div>
-      <div className="rainbow-p-around_large rainbow-align-content_space-between">
-        <StyledHeader className="rainbow-font-size-heading_medium rainbow-color_dark-1">
+    <div className="container-admin">
+      <div className=" rainbow-p-around_large rainbow-align-content_space-between">
+        <StyledHeader className="header-admin rainbow-font-size-heading_medium rainbow-color_dark-1">
           PANEL ADMINISTRADOR
         </StyledHeader>
       </div>
-      <div className="rainbow-flex rainbow-flex_column rainbow_vertical-stretch">
+      <div className="container-tabset rainbow-flex rainbow-flex_column rainbow_vertical-stretch">
         <Tabset
           fullWidth
           id="tabset-2"
@@ -134,6 +129,7 @@ export default function TabsAdmin() {
         >
           <Tab
             name="sucursales"
+            className="tab"
             label={
               <span>
                 <FontAwesomeIcon icon={faShop} /> SUCURSALES
@@ -143,6 +139,7 @@ export default function TabsAdmin() {
 
           <Tab
             name="coches"
+            className="tab"
             label={
               <span>
                 <FontAwesomeIcon icon={faCar} /> COCHES
@@ -152,6 +149,7 @@ export default function TabsAdmin() {
 
           <Tab
             name="clientes"
+            className="tab"
             label={
               <span>
                 <FontAwesomeIcon icon={faPerson} /> CLIENTES
@@ -161,6 +159,7 @@ export default function TabsAdmin() {
 
           <Tab
             name="reservas"
+            className="tab"
             label={
               <span>
                 <FontAwesomeIcon icon={faCalendarCheck} /> RESERVAS
@@ -169,6 +168,7 @@ export default function TabsAdmin() {
           />
           <Tab
             name="extras"
+            className="tab"
             label={
               <span>
                 <FontAwesomeIcon icon={faCog} /> EXTRAS

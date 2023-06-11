@@ -22,6 +22,24 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import Logo from "/src/assets/MHIcon.svg";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import styled from "styled-components";
+import { MenuDivider } from "react-rainbow-components";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPencilAlt, faPowerOff } from "@fortawesome/free-solid-svg-icons";
+
+const StyledUserFullnameContainer = styled.p.attrs((props) => {
+  return props.theme.rainbow.palette;
+})`
+  color: ${(props) => props.text.main};
+`;
+
+const StyledUserEmailContainer = styled.p.attrs((props) => {
+  return props.theme.rainbow.palette;
+})`
+  color: ${(props) => props.text.label};
+`;
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -38,6 +56,7 @@ function ResponsiveAppBar() {
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
+    
   };
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -119,7 +138,8 @@ function ResponsiveAppBar() {
             >
               <MenuIcon className="menu-icon" />
             </IconButton>
-            <Menu
+            
+            {/* <Menu
               id="menu-appbar"
               anchorEl={anchorElNav}
               anchorOrigin={{
@@ -142,7 +162,7 @@ function ResponsiveAppBar() {
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
-            </Menu>
+            </Menu> */}
           </Box>
 
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
@@ -198,7 +218,7 @@ function ResponsiveAppBar() {
               </IconButton>
             </Tooltip>
             <Menu
-              sx={{ mt: "45px" }}
+              sx={{ mt: "75px" }}
               id="menu-appbar"
               anchorEl={anchorElUser}
               anchorOrigin={{
@@ -213,13 +233,54 @@ function ResponsiveAppBar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
+              {user && (
+                <div>
+                  <li className="rainbow-p-horizontal_small rainbow-align_center rainbow-flex">
+                    <Avatar
+                      className="avatar"
+                      alt={user && user.image ? `image${user.name}` : ""}
+                      src={
+                        user
+                          ? user && user.image
+                            ? `${user.image}`
+                            : `https://www.gravatar.com/avatar/EMAIL_MD5?d=https%3A%2F%2Fui-avatars.com%2Fapi%2F/${
+                                user.name
+                              }${
+                                user.lastName && user.lastName
+                              }/512/F4B408/fff/2/0.5/false/true/true`
+                          : ""
+                      }
+                    />
+                    <div className="rainbow-m-left_x-small">
+                      <StyledUserFullnameContainer className="rainbow-font-size-text_medium">
+                        {user.name}
+                      </StyledUserFullnameContainer>
+                      <StyledUserEmailContainer className="rainbow-font-size-text_small">
+                        {user.email}
+                      </StyledUserEmailContainer>
+                    </div>
+                  </li>
+                  <MenuDivider variant="space" />
+                </div>
+              )}
               {settings.map((setting) => (
                 <MenuItem
                   id={setting.split(" ")[0]}
                   key={setting.split(" ")[0]}
                   onClick={() => handleCloseUserMenu(setting)}
                 >
-                  <Typography textAlign="center">{setting}</Typography>
+                  <>
+                    <ListItemIcon>
+                      {setting === "Mi cuenta" ? (
+                        <FontAwesomeIcon icon={faPencilAlt} color="green" />
+                      ) : setting === "Cerrar Sesión" ? (
+                        <FontAwesomeIcon icon={faPowerOff} color="red" />
+                      ) : (
+                        <FontAwesomeIcon icon={faPowerOff} color="green" />
+                      )}
+                    </ListItemIcon>
+                    <Typography textAlign="center">{setting}</Typography>
+                  </>
                 </MenuItem>
               ))}
             </Menu>

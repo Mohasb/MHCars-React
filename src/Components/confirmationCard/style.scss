@@ -1,45 +1,61 @@
 @import "../../primaryVariables.scss";
-.card {
-  margin: 5% auto;
-  border: 3px solid $primary;
-  box-shadow: 0 30px 20px rgba(0, 0, 0, 0.3);
-  max-width: 1050px;
-  padding: 2%;
-  .MuiPaper-root {
-    box-shadow: none;
-    .confirmation-header {
-      text-align: center;
-      padding: 2%;
-      span {
-        text-transform: uppercase;
-        font-size: 5rem;
-      }
-    }
-
-    .chips {
-      justify-content: center;
-      font-weight: bold;
-    }
-    .container-extras {
-      width: 100%;
-      .checkboxes {
-        justify-content: space-between;
-        flex-direction: row-reverse;
+.confirmation-card {
+  padding-top: $paddingToMain;
+  background-image: url("../../assets/homePics/home2.webp");
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+  .card {
+    margin: 0 auto;
+    box-shadow: 0 30px 20px rgba(0, 0, 0, 0.3);
+    max-width: 1050px;
+    padding: 2%;
+    background-color: transparent;
+    .MuiPaper-root {
+      border: 3px solid $primary;
+      color: white;
+      backdrop-filter: contrast(40%);
+      -webkit-backdrop-filter: contrast(40%);
+      background-color: rgba(0, 0, 0, 0.6);
+      box-shadow: none;
+      .confirmation-header {
+        text-align: center;
+        padding: 2%;
         span {
-          font-size: 1rem;
+          text-transform: uppercase;
+          font-size: 5rem;
         }
       }
-      .counter-input {
-        label {
-          font-size: 1rem;
+
+      .chips {
+        justify-content: center;
+        font-weight: bold;
+      }
+      .container-extras {
+        width: 100%;
+
+        .checkboxes {
+          justify-content: space-between;
+          flex-direction: row-reverse;
+          span {
+            font-size: 1rem;
+            color: white;
+          }
         }
-      }
-      .total {
-        justify-content: space-between;
-      }
-      .extras div {
-        font-size: 1rem;
-        justify-content: space-between;
+        .counter-input {
+          label {
+            font-size: 1rem;
+            color: white;
+          }
+        }
+        .total {
+          justify-content: space-between;
+        }
+        .extras div {
+          font-size: 1rem;
+          justify-content: space-between;
+          color: #000;
+        }
       }
     }
   }

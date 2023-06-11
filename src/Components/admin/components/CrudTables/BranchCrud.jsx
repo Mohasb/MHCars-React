@@ -14,7 +14,6 @@ import {
   DialogContent,
   DialogTitle,
   IconButton,
-  MenuItem,
   Stack,
   TextField,
   Tooltip,
@@ -50,7 +49,7 @@ const BranchCrud = () => {
     } catch (error) {
       console.log(error);
     }
-  }, []);
+  }, [autorization]);
 
   /* const handleCreateNewRow = (values) => {
     tableData.push(values);

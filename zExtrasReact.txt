@@ -17,7 +17,7 @@ notificación user no se ver ni al borrar en su tabla
 falta edit password
 arreglar nav en todas las paginas
 confirmar reserva poner que envie email
-
+fotoc coches home demasiado gandes en movil
 
 
 Protected routes react-router
