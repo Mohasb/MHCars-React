@@ -6,22 +6,13 @@
   background-position: center;
   background-size: cover;
   background-attachment: fixed;
+  .tabs-container {
+    background-color: #fff;
+  }
+}
+  
+button[aria-selected="false"] {
+  font-weight: bold;
+  color: $secondary;
+}
 
-  .header-admin {
-    color: #fff;
-  }
-  .container-tabset {
-    height: 70vh;
-    margin: 2%;
-    .tab {
-      height: max-content;
-    }
-    //background-color: #fff;
-  }
-}
-#tabset-2 > div + div {
-  overflow: visible !important;
-}
-#tabset-2 > div > ul {
-  overflow: visible !important;
-}

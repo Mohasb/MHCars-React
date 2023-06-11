@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Tabset, Tab } from "react-rainbow-components";
+import PropTypes from "prop-types";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Box from "@mui/material/Box";
+import "./style.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCog,
@@ -8,33 +12,43 @@ import {
   faPerson,
   faCalendarCheck,
 } from "@fortawesome/free-solid-svg-icons";
-import styled from "styled-components";
-import "./style.scss";
+import CryptoJS from "crypto-js";
+import { useNavigate } from "react-router-dom";
 import BranchCrud from "./components/CrudTables/BranchCrud";
 import CarsCrud from "./components/CrudTables/CarsCrud";
-import { useNavigate } from "react-router-dom";
-import CryptoJS from "crypto-js";
 
-const StyledHeader = styled.div.attrs((props) => {
-  return props.theme.rainbow.palette;
-})`
-  color: ${(props) => props.text.main};
-`;
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
 
-const StyledTabContent = styled.div.attrs((props) => {
-  return props.theme.rainbow.palette;
-})`
-  background: ${(props) => props.background.main};
-  color: ${(props) => props.text.label};
-  height: 200px;
-`;
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && <Box sx={{ p: 0 }}>{children}</Box>}
+    </div>
+  );
+}
+
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
+};
+
+function a11yProps(index) {
+  return {
+    id: `simple-tab-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
+  };
+}
 
 export default function TabsAdmin() {
-  const [selected, setSelected] = useState("sucursales");
+  const [value, setValue] = useState(0);
   const navigate = useNavigate();
-  const handleOnSelect = (event, selected) => {
-    setSelected(selected);
-  };
 
   useEffect(() => {
     const secretKeyCripto = "Muhammad";
@@ -61,123 +75,67 @@ export default function TabsAdmin() {
     }
   }, [navigate]);
 
-  const getTabContent = () => {
-    if (selected === "sucursales") {
-      return (
-        <StyledTabContent
-          aria-labelledby="sucursales"
-          id="primaryTab"
-          className="tab rainbow-p-around_xx-large rainbow-font-size-text_large rainbow-align-text-center"
-        >
-          <BranchCrud />
-        </StyledTabContent>
-      );
-    }
-    if (selected === "coches") {
-      return (
-        <StyledTabContent
-          aria-labelledby="coches"
-          id="recentsTab"
-          className="tab rainbow-p-around_xx-large rainbow-font-size-text_large rainbow-align-text-center"
-        >
-          <CarsCrud />
-        </StyledTabContent>
-      );
-    }
-    if (selected === "clientes") {
-      return (
-        <StyledTabContent
-          aria-labelledby="clientes"
-          id="sharedTab"
-          className="tab rainbow-p-around_xx-large rainbow-font-size-text_large rainbow-align-text-center"
-        ></StyledTabContent>
-      );
-    }
-    if (selected === "reservas") {
-      return (
-        <StyledTabContent
-          aria-labelledby="reservas"
-          id="sharedTab"
-          className="tab rainbow-p-around_xx-large rainbow-font-size-text_large rainbow-align-text-center"
-        ></StyledTabContent>
-      );
-    }
-    return (
-      <StyledTabContent
-        aria-labelledby="EXTRAS"
-        id="sharedTab"
-        className="tab rainbow-p-around_xx-large rainbow-font-size-text_large rainbow-align-text-center"
-      >
-        {/* Aquiiiiiiiiiiiiiiiii */}
-      </StyledTabContent>
-    );
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
   };
+
   return (
     <div className="container-admin">
-      <div className=" rainbow-p-around_large rainbow-align-content_space-between">
-        <StyledHeader className="header-admin rainbow-font-size-heading_medium rainbow-color_dark-1">
-          PANEL ADMINISTRADOR
-        </StyledHeader>
-      </div>
-      <div className="container-tabset rainbow-flex rainbow-flex_column rainbow_vertical-stretch">
-        <Tabset
-          fullWidth
-          id="tabset-2"
-          onSelect={handleOnSelect}
-          activeTabName={selected}
-          className="rainbow-p-horizontal_x-large"
+      <Box sx={{ width: "95%", margin: "auto" }}>
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          //centered
+          aria-label="basic tabs example"
+          textColor="primary"
+          indicatorColor="primary"
+          className="tabs-container"
+          /* variant="scrollable"
+          scrollButtons
+          allowScrollButtonsMobile */
         >
           <Tab
-            name="sucursales"
-            className="tab"
-            label={
-              <span>
-                <FontAwesomeIcon icon={faShop} /> SUCURSALES
-              </span>
-            }
-          />
-
-          <Tab
-            name="coches"
-            className="tab"
-            label={
-              <span>
-                <FontAwesomeIcon icon={faCar} /> COCHES
-              </span>
-            }
-          />
-
-          <Tab
-            name="clientes"
-            className="tab"
-            label={
-              <span>
-                <FontAwesomeIcon icon={faPerson} /> CLIENTES
-              </span>
-            }
-          />
-
-          <Tab
-            name="reservas"
-            className="tab"
-            label={
-              <span>
-                <FontAwesomeIcon icon={faCalendarCheck} /> RESERVAS
-              </span>
-            }
+            icon={<FontAwesomeIcon icon={faShop} />}
+            label="SUCURSALES"
+            {...a11yProps(0)}
           />
           <Tab
-            name="extras"
-            className="tab"
-            label={
-              <span>
-                <FontAwesomeIcon icon={faCog} /> EXTRAS
-              </span>
-            }
+            icon={<FontAwesomeIcon icon={faCar} />}
+            label="COCHES"
+            {...a11yProps(1)}
           />
-        </Tabset>
-        {getTabContent()}
-      </div>
+          <Tab
+            icon={<FontAwesomeIcon icon={faPerson} />}
+            label="CLIENTES"
+            {...a11yProps(2)}
+          />
+          <Tab
+            icon={<FontAwesomeIcon icon={faCalendarCheck} />}
+            label="RESERVAS"
+            {...a11yProps(3)}
+          />
+          <Tab
+            icon={<FontAwesomeIcon icon={faCog} />}
+            label="EXTRAS"
+            {...a11yProps(4)}
+          />
+        </Tabs>
+        <TabPanel value={value} index={0}>
+          <BranchCrud />
+        </TabPanel>
+        <TabPanel value={value} index={1}>
+          <CarsCrud />
+        </TabPanel>
+        <TabPanel value={value} index={2}>
+          Item Three
+        </TabPanel>
+        <TabPanel value={value} index={3}>
+          Item Four
+        </TabPanel>
+        <TabPanel value={value} index={4}>
+          Item Five
+        </TabPanel>
+      </Box>
     </div>
   );
 }

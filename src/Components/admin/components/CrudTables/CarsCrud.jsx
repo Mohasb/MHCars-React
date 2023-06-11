@@ -147,7 +147,7 @@ import {
   Tooltip,
 } from "@mui/material";
 import { Delete, Edit } from "@mui/icons-material";
-import { baseUrl } from "../../../../Services/baseUrl";
+import { baseUrl } from "../../../../services/baseUrl";
 import authHeader from "../../../../services/login/auth-header";
 //Import Material React Table Translations
 import { MRT_Localization_ES } from "material-react-table/locales/es";

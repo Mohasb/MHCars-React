@@ -56,7 +56,6 @@ function ResponsiveAppBar() {
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
-    
   };
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -138,8 +137,8 @@ function ResponsiveAppBar() {
             >
               <MenuIcon className="menu-icon" />
             </IconButton>
-            
-            {/* <Menu
+
+            <Menu
               id="menu-appbar"
               anchorEl={anchorElNav}
               anchorOrigin={{
@@ -162,7 +161,7 @@ function ResponsiveAppBar() {
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
-            </Menu> */}
+            </Menu>
           </Box>
 
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
