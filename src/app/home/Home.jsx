@@ -1,22 +1,6 @@
 import { SearchCar } from "../../components/searchCar/SearchCar";
 import { useEffect } from "react";
 import "./Home.scss";
-/* import {
-  audiA1,
-  audiA3,
-  audiA4,
-  audiQ2,
-  fiat500,
-  fordFocus,
-  fordTransit,
-  mercedesA,
-  opelMokka,
-  peugeot5008,
-  peugeotSpace,
-  skodaKaroq,
-  VwTouran,
-  VwTRock,
-} from "./cars"; */
 import AOS from "aos";
 import "aos/dist/aos.css";
 import Testimonials from "../../components/testimonial/Testimonial";

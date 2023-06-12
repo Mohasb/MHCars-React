@@ -28,7 +28,7 @@ class SimpleRadioButtonGroup extends React.Component {
     const { value } = this.state;
     return (
       <RadioButtonGroup
-        id="radio-button-group-component-1"
+        id="radio-age"
         options={options}
         value={value}
         onChange={this.handleOnChange}

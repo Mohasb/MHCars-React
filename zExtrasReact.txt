@@ -26,5 +26,5 @@ click no borra error de secursal de devolución
 carga al hacer post bran new loader
 border abajo inputs para edit y añadir en admin
 CAmbiar precio modelo de los coches en back
-mejorar validacion post car para controlar que la matricula sea unica nad id de sucursal que sea desplegable con las sucursales
+mejorar validacion post car para controlar que la matricula sea unica y que el id de sucursal que sea desplegable con las sucursales
 get reservas admin fecha mal

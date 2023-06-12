@@ -10,7 +10,7 @@ export default function Time(props) {
   const [state, setState] = useState({ time: "" });
   return (
     <TimePicker
-      id="time-picker-1"
+      id="time-picker"
       value={state.time}
       valueAlignment="center"
       placeholder={`Hora ${props.name}`}

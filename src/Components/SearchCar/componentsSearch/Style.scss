@@ -1,17 +1,12 @@
-@import "../../../primaryVariables.scss"; //background input age. dev/build
-.sc-bZpYCy {
-  background-color: #fff !important;
-}
-.sc-ksNGjt.hxHqPu {
+@import "../../../primaryVariables.scss"; //background input age.
+
+#radio-age > div {
   background-color: #fff !important;
 }
 
-//color label checkbox dev/build
-#checkbox-two-branches .eXVOgs {
-  color: #fff !important;
-}
-.sc-OKtSx.YhNMr {
-  color: #fff !important;
+//color label checkbox
+#checkbox-two-branches > span + span {
+  color: #fff;
 }
 
 //Combobox branches
@@ -31,9 +26,9 @@
     }
   }
 }
-//Error Datetime field
-#error-message-4,
-.jHDbEO {
+//Error timepicker
+#time-picker > div > div + div,
+#datePicker > div > div + div {
   background-color: #ff0000 !important;
   color: #fff !important;
   border-radius: "5px";

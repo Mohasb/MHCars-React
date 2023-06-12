@@ -20,16 +20,12 @@ import Box from "@mui/material/Box";
 
 import { Accordion, AccordionSection, Input } from "react-rainbow-components";
 
-//import Accordion from "@mui/material/Accordion";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-
 import { useEffect, useState, useContext } from "react";
 
 import Context from "../../services/contextUser/ContextUser";
 import ConfirmationModal from "../modals/ConfirmationModal";
 import "./style.scss";
+import getImageByKey from "../../app/home/cars";
 
 export default function ConfirmationCard({ car, booking }) {
   const { user, setUser } = useContext(Context);
@@ -145,7 +141,7 @@ export default function ConfirmationCard({ car, booking }) {
               <div className="col">
                 <CardMedia
                   component="img"
-                  image={`./src/assets/Cars/${car.image}.webp`}
+                  image={getImageByKey(car.image)}
                   alt={`car ${car.brand}`}
                 />
                 <CardContent>

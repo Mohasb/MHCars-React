@@ -26,7 +26,7 @@ class SimpleCheckboxToggle extends React.Component {
         label="Devolver el vehículo en otra sucursal"
         value={value}
         onChange={this.handleOnChange}
-        style={{margin:"1rem auto"}}
+        style={{ margin: "1rem auto" }}
       />
     );
   }
@@ -34,8 +34,8 @@ class SimpleCheckboxToggle extends React.Component {
 
 export default function CheckBoxTwoBranches({ setCheckTwoBranches }) {
   return (
-        <Box textAlign="center">
-          <SimpleCheckboxToggle setCheckTwoBranches={setCheckTwoBranches} />
-        </Box>
+    <Box textAlign="center">
+      <SimpleCheckboxToggle setCheckTwoBranches={setCheckTwoBranches} />
+    </Box>
   );
 }
