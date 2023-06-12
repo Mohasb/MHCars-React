@@ -5,7 +5,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { styled, lighten, darken } from "@mui/system";
 import { useState, useEffect } from "react";
 import "./Style.scss";
-import { fetcBranches } from "../../../services/apiRequest/GetBranchesComboBox";
+import { fetchBranches } from "../../../services/apiRequest/GetBranchesComboBox";
 
 /* function sleep(delay = 0) {
   return new Promise((resolve) => {
@@ -42,7 +42,7 @@ export default function ComboBoxBranches({
       return undefined;
     }
     //
-    fetcBranches(active, setOptions);
+    fetchBranches(active, setOptions);
 
     return () => {
       active = false;

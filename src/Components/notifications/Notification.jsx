@@ -13,6 +13,36 @@ export default function SuccessNotification(props) {
     props.setShowNotification(false);
   };
 
+  const message = (caller) => {
+    switch (caller) {
+      case "Edit":
+        return (
+          <p>
+            Modificación {props.severity == "error" ? "in" : ""}correcta{" "}
+            {props.severity == "error" ? "❌" : "✔️"}{" "}
+          </p>
+        );
+      case "Delete":
+        return (
+          <p>
+            Eliminación {props.severity == "error" ? "in" : ""}correcta{" "}
+            {props.severity == "error" ? "❌" : "✔️"}{" "}
+          </p>
+        );
+      case "Add":
+        return (
+          <p>
+            Addición {props.severity == "error" ? "in" : ""}correcta{" "}
+            {props.severity == "error" ? "❌" : "✔️"}{" "}
+          </p>
+        );
+      case "Error":
+        return <p>Error ❌</p>;
+      default:
+        return <p>Error ❌</p>;
+    }
+  };
+
   return (
     <Stack spacing={2} sx={{ width: "100%" }}>
       <Snackbar open={props.open} autoHideDuration={4000} onClose={handleClose}>
@@ -22,16 +52,7 @@ export default function SuccessNotification(props) {
           severity={props.severity}
           sx={{ width: "100%" }}
         >
-          <main className="container-alert">
-            {props.caller == "userPage" ?  <p>
-              Modificación {props.severity == "error" ? "in" : ""}correcta{" "}
-              {props.severity == "error" ? "❌" : "✔️"}{" "}
-            </p> :  <p>
-              Eliminación {props.severity == "error" ? "in" : ""}correcta{" "}
-              {props.severity == "error" ? "❌" : "✔️"}{" "}
-            </p> }
-           
-          </main>
+          <main className="container-alert">{message(props.caller)}</main>
         </Alert>
       </Snackbar>
     </Stack>

@@ -1,10 +1,4 @@
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { MaterialReactTable } from "material-react-table";
 import {
   Box,
@@ -21,12 +15,12 @@ import {
 import { Delete, Edit } from "@mui/icons-material";
 //Import Material React Table Translations
 import { MRT_Localization_ES } from "material-react-table/locales/es";
-import BranchService from "../../../../services/apiRequest/Crud/BranchService";
+import ReservationService from "../../../../services/apiRequest/Crud/ReservationService";
 import LoadingButton from "@mui/lab/LoadingButton";
 import SaveIcon from "@mui/icons-material/Save";
 import SuccessNotification from "../../../notifications/Notification";
 
-const BranchCrud = () => {
+const ReservationsCrud = () => {
   const [createModalOpen, setCreateModalOpen] = useState(false);
   const [tableData, setTableData] = useState([]);
   const [validationErrors, setValidationErrors] = useState({});
@@ -36,7 +30,7 @@ const BranchCrud = () => {
   const [caller, setCaller] = useState("");
 
   useEffect(() => {
-    BranchService.getBranches(setTableData, setIsLoading);
+    ReservationService.getReservations(setTableData, setIsLoading);
   }, []);
 
   const handleCreateNewRow = (values) => {
@@ -134,8 +128,8 @@ const BranchCrud = () => {
         size: 80,
       },
       {
-        accessorKey: "cif",
-        header: "Cif",
+        accessorKey: "branchId",
+        header: "Id sucursal",
         size: 140,
         enableClickToCopy: true,
         muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
@@ -143,8 +137,8 @@ const BranchCrud = () => {
         }),
       },
       {
-        accessorKey: "name",
-        header: "Nombre",
+        accessorKey: "carId",
+        header: "Id Coche",
         size: 140,
         enableClickToCopy: true,
         muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
@@ -152,16 +146,16 @@ const BranchCrud = () => {
         }),
       },
       {
-        accessorKey: "population",
-        header: "Población",
+        accessorKey: "carCategory",
+        header: "Categoria",
         enableClickToCopy: true,
         muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
           ...getCommonEditTextFieldProps(cell),
         }),
       },
       {
-        accessorKey: "country",
-        header: "País",
+        accessorKey: "clientId",
+        header: "Id Cliente",
         size: 80,
         enableClickToCopy: true,
         muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
@@ -169,8 +163,17 @@ const BranchCrud = () => {
         }),
       },
       {
-        accessorKey: "address",
-        header: "Dirección",
+        accessorKey: "startDate",
+        header: "Fecha Inicio",
+        size: 80,
+        enableClickToCopy: true,
+        muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
+          ...getCommonEditTextFieldProps(cell),
+        }),
+      },
+      {
+        accessorKey: "endDate",
+        header: "Fecha Fin",
         size: 80,
         enableClickToCopy: true,
         muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
@@ -183,6 +186,7 @@ const BranchCrud = () => {
 
   return (
     <>
+      {console.log(tableData)}
       <MaterialReactTable
         displayColumnDefOptions={{
           "mrt-row-actions": {
@@ -365,9 +369,6 @@ export const CreateNewBranchModal = ({
                   onChange={handleInputChange}
                   error={!!error}
                   helperText={error}
-                  /* onChange={(e) =>
-                    setValues({ ...values, [e.target.name]: e.target.value })
-                  } */
                 />
               );
             })}
@@ -399,4 +400,4 @@ export const CreateNewBranchModal = ({
 
 const validateRequired = (value) => !!value.length;
 
-export default BranchCrud;
+export default ReservationsCrud;

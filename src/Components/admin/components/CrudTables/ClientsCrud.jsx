@@ -1,10 +1,4 @@
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { MaterialReactTable } from "material-react-table";
 import {
   Box,
@@ -21,12 +15,12 @@ import {
 import { Delete, Edit } from "@mui/icons-material";
 //Import Material React Table Translations
 import { MRT_Localization_ES } from "material-react-table/locales/es";
-import BranchService from "../../../../services/apiRequest/Crud/BranchService";
+import ClientsService from "../../../../services/apiRequest/Crud/ClientsService";
 import LoadingButton from "@mui/lab/LoadingButton";
 import SaveIcon from "@mui/icons-material/Save";
 import SuccessNotification from "../../../notifications/Notification";
 
-const BranchCrud = () => {
+const ClientsCrud = () => {
   const [createModalOpen, setCreateModalOpen] = useState(false);
   const [tableData, setTableData] = useState([]);
   const [validationErrors, setValidationErrors] = useState({});
@@ -36,7 +30,7 @@ const BranchCrud = () => {
   const [caller, setCaller] = useState("");
 
   useEffect(() => {
-    BranchService.getBranches(setTableData, setIsLoading);
+    ClientsService.getClients(setTableData, setIsLoading);
   }, []);
 
   const handleCreateNewRow = (values) => {
@@ -134,8 +128,8 @@ const BranchCrud = () => {
         size: 80,
       },
       {
-        accessorKey: "cif",
-        header: "Cif",
+        accessorKey: "registration",
+        header: "Identificación",
         size: 140,
         enableClickToCopy: true,
         muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
@@ -152,16 +146,25 @@ const BranchCrud = () => {
         }),
       },
       {
-        accessorKey: "population",
-        header: "Población",
+        accessorKey: "lastName",
+        header: "Apellido/s",
+        size: 140,
         enableClickToCopy: true,
         muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
           ...getCommonEditTextFieldProps(cell),
         }),
       },
       {
-        accessorKey: "country",
-        header: "País",
+        accessorKey: "email",
+        header: "Email",
+        enableClickToCopy: true,
+        muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
+          ...getCommonEditTextFieldProps(cell),
+        }),
+      },
+      {
+        accessorKey: "phoneNumber",
+        header: "Telefono",
         size: 80,
         enableClickToCopy: true,
         muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
@@ -169,8 +172,17 @@ const BranchCrud = () => {
         }),
       },
       {
-        accessorKey: "address",
-        header: "Dirección",
+        accessorKey: "bankAccount",
+        header: "Cuenta bancaria",
+        size: 80,
+        enableClickToCopy: true,
+        muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
+          ...getCommonEditTextFieldProps(cell),
+        }),
+      },
+      {
+        accessorKey: "rol",
+        header: "Rol",
         size: 80,
         enableClickToCopy: true,
         muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
@@ -366,8 +378,8 @@ export const CreateNewBranchModal = ({
                   error={!!error}
                   helperText={error}
                   /* onChange={(e) =>
-                    setValues({ ...values, [e.target.name]: e.target.value })
-                  } */
+                      setValues({ ...values, [e.target.name]: e.target.value })
+                    } */
                 />
               );
             })}
@@ -399,4 +411,4 @@ export const CreateNewBranchModal = ({
 
 const validateRequired = (value) => !!value.length;
 
-export default BranchCrud;
+export default ClientsCrud;

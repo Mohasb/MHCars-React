@@ -1,7 +1,9 @@
 @import "../../primaryVariables.scss";
 .container-admin {
   padding-top: $paddingToMain;
-  height: 100vh;
+  min-height: 100vh;
+  height: max-content;
+  padding-bottom: 5rem;
   background-image: url("../../assets/homePics/home2.webp");
   background-position: center;
   background-size: cover;
@@ -10,9 +12,8 @@
     background-color: #fff;
   }
 }
-  
+
 button[aria-selected="false"] {
   font-weight: bold;
   color: $secondary;
 }
-

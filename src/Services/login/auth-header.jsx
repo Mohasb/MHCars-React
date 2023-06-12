@@ -20,7 +20,6 @@ export default function authHeader() {
       }
     };
     const user = getUser();
-    console.log(user);
 
     if (user && user.token) {
       return "Bearer " + user.token;

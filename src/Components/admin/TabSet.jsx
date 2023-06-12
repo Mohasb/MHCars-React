@@ -16,6 +16,9 @@ import CryptoJS from "crypto-js";
 import { useNavigate } from "react-router-dom";
 import BranchCrud from "./components/CrudTables/BranchCrud";
 import CarsCrud from "./components/CrudTables/CarsCrud";
+import ClientsCrud from "./components/CrudTables/ClientsCrud";
+import ReservationsCrud from "./components/CrudTables/ReservationCrud";
+import Extras from "./components/CrudTables/Extras";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -47,7 +50,7 @@ function a11yProps(index) {
 }
 
 export default function TabsAdmin() {
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState(1);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -86,13 +89,13 @@ export default function TabsAdmin() {
           value={value}
           onChange={handleChange}
           //centered
-          aria-label="basic tabs example"
+          aria-label="tabs"
           textColor="primary"
           indicatorColor="primary"
           className="tabs-container"
-          /* variant="scrollable"
+          variant="scrollable"
           scrollButtons
-          allowScrollButtonsMobile */
+          allowScrollButtonsMobile 
         >
           <Tab
             icon={<FontAwesomeIcon icon={faShop} />}
@@ -127,13 +130,13 @@ export default function TabsAdmin() {
           <CarsCrud />
         </TabPanel>
         <TabPanel value={value} index={2}>
-          Item Three
+          <ClientsCrud />
         </TabPanel>
         <TabPanel value={value} index={3}>
-          Item Four
+          <ReservationsCrud />
         </TabPanel>
         <TabPanel value={value} index={4}>
-          Item Five
+          <Extras />
         </TabPanel>
       </Box>
     </div>

@@ -1,6 +1,6 @@
 import { baseUrl } from "../../services/baseUrl";
 import authHeader from "../../services/login/auth-header";
-export async function fetcBranches(active, setOptions) {
+export async function fetchBranches(active, setOptions) {
   const autorization = authHeader();
   try {
     const response = fetch(`${baseUrl}Branches`, {
