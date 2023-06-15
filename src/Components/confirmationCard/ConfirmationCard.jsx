@@ -18,7 +18,7 @@ import Card from "@mui/material/Card";
 import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 
-import { Accordion, AccordionSection, Input } from "react-rainbow-components";
+import { Accordion, AccordionSection } from "react-rainbow-components";
 
 import { useEffect, useState, useContext } from "react";
 

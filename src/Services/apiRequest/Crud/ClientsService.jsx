@@ -1,7 +1,5 @@
 import { baseUrl } from "../../baseUrl";
 import authHeader from "../../login/auth-header";
-import { PostClient } from "../PostClient";
-import { PutClient } from "../PutClient";
 const autorization = authHeader();
 
 const getClients = async (setTableData, setIsLoading) => {
@@ -24,7 +22,25 @@ const getClients = async (setTableData, setIsLoading) => {
   }
 };
 const postNewClient = async (client) => {
-  PostClient(client);
+  try {
+    const response = await fetch(baseUrl + `clients`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: autorization,
+      },
+      body: JSON.stringify(client),
+    })
+      .then((res) => res.json())
+      .then((resp) => {
+        console.log(resp);
+        return resp;
+      });
+    return response;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
 };
 
 const deleteClient = async (id) => {
@@ -40,11 +56,30 @@ const deleteClient = async (id) => {
     });
     return response;
   } catch (error) {
+    console.log(error);
     return error;
   }
 };
 const putClient = async (client) => {
-  PutClient(client);
+  const autorization = authHeader();
+  try {
+    const response = await fetch(baseUrl + `clients/${client.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: autorization,
+      },
+      body: JSON.stringify(client),
+    })
+      .then((res) => res.json())
+      .then((resp) => {
+        return resp;
+      });
+    return response;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
 };
 
 const ClientsService = {

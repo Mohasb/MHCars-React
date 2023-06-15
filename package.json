@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@emotion/react": "^11.11.0",
+    "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@fortawesome/fontawesome-free": "^6.4.0",
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
@@ -19,22 +19,20 @@
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@mui/icons-material": "^5.11.16",
     "@mui/lab": "^5.0.0-alpha.133",
-    "@mui/material": "^5.13.4",
+    "@mui/material": "^5.13.5",
     "aos": "^2.3.4",
     "bootstrap": "^5.3.0-alpha3",
     "crypto-js": "^4.1.1",
     "font-awesome": "^4.7.0",
     "material-react-table": "^1.12.0",
-    "notistack": "^3.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-hook-form": "^7.43.9",
     "react-rainbow-components": "^1.32.0",
     "react-router-dom": "^6.10.0",
-    "redux-form": "^8.3.10",
     "sass": "^1.62.0"
   },
   "devDependencies": {
+    "@types/node": "^20.3.1",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
     "@typescript-eslint/eslint-plugin": "^5.57.1",

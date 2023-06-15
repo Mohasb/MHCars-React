@@ -1,5 +1,5 @@
 import { Modal, Button } from "react-rainbow-components";
-import { DeleteReservation } from "../../services/apiRequest/DeleteReservation";
+//import { DeleteReservation } from "../../services/apiRequest/DeleteReservation";
 
 export default function DeleteModal({
   isOpenModal,

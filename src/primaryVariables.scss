@@ -3,7 +3,17 @@ $secondary: #ffb338;
 $paddingToMain: 150px;
 $bg-img: url("../../assets/homePics/home2.webp");
 
-@mixin borderContainers {
+@mixin styleContainers {
   border-radius: 10px;
   border: 3px solid $primary;
+  backdrop-filter: contrast(40%);
+  -webkit-backdrop-filter: contrast(40%);
+  background-color: rgba(0, 0, 0, 0.6);
+}
+@mixin layoutPages {
+  padding-top: $paddingToMain;
+  background-image: $bg-img;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
 }

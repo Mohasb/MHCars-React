@@ -4,7 +4,6 @@ import { Input, Button } from "react-rainbow-components";
 import Box from "@mui/material/Box";
 //Services
 import Context from "../../services/contextUser/ContextUser";
-import { PutClient } from "../../services/apiRequest/PutClient";
 //Components
 import ReservationTable from "./ReservationTable";
 import EditPwd from "./../../components/modals/EditPassworModal";
@@ -14,6 +13,10 @@ import { FileSelector } from "react-rainbow-components";
 import { useNavigate } from "react-router-dom";
 import Notification from "../../components/notifications/Notification";
 import CryptoJS from "crypto-js";
+import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
+import ClientsService from "../../Services/apiRequest/Crud/ClientsService";
+import SvgIcon from "@mui/material/SvgIcon";
+import Avatar from "@mui/material/Avatar";
 
 export default function UserPage() {
   //para mostrar notificacion de update correcto o incorrecto
@@ -57,7 +60,7 @@ export default function UserPage() {
     if (!localStorage.getItem("_ughVjkKj")) {
       navigate("/");
     }
-  }, []);
+  }, [navigate]);
 
   //Cuando se produce el evento change en los inputs...
   const handleOnChange = (e) => {
@@ -253,7 +256,7 @@ export default function UserPage() {
       newValues.password = "editedByBackend";
       newValues.image = document.querySelector("#user-image").src;
       //PETICIÓN PUT con los valores nuevos
-      PutClient(newValues).then((response) => {
+      ClientsService.putClient(newValues).then((response) => {
         //si el back retorna true en la propiedad isOk....
         if (response.isOk) {
           //establece el contexto con el usuario modificado
@@ -339,33 +342,28 @@ export default function UserPage() {
               </div>
             </div>
             <div className="row justify-content-center">
-              <div className="col-md-4 pt-md-4">
+              <div className="col-md-4 mt-md-4">
                 <div className="profile-img">
-                  {user.image && user.image ? (
-                    <img
-                      id="user-image"
-                      className="rounded"
-                      src={user.image ? `${user.image}` : ""}
-                      alt={`foto ${user.name}`}
-                      onClick={() => {
-                        //click imagen abre el input:file
-                        document.querySelector("input[type=file]").click();
-                      }}
-                    />
-                  ) : (
-                    <img
-                      id="user-image"
-                      onClick={() => {
-                        //click imagen abre el input:file
-                        document.querySelector("input[type=file]").click();
-                      }}
-                      src={`https://www.gravatar.com/avatar/EMAIL_MD5?d=https%3A%2F%2Fui-avatars.com%2Fapi%2F/${
-                        user.name
-                      }${
-                        user.lastName ? "+" + user.lastName : ""
-                      }/512/${primaryColor}/fff/2/0.5/false/true/true`}
-                    />
-                  )}
+                  <img
+                    onClick={() => {
+                      //click imagen abre el input:file
+                      document.querySelector("input[type=file]").click();
+                    }}
+                    id="user-image"
+                    className="avatar"
+                    alt={user && user.image ? `image${user.name}` : ""}
+                    src={
+                      user
+                        ? user && user.image
+                          ? `${user.image}`
+                          : `https://www.gravatar.com/avatar/EMAIL_MD5?d=https%3A%2F%2Fui-avatars.com%2Fapi%2F/${
+                              user.name
+                            }${
+                              user.lastName && user.lastName
+                            }/512/F4B408/fff/2/0.5/false/true/true`
+                        : ""
+                    }
+                  />
                   <div className="file ">
                     <FileSelector
                       placeholder="Cambiar imagen"
@@ -376,30 +374,6 @@ export default function UserPage() {
                     />
                   </div>
                 </div>
-                <Box sx={{ textAlign: "center", margin: "2rem 0 auto" }}>
-                  <Button
-                    label="Guardar Cambios"
-                    variant="brand"
-                    borderRadius="semi-rounded"
-                    onClick={handleSubmit}
-                    size="large"
-                    style={{ color: "#fff" }}
-                    disabled={isButtonDisabled}
-                  />
-                  <br />
-                  <br />
-                  <Button
-                    label="Modificar Contraseña"
-                    variant="brand"
-                    borderRadius="semi-rounded"
-                    onClick={() => {
-                      //Abre modal de cambio de contraseña
-                      setIsOpenModalPwd(!isOpenModalPwd);
-                    }}
-                    size="medium"
-                    style={{ color: "#fff" }}
-                  />
-                </Box>
               </div>
               <div className="col-md-6 col-xl-5 h-100 datos">
                 <div className="profile-head">
@@ -497,7 +471,35 @@ export default function UserPage() {
                   </div>
                 </div>
               </div>
-              <div className="col-md-12 mt-xl-12">
+            </div>
+            <div className="row justify-content-center">
+              <Box sx={{ textAlign: "center", margin: "2rem 0 auto" }}>
+                <Button
+                  label="Guardar Cambios"
+                  variant="brand"
+                  borderRadius="semi-rounded"
+                  onClick={handleSubmit}
+                  size="large"
+                  style={{ color: "#fff" }}
+                  disabled={isButtonDisabled}
+                />
+                <br />
+                <br />
+                <Button
+                  label="Modificar Contraseña"
+                  variant="brand"
+                  borderRadius="semi-rounded"
+                  onClick={() => {
+                    //Abre modal de cambio de contraseña
+                    setIsOpenModalPwd(!isOpenModalPwd);
+                  }}
+                  size="medium"
+                  style={{ color: "#fff" }}
+                />
+              </Box>
+            </div>
+            <div className="row justify-content-center">
+              <div className="col-md-12">
                 <h1>RESERVAS</h1>
                 {/* Tabla de RESERVAS */}
                 <ReservationTable user={user} />

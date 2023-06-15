@@ -28,6 +28,7 @@ import { MenuDivider } from "react-rainbow-components";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencilAlt, faPowerOff } from "@fortawesome/free-solid-svg-icons";
+import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 
 const StyledUserFullnameContainer = styled.p.attrs((props) => {
   return props.theme.rainbow.palette;
@@ -88,12 +89,6 @@ function ResponsiveAppBar() {
     }
   };
 
-  console.log(location.pathname);
-
-  /* if (location.pathname ===) {
-    
-  } */
-
   window.addEventListener("scroll", () => {
     const nav = document.querySelector("#nav");
     if (typeof nav != "undefined") {
@@ -107,6 +102,20 @@ function ResponsiveAppBar() {
       }
     }
   });
+
+  function textToImageDataUrl(text) {
+    const canvas = document.createElement("canvas");
+    canvas.width = "100%";
+    canvas.height = 180 * 4;
+    const context = canvas.getContext("2d");
+    context.rect(0, 0, 320 * 4, 180 * 4);
+    context.fillStyle = "indigo";
+    context.fill();
+    context.font = "256px Consolas, Sans Serif";
+    context.fillStyle = "orange";
+    context.fillText(text, 80 * 4, 110 * 4);
+    return canvas.toDataURL("image/png");
+  }
 
   return (
     <AppBar id="nav">
@@ -199,21 +208,45 @@ function ResponsiveAppBar() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Perfil">
               <IconButton size="large" onClick={handleOpenUserMenu}>
-                <Avatar
+                {/* {user ? (
+                  user && user.image ? (
+                    <Avatar
+                      className="avatar"
+                      alt={user && user.image ? `image${user.name}` : ""}
+                      src={`${user.image}`}
+                    />
+                  ) : (
+                    <Avatar className="avatar" alt="no imgae user">
+                      <DirectionsCarIcon sx={{ width: 50, height: 70 }} />
+                    </Avatar>
+                  )
+                ) : (
+                  <Avatar className="avatar" alt="No user icon" src="" />
+                )} */}
+
+                {/* <Avatar
                   className="avatar"
                   alt={user && user.image ? `image${user.name}` : ""}
                   src={
-                    user
-                      ? user && user.image
-                        ? `${user.image}`
-                        : `https://www.gravatar.com/avatar/EMAIL_MD5?d=https%3A%2F%2Fui-avatars.com%2Fapi%2F/${
-                            user.name
-                          }${
-                            user.lastName && user.lastName
-                          }/512/F4B408/fff/2/0.5/false/true/true`
-                      : ""
+                    //Si no hay user "" es icono de person en mui
+                    user ? (user && user.image) ?? `${user.image}` : ""
                   }
-                />
+                ></Avatar> */}
+                <Avatar
+                      className="avatar"
+                      alt={user && user.image ? `image${user.name}` : ""}
+                      src={
+                        user
+                          ? user && user.image
+                            ? `${user.image}`
+                            : `https://www.gravatar.com/avatar/EMAIL_MD5?d=https%3A%2F%2Fui-avatars.com%2Fapi%2F/${
+                                user.name
+                              }${
+                                user.lastName && user.lastName
+                              }/512/F4B408/fff/2/0.5/false/true/true`
+                          : ""
+                      }
+                    />
               </IconButton>
             </Tooltip>
             <Menu

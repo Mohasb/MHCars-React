@@ -2,10 +2,11 @@ import "./style.scss";
 
 import React, { useState } from "react";
 import { Modal } from "react-rainbow-components";
+import cookie from "/src/assets/coockie.png";
 
 export default function CookieModal(props) {
   const isCookiesAcepted = document.cookie;
-  const [isOpen, setIsOpen] = useState(!!!isCookiesAcepted);
+  const [isOpen, setIsOpen] = useState(!isCookiesAcepted);
 
   window.mobileCheck = function () {
     let check = false;
@@ -46,10 +47,7 @@ export default function CookieModal(props) {
     >
       <div className="container-cookie">
         <div className="cookiesContent" id="cookiesPopup">
-          <img
-            src="https://cdn-icons-png.flaticon.com/512/1047/1047711.png"
-            alt="cookies-img"
-          />
+          <img src={cookie} alt="cookies-img" />
           <p>
             Utilizamos cookies para mejorar la experiencia del usuario, el
             análisis y el marketing.

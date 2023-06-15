@@ -28,7 +28,7 @@ export default function ConfirmationBoocking() {
     } else {
       navigate("/");
     }
-  }, []);
+  }, [navigate]);
 
   return (
     <main>

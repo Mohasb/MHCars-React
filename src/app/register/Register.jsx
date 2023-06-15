@@ -6,10 +6,11 @@ import Tooltip from "./Tooltip";
 import "./style.scss";
 import { useNavigate } from "react-router-dom";
 //Services
-import { PostClient } from "../../services/apiRequest/PostClient";
+//import { PostClient } from "../../services/apiRequest/PostClient";
 import authService from "../../services/login/auth.service";
 import Context from "../../services/contextUser/ContextUser";
 import CryptoJS from "crypto-js";
+import ClientsService from "../../Services/apiRequest/Crud/ClientsService";
 
 export default function Register() {
   const secretKeyCripto = "Muhammad";
@@ -56,7 +57,7 @@ export default function Register() {
         phoneNumber: values.phoneNumber || 0,
         bankAccount: values.bankAccount,
       };
-      PostClient(client).then((response) => {
+      ClientsService.postNewClient(client).then((response) => {
         if (response.isOk) {
           authService.login(values.email, values.password).then((response) => {
             if (response.isOk) {

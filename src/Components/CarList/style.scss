@@ -1,16 +1,10 @@
 @import "../../primaryVariables.scss";
 
 .carsList {
-  padding-top: $paddingToMain;
-  background-image: $bg-img;
-  background-position: center;
-  background-size: cover;
-  background-attachment: fixed;
+  @include layoutPages;
 
   .container-superior {
-    backdrop-filter: contrast(40%);
-    -webkit-backdrop-filter: contrast(40%);
-    background-color: rgba(0, 0, 0, 0.6);
+    @include styleContainers;
     text-align: center;
     margin-top: 1rem;
     color: white;
@@ -18,7 +12,7 @@
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
-    @include borderContainers;
+    @include styleContainers;;
     .divider {
       width: 1rem;
     }
@@ -37,9 +31,7 @@
     .wraper-card {
       box-shadow: 0 30px 20px rgba(0, 0, 0, 0.3);
       .MuiPaper-root {
-        @include borderContainers;
-        backdrop-filter: contrast(40%);
-        background-color: rgba(0, 0, 0, 0.6);
+        @include styleContainers;
         p {
           text-align: center;
           text-transform: uppercase;
@@ -69,10 +61,8 @@
 }
 .not-found {
   text-align: center;
-  backdrop-filter: contrast(40%);
-  background-color: rgba(0, 0, 0, 0.6);
   color: #fff;
-  @include borderContainers;
+  @include styleContainers;
   padding: 1rem;
   .not-found-image {
     margin: 5rem auto;

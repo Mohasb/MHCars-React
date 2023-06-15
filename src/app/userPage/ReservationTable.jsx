@@ -1,11 +1,11 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Table, Column } from "react-rainbow-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { ButtonIcon } from "react-rainbow-components";
 import DeleteModal from "../../components/modals/DeleteModal";
-import { baseUrl } from "../../services/baseUrl";
 import Notification from "../../components/notifications/Notification";
+import CustomService from "../../Services/apiRequest/CustomService";
 
 function CustomAction(props) {
   const { row, onDeleteElement } = props;
@@ -40,22 +40,8 @@ export default function ReservationTable({ user }) {
   };
 
   useEffect(() => {
-    try {
-      const response = fetch(
-        `${baseUrl}custom/getreservationbyclient/${user.id}`
-      )
-        .then((response) => {
-          return response.json();
-        })
-        .then((resp) => {
-          if (resp.isOk) {
-            setData(resp.reservations);
-          }
-        });
-    } catch (error) {
-      console.log(error);
-    }
-  }, []);
+    CustomService.getReservationByClient(user.id, setData);
+  }, [user.id]);
 
   const handleOnSort = (event, field, nextSortDirection) => {
     const newData = [...data];
@@ -82,9 +68,9 @@ export default function ReservationTable({ user }) {
         onSort={handleOnSort}
         sortDirection={sortDirection}
         sortedBy={sortedBy}
-        showRowNumberColumn={true}
         emptyTitle={"No hay reservas"}
         emptyDescription={""}
+        className="table-reservas"
       >
         <Column header="Sucursal Recogida" field="pickUpBranch" sortable />
         <Column header="Fecha Recogida" field="startDate" sortable />

@@ -11,10 +11,9 @@ import { Button } from "react-rainbow-components";
 //Material-UI
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
-//Fetch
-import { fetchCars } from "../../services/apiRequest/SearchCarServices";
 import ConfirmationModal from "../modals/ConfirmationModal";
 import CryptoJS from "crypto-js";
+import CustomService from "../../Services/apiRequest/CustomService";
 
 export const SearchCar = () => {
   //State of branch select
@@ -64,7 +63,7 @@ export const SearchCar = () => {
   ////////////////////////////////////////////////////////////////////////////////
   function validateValues(branch, returnBranch, bookingDates, age) {
     errorHandler();
-    fetchData(branch, returnBranch, bookingDates, age);
+    getCarsAvailables(branch, returnBranch, bookingDates, age);
   }
 
   return (
@@ -214,7 +213,7 @@ export const SearchCar = () => {
       return true;
     }
   }
-  function fetchData(branch, returnBranch, bookingDates, age) {
+  function getCarsAvailables(branch, returnBranch, bookingDates, age) {
     if (
       typeof branch !== "undefined" &&
       typeof bookingDates.range !== "undefined" &&
@@ -239,8 +238,8 @@ export const SearchCar = () => {
         : (returnBranch = returnBranch);
 
       const reserva = { branch, returnBranch, bookingDates, age };
-      fetchCars(reserva, setCars, setBooking).then((response) => {
-        if (!response.length) {
+      CustomService.fetchCars(reserva, setCars, setBooking).then((response) => {
+        if (!cars.length) {
           setShowModal(true);
         }
       });

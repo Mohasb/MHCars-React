@@ -16,6 +16,17 @@ import Cookie from "./components/cookies/cookie";
 import Admin from "./app/admin/Admin";
 import { Outlet } from "react-router-dom";
 import CryptoJS from "crypto-js";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min";
+import { Navigate } from "react-router-dom";
+
+const ProtectedRoute = ({ isAllowed, redirectPath = "/", children }) => {
+  if (!isAllowed) {
+    return <Navigate to={redirectPath} replace />;
+  }
+
+  return children;
+};
 
 function App() {
   const [user, setUser] = useState();
@@ -69,7 +80,14 @@ function App() {
             <Route path="/registro" element={<Register />} />
             <Route path="/user/:name" element={<UserPage />} />
           </Route>
-          <Route path="/admin" element={<Admin />} />
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute isAllowed={!!user && user.rol === "Admin"}>
+                <Admin />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </ContextUser.Provider>
     </>
