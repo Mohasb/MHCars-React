@@ -4,19 +4,31 @@ const autorization = authHeader();
 
 const getCars = async (setTableData, setIsLoading) => {
   try {
-    await fetch(`${baseUrl + "cars"}`, {
+    const response = await fetch(`${baseUrl}cars`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: autorization,
       },
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        setTableData(data);
-        setIsLoading({ isLoading: false });
-      });
+    });
+    const data = await response.json();
+
+    const branchesResponse = await fetch(`${baseUrl}branches`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: autorization,
+      },
+    });
+    const branchesData = await branchesResponse.json();
+
+    const updatedData = data.map((car) => {
+      const branch = branchesData.find((branch) => branch.id === car.branchId);
+      if (branch) {
+        return { ...car, branchId: branch.name };
+      }
+      return car;
+    });
+    setTableData(updatedData);
+    setIsLoading({ isLoading: false });
   } catch (error) {
     console.log(error);
   }

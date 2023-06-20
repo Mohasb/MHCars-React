@@ -21,8 +21,6 @@ import SaveIcon from "@mui/icons-material/Save";
 import SuccessNotification from "../../../notifications/Notification";
 import CarService from "../../../../services/apiRequest/Crud/CarsService";
 import DeleteDialog from "../DeleteDialog";
-import { baseUrl } from "../../../../services/baseUrl";
-import authHeader from "../../../../services/login/auth-header";
 
 const CarsCrud = () => {
   const [createModalOpen, setCreateModalOpen] = useState(false);
@@ -38,8 +36,6 @@ const CarsCrud = () => {
   useEffect(() => {
     CarService.getCars(setTableData, setIsLoading);
   }, []);
-
-
 
   const handleCreateNewRow = (values) => {
     tableData.push(values);
@@ -138,7 +134,7 @@ const CarsCrud = () => {
       },
       {
         accessorKey: "branchId",
-        header: "Id Sucursal",
+        header: "Sucursal",
         size: 80,
         enableClickToCopy: true,
         muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
