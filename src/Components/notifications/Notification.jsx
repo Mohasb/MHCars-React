@@ -42,19 +42,24 @@ export default function SuccessNotification(props) {
         return <p>Error ❌</p>;
     }
   };
-
   return (
-    <Stack spacing={2} sx={{ width: "100%" }}>
-      <Snackbar open={props.open} autoHideDuration={4000} onClose={handleClose}>
-        <Alert
+    <div className="user-notification">
+      <Stack spacing={2} sx={{ width: "100%" }}>
+        <Snackbar
           open={props.open}
+          autoHideDuration={4000}
           onClose={handleClose}
-          severity={props.severity}
-          sx={{ width: "100%" }}
         >
-          <main className="container-alert">{message(props.caller)}</main>
-        </Alert>
-      </Snackbar>
-    </Stack>
+          <Alert
+            open={props.open}
+            onClose={handleClose}
+            severity={props.severity}
+            sx={{ width: "100%" }}
+          >
+            <main className="container-alert">{message(props.caller)}</main>
+          </Alert>
+        </Snackbar>
+      </Stack>
+    </div>
   );
 }

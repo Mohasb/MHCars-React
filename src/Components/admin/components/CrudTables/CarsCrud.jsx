@@ -1,9 +1,4 @@
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { MaterialReactTable } from "material-react-table";
 import {
   Box,
@@ -34,6 +29,8 @@ const CarsCrud = () => {
   const [showNotification, setShowNotification] = useState(false);
   const [severity, setSeverity] = useState("");
   const [caller, setCaller] = useState("");
+  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+  const [rowToEliminate, setRowToEliminate] = useState(null);
 
   useEffect(() => {
     CarService.getCars(setTableData, setIsLoading);
@@ -313,7 +310,6 @@ export const CreateNewBranchModal = ({
   const [isLoadingButton, setIsLoadingButton] = useState(false);
 
   const handleSubmit = async () => {
-    setIsLoadingButton(true);
     for (const key in values) {
       let label = "";
       switch (key) {
@@ -354,6 +350,7 @@ export const CreateNewBranchModal = ({
     delete values["id"];
     const isValid = Object.values(values).every((x) => x !== "");
     if (isValid) {
+      setIsLoadingButton(true);
       await CarService.postNewCar(values).then((response) => {
         if (response.id) {
           values.id = response.id;

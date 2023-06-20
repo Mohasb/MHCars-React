@@ -1,26 +1,4 @@
 npm init vite@latest react-rent-car --template react-ts
 npm run dev
 
-
 npm run build && npm run preview
-
-
-edit user candeactivate
-
-
-notificación user no se ver ni al borrar en su tabla
-falta edit password
-
-confirmar reserva poner que envia email
-fotoc coches home demasiado gandes en movil
-
-
-carga al hacer post bran new loader
-border abajo inputs para edit y añadir en admin
-CAmbiar precio modelo de los coches en back
-mejorar validacion post car para controlar que la matricula sea unica y que el id de sucursal que sea desplegable con las sucursales
-get reservas admin fecha mal
-max width and heigth en la foto de perfil de usuario
-pagar aahora o pagar en oficina en la confirrmacion de la reserva
-click icono coche no abre dialogo para cambiar foto
-no funciona lo de la imagen user

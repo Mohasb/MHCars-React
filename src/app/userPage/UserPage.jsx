@@ -13,10 +13,7 @@ import { FileSelector } from "react-rainbow-components";
 import { useNavigate } from "react-router-dom";
 import Notification from "../../components/notifications/Notification";
 import CryptoJS from "crypto-js";
-import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 import ClientsService from "../../Services/apiRequest/Crud/ClientsService";
-import SvgIcon from "@mui/material/SvgIcon";
-import Avatar from "@mui/material/Avatar";
 
 export default function UserPage() {
   //para mostrar notificacion de update correcto o incorrecto
@@ -64,17 +61,18 @@ export default function UserPage() {
 
   //Cuando se produce el evento change en los inputs...
   const handleOnChange = (e) => {
+    e.stopPropagation();
     //Obtener el nombre del input
     const nameInput = e.target.name;
     //Obtener el valor del input recortando los espacios del principio y el final
-    const value = e.target.value.trim();
+    const value = e.target.value;
 
     //Modifica el estado de los nuevos valores del usuario con el nuevo contenido
     setNewValues((prevState) => ({
       //si extraen todos los valores anteriores...
       ...prevState,
       //Se establece el campo y su valor dinámicamente
-      [nameInput]: value,
+      [nameInput]: value.trim(),
     }));
 
     //valida los valores
@@ -276,7 +274,7 @@ export default function UserPage() {
           setButtonDisabled(true);
           //Muestra la notificación
           setShowNotification(true);
-          //la version de en verde de succes
+          //la version de en verde de success
           setSeverity("success");
         } else {
           //Muestra la notificación
@@ -286,6 +284,15 @@ export default function UserPage() {
         }
       });
     }
+  };
+
+  const getImageAvatar = (user) => {
+    console.log(user.lastName === "undefined");
+    const initials =
+      user.lastName !== "undefined"
+        ? user.name + "+" + user.lastName
+        : user.name;
+    return `https://www.gravatar.com/avatar/EMAIL_MD5?d=https%3A%2F%2Fui-avatars.com%2Fapi%2F/${initials}/512/F4B408/fff/2/0.5/false/true/true`;
   };
 
   const handleImage = (fileList) => {
@@ -319,11 +326,7 @@ export default function UserPage() {
     }
   };
 
-  const style = getComputedStyle(document.body);
-  const primaryColor = style.getPropertyValue("--primary-color");
-
   return (
-    //Si existe el usuario del contexto y en el localstorage renderiza el resto
     user &&
     localStorage.getItem("_ughVjkKj") && (
       <main className="main-user-page">
@@ -341,8 +344,8 @@ export default function UserPage() {
                 </div>
               </div>
             </div>
-            <div className="row justify-content-center">
-              <div className="col-md-4 mt-md-4">
+            <div className="row justify-content-center align-items-center">
+              <div className="col-xl-6 mt-4">
                 <div className="profile-img">
                   <img
                     onClick={() => {
@@ -356,11 +359,7 @@ export default function UserPage() {
                       user
                         ? user && user.image
                           ? `${user.image}`
-                          : `https://www.gravatar.com/avatar/EMAIL_MD5?d=https%3A%2F%2Fui-avatars.com%2Fapi%2F/${
-                              user.name
-                            }${
-                              user.lastName && user.lastName
-                            }/512/F4B408/fff/2/0.5/false/true/true`
+                          : getImageAvatar(user)
                         : ""
                     }
                   />
@@ -375,7 +374,7 @@ export default function UserPage() {
                   </div>
                 </div>
               </div>
-              <div className="col-md-6 col-xl-5 h-100 datos">
+              <div className="col-xl-6 h-100 datos">
                 <div className="profile-head">
                   <div className="col-md-12 edit-form">
                     <form onSubmit={handleSubmit}>
@@ -515,8 +514,8 @@ export default function UserPage() {
         <Notification
           open={showNotification}
           setShowNotification={setShowNotification}
-          severity={"success"}
-          caller={"userPage"}
+          severity="success"
+          caller="userPage"
         />
       </main>
     )

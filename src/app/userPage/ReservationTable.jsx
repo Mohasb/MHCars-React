@@ -26,8 +26,9 @@ export default function ReservationTable({ user }) {
   const [idToEliminate, setIdToEliminate] = useState(null);
   const [showNotification, setShowNotification] = useState(false);
 
-  const handleResponseModal = (result, id) => {
-    if (result === "OK") {
+  const handleResponseModal = (ok, id) => {
+    if (ok) {
+      console.log(ok);
       setShowNotification(true);
       const newData = data.filter((item) => item.id !== id);
       setData(newData);

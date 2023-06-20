@@ -235,10 +235,10 @@ export const SearchCar = () => {
       };
       typeof returnBranch === "undefined"
         ? (returnBranch = branch)
-        : (returnBranch = returnBranch);
+        : returnBranch
 
       const reserva = { branch, returnBranch, bookingDates, age };
-      CustomService.fetchCars(reserva, setCars, setBooking).then((response) => {
+      CustomService.fetchCars(reserva, setCars, setBooking).then(() => {
         if (!cars.length) {
           setShowModal(true);
         }

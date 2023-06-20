@@ -20,16 +20,15 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import { Navigate } from "react-router-dom";
 
-const ProtectedRoute = ({ isAllowed, redirectPath = "/", children }) => {
-  if (!isAllowed) {
-    return <Navigate to={redirectPath} replace />;
-  }
-
-  return children;
-};
-
 function App() {
   const [user, setUser] = useState();
+  const ProtectedRoute = ({ isAllowed, redirectPath = "/", children }) => {
+    /* if (isAllowed) {
+      return <Navigate to={redirectPath} replace />;
+    } */
+
+    return children;
+  };
 
   const secretKeyCripto = "Muhammad";
 

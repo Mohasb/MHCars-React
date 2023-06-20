@@ -1,9 +1,4 @@
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { MaterialReactTable } from "material-react-table";
 import {
   Box,
@@ -24,6 +19,7 @@ import BranchService from "../../../../services/apiRequest/Crud/BranchService";
 import LoadingButton from "@mui/lab/LoadingButton";
 import SaveIcon from "@mui/icons-material/Save";
 import SuccessNotification from "../../../notifications/Notification";
+import DeleteDialog from "../DeleteDialog";
 
 const BranchCrud = () => {
   const [createModalOpen, setCreateModalOpen] = useState(false);
@@ -33,6 +29,8 @@ const BranchCrud = () => {
   const [showNotification, setShowNotification] = useState(false);
   const [severity, setSeverity] = useState("");
   const [caller, setCaller] = useState("");
+  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+  const [rowToEliminate, setRowToEliminate] = useState(null);
 
   useEffect(() => {
     BranchService.getBranches(setTableData, setIsLoading);
@@ -45,16 +43,16 @@ const BranchCrud = () => {
 
   const handleSaveRowEdits = async ({ exitEditingMode, row, values }) => {
     if (!Object.keys(validationErrors).length) {
-      console.log(values);
       BranchService.putBranch(values).then((resp) => {
+        console.log(resp.ok);
         if (resp.ok) {
           setShowNotification(true);
           setSeverity("success");
-          setCaller("EditBranch");
+          setCaller("Edit");
         } else {
           setShowNotification(true);
           setSeverity("error");
-          setCaller("EditBranch");
+          setCaller("Error");
         }
       });
       tableData[row.index] = values;
@@ -69,15 +67,7 @@ const BranchCrud = () => {
 
   const handleDeleteRow = useCallback(
     (row) => {
-      if (
-        !confirm(
-          `Estás seguro de eliminar ${row.getValue("name")}(${row.getValue(
-            "cif"
-          )})`
-        )
-      ) {
-        return;
-      }
+      setOpenDeleteDialog(false);
       BranchService.deleteBranch(row.getValue("id")).then((response) => {
         if (response.ok) {
           setShowNotification(true);
@@ -211,7 +201,14 @@ const BranchCrud = () => {
               </IconButton>
             </Tooltip>
             <Tooltip arrow placement="right" title="Eliminar">
-              <IconButton color="error" onClick={() => handleDeleteRow(row)}>
+              <IconButton
+                color="error"
+                onClick={() => {
+                  setOpenDeleteDialog(true);
+                  setRowToEliminate(row);
+                  /* handleDeleteRow(row); */
+                }}
+              >
                 <Delete />
               </IconButton>
             </Tooltip>
@@ -242,6 +239,12 @@ const BranchCrud = () => {
         severity={severity}
         caller={caller}
       />
+      <DeleteDialog
+        open={openDeleteDialog}
+        setOpenDeleteDialog={setOpenDeleteDialog}
+        handleDeleteRow={handleDeleteRow}
+        row={rowToEliminate}
+      />
     </>
   );
 };
@@ -266,8 +269,6 @@ export const CreateNewBranchModal = ({
   const [isLoadingButton, setIsLoadingButton] = useState(false);
 
   const handleSubmit = async () => {
-    //put your validation logic here
-    setIsLoadingButton(true);
     for (const key in values) {
       let label = "";
 
@@ -298,12 +299,13 @@ export const CreateNewBranchModal = ({
     }
     delete values["id"];
     const isValid = Object.values(values).every((x) => x !== "");
+
     if (isValid) {
+      setIsLoadingButton(true);
       await BranchService.postNewBranch(values).then((response) => {
         if (response.isOk) {
           values.id = response.id;
           setIsLoadingButton(false);
-          //TODO:notification
           setShowNotification(true);
           setSeverity("success");
           setCaller("Add");

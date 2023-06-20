@@ -19,6 +19,7 @@ import ClientsService from "../../../../services/apiRequest/Crud/ClientsService"
 import LoadingButton from "@mui/lab/LoadingButton";
 import SaveIcon from "@mui/icons-material/Save";
 import SuccessNotification from "../../../notifications/Notification";
+import BranchService from "../../../../services/apiRequest/Crud/BranchService";
 
 const ClientsCrud = () => {
   const [createModalOpen, setCreateModalOpen] = useState(false);
@@ -280,10 +281,8 @@ export const CreateNewBranchModal = ({
 
   const handleSubmit = async () => {
     //put your validation logic here
-    setIsLoadingButton(true);
     for (const key in values) {
       let label = "";
-
       switch (key) {
         case "id":
           label = "Id";
@@ -312,11 +311,11 @@ export const CreateNewBranchModal = ({
     delete values["id"];
     const isValid = Object.values(values).every((x) => x !== "");
     if (isValid) {
+      setIsLoadingButton(true);
       await BranchService.postNewBranch(values).then((response) => {
         if (response.isOk) {
           values.id = response.id;
           setIsLoadingButton(false);
-          //TODO:notification
           setShowNotification(true);
           setSeverity("success");
           setCaller("Add");

@@ -56,7 +56,7 @@ export default function TabsAdmin() {
   useEffect(() => {
     const secretKeyCripto = "Muhammad";
 
-    const isADmin = () => {
+    const isAdmin = () => {
       const encrypt = localStorage.getItem("_ughVjkKj");
       const decrypt = CryptoJS.AES.decrypt(
         encrypt.toString(),
@@ -73,7 +73,7 @@ export default function TabsAdmin() {
       }
     };
 
-    if (!localStorage.getItem("_ughVjkKj") || !isADmin()) {
+    if (!localStorage.getItem("_ughVjkKj") || !isAdmin()) {
       navigate("/");
     }
   }, [navigate]);
@@ -95,7 +95,7 @@ export default function TabsAdmin() {
           className="tabs-container"
           variant="scrollable"
           scrollButtons
-          allowScrollButtonsMobile 
+          allowScrollButtonsMobile
         >
           <Tab
             icon={<FontAwesomeIcon icon={faShop} />}

@@ -1,5 +1,6 @@
 import { Modal, Button } from "react-rainbow-components";
 //import { DeleteReservation } from "../../services/apiRequest/DeleteReservation";
+import CustomService from "../../Services/apiRequest/CustomService";
 
 export default function DeleteModal({
   isOpenModal,
@@ -41,8 +42,9 @@ export default function DeleteModal({
               style={{ backgroundColor: "red", border: "1px solid red" }}
               onClick={() => {
                 handleResponseModal("OK", idToEliminate);
-                DeleteReservation(idToEliminate).then((resp) => {
-                  handleResponseModal(resp);
+                CustomService.DeleteReservation(idToEliminate).then((resp) => {
+                  console.log(resp);
+                  handleResponseModal(resp.isOk, idToEliminate);
                 });
                 handleOnClose();
               }}
