@@ -206,7 +206,6 @@ const BranchCrud = () => {
                 onClick={() => {
                   setOpenDeleteDialog(true);
                   setRowToEliminate(row);
-                  /* handleDeleteRow(row); */
                 }}
               >
                 <Delete />

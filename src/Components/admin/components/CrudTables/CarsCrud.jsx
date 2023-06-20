@@ -20,6 +20,9 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import SaveIcon from "@mui/icons-material/Save";
 import SuccessNotification from "../../../notifications/Notification";
 import CarService from "../../../../services/apiRequest/Crud/CarsService";
+import DeleteDialog from "../DeleteDialog";
+import { baseUrl } from "../../../../services/baseUrl";
+import authHeader from "../../../../services/login/auth-header";
 
 const CarsCrud = () => {
   const [createModalOpen, setCreateModalOpen] = useState(false);
@@ -35,6 +38,8 @@ const CarsCrud = () => {
   useEffect(() => {
     CarService.getCars(setTableData, setIsLoading);
   }, []);
+
+
 
   const handleCreateNewRow = (values) => {
     tableData.push(values);
@@ -67,15 +72,7 @@ const CarsCrud = () => {
 
   const handleDeleteRow = useCallback(
     (row) => {
-      if (
-        !confirm(
-          `Estás seguro de eliminar ${
-            row.getValue("brand") + " " + row.getValue("model")
-          } (${row.getValue("registration")})`
-        )
-      ) {
-        return;
-      }
+      setOpenDeleteDialog(false);
       CarService.deleteCar(row.getValue("id")).then((response) => {
         if (response.ok) {
           setShowNotification(true);
@@ -255,7 +252,13 @@ const CarsCrud = () => {
               </IconButton>
             </Tooltip>
             <Tooltip arrow placement="right" title="Eliminar">
-              <IconButton color="error" onClick={() => handleDeleteRow(row)}>
+              <IconButton
+                color="error"
+                onClick={() => {
+                  setOpenDeleteDialog(true);
+                  setRowToEliminate(row);
+                }}
+              >
                 <Delete />
               </IconButton>
             </Tooltip>
@@ -271,7 +274,7 @@ const CarsCrud = () => {
           </Button>
         )}
       />
-      <CreateNewBranchModal
+      <CreateNewCarModal
         columns={columns}
         open={createModalOpen}
         onClose={() => setCreateModalOpen(false)}
@@ -286,12 +289,18 @@ const CarsCrud = () => {
         severity={severity}
         caller={caller}
       />
+      <DeleteDialog
+        open={openDeleteDialog}
+        setOpenDeleteDialog={setOpenDeleteDialog}
+        handleDeleteRow={handleDeleteRow}
+        row={rowToEliminate}
+      />
     </>
   );
 };
 
 //Dialog Add Car
-export const CreateNewBranchModal = ({
+export const CreateNewCarModal = ({
   open,
   columns,
   onClose,
