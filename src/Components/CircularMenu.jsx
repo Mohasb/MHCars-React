@@ -22,7 +22,7 @@ export default function ControlledOpenSpeedDial() {
 
   useEffect(() => {
     setSpeedDial(document.querySelector("#scroll-top"));
-  });
+  }, []);
 
   window.onscroll = () => {
     if (typeof speedDial != "undefined") {

@@ -18,7 +18,6 @@ import { Outlet } from "react-router-dom";
 import CryptoJS from "crypto-js";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
-import { Navigate } from "react-router-dom";
 
 function App() {
   const [user, setUser] = useState();
@@ -74,10 +73,12 @@ function App() {
           <Route element={<PageLayout />}>
             <Route path="*" element={<NotFound />} />
             <Route path="/" element={<Home />} />
+            <Route path="/alquiler" element={<Home />} />
             <Route path="/reserva/coche" element={<CarListShow />} />
             <Route path="/booking" element={<ConfirmationBoocking />} />
             <Route path="/registro" element={<Register />} />
             <Route path="/user/:name" element={<UserPage />} />
+            <Route path="/venta-coches" element={<NotFound />} />
           </Route>
           <Route
             path="/admin"

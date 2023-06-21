@@ -28,8 +28,21 @@ import { MenuDivider } from "react-rainbow-components";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencilAlt, faPowerOff } from "@fortawesome/free-solid-svg-icons";
-import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
+///////////////////
+import * as React from "react";
+import Drawer from "@mui/material/Drawer";
+import List from "@mui/material/List";
+import Divider from "@mui/material/Divider";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemText from "@mui/material/ListItemText";
+import CarRentalIcon from "@mui/icons-material/CarRental";
+import MinorCrashIcon from "@mui/icons-material/MinorCrash";
+import LoginIcon from "@mui/icons-material/Login";
+import PermPhoneMsgIcon from "@mui/icons-material/PermPhoneMsg";
+import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 
+/////////////////////
 const StyledUserFullnameContainer = styled.p.attrs((props) => {
   return props.theme.rainbow.palette;
 })`
@@ -43,33 +56,112 @@ const StyledUserEmailContainer = styled.p.attrs((props) => {
 `;
 
 function ResponsiveAppBar() {
+  ////////////////////////
+  const [openDrawer, setOpenDrawer] = useState(false);
+
+  const list = (anchor) => (
+    <Box
+      sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 250 }}
+      role="presentation"
+      onClick={(e) => {
+        setOpenDrawer(false);
+        navigate("/" + e.target.textContent);
+      }}
+      onKeyDown={(e) => console.log(e)}
+    >
+      <List className="container-links-drawer">
+        {pages.map((text) => (
+          <ListItem key={text} className="link-drawer">
+            <ListItemButton>
+              <ListItemIcon>
+                {(() => {
+                  switch (text) {
+                    case "Alquiler":
+                      return (
+                        <CarRentalIcon
+                          fontSize="large"
+                          className="icons-drawer"
+                        />
+                      );
+                    case "Venta":
+                      return (
+                        <MinorCrashIcon
+                          fontSize="large"
+                          className="icons-drawer"
+                        />
+                      );
+                    case "Acceso":
+                      return (
+                        <LoginIcon fontSize="large" className="icons-drawer" />
+                      );
+                    case "Contacto":
+                      return (
+                        <PermPhoneMsgIcon
+                          fontSize="large"
+                          className="icons-drawer"
+                        />
+                      );
+                    case "Admin":
+                      return (
+                        <AdminPanelSettingsIcon
+                          fontSize="large"
+                          className="icons-drawer"
+                        />
+                      );
+                    default:
+                      break;
+                  }
+                })()}
+              </ListItemIcon>
+              <ListItemText primary={text} className="hover" />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+      <Divider />
+    </Box>
+  );
+
+  ///////////////////////////////////////
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [openModal, setOpenModal] = useState(false);
   const [openNotification, setOpenNotification] = useState(false);
   const navigate = useNavigate();
   const { user, setUser } = useContext(Context);
-  const pages = ["Oficinas", "Coches", "Servicios", "Acceso"];
+  const pages = ["Alquiler", "Venta", "Acceso", "Contacto"];
   const settings = user ? ["Mi cuenta", "Cerrar Sesión"] : ["Iniciar Sesión"];
   if (typeof user !== "undefined" && user !== null) {
     user.rol === "Admin" ? (pages[pages.length + 1] = "Admin") : "";
+    if (user) {
+      const index = pages.indexOf("Acceso");
+      if (index !== -1) {
+        pages.splice(index, 1);
+      }
+    }
   }
 
-  const handleOpenNavMenu = (event) => {
+  /* const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
-  };
+  }; */
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
 
   const handleCloseNavMenu = (page) => {
     setAnchorElNav(null);
-    if (typeof page == "string") {
-      navigate("/" + page.toLowerCase());
-      return;
-    }
-    if (typeof page.target.value == "string") {
-      navigate("/" + page.target.value.toLowerCase());
+    const iniciar =
+      document.querySelector("#Iniciar") || document.querySelector("#Inicia");
+    if (typeof page == "string" || typeof page.target.value == "string") {
+      if (page === "Acceso" || page.target.value === "Acceso") {
+        iniciar.click();
+        return;
+      } else {
+        navigate(
+          "/" + page.target.value.toLowerCase() ||
+            navigate("/" + page.target.value.toLowerCase())
+        );
+      }
     }
   };
 
@@ -130,19 +222,81 @@ function ResponsiveAppBar() {
               </Typography>
             </Link>
           </Box>
-
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
               aria-label="account of current user"
               aria-controls="menu-appbar"
               aria-haspopup="true"
-              onClick={handleOpenNavMenu}
+              onClick={() => setOpenDrawer(true)}
               color="inherit"
+              id="menu-button"
             >
               <MenuIcon className="menu-icon" />
             </IconButton>
+            <Drawer
+              anchor={"left"}
+              open={openDrawer}
+              onClose={() => setOpenDrawer(false)}
+              className="drawer-container"
+            >
+              <Box
+                className="logo-drawer"
+                sx={{ display: { xs: "flex", md: "none" } }}
+              >
+                <Link to={"/"}>
+                  <Typography variant="h6" noWrap component="span">
+                    <img className="logo" src={Logo} alt="Icon RentCar" />
+                    CARS
+                  </Typography>
+                </Link>
+              </Box>
+              <Box
+                className="divider"
+                sx={{ display: { xs: "flex", md: "none" } }}
+              ></Box>
 
+              {list("left")}
+              <Box
+                className="divider"
+                sx={{ display: { xs: "flex", md: "none" } }}
+              ></Box>
+              <div className="inferior">
+                <div className="by flex">
+                  <div className="icons">
+                    <a
+                      href="https://www.instagram.com/"
+                      className="icon1 icon--instagram"
+                    >
+                      <i className="ri-instagram-line"></i>
+                    </a>
+                    <a
+                      href="https://twitter.com/?lang=es"
+                      className="icon1 icon--twitter"
+                    >
+                      <i className="ri-twitter-line"></i>
+                    </a>
+                    <a
+                      href="https://es.linkedin.com/"
+                      className="icon1 icon--linkedin"
+                    >
+                      <i className="ri-linkedin-line"></i>
+                    </a>
+                    <a
+                      href="https://github.com/"
+                      className="icon1 icon--github"
+                    >
+                      <i className="ri-github-line"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <label
+                htmlFor="menu-control"
+                className="close"
+                onClick={() => setOpenDrawer(false)}
+              ></label>
+            </Drawer>
             <Menu
               id="menu-appbar"
               anchorEl={anchorElNav}

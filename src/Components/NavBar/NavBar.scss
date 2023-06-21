@@ -18,9 +18,6 @@
     .container-logo {
       line-height: 5rem;
       &:hover {
-        //transition: filter 0.1s linear;
-        /*  filter: brightness(0) saturate(100%) invert(23%) sepia(100%)
-          saturate(1627%) hue-rotate(191deg) brightness(94%) contrast(103%); */
         filter: brightness(0) saturate(100%) invert(73%) sepia(100%)
           saturate(553%) hue-rotate(327deg) brightness(100%) contrast(103%);
       }
@@ -59,8 +56,8 @@
       }
     }
     .avatar {
-      width: 70px;
-      height: 70px;
+      width: 80px;
+      height: 80px;
       background-color: transparent;
       border: 3px solid white;
       &:hover {
@@ -70,39 +67,145 @@
       }
     }
   }
+  &.colored {
+    background-color: rgba($primary, 0.7);
+    backdrop-filter: blur(5px);
+    box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
+      0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+    padding: 0.5rem 0;
+  }
+  &.normal {
+    background-color: $primary;
+    box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
+      0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+    padding: 0.5rem 0;
+  }
 }
+.drawer-container > div + div {
+  background-color: rgba($primary, 0.7);
+  backdrop-filter: blur(5px);
+  overflow: visible;
+  .divider {
+    height: 0.5rem;
+    background-color: #fff;
+    width: 90%;
+    margin: 1rem auto;
+  }
+  .link-drawer > div > div + div > span {
+    color: #fff;
+    font-size: 2rem;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    &:hover {
+      background-position: 0 100%;
+    }
+  }
+  .icons-drawer {
+    color: #fff;
+  }
+  .logo-drawer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0;
+    &:hover {
+      filter: brightness(0) saturate(100%) invert(73%) sepia(100%)
+        saturate(553%) hue-rotate(327deg) brightness(100%) contrast(103%);
+    }
+    & > a > span {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Recons !important;
+      font-size: 2rem;
+      text-decoration: none !important;
+      color: #fff;
+      font-weight: 100;
+      &:hover {
+        color: $secondary;
+      }
+      & > img {
+        width: 3rem;
+      }
+    }
+  }
+  .link-drawer {
+    padding: 1rem 0.5rem;
+    position: relative;
+    transform: translateX(-200%);
+    opacity: 0;
+    animation: slide-in-anim 0.5s ease-in-out forwards;
+    @for $i from 2 through 4 {
+      &:nth-child(#{$i}n) {
+        animation-delay: #{$i * 0.1}s;
+      }
+    }
+    @keyframes slide-in-anim {
+      20% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    div > div + div > span {
+      $anchoLinea: 0.1em;
+      padding-bottom: $anchoLinea;
+      background: linear-gradient(90deg, $secondary 50%, $secondary 0)
+          calc(100% - var(--_p, 0%)) / 200% 100%,
+        linear-gradient($secondary 0 0) 0% 100% / var(--_p, 0%) $anchoLinea
+          no-repeat;
+      -webkit-background-clip: text, padding-box;
+      background-clip: text, padding-box;
+      transition: 0.5s;
+    }
+    &:hover {
+      --_p: 100%;
+      .icons-drawer {
+        color: $secondary;
+      }
+    }
+  }
+  .close {
+    position: absolute;
+    top: 50%;
+    right: -90px;
+    background: #fff;
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    box-shadow: 0 0 20px 20px rgba(0, 0, 0, 0.03);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translatex(-100%);
+    cursor: pointer;
+    transition: transform 0.4s ease-in-out 0.2s;
+    &:hover {
+      &::before,
+      &::after {
+        background: $secondary;
+      }
+    }
 
-#nav.colored {
-  background-color: $primary;
-  box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
-    0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
-  padding: 0.5rem 0;
-}
-#nav.normal {
-  background-color: $primary;
-  box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
-    0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
-  padding: 0.5rem 0;
-}
+    &::before,
+    &::after {
+      content: "";
+      height: 4px;
+      background: $primary;
+      width: 24px;
+      display: block;
+      position: absolute;
+    }
 
-//width 100% nav
-.css-19r6kue-MuiContainer-root {
-  max-width: 100% !important;
-  padding: 0 1.2rem !important;
-}
-//width Avatar same as logo
-.MuiBox-root.css-2uchni {
-  display: flex;
-  justify-content: end;
-  min-width: 142.56px !important;
-}
-// Avatar
-.css-mf1cb5-MuiButtonBase-root-MuiIconButton-root {
-  padding: 0 !important;
-}
-//(width Avatar same as logo) not in phone view
-@media only screen and (max-width: 900px) {
-  .MuiBox-root.css-2uchni {
-    min-width: inherit !important;
+    &::after {
+      transform: rotate(45deg);
+    }
+    &::before {
+      transform: rotate(135deg);
+    }
   }
 }

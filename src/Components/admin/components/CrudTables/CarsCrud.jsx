@@ -21,6 +21,7 @@ import SaveIcon from "@mui/icons-material/Save";
 import SuccessNotification from "../../../notifications/Notification";
 import CarService from "../../../../services/apiRequest/Crud/CarsService";
 import DeleteDialog from "../DeleteDialog";
+import CustomService from "../../../../Services/apiRequest/CustomService";
 
 const CarsCrud = () => {
   const [createModalOpen, setCreateModalOpen] = useState(false);
@@ -32,9 +33,11 @@ const CarsCrud = () => {
   const [caller, setCaller] = useState("");
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const [rowToEliminate, setRowToEliminate] = useState(null);
+  const [branches, setBranches] = useState([]);
 
   useEffect(() => {
     CarService.getCars(setTableData, setIsLoading);
+    CustomService.fetchBranches(true, setBranches);
   }, []);
 
   const handleCreateNewRow = (values) => {
@@ -139,7 +142,14 @@ const CarsCrud = () => {
         enableClickToCopy: true,
         muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
           ...getCommonEditTextFieldProps(cell),
-          type: "number",
+          select: true,
+          children: branches
+            .map((obj) => obj.name)
+            .map((state) => (
+              <MenuItem key={state} value={state}>
+                {state}
+              </MenuItem>
+            )),
         }),
       },
       {
@@ -214,7 +224,7 @@ const CarsCrud = () => {
         }),
       },
     ],
-    [getCommonEditTextFieldProps]
+    [branches, getCommonEditTextFieldProps]
   );
 
   return (
@@ -278,6 +288,8 @@ const CarsCrud = () => {
         setShowNotification={setShowNotification}
         setSeverity={setSeverity}
         setCaller={setCaller}
+        tableData={tableData}
+        branches={branches}
       />
       <SuccessNotification
         open={showNotification}
@@ -304,6 +316,8 @@ export const CreateNewCarModal = ({
   setShowNotification,
   setSeverity,
   setCaller,
+  tableData,
+  branches,
 }) => {
   const [values, setValues] = useState(() =>
     columns.reduce((acc, column) => {
@@ -315,6 +329,7 @@ export const CreateNewCarModal = ({
   const [isLoadingButton, setIsLoadingButton] = useState(false);
 
   const handleSubmit = async () => {
+    console.log(values);
     for (const key in values) {
       let label = "";
       switch (key) {
@@ -386,6 +401,10 @@ export const CreateNewCarModal = ({
     validateField(name, value, label);
   };
   const validateField = (fieldName, value, label) => {
+    if (fieldName === "image") {
+      return;
+    }
+
     if (!value) {
       setValidationErrors((prevState) => ({
         //si extraen todos los valores anteriores...
@@ -401,11 +420,24 @@ export const CreateNewCarModal = ({
         [fieldName]: ``,
       }));
     }
+    if (fieldName == "registration") {
+      const exist = tableData.find(
+        (car) => car.registration.toLowerCase() === value.toLowerCase()
+      );
+      if (exist) {
+        setValidationErrors((prevState) => ({
+          //si extraen todos los valores anteriores...
+          ...prevState,
+          //Se establece el campo y su valor dinámicamente
+          [fieldName]: `Matricula repetida`,
+        }));
+      }
+    }
   };
 
   return (
     <Dialog open={open}>
-      <DialogTitle textAlign="center">Añadir Sucursal</DialogTitle>
+      <DialogTitle textAlign="center">Añadir Coche</DialogTitle>
       <DialogContent>
         <form onSubmit={(e) => e.preventDefault()}>
           <Stack
@@ -431,9 +463,18 @@ export const CreateNewCarModal = ({
                     onChange={handleInputChange}
                     error={!!error}
                     helperText={error}
-                    inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
-                    type="number"
-                  />
+                    select
+                    defaultValue=""
+                    size="small"
+                  >
+                    {branches
+                      .map((obj) => ({ value: obj.id, label: obj.name }))
+                      .map((option) => (
+                        <MenuItem key={option.value} value={option.value}>
+                          {option.label}
+                        </MenuItem>
+                      ))}
+                  </TextField>
                 );
               } else if (column.accessorKey == "fuelType") {
                 return (
