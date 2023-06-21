@@ -68,7 +68,7 @@ export const SearchCar = () => {
 
   return (
     <>
-      <div className="container-search-car">
+      <div data-aos="fade-left" className="container-search-car">
         <Box textAlign="center">
           <ComboBoxBranches
             name={"recogida"}
@@ -235,7 +235,7 @@ export const SearchCar = () => {
       };
       typeof returnBranch === "undefined"
         ? (returnBranch = branch)
-        : returnBranch
+        : returnBranch;
 
       const reserva = { branch, returnBranch, bookingDates, age };
       CustomService.fetchCars(reserva, setCars, setBooking).then(() => {

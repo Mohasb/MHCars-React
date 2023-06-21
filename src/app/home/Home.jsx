@@ -9,9 +9,9 @@ import getImageByKey from "../../app/home/cars";
 export default function Home() {
   useEffect(() => {
     AOS.init({
-      duration: 1200,
+      duration: 200,
+      delay: 200,
     });
-    AOS.refresh();
   }, []);
 
   return (
@@ -19,7 +19,9 @@ export default function Home() {
       <div id="parallax">
         <section>
           <div className="parallax-one">
-            <h2 className="title-search-car">Alquiler de coches</h2>
+            <div data-aos="fade-right">
+              <h2 className="title-search-car">Alquiler de coches</h2>
+            </div>
             <SearchCar />
           </div>
         </section>

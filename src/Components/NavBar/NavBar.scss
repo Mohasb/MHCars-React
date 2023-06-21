@@ -15,8 +15,12 @@
   padding-bottom: 2rem;
   .toolbar {
     justify-content: space-between;
+    .button-avatar {
+      padding: 0;
+    }
     .container-logo {
       line-height: 5rem;
+      padding: 0 0 0 1rem;
       &:hover {
         filter: brightness(0) saturate(100%) invert(73%) sepia(100%)
           saturate(553%) hue-rotate(327deg) brightness(100%) contrast(103%);
@@ -36,7 +40,7 @@
       }
     }
     .menu-icon {
-      transform: scale(2.5);
+      transform: scale(3);
       color: #fff;
       border: 1px solid white;
       border-radius: 5px;
@@ -51,8 +55,17 @@
       color: #fff;
       font-size: 1.5rem;
       font-weight: bold;
+      $anchoLinea: 0.1em;
+      padding-bottom: $anchoLinea;
+      background: linear-gradient(90deg, $secondary 50%, $secondary 0)
+          calc(100% - var(--_p, 0%)) / 200% 100%,
+        linear-gradient($secondary 0 0) 0% 100% / var(--_p, 0%) $anchoLinea
+          no-repeat;
+      -webkit-background-clip: text, padding-box;
+      background-clip: text, padding-box;
+      transition: 0.5s;
       &:hover {
-        color: $secondary;
+        --_p: 100%;
       }
     }
     .avatar {

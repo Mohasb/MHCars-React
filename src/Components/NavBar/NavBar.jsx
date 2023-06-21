@@ -357,7 +357,7 @@ function ResponsiveAppBar() {
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Perfil">
-              <IconButton size="large" onClick={handleOpenUserMenu}>
+              <IconButton size="large" onClick={handleOpenUserMenu} className="button-avatar">
                 <Avatar
                   className="avatar"
                   alt={user && user.image ? `image${user.name}` : ""}
