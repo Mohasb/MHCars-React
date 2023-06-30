@@ -31,6 +31,7 @@ const getCurrentUser = (id) => {
     const response = fetch(`http://localhost:5134/api/clients/${id}`)
       .then((response) => response.json())
       .then((response) => {
+        console.log(response);
         return response;
       });
     return response;

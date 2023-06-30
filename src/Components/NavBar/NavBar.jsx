@@ -32,7 +32,6 @@ import { faPencilAlt, faPowerOff } from "@fortawesome/free-solid-svg-icons";
 import * as React from "react";
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
-import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
@@ -65,10 +64,12 @@ function ResponsiveAppBar() {
       role="presentation"
       onClick={(e) => {
         setOpenDrawer(false);
+        e.target.textContent === "Acceso" ? iniciar.click() :
         navigate("/" + e.target.textContent);
       }}
       onKeyDown={(e) => console.log(e)}
     >
+
       <List className="container-links-drawer">
         {pages.map((text) => (
           <ListItem key={text} className="link-drawer">
@@ -118,7 +119,6 @@ function ResponsiveAppBar() {
           </ListItem>
         ))}
       </List>
-      <Divider />
     </Box>
   );
 
@@ -140,6 +140,8 @@ function ResponsiveAppBar() {
       }
     }
   }
+  const iniciar =
+      document.querySelector("#Iniciar") || document.querySelector("#Inicia");
 
   /* const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -150,8 +152,6 @@ function ResponsiveAppBar() {
 
   const handleCloseNavMenu = (page) => {
     setAnchorElNav(null);
-    const iniciar =
-      document.querySelector("#Iniciar") || document.querySelector("#Inicia");
     if (typeof page == "string" || typeof page.target.value == "string") {
       if (page === "Acceso" || page.target.value === "Acceso") {
         iniciar.click();
@@ -253,15 +253,15 @@ function ResponsiveAppBar() {
               </Box>
               <Box
                 className="divider"
-                sx={{ display: { xs: "flex", md: "none" } }}
+                sx={{ display: { xs: "flex", md: "flex" } }}
               ></Box>
 
               {list("left")}
               <Box
                 className="divider"
-                sx={{ display: { xs: "flex", md: "none" } }}
+                sx={{ display: { xs: "flex", md: "flex" } }}
               ></Box>
-              <div className="inferior">
+              <div className="inferior social">
                 <div className="by flex">
                   <div className="icons">
                     <a

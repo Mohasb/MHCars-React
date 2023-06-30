@@ -19,7 +19,8 @@ import ClientsService from "../../../../services/apiRequest/Crud/ClientsService"
 import LoadingButton from "@mui/lab/LoadingButton";
 import SaveIcon from "@mui/icons-material/Save";
 import SuccessNotification from "../../../notifications/Notification";
-import BranchService from "../../../../services/apiRequest/Crud/BranchService";
+import ClientService from "../../../../services/apiRequest/Crud/ClientsService";
+import DeleteDialog from "../DeleteDialog";
 
 const ClientsCrud = () => {
   const [createModalOpen, setCreateModalOpen] = useState(false);
@@ -29,6 +30,8 @@ const ClientsCrud = () => {
   const [showNotification, setShowNotification] = useState(false);
   const [severity, setSeverity] = useState("");
   const [caller, setCaller] = useState("");
+  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+  const [rowToEliminate, setRowToEliminate] = useState(null);
 
   useEffect(() => {
     ClientsService.getClients(setTableData, setIsLoading);
@@ -41,8 +44,7 @@ const ClientsCrud = () => {
 
   const handleSaveRowEdits = async ({ exitEditingMode, row, values }) => {
     if (!Object.keys(validationErrors).length) {
-      console.log(values);
-      BranchService.putBranch(values).then((resp) => {
+      ClientService.putClient(values).then((resp) => {
         if (resp.ok) {
           setShowNotification(true);
           setSeverity("success");
@@ -65,16 +67,8 @@ const ClientsCrud = () => {
 
   const handleDeleteRow = useCallback(
     (row) => {
-      if (
-        !confirm(
-          `Estás seguro de eliminar ${row.getValue("name")}(${row.getValue(
-            "cif"
-          )})`
-        )
-      ) {
-        return;
-      }
-      BranchService.deleteBranch(row.getValue("id")).then((response) => {
+      setOpenDeleteDialog(false);
+      ClientService.deleteClient(row.getValue("id")).then((response) => {
         if (response.ok) {
           setShowNotification(true);
           setSeverity("success");
@@ -190,6 +184,15 @@ const ClientsCrud = () => {
           ...getCommonEditTextFieldProps(cell),
         }),
       },
+      {
+        accessorKey: "password",
+        header: "Password",
+        size: 80,
+        enableEditing: false,
+        muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
+          ...getCommonEditTextFieldProps(cell),
+        }),
+      },
     ],
     [getCommonEditTextFieldProps]
   );
@@ -225,7 +228,13 @@ const ClientsCrud = () => {
               </IconButton>
             </Tooltip>
             <Tooltip arrow placement="right" title="Eliminar">
-              <IconButton color="error" onClick={() => handleDeleteRow(row)}>
+              <IconButton
+                color="error"
+                onClick={() => {
+                  setOpenDeleteDialog(true);
+                  setRowToEliminate(row);
+                }}
+              >
                 <Delete />
               </IconButton>
             </Tooltip>
@@ -241,7 +250,7 @@ const ClientsCrud = () => {
           </Button>
         )}
       />
-      <CreateNewBranchModal
+      <CreateNewClientModal
         columns={columns}
         open={createModalOpen}
         onClose={() => setCreateModalOpen(false)}
@@ -249,6 +258,7 @@ const ClientsCrud = () => {
         setShowNotification={setShowNotification}
         setSeverity={setSeverity}
         setCaller={setCaller}
+        tableData={tableData}
       />
       <SuccessNotification
         open={showNotification}
@@ -256,12 +266,18 @@ const ClientsCrud = () => {
         severity={severity}
         caller={caller}
       />
+      <DeleteDialog
+        open={openDeleteDialog}
+        setOpenDeleteDialog={setOpenDeleteDialog}
+        handleDeleteRow={handleDeleteRow}
+        row={rowToEliminate}
+      />
     </>
   );
 };
 
 //Dialog Add Branch
-export const CreateNewBranchModal = ({
+export const CreateNewClientModal = ({
   open,
   columns,
   onClose,
@@ -269,6 +285,7 @@ export const CreateNewBranchModal = ({
   setShowNotification,
   setSeverity,
   setCaller,
+  tableData,
 }) => {
   const [values, setValues] = useState(() =>
     columns.reduce((acc, column) => {
@@ -280,27 +297,23 @@ export const CreateNewBranchModal = ({
   const [isLoadingButton, setIsLoadingButton] = useState(false);
 
   const handleSubmit = async () => {
-    //put your validation logic here
     for (const key in values) {
       let label = "";
       switch (key) {
-        case "id":
-          label = "Id";
-          break;
-        case "cif":
-          label = "Cif";
+        case "registration":
+          label = "La Identificación";
           break;
         case "name":
-          label = "Nombre";
+          label = "El Nombre";
           break;
-        case "population":
-          label = "Población";
+        case "email":
+          label = "El Email";
           break;
-        case "country":
-          label = "País";
+        case "bankAccount":
+          label = "La Cuenta Bancaria";
           break;
-        case "address":
-          label = "Dirección";
+        case "password":
+          label = "El Password";
           break;
         default:
           break;
@@ -309,10 +322,12 @@ export const CreateNewBranchModal = ({
       validateField(key, values[key], label);
     }
     delete values["id"];
-    const isValid = Object.values(values).every((x) => x !== "");
+    console.log(values);
+    const isValid = Object.values(validationErrors).every((x) => x === "");
+    console.log(isValid);
     if (isValid) {
       setIsLoadingButton(true);
-      await BranchService.postNewBranch(values).then((response) => {
+      await ClientService.postNewClient(values).then((response) => {
         if (response.isOk) {
           values.id = response.id;
           setIsLoadingButton(false);
@@ -332,6 +347,15 @@ export const CreateNewBranchModal = ({
     validateField(name, value, label);
   };
   const validateField = (fieldName, value, label) => {
+    //not required fields
+    if (
+      fieldName === "lastName" ||
+      fieldName === "phoneNumber" ||
+      fieldName === "rol"
+    ) {
+      return;
+    }
+    //set error required
     if (!value) {
       setValidationErrors((prevState) => ({
         //si extraen todos los valores anteriores...
@@ -346,6 +370,66 @@ export const CreateNewBranchModal = ({
         //Se establece el campo y su valor dinámicamente
         [fieldName]: ``,
       }));
+    }
+    //Validation registration unique and email unique
+    if (fieldName == "registration") {
+      const exist = tableData.find(
+        (client) => client.registration.toLowerCase() === value.toLowerCase()
+      );
+      if (value === "") {
+        setValidationErrors((prevState) => ({
+          //si extraen todos los valores anteriores...
+          ...prevState,
+          //Se establece el campo y su valor dinámicamente
+          [fieldName]: `${label} es requerido`,
+        }));
+      } else if (exist) {
+        setValidationErrors((prevState) => ({
+          //si extraen todos los valores anteriores...
+          ...prevState,
+          //Se establece el campo y su valor dinámicamente
+          [fieldName]: `La Identificacion debe ser unica`,
+        }));
+      } else if (!/^[0-9]{8,8}[A-Za-z]$/g.test(value)) {
+        setValidationErrors((prevState) => ({
+          //si extraen todos los valores anteriores...
+          ...prevState,
+          //Se establece el campo y su valor dinámicamente
+          [fieldName]: `Formato identificacion incorrecto(12345678A)`,
+        }));
+      }
+    }
+    if (fieldName == "email") {
+      console.log(value);
+      const exist = tableData.find(
+        (client) => client.email.toLowerCase() === value.toLowerCase()
+      );
+      if (value === "") {
+        setValidationErrors((prevState) => ({
+          //si extraen todos los valores anteriores...
+          ...prevState,
+          //Se establece el campo y su valor dinámicamente
+          [fieldName]: `El Email es requerido`,
+        }));
+      } else if (exist) {
+        setValidationErrors((prevState) => ({
+          //si extraen todos los valores anteriores...
+          ...prevState,
+          //Se establece el campo y su valor dinámicamente
+          [fieldName]: `El Email debe ser unico`,
+        }));
+      } else if (
+        !/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g.test(
+          value
+        )
+      ) {
+        setValidationErrors((prevState) => ({
+          //si extraen todos los valores anteriores...
+          ...prevState,
+          //Se establece el campo y su valor dinámicamente
+          [fieldName]: `Formato email mal`,
+        }));
+      }
     }
   };
 
@@ -376,9 +460,6 @@ export const CreateNewBranchModal = ({
                   onChange={handleInputChange}
                   error={!!error}
                   helperText={error}
-                  /* onChange={(e) =>
-                      setValues({ ...values, [e.target.name]: e.target.value })
-                    } */
                 />
               );
             })}
@@ -389,6 +470,12 @@ export const CreateNewBranchModal = ({
         <Button
           onClick={() => {
             setValidationErrors({});
+            setValues(() =>
+              columns.reduce((acc, column) => {
+                acc[column.accessorKey ?? ""] = "";
+                return acc;
+              }, {})
+            );
             onClose();
           }}
         >

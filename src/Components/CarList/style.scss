@@ -31,6 +31,11 @@
     .wraper-card {
       box-shadow: 0 30px 20px rgba(0, 0, 0, 0.3);
       .MuiPaper-root {
+        &:hover {
+          .car-img {
+            transform: translate(0, -15px);
+          }
+        }
         @include styleContainers;
         p {
           text-align: center;
@@ -42,11 +47,6 @@
         }
       }
       .card-action-area {
-        &:hover {
-          .car-img {
-            transform: translate(0, -15px);
-          }
-        }
         .car-img {
           transition: transform 0.3s ease;
           scale: 1.2;

@@ -98,11 +98,14 @@
   background-color: rgba($primary, 0.7);
   backdrop-filter: blur(5px);
   overflow: visible;
+  display: flex;
+  flex-direction: column nowrap;
+  justify-content: space-around;
   .divider {
     height: 0.5rem;
     background-color: #fff;
     width: 90%;
-    margin: 1rem auto;
+    margin: 0 auto;
   }
   .link-drawer > div > div + div > span {
     color: #fff;
@@ -222,3 +225,4 @@
     }
   }
 }
+

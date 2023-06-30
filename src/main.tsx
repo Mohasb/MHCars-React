@@ -1,4 +1,4 @@
-//import React from "react";
+import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import "./index.scss";
@@ -9,7 +9,7 @@ import { Application } from "react-rainbow-components";
 import { themeRainbow } from "./Components/Theme/ThemeRainbow";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  //<React.StrictMode>
+  <React.StrictMode>
   <BrowserRouter>
     <ThemeProvider theme={theme}>
       <Application theme={themeRainbow}>
@@ -17,5 +17,5 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
       </Application>
     </ThemeProvider>
   </BrowserRouter>
-  //</React.StrictMode>,
+  </React.StrictMode>,
 );

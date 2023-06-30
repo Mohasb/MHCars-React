@@ -16,6 +16,9 @@
 .slideshow-image {
   scale: 0.7;
   margin: 0 -4rem;
+  @media screen and (max-width: 767px) {
+    scale: 0.6;
+  }
 }
 @keyframes slide-x {
   0% {
@@ -86,7 +89,7 @@
 #parallax .block {
   background: white;
   padding: 60px;
-  width: 820px;
+  width: 100%;
   margin: 0 auto;
   text-align: justify;
 }

@@ -26,7 +26,7 @@ export default function Notification(props) {
                 <div>{props.user.name}!</div>
               </div>
               <div className="second">
-                <div>Road lover</div>
+                <div>{props.user.name}!</div>
               </div>
               <div className="third">
                 <div>{props.user.name}!</div>

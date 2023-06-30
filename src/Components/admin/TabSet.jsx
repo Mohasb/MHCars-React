@@ -50,7 +50,7 @@ function a11yProps(index) {
 }
 
 export default function TabsAdmin() {
-  const [value, setValue] = useState(1);
+  const [value, setValue] = useState(2);
   const navigate = useNavigate();
 
   useEffect(() => {
