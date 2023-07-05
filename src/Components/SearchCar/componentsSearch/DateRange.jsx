@@ -8,7 +8,6 @@ function DateRange(props) {
   const containerStyles = {
     padding: 0,
     maxWidth: 600,
-    margin: "1rem auto",
   };
   const [state, setState] = useState(initialState);
 

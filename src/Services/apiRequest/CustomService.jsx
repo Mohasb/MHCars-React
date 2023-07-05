@@ -86,11 +86,30 @@ const fetchCars = async (booking, setCars, setBooking) => {
   }
 };
 
+const updatePwd = async (user, id) => {
+  try {
+    const response = await fetch(`${baseUrl}Custom/updatePwd/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: autorization,
+      },
+      body: JSON.stringify(user),
+    }).then((response) => {
+      return response;
+    });
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
 const CustomService = {
   fetchBranches,
   getReservationByClient,
   DeleteReservation,
   fetchCars,
+  updatePwd,
 };
 
 export default CustomService;

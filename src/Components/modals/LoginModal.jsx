@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { Modal, Button, Input } from "react-rainbow-components";
 import authService from "../../services/login/auth.service";
 import { useNavigate } from "react-router-dom";
@@ -6,13 +6,16 @@ import { Link } from "react-router-dom";
 import Context from "../../services/contextUser/ContextUser";
 import Stack from "@mui/material/Stack";
 import CryptoJS from "crypto-js";
+import EditPwd from "./EditPassworModal";
 
 export default function LoginModal(props) {
+  const [isOpenModalPwd, setIsOpenModalPwd] = useState(false);
+
   const { user, setUser } = useContext(Context);
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(props.openModal);
-  const [emailUser, setEmail] = useState("mh@gmail.com");
-  const [passwordUser, setPassword] = useState("Mh12345!");
+  const [emailUser, setEmail] = useState("");
+  const [passwordUser, setPassword] = useState("");
   const [errors, setErrors] = useState({
     emailError: "",
     passwordError: "",
@@ -133,7 +136,13 @@ export default function LoginModal(props) {
                 </p>
                 <p className="text-center">
                   ¿Has olvidado tu contraseña?&nbsp;
-                  <Link to={"/editpwd"} onClick={handleOnClose}>
+                  <Link
+                    to={"/"}
+                    onClick={() => {
+                      //handleOnClose();
+                      setIsOpenModalPwd(true);
+                    }}
+                  >
                     Modificala
                   </Link>
                 </p>
@@ -184,6 +193,10 @@ export default function LoginModal(props) {
             <input type="submit" value="" hidden />
           </form>
         </Modal>
+        <EditPwd
+          isOpenModalPwd={isOpenModalPwd}
+          setIsOpenModalPwd={setIsOpenModalPwd}
+        />
       </div>
     </div>
   );

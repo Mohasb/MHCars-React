@@ -64,12 +64,12 @@ function ResponsiveAppBar() {
       role="presentation"
       onClick={(e) => {
         setOpenDrawer(false);
-        e.target.textContent === "Acceso" ? iniciar.click() :
-        navigate("/" + e.target.textContent);
+        e.target.textContent === "Acceso"
+          ? iniciar.click()
+          : navigate("/" + e.target.textContent);
       }}
       onKeyDown={(e) => console.log(e)}
     >
-
       <List className="container-links-drawer">
         {pages.map((text) => (
           <ListItem key={text} className="link-drawer">
@@ -141,11 +141,8 @@ function ResponsiveAppBar() {
     }
   }
   const iniciar =
-      document.querySelector("#Iniciar") || document.querySelector("#Inicia");
+    document.querySelector("#Iniciar") || document.querySelector("#Inicia");
 
-  /* const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  }; */
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -196,12 +193,11 @@ function ResponsiveAppBar() {
   });
 
   const getImageAvatar = (user) => {
-    console.log(user.lastName === "undefined");
+
     const initials =
       user.lastName !== "undefined"
         ? user.name + "+" + user.lastName
         : user.name;
-    console.log(initials);
     return `https://www.gravatar.com/avatar/EMAIL_MD5?d=https%3A%2F%2Fui-avatars.com%2Fapi%2F/${initials}/512/F4B408/fff/2/0.5/false/true/true`;
   };
 
@@ -357,7 +353,11 @@ function ResponsiveAppBar() {
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Perfil">
-              <IconButton size="large" onClick={handleOpenUserMenu} className="button-avatar">
+              <IconButton
+                size="large"
+                onClick={handleOpenUserMenu}
+                className="button-avatar"
+              >
                 <Avatar
                   className="avatar"
                   alt={user && user.image ? `image${user.name}` : ""}

@@ -6,7 +6,7 @@ import Box from "@mui/material/Box";
 import Context from "../../services/contextUser/ContextUser";
 //Components
 import ReservationTable from "./ReservationTable";
-import EditPwd from "./../../components/modals/EditPassworModal";
+import EditPwd from "./../../Components/modals/EditPassworModal";
 //styles
 import "./style.scss";
 import { FileSelector } from "react-rainbow-components";
@@ -287,7 +287,6 @@ export default function UserPage() {
   };
 
   const getImageAvatar = (user) => {
-    console.log(user.lastName === "undefined");
     const initials =
       user.lastName !== "undefined"
         ? user.name + "+" + user.lastName

@@ -33,7 +33,6 @@ const postNewClient = async (client) => {
     })
       .then((res) => res.json())
       .then((resp) => {
-        console.log(resp);
         return resp;
       });
     return response;
@@ -81,12 +80,28 @@ const putClient = async (client) => {
     return error;
   }
 };
+const getJustClients = async () => {
+  try {
+    const response = await fetch(`${baseUrl + "clients"}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: autorization,
+      },
+    }).then((response) => {
+      return response.json();
+    });
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 const ClientsService = {
   getClients,
   postNewClient,
   deleteClient,
   putClient,
+  getJustClients,
 };
 
 export default ClientsService;
