@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 //Components
 import Home from "./app/home/Home";
 import ConfirmationBoocking from "./app/BookingConfirmation";
@@ -18,7 +18,9 @@ import { Outlet } from "react-router-dom";
 import CryptoJS from "crypto-js";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
-import SellCar from "./app/SellCar/SellCar";
+import SellCar from "./app/sellCar/SellCar";
+import CarShow from "./Components/car3d/CarShow";
+import Loader from "./Components/car3d/Loader";
 
 function App() {
   const [user, setUser] = useState();
@@ -79,7 +81,22 @@ function App() {
             <Route path="/booking" element={<ConfirmationBoocking />} />
             <Route path="/registro" element={<Register />} />
             <Route path="/user/:name" element={<UserPage />} />
-            <Route path="/venta" element={<SellCar />} />
+            <Route
+              path="/venta"
+              element={
+                <Suspense fallback={<Loader />}>
+                  <SellCar />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/show-room"
+              element={
+                <Suspense fallback={<Loader />}>
+                  <CarShow />
+                </Suspense>
+              }
+            />
           </Route>
           <Route
             path="/admin"

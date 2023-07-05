@@ -155,7 +155,7 @@
     animation: slide-in-anim 0.5s ease-in-out forwards;
     @for $i from 2 through 4 {
       &:nth-child(#{$i}n) {
-        animation-delay: #{$i * 0.1}s;
+        animation-delay: #{$i * 0.05}s;
       }
     }
     @keyframes slide-in-anim {

@@ -12,9 +12,9 @@
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
-    @include styleContainers;;
+    @include styleContainers;
     .divider {
-      width: 1rem;
+      width: 2%;
     }
   }
   .container-filters {

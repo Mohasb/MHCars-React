@@ -18,14 +18,13 @@ import Card from "@mui/material/Card";
 import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 
-import { Accordion, AccordionSection } from "react-rainbow-components";
-
 import { useEffect, useState, useContext } from "react";
 
 import Context from "../../services/contextUser/ContextUser";
 import ConfirmationModal from "../modals/ConfirmationModal";
 import "./style.scss";
 import getImageByKey from "../../app/home/cars";
+import emailjs from "@emailjs/browser";
 
 export default function ConfirmationCard({ car, booking }) {
   const { user, setUser } = useContext(Context);
@@ -37,6 +36,32 @@ export default function ConfirmationCard({ car, booking }) {
       ReservationCar(car, booking, user).then((response) => {
         if (response.status === 200) {
           setShowModal(true);
+          console.log(car);
+          console.log(booking);
+          console.log(user);
+          const params = {
+            user_email: user.email,
+            user_name: user.name,
+            pickUpBranch: booking.branch.name,
+            startDate: booking.bookingDates.startDate,
+            returnBranch: booking.returnBranch.name,
+            endDate: booking.bookingDates.endDate,
+          };
+          emailjs
+            .send(
+              "service_znehkog",
+              "template_4veh78m",
+              params,
+              "PS-t9bkec4GOVfXW2"
+            )
+            .then(
+              function (response) {
+                console.log("SUCCESS!", response.status, response.text);
+              },
+              function (error) {
+                console.log("FAILED...", error);
+              }
+            );
         }
       });
     } else {
@@ -146,7 +171,6 @@ export default function ConfirmationCard({ car, booking }) {
                 />
                 <CardContent>
                   <Stack
-                    spacing={1}
                     direction={{ xs: "column", sm: "row" }}
                     className="chips"
                   >
@@ -235,248 +259,6 @@ export default function ConfirmationCard({ car, booking }) {
                         {(car.price * days() + priceExtras).toFixed(2)}€
                       </Typography>
                     </Stack>
-                    <div className="extras">
-                      {/* <Accordion>
-                        <AccordionSummary
-                          expandIcon={<ExpandMoreIcon color="primary" />}
-                          aria-controls="panel1a-content"
-                          id="panel1a-header"
-                        >
-                          <Typography>Detalles Reserva</Typography>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                          <Stack
-                            spacing={1}
-                            direction={{ xs: "row", sm: "row" }}
-                          >
-                            <Typography
-                              gutterBottom
-                              variant="p"
-                              component="div"
-                            >
-                              ({car.price.toFixed(2)} * {days()} dias)
-                            </Typography>
-                            <Typography
-                              gutterBottom
-                              variant="p"
-                              component="div"
-                            >
-                              {(car.price.toFixed(2) * days()).toFixed(2)}
-                            </Typography>
-                          </Stack>
-                          {extras.isOuterJourney && (
-                            <Stack
-                              spacing={1}
-                              direction={{ xs: "row", sm: "row" }}
-                            >
-                              <Typography
-                                gutterBottom
-                                variant="p"
-                                component="div"
-                              >
-                                Cobertura exterior
-                              </Typography>
-                              <Typography
-                                gutterBottom
-                                variant="p"
-                                component="div"
-                              >
-                                + {priceIsOuterJourney.toFixed(2)}€
-                              </Typography>
-                            </Stack>
-                          )}
-                          {extras.isGps && (
-                            <Stack
-                              spacing={1}
-                              direction={{ xs: "row", sm: "row" }}
-                            >
-                              <Typography
-                                gutterBottom
-                                variant="p"
-                                component="div"
-                              >
-                                Navegador GPS
-                              </Typography>
-                              <Typography
-                                gutterBottom
-                                variant="p"
-                                component="div"
-                              >
-                                + {priceIsGps.toFixed(2)}€
-                              </Typography>
-                            </Stack>
-                          )}
-                          {!!extras.childSeats && (
-                            <Stack
-                              spacing={1}
-                              direction={{ xs: "row", sm: "row" }}
-                            >
-                              <Typography
-                                gutterBottom
-                                variant="p"
-                                component="div"
-                              >
-                                Asiento niño
-                              </Typography>
-                              <Typography
-                                gutterBottom
-                                variant="p"
-                                component="div"
-                              >
-                                +{" "}
-                                {(extras.childSeats * priceChildSeats).toFixed(
-                                  2
-                                )}
-                                €
-                              </Typography>
-                            </Stack>
-                          )}
-                          {extras.drivers > 1 && (
-                            <Stack
-                              spacing={1}
-                              direction={{ xs: "row", sm: "row" }}
-                            >
-                              <Typography
-                                gutterBottom
-                                variant="p"
-                                component="div"
-                              >
-                                Conductor extra
-                              </Typography>
-                              <Typography
-                                gutterBottom
-                                variant="p"
-                                component="div"
-                              >
-                                +{" "}
-                                {(
-                                  (extras.drivers - 1) *
-                                  priceExtraDrivers
-                                ).toFixed(2)}
-                                €
-                              </Typography>
-                            </Stack>
-                          )}
-                        </AccordionDetails>
-                      </Accordion> */}
-                      <Accordion id="accordion-1">
-                        <AccordionSection label="Detalles Reserva">
-                          <Stack
-                            spacing={1}
-                            direction={{ xs: "row", sm: "row" }}
-                          >
-                            <Typography
-                              gutterBottom
-                              variant="p"
-                              component="div"
-                            >
-                              ({car.price.toFixed(2)} * {days()} dias)
-                            </Typography>
-                            <Typography
-                              gutterBottom
-                              variant="p"
-                              component="div"
-                            >
-                              {(car.price.toFixed(2) * days()).toFixed(2)}
-                            </Typography>
-                          </Stack>
-                          {extras.isOuterJourney && (
-                            <Stack
-                              spacing={1}
-                              direction={{ xs: "row", sm: "row" }}
-                            >
-                              <Typography
-                                gutterBottom
-                                variant="p"
-                                component="div"
-                              >
-                                Cobertura exterior
-                              </Typography>
-                              <Typography
-                                gutterBottom
-                                variant="p"
-                                component="div"
-                              >
-                                + {priceIsOuterJourney.toFixed(2)}€
-                              </Typography>
-                            </Stack>
-                          )}
-                          {extras.isGps && (
-                            <Stack
-                              spacing={1}
-                              direction={{ xs: "row", sm: "row" }}
-                            >
-                              <Typography
-                                gutterBottom
-                                variant="p"
-                                component="div"
-                              >
-                                Navegador GPS
-                              </Typography>
-                              <Typography
-                                gutterBottom
-                                variant="p"
-                                component="div"
-                              >
-                                + {priceIsGps.toFixed(2)}€
-                              </Typography>
-                            </Stack>
-                          )}
-                          {!!extras.childSeats && (
-                            <Stack
-                              spacing={1}
-                              direction={{ xs: "row", sm: "row" }}
-                            >
-                              <Typography
-                                gutterBottom
-                                variant="p"
-                                component="div"
-                              >
-                                Asiento niño
-                              </Typography>
-                              <Typography
-                                gutterBottom
-                                variant="p"
-                                component="div"
-                              >
-                                +{" "}
-                                {(extras.childSeats * priceChildSeats).toFixed(
-                                  2
-                                )}
-                                €
-                              </Typography>
-                            </Stack>
-                          )}
-                          {extras.drivers > 1 && (
-                            <Stack
-                              spacing={1}
-                              direction={{ xs: "row", sm: "row" }}
-                            >
-                              <Typography
-                                gutterBottom
-                                variant="p"
-                                component="div"
-                              >
-                                Conductor extra
-                              </Typography>
-                              <Typography
-                                gutterBottom
-                                variant="p"
-                                component="div"
-                              >
-                                +{" "}
-                                {(
-                                  (extras.drivers - 1) *
-                                  priceExtraDrivers
-                                ).toFixed(2)}
-                                €
-                              </Typography>
-                            </Stack>
-                          )}
-                        </AccordionSection>
-                      </Accordion>
-                      {/*  /////////////////// */}
-                    </div>
                   </Stack>
                 </CardActions>
               </div>
@@ -492,7 +274,7 @@ export default function ConfirmationCard({ car, booking }) {
                 }}
                 sx={{ margin: "auto" }}
               >
-                Volver al listado &nbsp;
+                Volver &nbsp;
                 <UndoIcon color="primary" />
               </Button>
               <Button
@@ -504,7 +286,7 @@ export default function ConfirmationCard({ car, booking }) {
                 }}
                 sx={{ margin: "auto" }}
               >
-                CONFIRMAR RESERVA &nbsp;
+                CONFIRMAR &nbsp;
                 <SellIcon color="primary" />
               </Button>
             </CardActions>
@@ -535,7 +317,9 @@ export default function ConfirmationCard({ car, booking }) {
         {showModal && (
           <ConfirmationModal
             openModal={showModal}
-            text={"Reserva realizada correctamente"}
+            text={
+              "El pago y la reserva se han realizado correctamente.Se le han enviado los detalles de la reserva a su cuenta de correo electrónico"
+            }
           />
         )}
       </main>
