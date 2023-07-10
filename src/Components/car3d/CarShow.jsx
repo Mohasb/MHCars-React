@@ -9,7 +9,6 @@ import "../../app/sellCar/style.scss";
 
 export default function CarShow() {
   const { state } = useLocation();
-  console.log(state);
   let camera, scene, renderer, skybox, controls;
   const navigate = useNavigate();
   //const [car, setCar] = useState(state.car);
@@ -89,10 +88,9 @@ export default function CarShow() {
   }
 
   const handleChangeModel = (e) => {
-    console.log(scene);
+    const newCar = e.target.value;
     scene.remove(scene.getObjectByName("car"));
-    car = { car: e.target.value };
-    
+    car = newCar;
     loadNewCar(e.target.value);
     renderer.render(scene, camera);
   };
@@ -121,7 +119,8 @@ export default function CarShow() {
 
   useEffect(() => {
     document.querySelector("#scene3d").appendChild(renderer.domElement);
-  }, [renderer.domElement]);
+    document.querySelector("#select-car").value = car;
+  }, [car, renderer.domElement]);
 
   return (
     <div className="show-room">
@@ -131,7 +130,7 @@ export default function CarShow() {
           name="car"
           id="select-car"
           onChange={handleChangeModel}
-          value={car.car}
+          //value={car}
         >
           <option value="m4.glb">BMW M4 COMPETITION COUPÉ</option>
           <option value="bentley.glb">BENTLEY CONTINENTAL GT</option>
@@ -155,7 +154,7 @@ export default function CarShow() {
         <button
           style={{ backgroundColor: "#000" }}
           onClick={() => {
-            var elem = document.querySelector(".container-3dcars");
+            var elem = document.querySelector(".show-room");
             if (elem.requestFullscreen) {
               elem.requestFullscreen();
             } else if (elem.webkitRequestFullscreen) {
