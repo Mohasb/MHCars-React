@@ -4,16 +4,16 @@ import { GroundProjectedSkybox } from "three/addons/objects/GroundProjectedSkybo
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { RGBELoader } from "three/addons/loaders/RGBELoader.js";
 import { useEffect, useState } from "react";
-import Logo from "/src/assets/MHIcon.svg";
 import { useLocation, useNavigate } from "react-router-dom";
+import "../../app/sellCar/style.scss";
 
-export default function CarShow(props) {
+export default function CarShow() {
   const { state } = useLocation();
   console.log(state);
   let camera, scene, renderer, skybox, controls;
-  const loadingManager = new THREE.LoadingManager();
   const navigate = useNavigate();
-  const [car, setCar] = useState(props.car);
+  //const [car, setCar] = useState(state.car);
+  let car = state.car;
 
   init().then(render);
 
@@ -38,7 +38,7 @@ export default function CarShow(props) {
 
     scene = new THREE.Scene();
 
-    const hdrLoader = new RGBELoader(loadingManager);
+    const hdrLoader = new RGBELoader();
     const envMap = await hdrLoader.loadAsync(
       "src/assets/cars3d/hdri/wide_street_02_2k.hdr"
     );
@@ -50,7 +50,7 @@ export default function CarShow(props) {
 
     scene.environment = envMap;
 
-    const loader = new GLTFLoader(loadingManager).setPath("src/assets/cars3d/");
+    const loader = new GLTFLoader().setPath("src/assets/cars3d/");
     loader.load(car, function (gltf) {
       const model = gltf.scene;
       model.scale.multiplyScalar(3);
@@ -89,17 +89,16 @@ export default function CarShow(props) {
   }
 
   const handleChangeModel = (e) => {
-    console.log(controls.object.position);
-    console.log(e.target.value);
     console.log(scene);
-    setCar(e.target.value);
     scene.remove(scene.getObjectByName("car"));
+    car = { car: e.target.value };
+    
     loadNewCar(e.target.value);
     renderer.render(scene, camera);
   };
 
   function loadNewCar(model) {
-    const loader = new GLTFLoader(loadingManager).setPath("src/assets/cars3d/");
+    const loader = new GLTFLoader().setPath("src/assets/cars3d/");
     loader.load(model, function (gltf) {
       const model = gltf.scene;
 
@@ -119,51 +118,20 @@ export default function CarShow(props) {
     camera.updateProjectionMatrix();
     controls.update();
   }
+
   useEffect(() => {
     document.querySelector("#scene3d").appendChild(renderer.domElement);
+  }, [renderer.domElement]);
 
-    const loaderWrapper = document.querySelector("#loader-wrapper");
-    loadingManager.onLoad = () => {
-      loaderWrapper.style.display = "none";
-    };
-    loadingManager.onStart = () => {
-      loaderWrapper.style.display == "none"
-        ? (loaderWrapper.style.display = "block")
-        : (loaderWrapper.style.display = "none");
-    };
-  }, [loadingManager, renderer.domElement]);
   return (
-    <>
-      <div id="loader-wrapper">
-        <div className="loader">
-          <div className="line"></div>
-          <div className="line"></div>
-          <div className="line"></div>
-          <div className="line"></div>
-          <div className="line"></div>
-          <div className="line"></div>
-          <div className="subline"></div>
-          <div className="subline"></div>
-          <div className="subline"></div>
-          <div className="subline"></div>
-          <div className="subline"></div>
-          <div className="loader-circle-1">
-            <div className="loader-circle-2"></div>
-          </div>
-          <div className="needle"></div>
-          <div className="loading">
-            <img className="logo-loading" src={Logo} alt="Icon loading" />
-          </div>
-        </div>
-      </div>
+    <div className="show-room">
       <div id="info">
         <label htmlFor="select-car">Coche:</label>
-        {console.log(props)}
         <select
           name="car"
           id="select-car"
           onChange={handleChangeModel}
-          value={car}
+          value={car.car}
         >
           <option value="m4.glb">BMW M4 COMPETITION COUPÉ</option>
           <option value="bentley.glb">BENTLEY CONTINENTAL GT</option>
@@ -203,7 +171,6 @@ export default function CarShow(props) {
         </button>
         <button
           onClick={() => {
-            props.setCarShowRoom("");
             navigate("/venta");
           }}
           style={{ backgroundColor: "#000" }}
@@ -212,6 +179,6 @@ export default function CarShow(props) {
         </button>
       </div>
       <div id="scene3d"></div>
-    </>
+    </div>
   );
 }

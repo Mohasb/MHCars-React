@@ -60,7 +60,6 @@ const deleteBranch = async (id) => {
   }
 };
 const putBranch = async (branch) => {
-  console.log(branch);
   const response = await fetch(baseUrl + `branches/${branch.id}`, {
     method: "PUT",
     headers: {

@@ -24,6 +24,7 @@ export default function Loader() {
             <img className="logo-loading" src={Logo} alt="Icon loading" />
           </div>
         </div>
+        <h1 style={{ color: "red" }}>Cargando...</h1>
       </div>
     </div>
   );

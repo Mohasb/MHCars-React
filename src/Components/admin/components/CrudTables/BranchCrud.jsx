@@ -44,7 +44,6 @@ const BranchCrud = () => {
   const handleSaveRowEdits = async ({ exitEditingMode, row, values }) => {
     if (!Object.keys(validationErrors).length) {
       BranchService.putBranch(values).then((resp) => {
-        console.log(resp.ok);
         if (resp.ok) {
           setShowNotification(true);
           setSeverity("success");

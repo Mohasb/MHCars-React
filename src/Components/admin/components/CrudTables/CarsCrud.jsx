@@ -96,7 +96,7 @@ const CarsCrud = () => {
         helperText: validationErrors[cell.id],
         onBlur: (event) => {
           const isValid = validateRequired(event.target.value);
-
+          console.log(cell);
           if (!isValid) {
             //set validation error for cell if invalid
             setValidationErrors({
@@ -329,7 +329,6 @@ export const CreateNewCarModal = ({
   const [isLoadingButton, setIsLoadingButton] = useState(false);
 
   const handleSubmit = async () => {
-    console.log(values);
     for (const key in values) {
       let label = "";
       switch (key) {
@@ -369,9 +368,11 @@ export const CreateNewCarModal = ({
 
     delete values["id"];
     const isValid = Object.values(values).every((x) => x !== "");
+    console.log(isValid);
     if (isValid) {
       setIsLoadingButton(true);
       await CarService.postNewCar(values).then((response) => {
+        console.log(response);
         if (response.id) {
           values.id = response.id;
           setIsLoadingButton(false);
@@ -401,10 +402,6 @@ export const CreateNewCarModal = ({
     validateField(name, value, label);
   };
   const validateField = (fieldName, value, label) => {
-    if (fieldName === "image") {
-      return;
-    }
-
     if (!value) {
       setValidationErrors((prevState) => ({
         //si extraen todos los valores anteriores...
@@ -546,6 +543,17 @@ export const CreateNewCarModal = ({
                       </MenuItem>
                     ))}
                   </TextField>
+                );
+              } else if (column.accessorKey == "image") {
+                return (
+                  <TextField
+                    key={column.accessorKey}
+                    label={column.header}
+                    name={column.accessorKey}
+                    onChange={handleInputChange}
+                    error={!!error}
+                    helperText={error}
+                  />
                 );
               } else {
                 return (

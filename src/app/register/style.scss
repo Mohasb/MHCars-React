@@ -1,5 +1,24 @@
 @import "../../primaryVariables.scss";
 
+.register {
+  @include layoutPages;
+  padding-bottom: 1rem;
+  .title {
+    text-align: center;
+    font-size: 2rem;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+  .register-container {
+    @include styleContainers;
+    margin-bottom: 0;
+  }
+  label {
+    color: #fff;
+  }
+}
+
 .valid {
   border: 2px solid aquamarine !important;
   transition-property: border !important;

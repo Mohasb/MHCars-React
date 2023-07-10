@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
 import { useGLTF, Stage, OrbitControls } from "@react-three/drei";
 
@@ -12,9 +13,15 @@ export default function Car(props) {
     return <primitive object={scene} {...props} />;
   }
 
+  useEffect(() => {
+    return () => {
+      useGLTF.clear(glbUrl);
+    };
+  }, [glbUrl]);
+
   return (
     <Canvas className="car-container" dpr={[1, 2]}>
-      <Stage environment="warehouse">
+      <Stage environment="warehouse" /* environment={null} */>
         <Model />
       </Stage>
       <OrbitControls
@@ -29,3 +36,6 @@ export default function Car(props) {
     </Canvas>
   );
 }
+
+/* renderer.dispose();
+    renderer.forceContextLoss(); */

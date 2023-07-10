@@ -18,7 +18,7 @@ import BranchCrud from "./components/CrudTables/BranchCrud";
 import CarsCrud from "./components/CrudTables/CarsCrud";
 import ClientsCrud from "./components/CrudTables/ClientsCrud";
 import ReservationsCrud from "./components/CrudTables/ReservationCrud";
-import Extras from "./components/CrudTables/Extras";
+
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -50,7 +50,7 @@ function a11yProps(index) {
 }
 
 export default function TabsAdmin() {
-  const [value, setValue] = useState(2);
+  const [value, setValue] = useState(0);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -88,7 +88,6 @@ export default function TabsAdmin() {
         <Tabs
           value={value}
           onChange={handleChange}
-          //centered
           aria-label="tabs"
           textColor="primary"
           indicatorColor="primary"
@@ -117,11 +116,6 @@ export default function TabsAdmin() {
             label="RESERVAS"
             {...a11yProps(3)}
           />
-          <Tab
-            icon={<FontAwesomeIcon icon={faCog} />}
-            label="EXTRAS"
-            {...a11yProps(4)}
-          />
         </Tabs>
         <TabPanel value={value} index={0}>
           <BranchCrud />
@@ -134,9 +128,6 @@ export default function TabsAdmin() {
         </TabPanel>
         <TabPanel value={value} index={3}>
           <ReservationsCrud />
-        </TabPanel>
-        <TabPanel value={value} index={4}>
-          <Extras />
         </TabPanel>
       </Box>
     </div>

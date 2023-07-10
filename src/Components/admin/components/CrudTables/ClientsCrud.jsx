@@ -44,15 +44,17 @@ const ClientsCrud = () => {
 
   const handleSaveRowEdits = async ({ exitEditingMode, row, values }) => {
     if (!Object.keys(validationErrors).length) {
+      console.log(values);
       ClientService.putClient(values).then((resp) => {
-        if (resp.ok) {
+        console.log(resp);
+        if (resp.isOk) {
           setShowNotification(true);
           setSeverity("success");
-          setCaller("EditBranch");
+          setCaller("Edit");
         } else {
           setShowNotification(true);
           setSeverity("error");
-          setCaller("EditBranch");
+          setCaller("Edit");
         }
       });
       tableData[row.index] = values;
@@ -323,13 +325,11 @@ export const CreateNewClientModal = ({
     }
     delete values["id"];
     console.log(values);
-    const isValid = Object.values(validationErrors).every((x) => x === "");
-    console.log(isValid);
+    const isValid = Object.values(values).every((x) => x !== "");
     if (isValid) {
       setIsLoadingButton(true);
       await ClientService.postNewClient(values).then((response) => {
         if (response.isOk) {
-          values.id = response.id;
           setIsLoadingButton(false);
           setShowNotification(true);
           setSeverity("success");
@@ -347,15 +347,6 @@ export const CreateNewClientModal = ({
     validateField(name, value, label);
   };
   const validateField = (fieldName, value, label) => {
-    //not required fields
-    if (
-      fieldName === "lastName" ||
-      fieldName === "phoneNumber" ||
-      fieldName === "rol"
-    ) {
-      return;
-    }
-    //set error required
     if (!value) {
       setValidationErrors((prevState) => ({
         //si extraen todos los valores anteriores...
@@ -400,7 +391,6 @@ export const CreateNewClientModal = ({
       }
     }
     if (fieldName == "email") {
-      console.log(value);
       const exist = tableData.find(
         (client) => client.email.toLowerCase() === value.toLowerCase()
       );
@@ -428,6 +418,23 @@ export const CreateNewClientModal = ({
           ...prevState,
           //Se establece el campo y su valor dinámicamente
           [fieldName]: `Formato email mal`,
+        }));
+      }
+    }
+    if (fieldName == "phoneNumber") {
+      if (value === "") {
+        setValidationErrors((prevState) => ({
+          //si extraen todos los valores anteriores...
+          ...prevState,
+          //Se establece el campo y su valor dinámicamente
+          [fieldName]: `El número de teléfono es requerido`,
+        }));
+      } else if (!/^\d+$/.test(value)) {
+        setValidationErrors((prevState) => ({
+          //si extraen todos los valores anteriores...
+          ...prevState,
+          //Se establece el campo y su valor dinámicamente
+          [fieldName]: `El número de teléfono deben ser números`,
         }));
       }
     }

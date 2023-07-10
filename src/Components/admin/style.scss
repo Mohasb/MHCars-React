@@ -17,3 +17,14 @@ button[aria-selected="false"] {
   font-weight: bold;
   color: $secondary;
 }
+#extras-container {
+  .row-extras {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+}
+#extras-container > div {
+  width: 70%;
+}

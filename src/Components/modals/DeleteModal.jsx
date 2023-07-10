@@ -43,7 +43,6 @@ export default function DeleteModal({
               onClick={() => {
                 handleResponseModal("OK", idToEliminate);
                 CustomService.DeleteReservation(idToEliminate).then((resp) => {
-                  console.log(resp);
                   handleResponseModal(resp.isOk, idToEliminate);
                 });
                 handleOnClose();

@@ -1,9 +1,5 @@
-npm init vite@latest react-rent-car --template react-ts
 npm run dev
-
 npm run build && npm run preview
 
 
-userpage cambiar tooltip a español
-register hacer layout
 notificaciones userpage. sobre todo en borrar reserva

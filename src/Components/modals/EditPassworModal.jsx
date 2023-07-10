@@ -20,19 +20,22 @@ export default function EditPwd({ isOpenModalPwd, setIsOpenModalPwd }) {
     ClientsService.getJustClients().then((clients) => {
       setClients(clients);
     });
-  });
+  }, []);
 
   const handleOnClose = () => {
     setIsOpenModalPwd(false);
   };
 
   const handleChangeEmail = (event) => {
+    validateEmail(event.target.value);
     return setEmail(event.target.value);
   };
   const handleChagePassword = (event) => {
+    validatePassword(event.target.value);
     return setPassword(event.target.value);
   };
   const handleChagePwd2 = (event) => {
+    validatePwd2(passwordUser, event.target.value);
     return setPwd2(event.target.value);
   };
 
@@ -59,13 +62,21 @@ export default function EditPwd({ isOpenModalPwd, setIsOpenModalPwd }) {
     validateEmail(emailUser);
     validatePassword(passwordUser);
     validatePwd2(passwordUser, pwd2);
-    const isAllOk = Object.values(errors).every((err) => err === "");
-    if (isAllOk) {
+    ///
+    if (
+      !errors.emailError &&
+      !errors.passwordError &&
+      !errors.pwd2Error &&
+      emailUser &&
+      passwordUser &&
+      pwd2
+    ) {
       const client = clients.find((client) => client.email === emailUser);
-      console.log(client);
       client.password = passwordUser;
-      console.log(client);
-      CustomService.updatePwd(client, client.id);
+      CustomService.updatePwd(client, client.id).then((response) => {
+        console.log(response);
+      });
+      navigate("/");
     }
   };
 
@@ -128,7 +139,6 @@ export default function EditPwd({ isOpenModalPwd, setIsOpenModalPwd }) {
             variant="brand"
             onClick={() => {
               handleChangePwd();
-              //navigate("/");
             }}
           />
         </div>

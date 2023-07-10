@@ -261,9 +261,10 @@ export default function Register() {
   };
 
   return (
-    <main>
+    <main className="register">
+      <h1 className="title">Registro nuevo usuario</h1>
+
       <div className="register-container">
-        <h1 className="title">Registro</h1>
         <form onSubmit={handleSubmit}>
           <Box className="box">
             <Grid
@@ -331,9 +332,9 @@ export default function Register() {
               <Grid item xs={12}>
                 <Tooltip
                   text={
-                    "- at least 8 characters \n" +
-                    "- must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number\n" +
-                    "- Can contain special characters"
+                    "- Al menos 8 caracteres \n" +
+                    "- debe contener al menos 1 letra mayuscula, 1 minuscula y 1 numero\n" +
+                    "- Puede contener carácteres especiales"
                   }
                 >
                   <Input

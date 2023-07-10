@@ -28,7 +28,6 @@ export default function ReservationTable({ user }) {
 
   const handleResponseModal = (ok, id) => {
     if (ok) {
-      console.log(ok);
       setShowNotification(true);
       const newData = data.filter((item) => item.id !== id);
       setData(newData);
