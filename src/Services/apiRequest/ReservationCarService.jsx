@@ -3,7 +3,6 @@ import authHeader from "../login/auth-header";
 
 export async function ReservationCar(car, booking, user) {
   const autorization = authHeader();
-  console.log(booking);
   const startDate = new Date(
     booking.bookingDates.startDate + " " + booking.bookingDates.pickupTime
   );
@@ -19,7 +18,6 @@ export async function ReservationCar(car, booking, user) {
     carCategory: car.category,
     carId: car.id,
   };
-  console.log(reservation);
 
   try {
     const response = await fetch(`${baseUrl}reservations`, {

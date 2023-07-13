@@ -47,7 +47,6 @@ const CarsCrud = () => {
 
   const handleSaveRowEdits = async ({ exitEditingMode, row, values }) => {
     if (!Object.keys(validationErrors).length) {
-      console.log(values);
       CarService.putCar(values).then((resp) => {
         if (resp.ok) {
           setShowNotification(true);
@@ -96,7 +95,6 @@ const CarsCrud = () => {
         helperText: validationErrors[cell.id],
         onBlur: (event) => {
           const isValid = validateRequired(event.target.value);
-          console.log(cell);
           if (!isValid) {
             //set validation error for cell if invalid
             setValidationErrors({
@@ -368,11 +366,9 @@ export const CreateNewCarModal = ({
 
     delete values["id"];
     const isValid = Object.values(values).every((x) => x !== "");
-    console.log(isValid);
     if (isValid) {
       setIsLoadingButton(true);
       await CarService.postNewCar(values).then((response) => {
-        console.log(response);
         if (response.id) {
           values.id = response.id;
           setIsLoadingButton(false);

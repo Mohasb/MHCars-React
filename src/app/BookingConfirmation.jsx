@@ -32,7 +32,6 @@ export default function ConfirmationBoocking() {
 
   return (
     <main>
-      {console.log(data)}
       {data && <ConfirmationCard car={data.car} booking={data.booking} />}
     </main>
   );

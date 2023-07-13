@@ -115,14 +115,20 @@
   overflow: hidden;
   #info {
     @include styleContainers;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    font-size: 1rem;
     position: absolute;
+    bottom: 0;
+    right: 50;
     margin-top: $paddingToMain;
     text-align: center;
     color: #fff;
     z-index: 100;
-    display: block;
+    display: flex;
+    //flex-direction: column;
     #select-car {
-      color: #000;
+      background-color: #000;
     }
   }
 }

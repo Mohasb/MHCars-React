@@ -73,3 +73,24 @@ body {
   height: 20px !important;
 }
  */
+//Contact form
+.contact-container {
+  display: flex;
+  flex-direction: column;
+  #enviar {
+    display: block;
+    margin: 1rem auto;
+  }
+  & form {
+    width: 100%;
+  }
+  & form > div {
+    width: 100%;
+    margin: 1rem auto;
+  }
+  #message {
+    text-align: start;
+    justify-content: start;
+  }
+
+}

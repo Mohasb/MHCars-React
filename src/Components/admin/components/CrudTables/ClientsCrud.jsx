@@ -44,9 +44,7 @@ const ClientsCrud = () => {
 
   const handleSaveRowEdits = async ({ exitEditingMode, row, values }) => {
     if (!Object.keys(validationErrors).length) {
-      console.log(values);
       ClientService.putClient(values).then((resp) => {
-        console.log(resp);
         if (resp.isOk) {
           setShowNotification(true);
           setSeverity("success");
@@ -324,7 +322,6 @@ export const CreateNewClientModal = ({
       validateField(key, values[key], label);
     }
     delete values["id"];
-    console.log(values);
     const isValid = Object.values(values).every((x) => x !== "");
     if (isValid) {
       setIsLoadingButton(true);

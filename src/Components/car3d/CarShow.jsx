@@ -3,7 +3,7 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { GroundProjectedSkybox } from "three/addons/objects/GroundProjectedSkybox.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { RGBELoader } from "three/addons/loaders/RGBELoader.js";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "../../app/sellCar/style.scss";
 
@@ -13,6 +13,7 @@ export default function CarShow() {
   const navigate = useNavigate();
   //const [car, setCar] = useState(state.car);
   let car = state.car;
+  window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
 
   init().then(render);
 
@@ -32,14 +33,15 @@ export default function CarShow() {
       1,
       1000
     );
-    camera.position.set(-20, 7, 20);
+    camera.position.set(10, 7, 30);
     camera.lookAt(0, 4, 0);
 
     scene = new THREE.Scene();
-
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+    scene.add(ambientLight);
     const hdrLoader = new RGBELoader();
     const envMap = await hdrLoader.loadAsync(
-      "src/assets/cars3d/hdri/wide_street_02_2k.hdr"
+      "src/assets/cars3d/hdri/street.hdr"
     );
     envMap.mapping = THREE.EquirectangularReflectionMapping;
 
@@ -112,7 +114,7 @@ export default function CarShow() {
   }
   function handleResetCamera() {
     controls.reset();
-    camera.position.set(-20, 7, 20);
+    camera.position.set(10, 10, 30);
     camera.updateProjectionMatrix();
     controls.update();
   }
@@ -120,36 +122,22 @@ export default function CarShow() {
   useEffect(() => {
     document.querySelector("#scene3d").appendChild(renderer.domElement);
     document.querySelector("#select-car").value = car;
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }, [car, renderer.domElement]);
 
   return (
     <div className="show-room">
       <div id="info">
-        <label htmlFor="select-car">Coche:</label>
-        <select
-          name="car"
-          id="select-car"
-          onChange={handleChangeModel}
-          //value={car}
-        >
+        <select name="car" id="select-car" onChange={handleChangeModel}>
           <option value="m4.glb">BMW M4 COMPETITION COUPÉ</option>
+          <option value="corvette.glb">CHEVROLET CORVETTE STINGRAY</option>
           <option value="bentley.glb">BENTLEY CONTINENTAL GT</option>
-          <option value="mustang.glb">MUSTANG GT</option>
-          <option value="ftype.glb">JAGUAR F-TYPE</option>
-          <option value="db.glb">ASTON MARTIN DB11</option>
+          <option value="porsche.glb">PORSCHE CARRERA GT</option>
+          <option value="mclaren.glb">MCLAREN MP4</option>
           <option value="aventador.glb">LAMBORGUINI AVENTADOR SVJ</option>
         </select>
         <button onClick={handleResetCamera} style={{ backgroundColor: "#000" }}>
-          Reset Camera
-        </button>
-        <button
-          onClick={() => {
-            controls.autoRotate = !controls.autoRotate;
-            render();
-          }}
-          style={{ backgroundColor: "#000" }}
-        >
-          Rotation
+          Resetear Cámara
         </button>
         <button
           style={{ backgroundColor: "#000" }}
@@ -166,7 +154,7 @@ export default function CarShow() {
             }
           }}
         >
-          Fullscreen
+          Pantalla Completa
         </button>
         <button
           onClick={() => {

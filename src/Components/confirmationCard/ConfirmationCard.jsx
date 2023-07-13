@@ -36,9 +36,6 @@ export default function ConfirmationCard({ car, booking }) {
       ReservationCar(car, booking, user).then((response) => {
         if (response.status === 200) {
           setShowModal(true);
-          console.log(car);
-          console.log(booking);
-          console.log(user);
           const params = {
             user_email: user.email,
             user_name: user.name,
@@ -54,14 +51,7 @@ export default function ConfirmationCard({ car, booking }) {
               params,
               "PS-t9bkec4GOVfXW2"
             )
-            .then(
-              function (response) {
-                console.log("SUCCESS!", response.status, response.text);
-              },
-              function (error) {
-                console.log("FAILED...", error);
-              }
-            );
+          
         }
       });
     } else {

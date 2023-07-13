@@ -40,6 +40,7 @@ import MinorCrashIcon from "@mui/icons-material/MinorCrash";
 import LoginIcon from "@mui/icons-material/Login";
 import PermPhoneMsgIcon from "@mui/icons-material/PermPhoneMsg";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
+import ContactModal from "../modals/ContactModal";
 
 /////////////////////
 const StyledUserFullnameContainer = styled.p.attrs((props) => {
@@ -66,9 +67,11 @@ function ResponsiveAppBar() {
         setOpenDrawer(false);
         e.target.textContent === "Acceso"
           ? iniciar.click()
+          : e.target.textContent === "Contacto"
+          ? setOpenContact(true)
           : navigate("/" + e.target.textContent);
       }}
-      onKeyDown={(e) => console.log(e)}
+
     >
       <List className="container-links-drawer">
         {pages.map((text) => (
@@ -140,6 +143,7 @@ function ResponsiveAppBar() {
       }
     }
   }
+  const [openContact, setOpenContact] = useState(false);
   const iniciar =
     document.querySelector("#Iniciar") || document.querySelector("#Inicia");
 
@@ -153,6 +157,8 @@ function ResponsiveAppBar() {
       if (page === "Acceso" || page.target.value === "Acceso") {
         iniciar.click();
         return;
+      } else if (page === "Contacto" || page.target.value === "Contacto") {
+        setOpenContact(true);
       } else {
         navigate(
           "/" + page.target.value.toLowerCase() ||
@@ -193,7 +199,6 @@ function ResponsiveAppBar() {
   });
 
   const getImageAvatar = (user) => {
-
     const initials =
       user.lastName !== "undefined"
         ? user.name + "+" + user.lastName
@@ -445,6 +450,12 @@ function ResponsiveAppBar() {
         />
       )}
       {user && <Notification user={user} open={openNotification} />}
+      {openContact && (
+        <ContactModal
+          openContact={openContact}
+          setOpenContact={setOpenContact}
+        />
+      )}
     </AppBar>
   );
 }

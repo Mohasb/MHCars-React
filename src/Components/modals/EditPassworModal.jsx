@@ -73,9 +73,7 @@ export default function EditPwd({ isOpenModalPwd, setIsOpenModalPwd }) {
     ) {
       const client = clients.find((client) => client.email === emailUser);
       client.password = passwordUser;
-      CustomService.updatePwd(client, client.id).then((response) => {
-        console.log(response);
-      });
+      CustomService.updatePwd(client, client.id).
       navigate("/");
     }
   };
