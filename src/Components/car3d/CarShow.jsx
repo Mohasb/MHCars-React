@@ -11,21 +11,16 @@ export default function CarShow() {
   const { state } = useLocation();
   let camera, scene, renderer, skybox, controls;
   const navigate = useNavigate();
-  //const [car, setCar] = useState(state.car);
   let car = state.car;
   window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
 
   init().then(render);
 
   async function init() {
-    //
-
     renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-
-    //
 
     camera = new THREE.PerspectiveCamera(
       40,
@@ -41,7 +36,7 @@ export default function CarShow() {
     scene.add(ambientLight);
     const hdrLoader = new RGBELoader();
     const envMap = await hdrLoader.loadAsync(
-      "src/assets/cars3d/hdri/street.hdr"
+      new URL("/src/assets/cars3d/hdri/street.hdr", import.meta.url).href
     );
     envMap.mapping = THREE.EquirectangularReflectionMapping;
 
@@ -51,15 +46,18 @@ export default function CarShow() {
 
     scene.environment = envMap;
 
-    const loader = new GLTFLoader().setPath("src/assets/cars3d/");
-    loader.load(car, function (gltf) {
-      const model = gltf.scene;
-      model.scale.multiplyScalar(3);
-      model.position.y = -0.5;
-      model.name = "car";
-      scene.add(gltf.scene);
-      render();
-    });
+    const loader = new GLTFLoader();
+    loader.load(
+      new URL(`/src/assets/cars3d/${car}`, import.meta.url).href,
+      function (gltf) {
+        const model = gltf.scene;
+        model.scale.multiplyScalar(3);
+        model.position.y = -0.5;
+        model.name = "car";
+        scene.add(gltf.scene);
+        render();
+      }
+    );
 
     controls = new OrbitControls(camera, renderer.domElement);
     controls.addEventListener("change", render);
@@ -69,9 +67,6 @@ export default function CarShow() {
     //controls.minDistance = 20;
     controls.enablePan = true;
     controls.autoRotate = true;
-    //controls.update();
-
-    //
 
     window.addEventListener("resize", onWindowResize);
   }
@@ -98,19 +93,18 @@ export default function CarShow() {
   };
 
   function loadNewCar(model) {
-    const loader = new GLTFLoader().setPath("src/assets/cars3d/");
-    loader.load(model, function (gltf) {
-      const model = gltf.scene;
-
-      /* var w = window.innerWidth;
-    var h = window.innerHeight; */
-
-      model.scale.multiplyScalar(3);
-      model.position.y = -0.5;
-      model.name = "car";
-      scene.add(gltf.scene);
-      render();
-    });
+    const loader = new GLTFLoader();
+    loader.load(
+      new URL(`/src/assets/cars3d/${model}`, import.meta.url).href,
+      function (gltf) {
+        const model = gltf.scene;
+        model.scale.multiplyScalar(3);
+        model.position.y = -0.5;
+        model.name = "car";
+        scene.add(gltf.scene);
+        render();
+      }
+    );
   }
   function handleResetCamera() {
     controls.reset();

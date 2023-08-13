@@ -1,6 +1,8 @@
+import { baseUrl } from "../baseUrl";
+
 const login = (email, password) => {
   try {
-    const response = fetch(`http://localhost:5134/api/custom/login`, {
+    const response = fetch(`${baseUrl}custom/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -28,7 +30,7 @@ const logout = () => {
 
 const getCurrentUser = (id) => {
   try {
-    const response = fetch(`http://localhost:5134/api/clients/${id}`)
+    const response = fetch(`${baseUrl}clients/${id}`)
       .then((response) => response.json())
       .then((response) => {
         return response;
