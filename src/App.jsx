@@ -21,6 +21,7 @@ import "bootstrap/dist/js/bootstrap.bundle.min";
 //import SellCar from "./app/sellCar/SellCar";
 import CarShow from "./Components/car3d/CarShow";
 import Loader from "./Components/car3d/Loader";
+import SellCar from "./app/sellCar/SellCar";
 
 function App() {
   const [user, setUser] = useState();
@@ -31,7 +32,7 @@ function App() {
 
     return children;
   };
-  const SellCar = lazy(() => import("./app/sellCar/SellCar"));
+  //const SellCar = lazy(() => import("./app/sellCar/SellCar"));
 
   const secretKeyCripto = "Muhammad";
 
@@ -62,9 +63,9 @@ function App() {
 
   const PageLayout = () => (
     <>
-      <Suspense fallback={<Loader />}>
+      {/* <Suspense fallback={<Loader />}> */}
         <Outlet />
-      </Suspense>
+      {/* </Suspense> */}
       <Footer />
       <ControlledOpenSpeedDial />
       <Cookie />
