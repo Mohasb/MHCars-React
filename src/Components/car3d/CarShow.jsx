@@ -3,9 +3,10 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { GroundProjectedSkybox } from "three/addons/objects/GroundProjectedSkybox.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { RGBELoader } from "three/addons/loaders/RGBELoader.js";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "../../app/sellCar/style.scss";
+import Loader from "./Loader";
 
 export default function CarShow() {
   const { state } = useLocation();
@@ -13,6 +14,19 @@ export default function CarShow() {
   const navigate = useNavigate();
   let car = state.car;
   window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  const loadingManager = new THREE.LoadingManager();
+
+  loadingManager.onStart = () => {
+    document.querySelector(".loading").style.display = "block";
+  };
+  /* loadingManager.onProgress = (url, loaded, total) => {
+    console.log(url);
+    console.log(loaded);
+    console.log(total);
+  }; */
+  loadingManager.onLoad = () => {
+    document.querySelector(".loading").style.display = "none";
+  };
 
   init().then(render);
 
@@ -46,7 +60,7 @@ export default function CarShow() {
 
     scene.environment = envMap;
 
-    const loader = new GLTFLoader();
+    const loader = new GLTFLoader(loadingManager);
     loader.load(
       new URL(`/src/assets/cars3d/${car}`, import.meta.url).href,
       function (gltf) {
@@ -93,7 +107,7 @@ export default function CarShow() {
   };
 
   function loadNewCar(model) {
-    const loader = new GLTFLoader();
+    const loader = new GLTFLoader(loadingManager);
     loader.load(
       new URL(`/src/assets/cars3d/${model}`, import.meta.url).href,
       function (gltf) {
@@ -159,7 +173,19 @@ export default function CarShow() {
           Volver
         </button>
       </div>
-      <div id="scene3d"></div>
+      <div id="scene3d" style={{ position: "relative" }}>
+        <div
+          className="loading"
+          style={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+          }}
+        >
+          <Loader />
+        </div>
+      </div>
     </div>
   );
 }
