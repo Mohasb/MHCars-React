@@ -152,7 +152,7 @@ export default function Register() {
     if (!REGEX_EMAIL.test(value)) {
       setErrors((prevState) => ({
         ...prevState,
-        [nameError]: "Formato email mal",
+        [nameError]: "Formato email incorrecto",
       }));
     } else {
       setValues((prevState) => ({ ...prevState, [nameInput]: value }));
@@ -168,7 +168,7 @@ export default function Register() {
     if (!REGEX_DNI.test(value)) {
       setErrors((prevState) => ({
         ...prevState,
-        [nameError]: "Formato dni mal",
+        [nameError]: "Formato dni incorrecto",
       }));
     } else {
       setValues((prevState) => ({ ...prevState, [nameInput]: value }));

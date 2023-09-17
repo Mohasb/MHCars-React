@@ -27,6 +27,7 @@ export default function CarShow() {
   loadingManager.onLoad = () => {
     document.querySelector(".loading").style.display = "none";
   };
+  window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
 
   init().then(render);
 
@@ -144,11 +145,11 @@ export default function CarShow() {
           <option value="mclaren.glb">MCLAREN MP4</option>
           <option value="aventador.glb">LAMBORGUINI AVENTADOR SVJ</option>
         </select>
-        <button onClick={handleResetCamera} style={{ backgroundColor: "#000" }}>
+        <button className="reset" onClick={handleResetCamera}>
           Resetear Cámara
         </button>
         <button
-          style={{ backgroundColor: "#000" }}
+          className="full-screen"
           onClick={() => {
             var elem = document.querySelector(".show-room");
             if (elem.requestFullscreen) {
@@ -165,6 +166,7 @@ export default function CarShow() {
           Pantalla Completa
         </button>
         <button
+          className="return"
           onClick={() => {
             navigate("/venta");
           }}
@@ -172,6 +174,14 @@ export default function CarShow() {
         >
           Volver
         </button>
+        <audio
+          style={{ border: "1px solid #fff" }}
+          src={new URL("/src/assets/ShowRoomMusic.mp3", import.meta.url).href}
+          controls
+          autoPlay
+          loop
+          muted
+        />
       </div>
       <div id="scene3d" style={{ position: "relative" }}>
         <div

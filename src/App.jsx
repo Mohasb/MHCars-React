@@ -64,7 +64,7 @@ function App() {
   const PageLayout = () => (
     <>
       {/* <Suspense fallback={<Loader />}> */}
-        <Outlet />
+      <Outlet />
       {/* </Suspense> */}
       <Footer />
       <ControlledOpenSpeedDial />

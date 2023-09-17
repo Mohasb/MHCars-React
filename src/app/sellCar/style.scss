@@ -26,6 +26,7 @@
     margin: 0 auto;
     .car {
       padding: 0;
+      min-height: 500px;
     }
     .car-container > div > canvas {
       width: 100%;
@@ -116,18 +117,33 @@
     @include styleContainers;
     padding: 0.5rem;
     margin-bottom: 1rem;
+    margin-left: 1rem;
     font-size: 1rem;
     position: absolute;
     bottom: 0;
-    right: 50;
+    left: 0;
     margin-top: $paddingToMain;
     text-align: center;
     color: #fff;
     z-index: 100;
     display: flex;
-    //flex-direction: column;
+    flex-direction: column;
     #select-car {
       background-color: #000;
+      font-size: 1.2rem;
+      padding: 0 1rem;
+      border: 1px solid #fff;
+      color: $primary;
+      font-weight: bold;
+    }
+    .reset,
+    .full-screen,
+    .return {
+      background-color: #000;
+      text-transform: uppercase;
+      &:hover {
+        color: $primary;
+      }
     }
   }
 }

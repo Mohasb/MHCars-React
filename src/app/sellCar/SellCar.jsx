@@ -24,8 +24,9 @@ const SellCar = () => {
       setNoWebgl(true);
       const warning = WebGL.getWebGLErrorMessage();
       document.getElementById("errorGl").appendChild(warning);
+      navigate("/");
     }
-  }, []);
+  }, [navigate]);
 
   return (
     <>
@@ -36,7 +37,7 @@ const SellCar = () => {
           <p className="title">bmw m4 competition coupé</p>
           <div className="row row-cols-1 row-cols-md-2">
             <div className="col car">
-                <Car model={"m4.glb"} />
+              <Car model={"m4.glb"} />
             </div>
             <div className="col container-info">
               <ul className="nav nav-tabs" id="myTab" role="tablist">
