@@ -6,7 +6,6 @@ import Box from "@mui/material/Box";
 import "./style.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faCog,
   faCar,
   faShop,
   faPerson,
