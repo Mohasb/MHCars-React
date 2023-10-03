@@ -160,6 +160,7 @@ video {
   align-items: start;
   justify-content: center;
   overflow: hidden;
+  //background-image: url("../../assets/bgShowCar.jpg");
   #info {
     @include styleContainers;
     padding: 0.5rem;

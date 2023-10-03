@@ -36,7 +36,6 @@ export default function CarShow() {
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    THREE.Cache.enabled = true;
 
     camera = new THREE.PerspectiveCamera(
       40,
@@ -48,7 +47,6 @@ export default function CarShow() {
     camera.lookAt(0, 4, 0);
 
     scene = new THREE.Scene();
-
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
     scene.add(ambientLight);
     const hdrLoader = new RGBELoader();
