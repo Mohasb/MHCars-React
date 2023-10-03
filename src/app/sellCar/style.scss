@@ -1,112 +1,159 @@
 @import "../../primaryVariables.scss";
 
-.container-3dcars {
-  padding-top: $paddingToMain;
+.video-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  -webkit-box-shadow: 0 10px 6px -6px #fff;
+  -moz-box-shadow: 0 10px 6px -6px #fff;
+  box-shadow: 0 10px 6px -6px #fff;
+}
+
+video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.about .title {
+  color: $primary;
+  text-align: center;
+  font-size: 2rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  width: 95%;
+  @include styleContainers;
+  margin: auto;
+  background-color: rgba(255, 255, 255, 0.6);
+  margin-top: 1.5rem;
+  border-bottom: none;
+}
+.about .text {
+  font-size: 1.5rem;
+  text-align: center;
+  width: 95%;
+  @include styleContainers;
+  margin: auto;
+  background-color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 0;
+}
+
+
+.sell-car {
+  padding-top: 0;
   background-image: url("../../assets/cars3d/bgSell.webp");
   background-position: center;
   background-size: cover;
   background-attachment: fixed;
-  .title {
-    color: $primary;
-    text-align: center;
-    font-size: 2rem;
-    text-transform: uppercase;
-    font-weight: bold;
-    width: 95%;
-    @include styleContainers;
-    margin: auto;
-    background-color: rgba(255, 255, 255, 0.6);
-    margin-top: 1.5rem;
-    border-bottom: none;
-  }
-  .row {
-    @include styleContainers;
-    background-color: rgba(255, 255, 255, 0.6);
-    width: 95%;
-    margin: 0 auto;
-    .car {
-      padding: 0;
-      min-height: 500px;
+  .container-3dcars {
+    .title {
+      color: $primary;
+      text-align: center;
+      font-size: 2rem;
+      text-transform: uppercase;
+      font-weight: bold;
+      width: 95%;
+      @include styleContainers;
+      margin: auto;
+      background-color: rgba(255, 255, 255, 0.6);
+      margin-top: 1.5rem;
+      border-bottom: none;
     }
-    .car-container > div > canvas {
-      width: 100%;
-      height: 500px;
-    }
-  }
-  .container-info {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    padding: 0;
-    ul {
-      display: flex;
-      justify-content: center;
-      & li > button {
-        color: $primary;
-        border: none;
-        font-weight: normal;
-        &.active {
-          color: $primary;
-          background-color: inherit;
-          border-bottom: 3px solid $primary;
-          transition: all 0.2s ease;
-          font-weight: bold;
-        }
+    .row {
+      @include styleContainers;
+      background-color: rgba(255, 255, 255, 0.6);
+      width: 95%;
+      margin: 0 auto;
+      .car {
+        padding: 0;
+        min-height: 500px;
       }
-    }
-    .presentation {
-      p:nth-child(1) {
-        font-size: 1.5rem;
-        text-align: center;
-        position: relative;
-        margin-bottom: 1rem;
-      }
-      p:nth-child(2) {
-        font-size: 1rem;
-        text-align: justify;
-        margin-bottom: 1rem;
-        padding: 0 1rem;
-        &::first-letter {
-          font-weight: 400;
-          float: left;
-          font-size: 4rem;
-          line-height: 2rem;
-          padding-top: 0.5rem;
-          padding-right: 8px;
-          padding-left: 3px;
-        }
-      }
-    }
-    .details {
-      display: flex;
-      justify-content: space-between;
-      position: relative;
-      padding: 0 1rem;
-      font-size: 1.2rem;
-      p:nth-child(2) {
-        font-weight: bold;
-        white-space: pre-line;
-        text-align: end;
-      }
-      margin: 1rem;
-      padding-bottom: 0.5rem;
-      &::after {
-        content: "";
-        position: absolute;
+      .car-container > div > canvas {
         width: 100%;
-        height: 3px;
-        background-color: $primary;
-        bottom: 0;
-        left: 0;
+        height: 500px;
       }
     }
-    .actions {
+    .container-info {
       display: flex;
-      justify-content: center;
-      margin-bottom: 0.5rem;
+      flex-direction: column;
+      justify-content: space-around;
+      padding: 0;
+      ul {
+        display: flex;
+        justify-content: center;
+        & li > button {
+          color: $primary;
+          border: none;
+          font-weight: normal;
+          &.active {
+            color: $primary;
+            background-color: inherit;
+            border-bottom: 3px solid $primary;
+            transition: all 0.2s ease;
+            font-weight: bold;
+          }
+        }
+      }
+      .presentation {
+        p:nth-child(1) {
+          font-size: 1.5rem;
+          text-align: center;
+          position: relative;
+          margin-bottom: 1rem;
+        }
+        p:nth-child(2) {
+          font-size: 1rem;
+          text-align: justify;
+          margin-bottom: 1rem;
+          padding: 0 1rem;
+          &::first-letter {
+            font-weight: 400;
+            float: left;
+            font-size: 4rem;
+            line-height: 2rem;
+            padding-top: 0.5rem;
+            padding-right: 8px;
+            padding-left: 3px;
+          }
+        }
+      }
+      .details {
+        display: flex;
+        justify-content: space-between;
+        position: relative;
+        padding: 0 1rem;
+        font-size: 1.2rem;
+        p:nth-child(2) {
+          font-weight: bold;
+          white-space: pre-line;
+          text-align: end;
+        }
+        margin: 1rem;
+        padding-bottom: 0.5rem;
+        &::after {
+          content: "";
+          position: absolute;
+          width: 100%;
+          height: 3px;
+          background-color: $primary;
+          bottom: 0;
+          left: 0;
+        }
+      }
+      .actions {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 0.5rem;
+      }
     }
   }
 }
+
+
 
 .show-room {
   display: flex;
@@ -129,10 +176,11 @@
     display: flex;
     flex-direction: column;
     #select-car {
-      background-color: #000;
+      //background-color: #000;
       font-size: 1.2rem;
       padding: 0 1rem;
       border: 1px solid #fff;
+      border-radius: 1rem 1rem 0 0;
       color: $primary;
       font-weight: bold;
     }
