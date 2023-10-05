@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import { useState, useEffect, Suspense, lazy } from "react";
+import { useState, useEffect } from "react";
 //Components
 import Home from "./app/home/Home";
 import ConfirmationBoocking from "./app/BookingConfirmation";
@@ -20,8 +20,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 //import SellCar from "./app/sellCar/SellCar";
 import CarShow from "./Components/car3d/CarShow";
-import Loader from "./Components/car3d/Loader";
 import SellCar from "./app/sellCar/SellCar";
+import ScrollToTop from "./Components/scrollToTop";
 
 function App() {
   const [user, setUser] = useState();
@@ -44,7 +44,7 @@ function App() {
         secretKeyCripto
       ).toString(CryptoJS.enc.Utf8);
 
-      //firefox and chrome don´t work the same with cryptojs(chrome remove \ automatic and firefox no)
+      //Firefox and chrome don´t work the same with cryptojs(chrome remove \ automatic and firefox no)
       if (typeof JSON.parse(decrypt) === "string") {
         //Firefox
         const id = JSON.parse(JSON.parse(decrypt)).id;
@@ -63,9 +63,9 @@ function App() {
 
   const PageLayout = () => (
     <>
-      {/* <Suspense fallback={<Loader />}> */}
+      <ScrollToTop />
+      <ResponsiveAppBar />
       <Outlet />
-      {/* </Suspense> */}
       <Footer />
       <ControlledOpenSpeedDial />
       <Cookie />
@@ -73,32 +73,29 @@ function App() {
   );
 
   return (
-    <>
-      <ContextUser.Provider value={{ user, setUser }}>
-        <ResponsiveAppBar />
-        <Routes>
-          <Route element={<PageLayout />}>
-            <Route path="*" element={<NotFound />} />
-            <Route path="/" element={<Home />} />
-            <Route path="/alquiler" element={<Home />} />
-            <Route path="/reserva/coche" element={<CarListShow />} />
-            <Route path="/booking" element={<ConfirmationBoocking />} />
-            <Route path="/registro" element={<Register />} />
-            <Route path="/user/:name" element={<UserPage />} />
-            <Route path="/venta" element={<SellCar />} />
-            <Route path="/show-room" element={<CarShow />} />
-          </Route>
-          <Route
-            path="/admin"
-            element={
-              <ProtectedRoute isAllowed={!!user && user.rol === "Admin"}>
-                <Admin />
-              </ProtectedRoute>
-            }
-          />
-        </Routes>
-      </ContextUser.Provider>
-    </>
+    <ContextUser.Provider value={{ user, setUser }}>
+      <Routes>
+        <Route element={<PageLayout />}>
+          <Route path="*" element={<NotFound />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/alquiler" element={<Home />} />
+          <Route path="/reserva/coche" element={<CarListShow />} />
+          <Route path="/booking" element={<ConfirmationBoocking />} />
+          <Route path="/registro" element={<Register />} />
+          <Route path="/user/:name" element={<UserPage />} />
+          <Route path="/venta" element={<SellCar />} />
+          <Route path="/show-room" element={<CarShow />} />
+        </Route>
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute isAllowed={!!user && user.rol === "Admin"}>
+              <Admin />
+            </ProtectedRoute>
+          }
+        />
+      </Routes>
+    </ContextUser.Provider>
   );
 }
 

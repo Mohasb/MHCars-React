@@ -7,9 +7,10 @@ import { ThemeProvider } from "@emotion/react";
 import { theme } from "./Components/Theme/Theme.tsx";
 import { Application } from "react-rainbow-components";
 import { themeRainbow } from "./Components/Theme/ThemeRainbow";
+import React from "react";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  //<React.StrictMode>
+  <React.StrictMode>
     <BrowserRouter>
       <ThemeProvider theme={theme}>
         <Application theme={themeRainbow}>
@@ -17,5 +18,5 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         </Application>
       </ThemeProvider>
     </BrowserRouter>
-  //</React.StrictMode>
+  </React.StrictMode>
 );

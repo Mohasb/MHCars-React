@@ -17,6 +17,7 @@ const SellCar = () => {
   const [noWebgl, setNoWebgl] = useState(false);
 
   const handleShowRoom = (carGlb) => {
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
     navigate("/show-room", { state: { car: carGlb } });
   };
   window.scrollTo({ top: 0, left: 0, behavior: "smooth" });

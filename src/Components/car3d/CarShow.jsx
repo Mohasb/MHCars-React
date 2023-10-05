@@ -13,21 +13,24 @@ export default function CarShow() {
   let camera, scene, renderer, skybox, controls;
   const navigate = useNavigate();
   let car = state.car;
-  window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   const loadingManager = new THREE.LoadingManager();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   loadingManager.onStart = () => {
     document.querySelector(".loading").style.display = "block";
+    document.querySelector(".loading").style.opacity = "1";
   };
-  /* loadingManager.onProgress = (url, loaded, total) => {
-    console.log(url);
-    console.log(loaded);
-    console.log(total);
-  }; */
   loadingManager.onLoad = () => {
-    document.querySelector(".loading").style.display = "none";
+    document.querySelector(".loader-main").style.opacity = "0";
+    document.querySelector(".loading").style.opacity = "0";
+    setTimeout(() => {
+      document.querySelector(".loader-main").style.display = "none";
+      document.querySelector(".loading").style.display = "none";
+    }, 2100);
   };
-  window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
 
   init().then(render);
 
@@ -54,11 +57,9 @@ export default function CarShow() {
       new URL("/src/assets/cars3d/hdri/street.hdr", import.meta.url).href
     );
     envMap.mapping = THREE.EquirectangularReflectionMapping;
-
     skybox = new GroundProjectedSkybox(envMap);
     skybox.scale.setScalar(100);
     scene.add(skybox);
-
     scene.environment = envMap;
 
     const loader = new GLTFLoader(loadingManager);
@@ -66,7 +67,7 @@ export default function CarShow() {
       new URL(`/src/assets/cars3d/${car}`, import.meta.url).href,
       function (gltf) {
         const model = gltf.scene;
-        model.scale.multiplyScalar(3);
+        model.scale.multiplyScalar(4);
         model.position.y = -0.5;
         model.name = "car";
         scene.add(gltf.scene);
@@ -131,7 +132,6 @@ export default function CarShow() {
   useEffect(() => {
     document.querySelector("#scene3d").appendChild(renderer.domElement);
     document.querySelector("#select-car").value = car;
-    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }, [car, renderer.domElement]);
 
   return (
@@ -175,7 +175,7 @@ export default function CarShow() {
           Volver
         </button>
         <audio
-          style={{ border: "1px solid #fff" }}
+          style={{ width: "100%" }}
           src={new URL("/src/assets/ShowRoomMusic.mp3", import.meta.url).href}
           controls
           autoPlay
@@ -195,7 +195,21 @@ export default function CarShow() {
         >
           <Loader />
         </div>
+        <BigLoader />
       </div>
+    </div>
+  );
+}
+
+export function BigLoader() {
+  useEffect(() => {
+    document.querySelector("#nav").scrollIntoView();
+    document.body.scrollTop = 0;
+  }, []);
+
+  return (
+    <div className="loader-main">
+      <Loader />
     </div>
   );
 }
