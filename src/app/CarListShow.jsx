@@ -11,7 +11,7 @@ export default function CarListShow() {
 
   useEffect(() => {
     if (sessionStorage.getItem("_dghVjkKj")) {
-      const encrypt = sessionStorage.getItem("_dghVjkKj");
+      const encrypt = sessionStorage.getItem("_dghVjkKj"); 
       const decrypt = CryptoJS.AES.decrypt(
         encrypt.toString(),
         secretKeyCripto
