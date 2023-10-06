@@ -206,10 +206,30 @@ video {
     }
   }
 }
+.click-hold {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  animation: slide 2s linear 0s infinite alternate;
+  pointer-events: none;
+  transition: opacity 0.3s ease-in-out;
+}
+@keyframes slide {
+  from {
+    left: 40%;
+  }
+  to {
+    left: 20%;
+  }
+}
+.click-hold-fade {
+  opacity: 0;
+}
 
 .loader-visible {
   opacity: 1;
   transition: opacity 0.3s ease-in-out;
+  transform: translate(-50%, -50%);
 }
 
 .loader-hidden {
@@ -230,7 +250,7 @@ video {
   width: 150px;
   height: 150px;
   border: 1px #fff solid;
-  scale: 3;
+  scale: 2;
   border-radius: 50%;
   background-color: black;
 }

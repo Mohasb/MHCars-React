@@ -3,10 +3,11 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { GroundProjectedSkybox } from "three/addons/objects/GroundProjectedSkybox.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { RGBELoader } from "three/addons/loaders/RGBELoader.js";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "../../app/sellCar/style.scss";
 import Loader from "./Loader";
+import clickHold from "/src/assets/clickHold.png";
 
 export default function CarShow() {
   const { state } = useLocation();
@@ -14,6 +15,8 @@ export default function CarShow() {
   const navigate = useNavigate();
   let car = state.car;
   const loadingManager = new THREE.LoadingManager();
+  let isDragging = false;
+  const clickHoldRef = useRef();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -39,6 +42,21 @@ export default function CarShow() {
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.domElement.addEventListener("mousedown", onMouseDown);
+    renderer.domElement.addEventListener("mouseup", onMouseUp);
+
+    function onMouseDown(event) {
+      isDragging = true;
+    }
+
+    function onMouseUp(event) {
+      isDragging = false;
+    }
+    function update() {
+      if (isDragging) {
+        console.log("EEEEEEEEEEEEEEEEEEEeeee");
+      }
+    }
 
     camera = new THREE.PerspectiveCamera(
       40,
@@ -97,6 +115,9 @@ export default function CarShow() {
   }
 
   function render() {
+    if (isDragging) {
+      clickHoldRef.current.classList.add("click-hold-fade");
+    }
     renderer.render(scene, camera);
   }
 
@@ -184,6 +205,9 @@ export default function CarShow() {
         />
       </div>
       <div id="scene3d" style={{ position: "relative" }}>
+        <div ref={clickHoldRef} className="click-hold">
+          <img src={clickHold} alt="Click and hold icon" />
+        </div>
         <div
           className="loading"
           style={{

@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import Car from "../../Components/car3d/Car";
+import { useEffect, useState, Suspense, lazy } from "react";
 import "./style.scss";
 import { Button } from "@mui/material";
 import ThreeDRotationIcon from "@mui/icons-material/ThreeDRotation";
@@ -8,13 +7,13 @@ import Stack from "@mui/material/Stack";
 import { useNavigate } from "react-router-dom";
 import ContactModal from "../../Components/modals/ContactModal";
 import WebGL from "three/addons/capabilities/WebGL.js";
-
 import intro from "/src/assets/IntroVideo.mp4";
 
 const SellCar = () => {
   const navigate = useNavigate();
   const [openContact, setOpenContact] = useState(false);
   const [noWebgl, setNoWebgl] = useState(false);
+  const LazyCar = lazy(() => import("../../Components/car3d/Car"));
 
   const handleShowRoom = (carGlb) => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
@@ -48,10 +47,10 @@ const SellCar = () => {
               <h2 className="title">NUESTROS COCHES</h2>
               <p className="text">
                 Somos un concesionario de automóviles de Alta gama situado en
-                Benidorm. Todos los coches que vendemos están
-                totalmente revisados, no aceptamos vehículos que no pasen
-                nuestras exaustivas revisiones, de este modo podemos ofrecerte
-                vehículos de calidad y con total tranquilidad.
+                Benidorm. Todos los coches que vendemos están totalmente
+                revisados, no aceptamos vehículos que no pasen nuestras
+                exaustivas revisiones, de este modo podemos ofrecerte vehículos
+                de calidad y con total tranquilidad.
               </p>
             </div>
           </div>
@@ -59,7 +58,9 @@ const SellCar = () => {
             <p className="title">bmw m4 competition coupé</p>
             <div className="row row-cols-1 row-cols-md-2">
               <div className="col car">
-                <Car model={"m4.glb"} />
+                <Suspense fallback={<div>Loading...</div>}>
+                  <LazyCar model={"m4.glb"} />
+                </Suspense>
               </div>
               <div className="col container-info">
                 <ul className="nav nav-tabs" id="myTab" role="tablist">
@@ -177,10 +178,12 @@ const SellCar = () => {
                 </div>
               </div>
             </div>
-            <p className="title">Chevrolet corvette stingray</p>
+            {/* <p className="title">Chevrolet corvette stingray</p>
             <div className="row row-cols-1 row-cols-md-2 ">
               <div className="col car">
-                <Car model={"corvette.glb"} />
+                <Suspense fallback={<div>Loading...</div>}>
+                  <LazyCar model={"corvette.glb"} />
+                </Suspense>
               </div>
               <div className="col container-info">
                 <ul className="nav nav-tabs" id="myTab2" role="tablist">
@@ -305,7 +308,9 @@ const SellCar = () => {
             <p className="title">BENTLEY CONTINENTAL GT </p>
             <div className="row row-cols-1 row-cols-md-2">
               <div className="col car">
-                <Car model={"bentley.glb"} />
+                <Suspense fallback={<div>Loading...</div>}>
+                  <LazyCar model={"bentley.glb"} />
+                </Suspense>
               </div>
               <div className="col container-info">
                 <ul className="nav nav-tabs" id="myTab" role="tablist">
@@ -427,7 +432,9 @@ const SellCar = () => {
             <p className="title">porche carrera gt</p>
             <div className="row row-cols-1 row-cols-md-2 ">
               <div className="col car">
-                <Car model={"porsche.glb"} />
+                <Suspense fallback={<div>Loading...</div>}>
+                  <LazyCar model={"porsche.glb"} />
+                </Suspense>
               </div>
               <div className="col container-info">
                 <ul className="nav nav-tabs" id="myTab" role="tablist">
@@ -551,7 +558,9 @@ const SellCar = () => {
             <p className="title">Mclaren MP4-12C Ultimate</p>
             <div className="row row-cols-1 row-cols-md-2 ">
               <div className="col car">
-                <Car model={"mclaren.glb"} />
+                <Suspense fallback={<div>Loading...</div>}>
+                  <LazyCar model={"mclaren.glb"} />
+                </Suspense>
               </div>
               <div className="col container-info">
                 <ul className="nav nav-tabs" id="myTab" role="tablist">
@@ -675,7 +684,9 @@ const SellCar = () => {
             <p className="title">Lamborguini aventador svj</p>
             <div className="row row-cols-1 row-cols-md-2 ">
               <div className="col car">
-                <Car model={"aventador.glb"} />
+                <Suspense fallback={<div>Loading...</div>}>
+                  <LazyCar model={"aventador.glb"} />
+                </Suspense>
               </div>
               <div className="col container-info">
                 <ul className="nav nav-tabs" id="myTab" role="tablist">
@@ -792,7 +803,7 @@ const SellCar = () => {
                   </Stack>
                 </div>
               </div>
-            </div>
+            </div>  */}
             {openContact && (
               <ContactModal
                 openContact={openContact}

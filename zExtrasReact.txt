@@ -1,2 +1,6 @@
-npm run dev
-npm run build && npm run preview
+npm run dev -> Ejecuta en local
+npm run build && npm run preview -> Ejecuta compilacion producción y ejecuta los archivos de producción
+
+
+./ngrok http 5173
+./ngrok http {ip o puerto en local}  -> sube a internet
