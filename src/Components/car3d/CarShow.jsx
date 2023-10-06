@@ -11,9 +11,10 @@ import clickHold from "/src/assets/clickHold.png";
 
 export default function CarShow() {
   const { state } = useLocation();
+  
   let camera, scene, renderer, skybox, controls;
   const navigate = useNavigate();
-  let car = state.car;
+  let car = state ? state.car || "m4.glb" : "m4.glb";
   const loadingManager = new THREE.LoadingManager();
   let isDragging = false;
   const clickHoldRef = useRef();
@@ -45,17 +46,12 @@ export default function CarShow() {
     renderer.domElement.addEventListener("mousedown", onMouseDown);
     renderer.domElement.addEventListener("mouseup", onMouseUp);
 
-    function onMouseDown(event) {
+    function onMouseDown() {
       isDragging = true;
     }
 
-    function onMouseUp(event) {
+    function onMouseUp() {
       isDragging = false;
-    }
-    function update() {
-      if (isDragging) {
-        console.log("EEEEEEEEEEEEEEEEEEEeeee");
-      }
     }
 
     camera = new THREE.PerspectiveCamera(
@@ -161,10 +157,8 @@ export default function CarShow() {
         <select name="car" id="select-car" onChange={handleChangeModel}>
           <option value="m4.glb">BMW M4 COMPETITION COUPÉ</option>
           <option value="corvette.glb">CHEVROLET CORVETTE STINGRAY</option>
-          <option value="bentley.glb">BENTLEY CONTINENTAL GT</option>
           <option value="porsche.glb">PORSCHE CARRERA GT</option>
           <option value="mclaren.glb">MCLAREN MP4</option>
-          <option value="aventador.glb">LAMBORGUINI AVENTADOR SVJ</option>
         </select>
         <button className="reset" onClick={handleResetCamera}>
           Resetear Cámara
