@@ -48,6 +48,7 @@ video {
   background-position: center;
   background-size: cover;
   background-attachment: fixed;
+
   .container-3dcars {
     .title {
       color: $primary;
@@ -70,6 +71,10 @@ video {
       .car {
         padding: 0;
         min-height: 500px;
+        cursor: grab;
+        &:active {
+          cursor: grabbing;
+        }
       }
       .car-container > div > canvas {
         width: 100%;
@@ -149,6 +154,13 @@ video {
         margin-bottom: 0.5rem;
       }
     }
+  }
+}
+
+#scene3d {
+  cursor: grab;
+  &:active {
+    cursor: grabbing;
   }
 }
 
