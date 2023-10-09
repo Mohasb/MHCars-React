@@ -24,11 +24,17 @@ export default function Footer() {
           <div className="col-12 col-md-6">
             <h1>Descarga nuestra app</h1>
             <div className="mobile">
-              <Link to={"https://play.google.com/store"}>
-                <img src={Google} />
+              <Link
+                to={"https://play.google.com/store"}
+                aria-label="Badge of apple app"
+              >
+                <img src={Google} alt="google badge" />
               </Link>
-              <Link to={"https://www.apple.com/es/store"}>
-                <img src={Apple} />
+              <Link
+                to={"https://www.apple.com/es/store"}
+                aria-label="Badge of google app"
+              >
+                <img src={Apple} alt="apple badge" />
               </Link>
             </div>
           </div>
