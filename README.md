@@ -1,2 +1,2 @@
 # MHCars-React
-a car rental application made with react and three.js
+A car rental application made with react and three.js
