@@ -152,7 +152,7 @@ export default function ConfirmationCard({ car, booking }) {
               title={`${car.brand} ${car.model}`}
               className="confirmation-header"
             />
-            <div className="row">
+            <div className="row main-booking">
               <div className="col">
                 <CardMedia
                   component="img"
