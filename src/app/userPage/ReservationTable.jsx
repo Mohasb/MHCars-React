@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { ButtonIcon } from "react-rainbow-components";
 import DeleteModal from "../../components/modals/DeleteModal";
-import Notification from "../../components/notifications/Notification";
 import CustomService from "../../Services/apiRequest/CustomService";
 
 function CustomAction(props) {
@@ -24,11 +23,9 @@ export default function ReservationTable({ user }) {
   const [sortDirection, setShortDirection] = useState("asc");
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [idToEliminate, setIdToEliminate] = useState(null);
-  const [showNotification, setShowNotification] = useState(false);
 
   const handleResponseModal = (ok, id) => {
     if (ok) {
-      setShowNotification(true);
       const newData = data.filter((item) => item.id !== id);
       setData(newData);
     }
@@ -92,12 +89,6 @@ export default function ReservationTable({ user }) {
         }
         idToEliminate={idToEliminate}
         handleResponseModal={handleResponseModal}
-      />
-      <Notification
-        open={showNotification}
-        setShowNotification={setShowNotification}
-        severity={"success"}
-        caller={"userPage"}
       />
     </div>
   );

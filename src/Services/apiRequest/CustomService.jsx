@@ -7,7 +7,7 @@ const fetchBranches = async (active, setOptions) => {
     await fetch(`${baseUrl}Branches`, {
       headers: {
         "Content-Type": "application/json",
-        //Authorization: autorization,
+        Authorization: autorization,
       },
     })
       .then((response) => {

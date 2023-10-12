@@ -121,7 +121,7 @@ const CarsCrud = () => {
         accessorKey: "id",
         header: "ID",
         enableColumnOrdering: false,
-        enableEditing: false, //disable editing on this column
+        enableEditing: false, 
         size: 80,
       },
       {

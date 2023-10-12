@@ -66,12 +66,11 @@ function ResponsiveAppBar() {
       onClick={(e) => {
         setOpenDrawer(false);
         e.target.textContent === "Acceso"
-          ? iniciar.click()
+          ? setOpenModal(true)
           : e.target.textContent === "Contacto"
           ? setOpenContact(true)
           : navigate("/" + e.target.textContent);
       }}
-
     >
       <List className="container-links-drawer">
         {pages.map((text) => (
@@ -144,8 +143,6 @@ function ResponsiveAppBar() {
     }
   }
   const [openContact, setOpenContact] = useState(false);
-  const iniciar =
-    document.querySelector("#Iniciar") || document.querySelector("#Inicia");
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -155,7 +152,7 @@ function ResponsiveAppBar() {
     setAnchorElNav(null);
     if (typeof page == "string" || typeof page.target.value == "string") {
       if (page === "Acceso" || page.target.value === "Acceso") {
-        iniciar.click();
+        setOpenModal(true);
         return;
       } else if (page === "Contacto" || page.target.value === "Contacto") {
         setOpenContact(true);

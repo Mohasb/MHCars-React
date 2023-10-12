@@ -3,16 +3,68 @@ import { MaterialReactTable } from "material-react-table";
 //Import Material React Table Translations
 import { MRT_Localization_ES } from "material-react-table/locales/es";
 import ReservationService from "../../../../services/apiRequest/Crud/ReservationService";
-
+import CustomService from "../../../../Services/apiRequest/CustomService";
+import ClientsService from "../../../../services/apiRequest/Crud/ClientsService";
+import CarService from "../../../../services/apiRequest/Crud/CarsService";
 
 const ReservationsCrud = () => {
   const [tableData, setTableData] = useState([]);
   const [isLoading, setIsLoading] = useState({ isLoading: true });
-
+  const [branches, setBranches] = useState([]);
+  const [clients, setClients] = useState([]);
+  const [cars, setCars] = useState([]);
 
   useEffect(() => {
     ReservationService.getReservations(setTableData, setIsLoading);
+    CustomService.fetchBranches(true, setBranches);
+    ClientsService.getClients(setClients, setIsLoading);
+    CarService.getCars(setCars, setIsLoading);
   }, []);
+
+  const formatDate = (dateStr) => {
+    const date = new Date(dateStr);
+    return date.toLocaleDateString("es-ES", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+    });
+  };
+
+  const mappedTableData = useMemo(() => {
+    if (!Array.isArray(tableData) || tableData.length === 0) {
+      return [];
+    }
+
+    return tableData.map((item) => {
+      // Map bracnhID to branch Name
+      const branch = branches.find((branch) => branch.id === item.branchId);
+      // Format startDate and endDate
+      const formattedStartDate = formatDate(item.startDate);
+      const formattedEndDate = formatDate(item.endDate);
+      // Map clientId to client registration
+      const client = clients.find((client) => client.id === item.clientId);
+      const clientRegistration = client
+        ? client.registration
+        : "Unknown Client";
+      // Map car id to registration
+      const car = cars.find((car) => car.id === item.carId);
+      const carRegistration = car ? car.registration : "Unknown Car";
+      // Map bracnhID to branch Name
+      const returnBranch = branches.find(
+        (branch) => branch.id === item.returnBranchId
+      );
+
+      return {
+        ...item,
+        branchName: branch ? branch.name : "Unknown Branch",
+        startDate: formattedStartDate,
+        endDate: formattedEndDate,
+        clientId: clientRegistration,
+        carId: carRegistration,
+        returnBranchId: returnBranch ? returnBranch.name : "Unknown Branch",
+      };
+    });
+  }, [tableData, branches, clients, cars]);
 
   const columns = useMemo(
     () => [
@@ -20,12 +72,12 @@ const ReservationsCrud = () => {
         accessorKey: "id",
         header: "ID",
         enableColumnOrdering: false,
-        enableEditing: false, //disable editing on this column
+        enableEditing: false,
         size: 80,
       },
       {
-        accessorKey: "branchId",
-        header: "Id sucursal",
+        accessorKey: "branchName",
+        header: "Sucursal Recogida",
         size: 140,
         enableClickToCopy: true,
       },
@@ -42,7 +94,7 @@ const ReservationsCrud = () => {
       },
       {
         accessorKey: "clientId",
-        header: "Id Cliente",
+        header: "DNI Cliente",
         size: 80,
         enableClickToCopy: true,
       },
@@ -55,6 +107,12 @@ const ReservationsCrud = () => {
       {
         accessorKey: "endDate",
         header: "Fecha Fin",
+        size: 80,
+        enableClickToCopy: true,
+      },
+      {
+        accessorKey: "returnBranchId",
+        header: "Sucursal retorno",
         size: 80,
         enableClickToCopy: true,
       },
@@ -74,7 +132,7 @@ const ReservationsCrud = () => {
           },
         }}
         columns={columns}
-        data={tableData}
+        data={mappedTableData}
         editingMode="modal"
         enableColumnOrdering
         localization={MRT_Localization_ES}

@@ -90,6 +90,7 @@ function App() {
           path="/admin"
           element={
             <ProtectedRoute isAllowed={!!user && user.rol === "Admin"}>
+              <ResponsiveAppBar />
               <Admin />
             </ProtectedRoute>
           }

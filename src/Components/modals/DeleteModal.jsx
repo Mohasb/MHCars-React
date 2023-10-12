@@ -32,7 +32,7 @@ export default function DeleteModal({
               label="Volver"
               variant="neutral"
               onClick={() => {
-                handleResponseModal("Volver", idToEliminate);
+                //handleResponseModal("Volver", idToEliminate);
                 handleOnClose();
               }}
             />
