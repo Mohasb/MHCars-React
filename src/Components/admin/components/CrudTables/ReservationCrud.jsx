@@ -1,11 +1,14 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { MaterialReactTable } from "material-react-table";
+import { Box, IconButton, Tooltip } from "@mui/material";
+import { Delete, Edit } from "@mui/icons-material";
 //Import Material React Table Translations
 import { MRT_Localization_ES } from "material-react-table/locales/es";
 import ReservationService from "../../../../services/apiRequest/Crud/ReservationService";
 import CustomService from "../../../../Services/apiRequest/CustomService";
 import ClientsService from "../../../../services/apiRequest/Crud/ClientsService";
 import CarService from "../../../../services/apiRequest/Crud/CarsService";
+import DeleteDialog from "../DeleteDialog";
 
 const ReservationsCrud = () => {
   const [tableData, setTableData] = useState([]);
@@ -13,6 +16,8 @@ const ReservationsCrud = () => {
   const [branches, setBranches] = useState([]);
   const [clients, setClients] = useState([]);
   const [cars, setCars] = useState([]);
+  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+  const [rowToEliminate, setRowToEliminate] = useState(null);
 
   useEffect(() => {
     ReservationService.getReservations(setTableData, setIsLoading);
@@ -20,6 +25,23 @@ const ReservationsCrud = () => {
     ClientsService.getClients(setClients, setIsLoading);
     CarService.getCars(setCars, setIsLoading);
   }, []);
+
+  const handleDeleteRow = useCallback(
+    (row) => {
+      setOpenDeleteDialog(false);
+      ReservationService.deleteReservation(row.getValue("id")).then(
+        (response) => {
+          if (response.ok) {
+            tableData.splice(row.index, 1);
+            setTableData([...tableData]);
+          } else {
+            console.log("Error borrando");
+          }
+        }
+      );
+    },
+    [tableData]
+  );
 
   const formatDate = (dateStr) => {
     const date = new Date(dateStr);
@@ -134,12 +156,34 @@ const ReservationsCrud = () => {
         columns={columns}
         data={mappedTableData}
         editingMode="modal"
+        enableEditing
         enableColumnOrdering
         localization={MRT_Localization_ES}
         state={isLoading}
         initialState={{ density: "compact" }}
         enableStickyHeader
         enableStickyFooter
+        renderRowActions={({ row, table }) => (
+          <Box sx={{ display: "flex", gap: "1rem" }}>
+            <Tooltip arrow placement="right" title="Eliminar">
+              <IconButton
+                color="error"
+                onClick={() => {
+                  setOpenDeleteDialog(true);
+                  setRowToEliminate(row);
+                }}
+              >
+                <Delete />
+              </IconButton>
+            </Tooltip>
+          </Box>
+        )}
+      />
+      <DeleteDialog
+        open={openDeleteDialog}
+        setOpenDeleteDialog={setOpenDeleteDialog}
+        handleDeleteRow={handleDeleteRow}
+        row={rowToEliminate}
       />
     </>
   );
