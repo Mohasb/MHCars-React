@@ -76,7 +76,7 @@ function App() {
     <ContextUser.Provider value={{ user, setUser }}>
       <Routes>
         <Route element={<PageLayout />}>
-          <Route path="*" element={<NotFound />} />
+          <Route path="/*" element={<NotFound />} />
           <Route path="/" element={<Home />} />
           <Route path="/alquiler" element={<Home />} />
           <Route path="/reserva/coche" element={<CarListShow />} />
