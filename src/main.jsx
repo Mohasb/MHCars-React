@@ -6,10 +6,10 @@ import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "@emotion/react";
 import { theme } from "./Components/Theme/Theme.tsx";
 import { Application } from "react-rainbow-components";
-import { themeRainbow } from "./Components/Theme/ThemeRainbow";
+import { themeRainbow } from "./Components/Theme/ThemeRainbow.tsx";
 import React from "react";
 
-ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
       <ThemeProvider theme={theme}>
