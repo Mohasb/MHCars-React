@@ -54,7 +54,6 @@ export const SearchCar = () => {
 
   useEffect(() => {
     if (cars.length && booking) {
-      /* sessionStorage.setItem("data", JSON.stringify({ cars, booking })); */
       ecryptStorage("_dghVjkKj", JSON.stringify({ cars, booking }));
       navigate("/reserva/coche");
     }

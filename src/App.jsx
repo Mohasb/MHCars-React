@@ -18,21 +18,19 @@ import { Outlet } from "react-router-dom";
 import CryptoJS from "crypto-js";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
-//import SellCar from "./app/sellCar/SellCar";
 import CarShow from "./Components/car3d/CarShow";
 import SellCar from "./app/sellCar/SellCar";
 import ScrollToTop from "./Components/scrollToTop";
+import { Navigate } from "react-router-dom";
 
 function App() {
   const [user, setUser] = useState();
   const ProtectedRoute = ({ isAllowed, redirectPath = "/", children }) => {
-    /* if (isAllowed) {
-      return <Navigate to={redirectPath} replace />;
-    } */
-
-    return children;
+    if (isAllowed) {
+      return children;
+    }
+    return <Navigate to={redirectPath} />;
   };
-  //const SellCar = lazy(() => import("./app/sellCar/SellCar"));
 
   const secretKeyCripto = "Muhammad";
 
@@ -89,10 +87,14 @@ function App() {
         <Route
           path="/admin"
           element={
-            <ProtectedRoute isAllowed={!!user && user.rol === "Admin"}>
-              <ResponsiveAppBar />
-              <Admin />
-            </ProtectedRoute>
+            user ? (
+              <ProtectedRoute isAllowed={user.rol === "Admin"}>
+                <ResponsiveAppBar />
+                <Admin />
+              </ProtectedRoute>
+            ) : (
+              <Navigate to="/" replace />
+            )
           }
         />
       </Routes>

@@ -6,7 +6,6 @@
   box-sizing: border-box;
 }
 :root {
-  /* --primary-color: #f4b408; */
   --primary-color: #{$primary};
   --secondary-color: #{$secondary};
   --padding-to-main: #{$paddingToMain};
@@ -67,12 +66,6 @@ body {
   background: $primary;
 }
 
-//warning closebutton/flag datepicker
-/* .iZOsTl svg {
-  width: 100% !important;
-  height: 20px !important;
-}
- */
 //Contact form
 .contact-container {
   display: flex;

@@ -364,9 +364,6 @@ export const CreateNewBranchModal = ({
                   onChange={handleInputChange}
                   error={!!error}
                   helperText={error}
-                  /* onChange={(e) =>
-                    setValues({ ...values, [e.target.name]: e.target.value })
-                  } */
                 />
               );
             })}

@@ -57,71 +57,85 @@ export default function Home() {
                 className="slideshow-image"
                 src={getImageByKey("AudiA1Image")}
                 alt="AudiA1Image"
+                draggable={false}
               />
               <img
                 className="slideshow-image"
                 src={getImageByKey("AudiA3Image")}
                 alt="AudiA3Image"
+                draggable={false}
               />
               <img
                 className="slideshow-image"
                 src={getImageByKey("MercedesClaseAImage")}
                 alt="MercedesClaseAImage"
+                draggable={false}
               />
               <img
                 className="slideshow-image"
                 src={getImageByKey("AudiA4Image")}
                 alt="AudiA4Image"
+                draggable={false}
               />
               <img
                 className="slideshow-image"
                 src={getImageByKey("AudiQ2Image")}
                 alt="AudiQ2Image"
+                draggable={false}
               />
               <img
                 className="slideshow-image"
                 src={getImageByKey("Fiat500Cabrio")}
                 alt="Fiat500Cabrio"
+                draggable={false}
               />
               <img
                 className="slideshow-image"
                 src={getImageByKey("FordFocusImage")}
                 alt="FordFocusImage"
+                draggable={false}
               />
               <img
                 className="slideshow-image"
                 src={getImageByKey("VolkswagenTROCCabrioletImage")}
                 alt="VolkswagenTROCCabrioletImage"
+                draggable={false}
               />
               <img
                 className="slideshow-image"
                 src={getImageByKey("VolkswagenTouranImage")}
                 alt="VolkswagenTouranImage"
+                draggable={false}
               />
               <img
                 className="slideshow-image"
                 src={getImageByKey("SkodaKaroqoImage")}
                 alt="SkodaKaroqoImage"
+                draggable={false}
               />
               <img
                 className="slideshow-image"
                 src={getImageByKey("PeugeotSpaceImage")}
                 alt="PeugeotSpaceImage"
+                draggable={false}
               />
               <img
                 className="slideshow-image"
                 src={getImageByKey("Peugeot5008Image")}
                 alt="Peugeot5008Image"
+                draggable={false}
               />
               <img
                 className="slideshow-image"
                 src={getImageByKey("OpelMokkaImage")}
                 alt="OpelMokkaImage"
+                draggable={false}
               />
               <img
                 className="slideshow-image"
                 src={getImageByKey("FordTransitXlImage")}
                 alt="FordTransitXlImage"
+                draggable={false}
               />
             </div>
           </div>

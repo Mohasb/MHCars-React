@@ -13,11 +13,12 @@ export default function Footer() {
         <div className="row">
           <div className="col-12 col-md-6">
             <div className="container__about">
-              <h2>About</h2>
+              <h2>Sobre nosotros</h2>
               <p>
-                A young software developer, starting his professional life,
-                learning the most used languages in this industry, Java, .Net,
-                HTML, CSS and JAVASCRIPT.
+                MHCARS es tu socio de confianza para la movilidad. Ofrecemos una
+                amplia flota de vehículos, atención al cliente excepcional y
+                ubicaciones convenientes. Simplificamos tus viajes y te
+                brindamos la libertad de explorar.
               </p>
             </div>
           </div>

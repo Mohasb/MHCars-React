@@ -12,18 +12,8 @@ export const theme = createTheme({
     secondary: {
       main: secondaryColor,
     },
-    /* mode: "dark", */
   },
   components: {
-    MuiOutlinedInput: {
-      styleOverrides: {
-        root: {
-          /* "&:hover .MuiOutlinedInput-notchedOutline": {
-            border: "none",
-          }, */
-        },
-      },
-    },
     MuiTooltip: {
       styleOverrides: {
         tooltip: {

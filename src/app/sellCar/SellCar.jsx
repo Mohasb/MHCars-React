@@ -5,10 +5,10 @@ import ThreeDRotationIcon from "@mui/icons-material/ThreeDRotation";
 import SellIcon from "@mui/icons-material/Sell";
 import Stack from "@mui/material/Stack";
 import { useNavigate } from "react-router-dom";
-import ContactModal from "../../Components/modals/ContactModal";
+import ContactModal from "../../components/modals/ContactModal";
 import WebGL from "three/addons/capabilities/WebGL.js";
 import intro from "/src/assets/IntroVideo.mp4";
-//
+
 
 const SellCar = () => {
   const navigate = useNavigate();
@@ -38,7 +38,7 @@ const SellCar = () => {
         <div className="sell-car">
           <div className="header-sell-car">
             <div className="video-container">
-              <video id="background-video" autoPlay controls>
+              <video id="background-video" autoPlay controls muted>
                 <source src={intro} type="video/mp4" />
                 Your browser does not support the video tag.
               </video>

@@ -6,11 +6,7 @@ import { styled, lighten, darken } from "@mui/system";
 import { useState, useEffect } from "react";
 import "./Style.scss";
 import CustomService from "../../../Services/apiRequest/CustomService";
-/* function sleep(delay = 0) {
-  return new Promise((resolve) => {
-    setTimeout(resolve, delay);
-  });
-} */
+
 
 export default function ComboBoxBranches({
   setBranch,
