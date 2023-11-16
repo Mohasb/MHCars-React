@@ -127,13 +127,14 @@ video {
       }
       .details {
         display: flex;
+        flex-wrap: wrap;
         justify-content: space-between;
         position: relative;
         padding: 0 1rem;
         font-size: 1.2rem;
         p:nth-child(2) {
           font-weight: bold;
-          white-space: pre-line;
+          /* white-space: pre-line; */
           text-align: end;
         }
         margin: 1rem;

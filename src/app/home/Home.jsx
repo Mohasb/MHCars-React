@@ -30,7 +30,7 @@ export default function Home() {
             <h3>El alquiler de coches baratos no está reñido con la calidad</h3>
             <p className="line-break pt-2"></p>
             <p>
-              <span className="first-character sc">E</span> MHCars buscamos
+              <span className="first-character sc">E</span> n MHCars buscamos
               ofrecerte un servicio de alquiler de coches al mejor precio, sin
               que ello suponga un servicio de peor calidad. Por esto, ponemos a
               tu disposición un servicio de alquiler de coches baratos en España

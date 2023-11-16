@@ -11,7 +11,7 @@ import clickHold from "/src/assets/clickHold.png";
 
 export default function CarShow() {
   const { state } = useLocation();
-  
+
   let camera, scene, renderer, skybox, controls;
   const navigate = useNavigate();
   let car = state ? state.car || "m4.glb" : "m4.glb";
@@ -45,6 +45,8 @@ export default function CarShow() {
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.domElement.addEventListener("mousedown", onMouseDown);
     renderer.domElement.addEventListener("mouseup", onMouseUp);
+    renderer.domElement.addEventListener("touchstart", onMouseDown);
+    renderer.domElement.addEventListener("touchend", onMouseUp);
 
     function onMouseDown() {
       isDragging = true;
