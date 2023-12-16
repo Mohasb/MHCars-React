@@ -1,5 +1,7 @@
+@import "../../primaryVariables.scss";
+
 .hero {
-  background: url("../../assets/homePics/Benidorm.webp") left bottom no-repeat;
+  background: $footer-img left bottom no-repeat;
   background-color: rgba(0, 0, 0, 0.747);
   background-size: cover;
   background-position: right;

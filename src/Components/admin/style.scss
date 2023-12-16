@@ -28,3 +28,10 @@ button[aria-selected="false"] {
 #extras-container > div {
   width: 70%;
 }
+
+.MuiTabs-root {
+  border-radius: 20px 20px 0 0;
+}
+.css-80pr5n-MuiPaper-root {
+  border-radius: 20px !important;
+}

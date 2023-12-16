@@ -1,5 +1,5 @@
 import { SearchCar } from "../../components/searchCar/SearchCar";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import "./Home.scss";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -7,6 +7,13 @@ import Testimonials from "../../components/testimonial/Testimonial";
 import getImageByKey from "../../app/home/cars";
 
 export default function Home() {
+  const searchContainer = useRef(null);
+
+  const scrollToSearch = () => {
+    if (searchContainer.current) {
+      searchContainer.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
   useEffect(() => {
     AOS.init({
       duration: 200,
@@ -18,7 +25,7 @@ export default function Home() {
     <main>
       <div id="parallax">
         <section>
-          <div className="parallax-one">
+          <div className="parallax-one" ref={searchContainer}>
             <div data-aos="fade-right">
               <h2 className="title-search-car">Alquiler de coches</h2>
             </div>
@@ -58,84 +65,126 @@ export default function Home() {
                 src={getImageByKey("AudiA1Image")}
                 alt="AudiA1Image"
                 draggable={false}
+                onClick={() => {
+                  scrollToSearch();
+                }}
               />
               <img
                 className="slideshow-image"
                 src={getImageByKey("AudiA3Image")}
                 alt="AudiA3Image"
                 draggable={false}
+                onClick={() => {
+                  scrollToSearch();
+                }}
               />
               <img
                 className="slideshow-image"
                 src={getImageByKey("MercedesClaseAImage")}
                 alt="MercedesClaseAImage"
                 draggable={false}
+                onClick={() => {
+                  scrollToSearch();
+                }}
               />
               <img
                 className="slideshow-image"
                 src={getImageByKey("AudiA4Image")}
                 alt="AudiA4Image"
                 draggable={false}
+                onClick={() => {
+                  scrollToSearch();
+                }}
               />
               <img
                 className="slideshow-image"
                 src={getImageByKey("AudiQ2Image")}
                 alt="AudiQ2Image"
                 draggable={false}
+                onClick={() => {
+                  scrollToSearch();
+                }}
               />
               <img
                 className="slideshow-image"
                 src={getImageByKey("Fiat500Cabrio")}
                 alt="Fiat500Cabrio"
                 draggable={false}
+                onClick={() => {
+                  scrollToSearch();
+                }}
               />
               <img
                 className="slideshow-image"
                 src={getImageByKey("FordFocusImage")}
                 alt="FordFocusImage"
                 draggable={false}
+                onClick={() => {
+                  scrollToSearch();
+                }}
               />
               <img
                 className="slideshow-image"
                 src={getImageByKey("VolkswagenTROCCabrioletImage")}
                 alt="VolkswagenTROCCabrioletImage"
                 draggable={false}
+                onClick={() => {
+                  scrollToSearch();
+                }}
               />
               <img
                 className="slideshow-image"
                 src={getImageByKey("VolkswagenTouranImage")}
                 alt="VolkswagenTouranImage"
                 draggable={false}
+                onClick={() => {
+                  scrollToSearch();
+                }}
               />
               <img
                 className="slideshow-image"
                 src={getImageByKey("SkodaKaroqoImage")}
                 alt="SkodaKaroqoImage"
                 draggable={false}
+                onClick={() => {
+                  scrollToSearch();
+                }}
               />
               <img
                 className="slideshow-image"
                 src={getImageByKey("PeugeotSpaceImage")}
                 alt="PeugeotSpaceImage"
                 draggable={false}
+                onClick={() => {
+                  scrollToSearch();
+                }}
               />
               <img
                 className="slideshow-image"
                 src={getImageByKey("Peugeot5008Image")}
                 alt="Peugeot5008Image"
                 draggable={false}
+                onClick={() => {
+                  scrollToSearch();
+                }}
               />
               <img
                 className="slideshow-image"
                 src={getImageByKey("OpelMokkaImage")}
                 alt="OpelMokkaImage"
                 draggable={false}
+                onClick={() => {
+                  scrollToSearch();
+                }}
               />
               <img
                 className="slideshow-image"
                 src={getImageByKey("FordTransitXlImage")}
                 alt="FordTransitXlImage"
                 draggable={false}
+                onClick={() => {
+                  scrollToSearch();
+                }}
               />
             </div>
           </div>
