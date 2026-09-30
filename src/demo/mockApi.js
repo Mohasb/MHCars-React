@@ -257,9 +257,8 @@ window.fetch = async (input, init = {}) => {
 };
 
 // Cada visita empieza con la sesión del usuario demo iniciada, guardada igual que
-// en LoginModal (AES con la misma clave). También se da por visto el aviso de cookies.
+// en LoginModal (AES con la misma clave).
 try {
-  if (!document.cookie) document.cookie = `mhcars_demo=1; path=${import.meta.env.BASE_URL}; SameSite=Lax`;
   sessionStorage.removeItem("_dghVjkKj");
   sessionStorage.removeItem("_bghVjkKj");
   const demo = db.clients.find((c) => c.email === DEMO_USER.email);

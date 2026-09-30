@@ -5,7 +5,8 @@ import { Modal } from "react-rainbow-components";
 import cookie from "/src/assets/coockie.png";
 
 export default function CookieModal(props) {
-  const isCookiesAcepted = document.cookie;
+  // En la demo no se muestra: dentro de un iframe el navegador puede bloquear cookies
+  const isCookiesAcepted = import.meta.env.MODE === "demo" || document.cookie;
   const [isOpen, setIsOpen] = useState(!isCookiesAcepted);
 
   window.mobileCheck = function () {
