@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "cif": "C-124582",
+    "name": "MH Car hire Benidorm",
+    "population": "Benidorm",
+    "country": "España",
+    "address": "C. de Berlin, 2, 03503 Benidorm, Alicante"
+  },
+  {
+    "id": 2,
+    "cif": "C-124625",
+    "name": "MH Car hire Alicante airport",
+    "population": "Alicante",
+    "country": "España",
+    "address": "Alicante Airport, 03195 Elx, Alicante"
+  },
+  {
+    "id": 3,
+    "cif": "C-126385",
+    "name": "MH Car hire Torrevieja",
+    "population": "Torrevieja",
+    "country": "España",
+    "address": "Av. de las Cortes Valencianas, 6, 03183 Torrevieja, Alicante"
+  },
+  {
+    "id": 4,
+    "cif": "C-124758",
+    "name": "MH Car hire voiture Lisbonne",
+    "population": "Lisboa",
+    "country": "Portugal",
+    "address": "Av. Severiano Falcao 2, Prior Velho, 2685-378 Lisboa, Portugal"
+  },
+  {
+    "id": 5,
+    "cif": "C-123485",
+    "name": "MH Car hire Rome Airport",
+    "population": "Roma",
+    "country": "Italia",
+    "address": "Via Portuense, 2483, 00054 Fiumicino RM, Italia"
+  }
+]

@@ -1,18 +1,23 @@
 import React, { useState, useContext } from "react";
 import { Modal, Button, Input } from "react-rainbow-components";
 import authService from "../../services/login/auth.service";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Context from "../../services/contextUser/ContextUser";
 import Stack from "@mui/material/Stack";
 import CryptoJS from "crypto-js";
 import EditPwd from "./EditPassworModal";
+import { DEMO_USER } from "../../demo/users";
+
+const isDemo = import.meta.env.MODE === "demo";
 
 export default function LoginModal(props) {
   const [isOpenModalPwd, setIsOpenModalPwd] = useState(false);
 
   const { user, setUser } = useContext(Context);
   const navigate = useNavigate();
+  // Ubicación del router (con HashRouter en la demo, window.location no sirve)
+  const location = useLocation();
   const [isOpen, setIsOpen] = useState(props.openModal);
   const [emailUser, setEmail] = useState("");
   const [passwordUser, setPassword] = useState("");
@@ -192,6 +197,15 @@ export default function LoginModal(props) {
             />
             <input type="submit" value="" hidden />
           </form>
+          {isDemo && (
+            <div className="text-center rainbow-p-horizontal_medium">
+              <Button
+                label="Entrar como usuario demo"
+                variant="outline-brand"
+                onClick={() => login(DEMO_USER.email, DEMO_USER.password)}
+              />
+            </div>
+          )}
         </Modal>
         <EditPwd
           isOpenModalPwd={isOpenModalPwd}

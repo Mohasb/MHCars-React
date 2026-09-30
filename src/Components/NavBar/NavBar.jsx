@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 //Components imports
@@ -41,6 +41,9 @@ import LoginIcon from "@mui/icons-material/Login";
 import PermPhoneMsgIcon from "@mui/icons-material/PermPhoneMsg";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import ContactModal from "../modals/ContactModal";
+import DemoAdminNotice from "../../demo/DemoAdminNotice";
+
+const isDemo = import.meta.env.MODE === "demo";
 
 /////////////////////
 const StyledUserFullnameContainer = styled.p.attrs((props) => {
@@ -65,7 +68,9 @@ function ResponsiveAppBar() {
       role="presentation"
       onClick={(e) => {
         setOpenDrawer(false);
-        e.target.textContent === "Acceso"
+        isDemoAdmin(e.target.textContent)
+          ? setOpenDemoAdmin(true)
+          : e.target.textContent === "Acceso"
           ? setOpenModal(true)
           : e.target.textContent === "Contacto"
           ? setOpenContact(true)
@@ -130,11 +135,14 @@ function ResponsiveAppBar() {
   const [openModal, setOpenModal] = useState(false);
   const [openNotification, setOpenNotification] = useState(false);
   const navigate = useNavigate();
+  // Ubicación del router (con HashRouter en la demo, window.location no sirve)
+  const location = useLocation();
   const { user, setUser } = useContext(Context);
   const pages = ["Alquiler", "Venta", "Acceso", "Contacto"];
   const settings = user ? ["Mi cuenta", "Cerrar Sesión"] : ["Iniciar Sesión"];
   if (typeof user !== "undefined" && user !== null) {
-    user.rol === "Admin" ? (pages[pages.length + 1] = "Admin") : "";
+    // En la demo el enlace se muestra para enseñar que existe (ver isDemoAdmin)
+    user.rol === "Admin" || isDemo ? (pages[pages.length + 1] = "Admin") : "";
     if (user) {
       const index = pages.indexOf("Acceso");
       if (index !== -1) {
@@ -143,6 +151,10 @@ function ResponsiveAppBar() {
     }
   }
   const [openContact, setOpenContact] = useState(false);
+  const [openDemoAdmin, setOpenDemoAdmin] = useState(false);
+  // Modo demo: el usuario demo no es admin, así que se avisa en vez de navegar
+  const isDemoAdmin = (page) =>
+    isDemo && page?.toLowerCase() === "admin" && user?.rol !== "Admin";
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -156,6 +168,8 @@ function ResponsiveAppBar() {
         return;
       } else if (page === "Contacto" || page.target.value === "Contacto") {
         setOpenContact(true);
+      } else if (isDemoAdmin(page.target?.value ?? page)) {
+        setOpenDemoAdmin(true);
       } else {
         navigate(
           "/" + page.target.value.toLowerCase() ||
@@ -447,6 +461,12 @@ function ResponsiveAppBar() {
         />
       )}
       {user && <Notification user={user} open={openNotification} />}
+      {isDemo && (
+        <DemoAdminNotice
+          isOpen={openDemoAdmin}
+          onClose={() => setOpenDemoAdmin(false)}
+        />
+      )}
       {openContact && (
         <ContactModal
           openContact={openContact}
